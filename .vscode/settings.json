@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "netdb.h": "c",
+        "so_long.h": "c",
+        "ranges": "c",
+        "stdlib.h": "c"
+    }
+}
