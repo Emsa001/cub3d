@@ -3,6 +3,8 @@
         "netdb.h": "c",
         "so_long.h": "c",
         "ranges": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "stdio.h": "c",
+        "cub3d.h": "c"
     }
 }

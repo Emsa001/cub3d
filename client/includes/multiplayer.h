@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 15:52:33 by escura            #+#    #+#             */
-/*   Updated: 2024/05/12 21:08:21 by escura           ###   ########.fr       */
+/*   Updated: 2024/05/13 11:41:43 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 #include <sys/socket.h>
 #include <unistd.h> // read(), write(), close()
 
-#define API_URL "127.0.0.1"
 #define MAX 80
 #define PORT 8080
 #define SA struct sockaddr
