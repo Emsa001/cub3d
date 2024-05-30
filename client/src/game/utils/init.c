@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 17:49:38 by escura            #+#    #+#             */
-/*   Updated: 2024/05/12 20:28:19 by escura           ###   ########.fr       */
+/*   Updated: 2024/05/16 14:19:23 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,17 @@ static int map_get_cols(char *map)
 	return cols;
 }
 
-void init_data(t_data *data, char *map)
+void init_map(t_data *data, char *map)
+{
+	data->map = ft_strdup(map);
+	if(!data->map)
+		exit(1);
+
+	data->mapRows = map_get_rows(data->map);
+    data->mapCols = map_get_cols(data->map);
+}
+
+void init_data(t_data *data)
 {
     data->mlx = mlx_init();
     if (!data->mlx)
@@ -48,15 +58,10 @@ void init_data(t_data *data, char *map)
         exit(1);
     }
 
-	data->map = (char *)malloc(ft_strlen(map) + 1);
-	if(!data->map)
-		exit(1);
-	ft_strlcpy(data->map, map, ft_strlen(map) + 1);
+	data->player = malloc(sizeof(t_player));
     data->width = 650;
     data->height = 250;
     data->block_size = 50;
-    data->mapRows = map_get_rows(data->map);
-    data->mapCols = map_get_cols(data->map);
     data->win = mlx_new_window(data->mlx, data->width, data->height, "So Long");
     
     if (!data->win)

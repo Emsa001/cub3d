@@ -56,10 +56,13 @@ int	render_next_frame(t_data *data)
 	{
 		char **player = ft_split(players[i], ';');
 		int j = 0;
+		char id = ' ';
 		while(player[j] != NULL)
 		{
 			char **d = ft_split(player[j], ':');
-			if(ft_strncmp(d[0], "name", 4) == 0)
+			if(ft_strncmp(d[0], "id", 2) == 0)
+				id = d[1][0];
+			else if(ft_strncmp(d[0], "name", 4) == 0)
 			{
 				if(ft_strcmp(d[1], get_name(NULL)) == 0)
 					break;
@@ -71,6 +74,11 @@ int	render_next_frame(t_data *data)
 				int current_position = ft_atoi(d[1]);
 				remove_from_map(data->map, 'G');
 				data->map[current_position] = 'G';
+			}
+			else if(ft_strncmp(d[0], "map", 3) == 0)
+			{
+				printf("Map: %s\n", d[1]);
+				init_map(data, d[1]);
 			}
 			j++;
 		}
@@ -89,14 +97,14 @@ int	start_game(void)
 {
 	t_data data;
 
-	char *map = "1111111111111,10010000000C1,1000011111001,1P0011E000001,1111111111111";
-	init_data(&data, map);
+	// char *map = "1111111111111,10010000000C1,1000011111001,1P0011E000001,1111111111111";
+	init_data(&data);
 
 	mlx_key_hook(data.win, key_hook, &data);
 	mlx_mouse_hook(data.win, mouse_hook, &data);
 	mlx_loop_hook(data.mlx, render_next_frame, &data);
 
-	render_scene(data);
+	// render_scene(data);
 
 	mlx_do_sync(data.mlx);
 	mlx_loop(data.mlx);

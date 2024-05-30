@@ -6,7 +6,7 @@
 #    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/12 14:06:07 by escura            #+#    #+#              #
-#    Updated: 2024/05/12 21:01:27 by escura           ###   ########.fr        #
+#    Updated: 2024/05/16 14:15:47 by escura           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ LDLIBS = -L$(LIBFT_DIR) -lft
 CFLAGS += -I$(LIBFT_DIR) -Iincludes -I$(MLX_DIR)
 
 all: $(NAME)
-	./$(NAME) 127.0.0.1 escura
+	./$(NAME) 10.12.9.3 escura
 
 $(NAME): $(LIBFT) $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(MLX_LIB) -o $(NAME) $(LDLIBS)

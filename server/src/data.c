@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:48:32 by escura            #+#    #+#             */
-/*   Updated: 2024/05/13 11:53:39 by escura           ###   ########.fr       */
+/*   Updated: 2024/05/16 15:03:04 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,46 +19,49 @@ char *get_all_players_data(t_server *server)
     char *data = ft_strdup("");
 
     while (player->next != NULL) {
-        char *temp = ft_strjoin("name:", player->name);
-        char *temp2 = ft_strjoin(temp, ";");
-        temp = ft_strjoin(temp2, "x:");
-        temp2 = ft_strjoin(temp, ft_itoa(player->x));
-        temp = ft_strjoin(temp2, ";");
-        temp2 = ft_strjoin(temp, "y:");
-        temp = ft_strjoin(temp2, ft_itoa(player->y));
-        temp2 = ft_strjoin(temp, ";");
-        temp = ft_strjoin(temp2, "health:");
-        temp2 = ft_strjoin(temp, ft_itoa(player->health));
-        temp = ft_strjoin(temp2, ";");
-        temp2 = ft_strjoin(temp, "position:");
-        temp = ft_strjoin(temp2, ft_itoa(player->position));
-        temp2 = ft_strjoin(temp, ";");
+        char *id = ft_strdup("id:");
+        id = add_char(id, player->id);
+        id = add_char(id, ';');
 
-        char *temp_data = ft_strjoin(data, temp2);
-        data = temp_data;
+        char *temp = ft_strjoin(data, id);
+        // temp2 = ft_strjoin(temp, "position:");
+        // temp = ft_strjoin(temp2, ft_itoa(player->position));
+        // temp2 = ft_strjoin(temp, ";");
+
+        // char *temp_data = ft_strjoin(data, temp2);
+        // data = temp_data;
         
         player = player->next;
     }
 
     server->players = original_player;
-
+    printf("Data: %s\n", data);
     return data;
 }
 
 void send_data(t_data *data)
 {
-
-    char *online_str = ft_itoa(data->server->online);
-    char *temp = ft_strjoin("online:", online_str);
-    char *msg = ft_strjoin(temp, "\n");
-
     char *players_data = get_all_players_data(data->server);
+    char *map = ft_strjoin("map:", data->server->map);
+    char *x = ft_strjoin(map, ";");
+    char *data_to_send = ft_strjoin(x, players_data);
 
-    write(data->connfd, players_data, ft_strlen(players_data) + 1);
+    write(data->connfd, data_to_send, ft_strlen(data_to_send) + 1);
 }
 
+int find_position(char *map, char c)
+{
+	int i = 0;
+	while(map[i] != '\0')
+	{
+		if(map[i] == c)
+			return i;
+		i++;
+	}
+	return -1;
+}
 
-void save_data(t_player *player, char *buff)
+void save_data(t_player *player, char *buff, t_server *server)
 {
     char **data = ft_split(buff, ';');
     int i = 0;
@@ -76,9 +79,13 @@ void save_data(t_player *player, char *buff)
             player->y = ft_atoi(value);
         else if (strcmp(name, "health") == 0)
             player->health = ft_atoi(value);
-        else if (strcmp(name, "position") == 0)
+        else if (strcmp(name, "position") == 0){
+            if(player->position > 0)
+                server->map[player->position] = '0';
             player->position = ft_atoi(value);
-
+            if(player->position > 0)
+                server->map[player->position] = player->id;
+        }
         i++;
     }
 

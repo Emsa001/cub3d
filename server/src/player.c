@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 11:45:07 by escura            #+#    #+#             */
-/*   Updated: 2024/05/13 11:51:47 by escura           ###   ########.fr       */
+/*   Updated: 2024/05/16 14:34:24 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,11 @@ void *player_join(void *arg)
 
         if (server->players == NULL) {
             server->players = malloc(sizeof(t_player));
+            server->players->id = -server->online;
             server->players->name = NULL;
             server->players->next = NULL;
         }
-        save_data(server->players, buff);
+        save_data(server->players, buff, server);
         write(connfd, "saved!\n", 7);
     }
 

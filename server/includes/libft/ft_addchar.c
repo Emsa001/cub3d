@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:57:41 by escura            #+#    #+#             */
-/*   Updated: 2024/05/12 17:05:06 by escura           ###   ########.fr       */
+/*   Updated: 2024/05/16 14:33:13 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ char	*add_char(char *str, char c)
 	ft_strncpy(new_str, str, len);
 	new_str[len] = c;
 	new_str[len + 1] = '\0';
-	ft_free(str);
+	free(str);
 	return (new_str);
 }

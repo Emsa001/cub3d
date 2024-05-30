@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/12 15:52:33 by escura            #+#    #+#             */
-/*   Updated: 2024/05/13 11:41:43 by escura           ###   ########.fr       */
+/*   Updated: 2024/05/16 14:24:46 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,10 @@ char *get_name(char *name);
 
 typedef struct s_players
 {
-    int     id;
+    char     id;
     char    *name;
+    int     position;
     int     health;
-    int     armor;
-    int     ammo;
-    int     position[2];
 }               t_player;
 
 #endif

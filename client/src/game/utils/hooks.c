@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 15:34:46 by escura            #+#    #+#             */
-/*   Updated: 2024/05/12 21:15:48 by escura           ###   ########.fr       */
+/*   Updated: 2024/05/16 14:17:45 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	key_hook(int keycode, t_data *data)
 			data->map[current_position + 1] = 'P';
 			data->map[current_position] = '0';
 			data->player_direction = 0;
-			render_scene(*data);
 		}
 	}
 
@@ -42,7 +41,6 @@ int	key_hook(int keycode, t_data *data)
 			data->map[current_position - 1] = 'P';
 			data->map[current_position] = '0';
 			data->player_direction = 1;
-			render_scene(*data);
 		}
 	}
 
@@ -51,7 +49,6 @@ int	key_hook(int keycode, t_data *data)
 		if(top_element != '1'){
 			data->map[current_position - data->mapCols - 1] = 'P';
 			data->map[current_position] = '0';
-			render_scene(*data);
 		}
 	}
 
@@ -60,7 +57,6 @@ int	key_hook(int keycode, t_data *data)
 		if(down_element != '1'){
 			data->map[current_position + data->mapCols + 1] = 'P';
 			data->map[current_position] = '0';
-			render_scene(*data);
 		}
 	}
 

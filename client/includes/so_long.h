@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 13:46:56 by escura            #+#    #+#             */
-/*   Updated: 2024/05/12 18:31:32 by escura           ###   ########.fr       */
+/*   Updated: 2024/05/16 14:24:25 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "./libft/libft.h"
 # include "../mlx_linux/mlx.h"
+# include "multiplayer.h"
+
 # include <fcntl.h>
 # include <limits.h>
 # include <math.h>
@@ -37,6 +39,7 @@ typedef struct s_data
 	int		mapCols;
 	int		block_size;
 	int 	player_direction;
+	t_player *player;
 
 	int		*img;
 
@@ -61,6 +64,7 @@ int			render_rect(t_data data, t_rect rect);
 void		render_scene(t_data data);
 int			find_position(char *map, char c);
 void		update_map(t_data data);
-void		init_data(t_data *data, char *map);
+void		init_map(t_data *data, char *map);
+void		init_data(t_data *data);
 
 #endif
