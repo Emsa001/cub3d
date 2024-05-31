@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/05/31 01:33:52 by escura           ###   ########.fr       */
+/*   Updated: 2024/05/31 13:07:19 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "ft_destructor/ft_alloc.h"
+# include "mlx/mlx.h"
 # include <stdio.h>
 
 #endif

@@ -6,7 +6,7 @@
 #    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/05/31 01:51:13 by escura           ###   ########.fr        #
+#    Updated: 2024/05/31 13:10:42 by escura           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ CC = cc
 CPP = clang++
 # CFLAGS = -Wall -Wextra -Werror
 CPPFLAGS += -g -fPIE
-CPPFLAGS += -I$(LIBFT_DIR) -Iincludes/
+CPPFLAGS += -I$(LIBFT_DIR) -Iincludes
+LDFLAGS += -L./includes/mlx -lmlx -lXext -lX11 -lm -lz 
 
 DEBUG 		= 0
 FSANITIZE 	= 0
@@ -47,7 +48,7 @@ run: all
 	./$(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	$(CC) $(CFLAGS) $(CPPFLAGS) $(OBJ) -o $(NAME) $(LDLIBS)
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(OBJ) -o $(NAME) $(LDLIBS) $(LDFLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(LIBFT)
 	mkdir -p $(dir $@)
@@ -71,9 +72,9 @@ re: fclean
 v: $(NAME)
 	valgrind --leak-check=full ./$(NAME)
 
-vf: $(NAME)
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME)
-
+mlx:
+	git clone https://github.com/42Paris/minilibx-linux.git ./includes/mlx
+	
 # ===== Tests =====
 TEST_DIR = tests
 TEST_REPO = git@github.com:triedel42/minishell-tests
@@ -102,4 +103,4 @@ $(LIBGTEST): $(LIBGTEST_DIR)
 	cd $< && mkdir -p build && cd build && cmake ..
 	make -j$(shell nproc) -C$(LIBGTEST_DIR)/build
 
-.PHONY: all clean fclean re run t v vf
+.PHONY: all clean fclean re run t v
