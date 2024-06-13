@@ -6,19 +6,13 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:10:09 by escura            #+#    #+#             */
-/*   Updated: 2024/06/13 15:59:49 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/13 21:18:25 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	ft_error(char *str)
-{
-	printf("%s\n", str);
-	exit(1);
-}
-
-char	**get_map(char *av)
+t_map	*get_map(char *av)
 {
 	char	**map;
 	int		i;
@@ -40,7 +34,7 @@ char	**get_map(char *av)
 		i++;
 	}
 	close(fd);
-	return (map);
+	return(check_map(map));
 }
 
 t_cube *init_cube(t_cube *c)
@@ -62,12 +56,6 @@ void get_params(char *av)
 {
 	t_cube *c = cube();
 	c->map = get_map(av);
-	c->height = 0;
-	while (c->map[c->height])
-		c->height++;
-	c->width = 0;
-	while (c->map[0][c->width])
-		c->width++;
 	c->mlx = mlx_init();
 	c->keycode = D;
 }

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/06/13 16:01:19 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/13 21:05:23 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@
 #include <X11/X.h>
 #include <X11/keysym.h>
 
+#define YELLOW "\033[1;33m"
+#define GREEN "\033[1;32m"
+#define RED "\033[1;31m"
+#define BLUE "\033[1;34m"
+#define CYAN "\033[1;36m"
+#define RESET "\033[0m"
+
 // keycodes
 # define ESC 65307
 # define W 119
@@ -42,22 +49,42 @@
 # define P3 3 * PI / 2
 # define DR 0.0174533
 
-// struct for the game
+typedef struct s_map
+{
+	int		width;
+	int		height;
+	char	**map;
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	int		*f;
+	int		*c;
+	float 	player_x;
+	float 	player_y;
+	float 	player_a;
+}			t_map;
+
 typedef struct s_cube
 {
 	void	*mlx;
 	void	*win;
     char    *some_value;
 	int 	keycode;
-	// map
-	char	**map;
-	int 	width;
-	int 	height;
+	t_map	*map;
 }			t_cube;
 
 t_cube		*init_cube(t_cube *c);
+void get_params(char *av);
 t_cube		*cube(void);
 void		play(void);
-void get_params(char *av);
+
+// get - check map
+void	ft_error(char *str);
+t_map	*check_map(char **map);
+t_map	*get_map(char *av);
+void ft_free_arr(char **array);
+void print_map_info(t_map *map);
+
 
 #endif
