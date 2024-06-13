@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/06/13 21:34:29 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/13 21:38:12 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,9 @@ int	draw(t_cube *p)
 void	play(void)
 {
     t_cube *c = cube();
+	// use this function to get all map info
 	print_map_info(c->map);
+
 	p_x = c->map->player_x * 64;
 	p_y = c->map->player_y * 64;
 	p_a = c->map->player_a;

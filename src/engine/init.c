@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:10:09 by escura            #+#    #+#             */
-/*   Updated: 2024/06/13 21:18:25 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/13 21:37:05 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@ t_map	*get_map(char *av)
 	int		fd;
 	char	*c;
 
+	if(!av)
+	{
+		printf(GREEN"Usage: ./cub3d "BLUE"map.cub\n"RESET);
+		exit(1);
+	}
 	c = ft_strjoin("src/maps/", av);
 	fd = open(c, O_RDONLY);
 	free(c);
