@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/06/17 15:58:19 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:55:06 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@
 # define P2 PI / 2
 # define P3 3 * PI / 2
 # define DR 0.0174533
+
+typedef struct s_point
+{
+	int		x;
+	int		y;
+}			t_point;
 
 typedef struct s_map
 {
@@ -96,5 +102,6 @@ void		get_no_so_we_ea(t_map *map_info, char **map);
 int			*get_color(t_map *map_info, char **map, char c);
 void		get_player_position(t_map *map_info, char **map);
 void		get_2d_map(t_map *map_info, char **map, int size);
+void		check_valid(char **map, t_map *map_info);
 
 #endif

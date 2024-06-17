@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:59:54 by btvildia          #+#    #+#             */
-/*   Updated: 2024/06/17 15:55:22 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/17 18:04:15 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	print_map_info(t_map *map)
 
 void	ft_error(char *str)
 {
-	write(2, "Error: ", 6);
+	write(2, "Error: ", 7);
 	write(2, str, ft_strlen(str));
 	write(2, "\n", 1);
 	exit(1);
@@ -74,6 +74,8 @@ void	print_map(char **map)
 		i++;
 	}
 	printf("\n");
+	printf("\n");
+	usleep(10000);
 }
 
 char	*get_next_string(char *line, char *str)
@@ -81,10 +83,18 @@ char	*get_next_string(char *line, char *str)
 	int		i;
 	int		j;
 	char	*tmp;
+	char	**check_split;
 
 	i = 0;
 	j = 0;
 	tmp = NULL;
+	check_split = ft_split(line, ' ');
+	if (ft_arrlen(check_split) != 2)
+	{
+		ft_free_arr(check_split);
+		ft_error("Invalid map info");
+	}
+	ft_free_arr(check_split);
 	if (!line || !str)
 		return (NULL);
 	while (line[i] != '\0' && ft_isspace(line[i]))
@@ -148,18 +158,22 @@ char	*ft_remove_substr(char *str, char *sub)
 
 int	ft_strlen_space(char *s)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	int		j;
 
 	i = 0;
 	j = 0;
+	if (!s)
+		return (0);
 	while (s[i] != '\0')
 	{
-		while (ft_isspace(s[i]) == 1)
+		if (ft_isspace(s[i]))
 			i++;
-		if (s[i] != '\0')
+		else
+		{
 			j++;
-		i++;
+			i++;
+		}
 	}
 	return (j);
 }
