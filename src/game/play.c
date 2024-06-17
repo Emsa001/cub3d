@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/06/13 21:38:12 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/17 16:07:46 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ int		pr_w = 0;
 int		pr_s = 0;
 int		pr_a = 0;
 int		pr_d = 0;
-
-
 
 void	draw_line(t_cube *p, float x1, float y1, float x2, float y2, int color)
 {
@@ -54,12 +52,12 @@ void	draw_line(t_cube *p, float x1, float y1, float x2, float y2, int color)
 
 void	draw_arrow(t_cube *p)
 {
-    float	x;
-    float	y;
+	float	x;
+	float	y;
 
-    x = p_x + p_d_x * 10;
-    y = p_y + p_d_y * 10;
-    draw_line(p, p_x, p_y, x, y, 0x00FFFF00);
+	x = p_x + p_d_x * 10;
+	y = p_y + p_d_y * 10;
+	draw_line(p, p_x, p_y, x, y, 0x00FFFF00);
 }
 
 void	draw_player(t_cube *p)
@@ -80,37 +78,37 @@ void	draw_player(t_cube *p)
 int	movement(void)
 {
 	if (pr_a)
-    {
-        p_a -= 0.1;
-        if (p_a < 0)
-            p_a += 2 * PI;
-        p_d_x = cos(p_a) * 5;
-        p_d_y = sin(p_a) * 5;
-    }
+	{
+		p_a -= 0.1;
+		if (p_a < 0)
+			p_a += 2 * PI;
+		p_d_x = cos(p_a) * 5;
+		p_d_y = sin(p_a) * 5;
+	}
 	if (pr_d)
-    {
-        p_a += 0.1;
-        if (p_a > 2 * PI)
-            p_a -= 2 * PI;
-        p_d_x = cos(p_a) * 5;
-        p_d_y = sin(p_a) * 5;
-    }
+	{
+		p_a += 0.1;
+		if (p_a > 2 * PI)
+			p_a -= 2 * PI;
+		p_d_x = cos(p_a) * 5;
+		p_d_y = sin(p_a) * 5;
+	}
 	if (pr_w)
-    {
-        p_x += p_d_x;
-        p_y += p_d_y;
-    }
+	{
+		p_x += p_d_x;
+		p_y += p_d_y;
+	}
 	if (pr_s)
-    {
-        p_x -= p_d_x;
-        p_y -= p_d_y;
-    }
+	{
+		p_x -= p_d_x;
+		p_y -= p_d_y;
+	}
 	return (0);
 }
 int	kd(int kc)
 {
-    if(kc == ESC)
-        exit(0);
+	if (kc == ESC)
+		exit(0);
 	if (kc == W)
 		pr_w = 1;
 	if (kc == S)
@@ -138,14 +136,15 @@ int	ku(int kc)
 int	draw(t_cube *p)
 {
 	void	*wall;
+	int		i;
+	int		j;
 
 	usleep(16666);
 	mlx_clear_window(p->mlx, p->win);
-	wall = mlx_xpm_file_to_image(p->mlx, "src/textures/Square.xpm", &(int){0}, &(int){0});
-
-	int i = 0;
-	int j = 0;
-
+	wall = mlx_xpm_file_to_image(p->mlx, "src/textures/Square.xpm", &(int){0},
+			&(int){0});
+	i = 0;
+	j = 0;
 	while (i < p->map->height)
 	{
 		j = 0;
@@ -157,7 +156,6 @@ int	draw(t_cube *p)
 		}
 		i++;
 	}
-	
 	draw_player(p);
 	draw_arrow(p);
 	movement();
@@ -166,18 +164,19 @@ int	draw(t_cube *p)
 
 void	play(void)
 {
-    t_cube *c = cube();
-	// use this function to get all map info
-	print_map_info(c->map);
+	t_cube	*c;
 
+	c = cube();
+	print_map_info(c->map);
 	p_x = c->map->player_x * 64;
 	p_y = c->map->player_y * 64;
 	p_a = c->map->player_a;
-    c->win = mlx_new_window(c->mlx, c->map->width * 64, c->map->height * 64, "Cub3D");
-    mlx_do_key_autorepeatoff(c->mlx);
-    mlx_hook(c->win, KeyPress, KeyPressMask, kd, (void *)c);
-    mlx_hook(c->win, KeyRelease, KeyReleaseMask, ku, (void *)c);
-    mlx_loop_hook(c->mlx, draw, (void *)c);
-    mlx_loop(c->mlx);
-    free((void *)c);
+	c->win = mlx_new_window(c->mlx, c->map->width * 64, c->map->height * 64,
+			"Cub3D");
+	mlx_do_key_autorepeatoff(c->mlx);
+	mlx_hook(c->win, KeyPress, KeyPressMask, kd, (void *)c);
+	mlx_hook(c->win, KeyRelease, KeyReleaseMask, ku, (void *)c);
+	mlx_loop_hook(c->mlx, draw, (void *)c);
+	mlx_loop(c->mlx);
+	free((void *)c);
 }

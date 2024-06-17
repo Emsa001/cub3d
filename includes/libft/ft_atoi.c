@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: triedel <triedel@student.42.fr>            +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:36:10 by triedel           #+#    #+#             */
-/*   Updated: 2024/01/03 16:04:19 by triedel          ###   ########.fr       */
+/*   Updated: 2024/06/17 14:13:56 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	ft_charinset(int c, const char *set)
 {
 	char	*s;
 
-	s = (char *) set;
+	s = (char *)set;
 	while (*s != '\0')
 	{
 		if (*s == c)
@@ -37,7 +37,7 @@ int	ft_atoi(const char *str)
 	long	nb;
 	int		sign;
 
-	s = (char *) str;
+	s = (char *)str;
 	sign = 1;
 	nb = 0;
 	while (ft_isspace(*s))

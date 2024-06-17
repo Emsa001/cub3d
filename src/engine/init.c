@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:10:09 by escura            #+#    #+#             */
-/*   Updated: 2024/06/13 21:37:05 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:55:42 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ t_map	*get_map(char *av)
 	int		i;
 	int		fd;
 	char	*c;
+	t_map	*map_info;
 
-	if(!av)
+	if (!av)
 	{
-		printf(GREEN"Usage: ./cub3d "BLUE"map.cub\n"RESET);
+		printf(GREEN "Usage: ./cub3d " BLUE "map.cub\n" RESET);
 		exit(1);
 	}
 	c = ft_strjoin("src/maps/", av);
@@ -38,28 +39,32 @@ t_map	*get_map(char *av)
 			break ;
 		i++;
 	}
+	map[i] = NULL;
 	close(fd);
-	return(check_map(map));
+	map_info = check_map(map, i);
+	ft_free_arr(map);
+	return (map_info);
 }
 
-t_cube *init_cube(t_cube *c)
+t_cube	*init_cube(t_cube *c)
 {
-    static t_cube *cube;
+	static t_cube	*cube;
 
-    if(c == NULL)
-        return cube;
-
-    cube = c;
-    return (cube);
+	if (c == NULL)
+		return (cube);
+	cube = c;
+	return (cube);
 }
 
-t_cube *cube(void)
+t_cube	*cube(void)
 {
-    return (init_cube(NULL));
+	return (init_cube(NULL));
 }
-void get_params(char *av)
+void	get_params(char *av)
 {
-	t_cube *c = cube();
+	t_cube	*c;
+
+	c = cube();
 	c->map = get_map(av);
 	c->mlx = mlx_init();
 	c->keycode = D;
