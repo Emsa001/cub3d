@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 19:23:36 by escura           ###   ########.fr       */
+/*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
+/*   Updated: 2024/06/18 19:00:06 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void init_game(char *map)
+/* PLAYER */
+
+t_player	*init_player(t_player *p)
 {
-	init_cube(ft_malloc(sizeof(t_cube)));
-	init_map(map);
-	init_player(ft_malloc(sizeof(t_player)));
+	static t_player	*player;
+
+	if (p == NULL)
+		return (player);
+	player = p;
+
+    player->x = -1;
+	player->y = -1;
+	player->a = -1;
+    get_player_position(cube()->map->map);
+
+	return (player);
 }
 
-int	main(int argc, char **argv)
+t_player	*player(void)
 {
-	check_params(argv);
-	ft_alloc_init();
-
-	init_game(argv[1]);
-	start_game();
-	
-	ft_destructor();
-	return (0);
+	return (init_player(NULL));
 }

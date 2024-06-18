@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   play.c                                             :+:      :+:    :+:   */
+/*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 17:40:53 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/18 19:22:58 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int	draw(t_cube *p)
 
 	usleep(16666);
 	mlx_clear_window(p->mlx, p->win);
-	wall = mlx_xpm_file_to_image(p->mlx, "src/textures/Square.xpm", &(int){0},
+	wall = mlx_xpm_file_to_image(p->mlx, "assets/Square.xpm", &(int){0},
 			&(int){0});
 	i = 0;
 	j = 0;
@@ -162,7 +162,7 @@ int	draw(t_cube *p)
 	return (0);
 }
 
-void	play(void)
+void	start_game(void)
 {
 	t_cube	*c;
 

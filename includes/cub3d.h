@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 17:39:13 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/18 19:21:11 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,10 @@ typedef struct s_cube
 	t_map	*map;
 }			t_cube;
 
+void 		check_params(char **av);
 t_cube		*init_cube(t_cube *c);
 t_cube		*cube(void);
-void		play(void);
+void		start_game(void);
 
 void	exit_game(void);
 

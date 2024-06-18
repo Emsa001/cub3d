@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:21:26 by btvildia          #+#    #+#             */
-/*   Updated: 2024/06/18 16:21:09 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/18 18:49:11 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	get_map_sizes(t_map *map_info, char **map)
 	map_info->height = i;
 }
 
-void	get_player_position(t_map *map_info, char **map)
+void	get_player_position(char **map)
 {
 	int	i;
 	int	j;
