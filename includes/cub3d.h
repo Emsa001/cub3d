@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 15:53:38 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/18 17:39:13 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@
 # define P2 PI / 2
 # define P3 3 * PI / 2
 # define DR 0.0174533
+
+# define BLOCK_SIZE 64
+# define WIDTH 800
+# define HEIGHT 600
+
 
 typedef struct s_cube
 {

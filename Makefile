@@ -6,7 +6,7 @@
 #    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/06/18 15:07:12 by escura           ###   ########.fr        #
+#    Updated: 2024/06/18 17:38:21 by escura           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,7 @@ re: fclean
 
 # ===== Utils =====
 v: $(NAME)
-	valgrind --leak-check=full ./$(NAME)
+	valgrind --leak-check=full ./$(NAME) map.cub
 
 mlx:
 	git clone https://github.com/42Paris/minilibx-linux.git ./includes/mlx

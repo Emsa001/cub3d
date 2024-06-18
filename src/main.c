@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 17:16:18 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/18 17:30:06 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	main(int argc, char **argv)
 	init_cube(c);
 	
 	get_params(argv);
-
 	play();
+	
 	ft_destructor();
 	return (0);
 }

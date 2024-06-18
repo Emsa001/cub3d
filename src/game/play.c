@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 17:16:51 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/18 17:40:53 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	draw_arrow(t_cube *p)
 	float	x;
 	float	y;
 
-	x = p_x + p_d_x * 10;
-	y = p_y + p_d_y * 10;
+	x = p_x + p_d_x * 100;
+	y = p_y + p_d_y * 100;
 	draw_line(p, p_x, p_y, x, y, 0x00FFFF00);
 }
 
@@ -151,7 +151,7 @@ int	draw(t_cube *p)
 		while (j < p->map->width)
 		{
 			if (p->map->map[i][j] == '1')
-				mlx_put_image_to_window(p->mlx, p->win, wall, j * 64, i * 64);
+				mlx_put_image_to_window(p->mlx, p->win, wall, j * BLOCK_SIZE, i * BLOCK_SIZE);
 			j++;
 		}
 		i++;
@@ -168,11 +168,13 @@ void	play(void)
 
 	c = cube();
 	print_map_info();
-	p_x = player()->x * 64;
-	p_y = player()->y * 64;
+
+	p_x = player()->x * BLOCK_SIZE;
+	p_y = player()->y * BLOCK_SIZE;
 	p_a = player()->a;
-	c->win = mlx_new_window(c->mlx, c->map->width * 64, c->map->height * 64,
-			"Cub3D");
+	
+	c->win = mlx_new_window(c->mlx, WIDTH, HEIGHT, "Cub3D");
+
 	mlx_do_key_autorepeaton(c->mlx);
 	mlx_hook(c->win, KeyPress, KeyPressMask, kd, (void *)c);
 	mlx_hook(c->win, KeyRelease, KeyReleaseMask, ku, (void *)c);
