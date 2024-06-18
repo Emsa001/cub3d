@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 19:21:11 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/18 19:57:47 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <string.h>
 # include <sys/time.h>
 # include <unistd.h>
+# include <stdbool.h>
 
 # include "player.h"
 # include "map.h"
@@ -53,8 +54,8 @@
 # define DR 0.0174533
 
 # define BLOCK_SIZE 64
-# define WIDTH 800
-# define HEIGHT 600
+# define WIDTH 1920
+# define HEIGHT 1080
 
 
 typedef struct s_cube
@@ -70,7 +71,10 @@ void 		check_params(char **av);
 t_cube		*init_cube(t_cube *c);
 t_cube		*cube(void);
 void		start_game(void);
+void init_hooks(void);
+int	draw(t_cube *p);
 
 void	exit_game(void);
+
 
 #endif

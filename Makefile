@@ -6,7 +6,7 @@
 #    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/06/18 19:23:17 by escura           ###   ########.fr        #
+#    Updated: 2024/06/18 19:33:51 by escura           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ OBJ_DIR = .obj
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 OBJ_TEST = $(filter-out $(OBJ_DIR)/main.o,$(OBJ))
 
-all: $(NAME) run
+all: $(NAME)
 
 run: all
 	./$(NAME) map.cub

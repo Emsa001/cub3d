@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:21:26 by btvildia          #+#    #+#             */
-/*   Updated: 2024/06/18 18:49:11 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/18 19:59:49 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ void	get_player_position(char **map)
 
 	i = 0;
 	j = 0;
+
 	while (map[i] != NULL)
 	{
 		j = 0;
