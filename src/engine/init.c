@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:10:09 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 15:46:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/18 16:10:18 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_cube	*cube(void)
 	return (init_cube(NULL));
 }
 
-t_player *init_player(t_player *p)
+t_player	*init_player(t_player *p)
 {
 	static t_player	*player;
 
@@ -67,7 +67,7 @@ t_player *init_player(t_player *p)
 	return (player);
 }
 
-t_player *player(void)
+t_player	*player(void)
 {
 	return (init_player(NULL));
 }
@@ -76,12 +76,11 @@ void	get_params(char **av)
 {
 	t_cube	*c;
 
-	if(!av[1] || av[2])
+	if (!av[1] || av[2])
 	{
 		printf(GREEN "Usage: ./cub3d " BLUE "map.cub\n" RESET);
 		ft_exit();
 	}
-
 	c = cube();
 	c->map = get_map(av[1]);
 	c->mlx = mlx_init();

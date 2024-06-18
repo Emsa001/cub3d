@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:59:54 by btvildia          #+#    #+#             */
-/*   Updated: 2024/06/18 15:54:18 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/18 16:10:20 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	print_map_info()
+void	print_map_info(void)
 {
-	const t_map *map = cube()->map;
-
-	int	i;
+	const t_map	*map = cube()->map;
+	int			i;
 
 	i = 0;
 	printf(GREEN "width: " BLUE "%d\n", map->width);

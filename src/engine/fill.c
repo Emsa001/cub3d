@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:52:35 by btvildia          #+#    #+#             */
-/*   Updated: 2024/06/18 15:19:36 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/18 16:14:13 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	neighbor_check(char **tab, t_point size, t_point begin, char to_fill[])
 		{
 			neighbor = tab[d[i].y][d[i].x];
 			if ((neighbor != '1' && neighbor != 'X' && neighbor != 'N'
-					&& neighbor != '0') || (neighbor == '0' && d[i].x == 0))
+					&& neighbor != '0' && neighbor != 'S' && neighbor != 'W'
+					&& neighbor != 'E') || (neighbor == '0' && d[i].x == 0))
 				ft_error("Map is not closed");
 		}
 		i++;
@@ -46,19 +47,16 @@ void	fill(char **tab, t_point size, t_point begin, char to_fill[])
 		return ;
 	c = tab[begin.y][begin.x];
 	i = 0;
-	while (i < 2)
+	while (i < 5)
 	{
 		if (c == to_fill[i])
 		{
 			neighbor_check(tab, size, begin, to_fill);
 			tab[begin.y][begin.x] = 'X';
-			print_map(tab);
+			// print_map(tab);
 			fill(tab, size, (t_point){begin.x - 1, begin.y}, to_fill);
-			print_map(tab);
 			fill(tab, size, (t_point){begin.x + 1, begin.y}, to_fill);
-			print_map(tab);
 			fill(tab, size, (t_point){begin.x, begin.y - 1}, to_fill);
-			print_map(tab);
 			fill(tab, size, (t_point){begin.x, begin.y + 1}, to_fill);
 			break ;
 		}
@@ -115,12 +113,15 @@ void	check_valid(char **map, t_map *map_info)
 	t_point	size;
 	int		i;
 	t_point	*begin_points;
-	char	to_fill[2];
+	char	to_fill[5];
 	char	**map2;
 
 	begin_points = get_begin_points(map);
-	to_fill[0] = 'N';
-	to_fill[1] = '0';
+	to_fill[0] = '0';
+	to_fill[1] = 'N';
+	to_fill[2] = 'S';
+	to_fill[3] = 'W';
+	to_fill[4] = 'E';
 	size.x = map_info->width + 1;
 	size.y = map_info->height;
 	i = 0;

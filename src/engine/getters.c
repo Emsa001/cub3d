@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:21:26 by btvildia          #+#    #+#             */
-/*   Updated: 2024/06/18 15:44:57 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/18 16:21:09 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,12 @@ void	get_map_sizes(t_map *map_info, char **map)
 	width = 0;
 	while (map[i] != NULL)
 	{
-		width = ft_strlen_space(map[i]);
+		width = ft_strlen(map[i]);
 		if (width > map_info->width)
 			map_info->width = width;
 		i++;
 	}
+	map_info->width -= 1;
 	map_info->height = i;
 }
 
