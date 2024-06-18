@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:52:35 by btvildia          #+#    #+#             */
-/*   Updated: 2024/06/17 20:32:38 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:10:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,6 @@ void	check_valid(char **map, t_map *map_info)
 		i++;
 	}
 	ft_free(begin_points);
-	ft_free(map2);
+	ft_arrdel((void **)map2);
 	exit(0);
 }
