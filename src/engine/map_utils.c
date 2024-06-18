@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:59:54 by btvildia          #+#    #+#             */
-/*   Updated: 2024/06/17 18:04:15 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:45:41 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	print_map_info(t_map *map)
+void	print_map_info()
 {
+	const t_map *map = cube()->map;
+
 	int	i;
 
 	i = 0;
@@ -27,9 +29,9 @@ void	print_map_info(t_map *map)
 		map->f[2]);
 	printf(GREEN "C: " BLUE " %d, %d, %d\n" RESET, map->c[0], map->c[1],
 		map->c[2]);
-	printf(GREEN "player_x: " BLUE "%f\n" RESET, map->player_x);
-	printf(GREEN "player_y: " BLUE "%f\n" RESET, map->player_y);
-	printf(GREEN "player_a: " BLUE "%f\n" RESET, map->player_a);
+	printf(GREEN "player_x: " BLUE "%f\n" RESET, player()->x);
+	printf(GREEN "player_y: " BLUE "%f\n" RESET, player()->y);
+	printf(GREEN "player_a: " BLUE "%f\n" RESET, player()->a);
 	while (i < map->height)
 	{
 		if (ft_strchr(map->map[i], 'N') || ft_strchr(map->map[i], 'S')
@@ -48,19 +50,6 @@ void	ft_error(char *str)
 	write(2, str, ft_strlen(str));
 	write(2, "\n", 1);
 	exit(1);
-}
-
-void	ft_free_arr(char **array)
-{
-	int	i;
-
-	i = 0;
-	while (array[i] != NULL)
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
 }
 
 void	print_map(char **map)
@@ -91,10 +80,10 @@ char	*get_next_string(char *line, char *str)
 	check_split = ft_split(line, ' ');
 	if (ft_arrlen(check_split) != 2)
 	{
-		ft_free_arr(check_split);
+		ft_arrdel((void **)check_split);
 		ft_error("Invalid map info");
 	}
-	ft_free_arr(check_split);
+	ft_arrdel((void **)check_split);
 	if (!line || !str)
 		return (NULL);
 	while (line[i] != '\0' && ft_isspace(line[i]))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:21:26 by btvildia          #+#    #+#             */
-/*   Updated: 2024/06/17 18:54:10 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:44:57 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int	*get_color(t_map *map_info, char **map, char c)
 			tmp = ft_split(line, ',');
 			if (ft_arrlen(tmp) != 3)
 			{
-				ft_free_arr(tmp);
+				ft_arrdel((void **)tmp);
 				ft_error("Invalid color");
 			}
 			tmp_color[0] = ft_atoi(tmp[0]);
 			tmp_color[1] = ft_atoi(tmp[1]);
 			tmp_color[2] = ft_atoi(tmp[2]);
-			ft_free_arr(tmp);
+			ft_arrdel((void **)tmp);
 			return (tmp_color);
 		}
 		i++;
@@ -100,16 +100,16 @@ void	get_player_position(t_map *map_info, char **map)
 			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'W'
 				|| map[i][j] == 'E')
 			{
-				map_info->player_x = j + 0.5;
-				map_info->player_y = i + 0.5;
+				player()->x = j + 0.5;
+				player()->y = i + 0.5;
 				if (map[i][j] == 'N')
-					map_info->player_a = 3 * PI / 2;
+					player()->a = 3 * PI / 2;
 				else if (map[i][j] == 'S')
-					map_info->player_a = PI / 2;
+					player()->a = PI / 2;
 				else if (map[i][j] == 'W')
-					map_info->player_a = PI;
+					player()->a = PI;
 				else if (map[i][j] == 'E')
-					map_info->player_a = 0;
+					player()->a = 0;
 				return ;
 			}
 			j++;

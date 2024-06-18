@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   play.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/06/17 16:07:46 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:42:19 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int	kd(int kc)
 		pr_d = 1;
 	return (0);
 }
-
+ 
 int	ku(int kc)
 {
 	if (kc == W)
@@ -167,10 +167,10 @@ void	play(void)
 	t_cube	*c;
 
 	c = cube();
-	print_map_info(c->map);
-	p_x = c->map->player_x * 64;
-	p_y = c->map->player_y * 64;
-	p_a = c->map->player_a;
+	print_map_info();
+	p_x = player()->x * 64;
+	p_y = player()->y * 64;
+	p_a = player()->a;
 	c->win = mlx_new_window(c->mlx, c->map->width * 64, c->map->height * 64,
 			"Cub3D");
 	mlx_do_key_autorepeatoff(c->mlx);
@@ -178,5 +178,4 @@ void	play(void)
 	mlx_hook(c->win, KeyRelease, KeyReleaseMask, ku, (void *)c);
 	mlx_loop_hook(c->mlx, draw, (void *)c);
 	mlx_loop(c->mlx);
-	free((void *)c);
 }

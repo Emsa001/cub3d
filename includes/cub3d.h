@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 15:08:59 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/18 15:45:20 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "ft_destructor/ft_alloc.h"
 # include "libft.h"
 # include "mlx/mlx.h"
+# include "player.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <math.h>
@@ -66,9 +67,9 @@ typedef struct s_map
 	char	*ea;
 	int		*f;
 	int		*c;
-	float	player_x;
-	float	player_y;
-	float	player_a;
+	// float	player_x;
+	// float	player_y;
+	// float	player_a;
 }			t_map;
 
 typedef struct s_cube
@@ -81,7 +82,7 @@ typedef struct s_cube
 }			t_cube;
 
 t_cube		*init_cube(t_cube *c);
-void		get_params(char *av);
+void		get_params(char **av);
 t_cube		*cube(void);
 void		play(void);
 
@@ -91,8 +92,7 @@ void		ft_error(char *str);
 void		print_map(char **map);
 int			ft_strlen_space(char *s);
 int			ft_check_line(char *line);
-void		ft_free_arr(char **array);
-void		print_map_info(t_map *map);
+void		print_map_info(void);
 t_map		*check_map(char **map, int size);
 char		*get_next_string(char *line, char *str);
 char		*ft_remove_substr(char *str, char *sub);

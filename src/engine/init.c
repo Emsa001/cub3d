@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:10:09 by escura            #+#    #+#             */
-/*   Updated: 2024/06/17 16:16:56 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/18 15:46:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,9 @@ t_map	*get_map(char *av)
 	char	*c;
 	t_map	*map_info;
 
-	if (!av)
-	{
-		printf(GREEN "Usage: ./cub3d " BLUE "map.cub\n" RESET);
-		exit(1);
-	}
 	c = ft_strjoin("src/maps/", av);
 	fd = open(c, O_RDONLY);
-	free(c);
+	ft_free(c);
 	if (fd == -1)
 		ft_error("Map not found");
 	map = ft_malloc(sizeof(char *) * 100);
@@ -42,7 +37,7 @@ t_map	*get_map(char *av)
 	map[i] = NULL;
 	close(fd);
 	map_info = check_map(map, i);
-	ft_free_arr(map);
+	ft_arrdel((void **)map);
 	return (map_info);
 }
 
@@ -52,6 +47,7 @@ t_cube	*init_cube(t_cube *c)
 
 	if (c == NULL)
 		return (cube);
+	init_player(ft_malloc(sizeof(t_player)));
 	cube = c;
 	return (cube);
 }
@@ -60,12 +56,34 @@ t_cube	*cube(void)
 {
 	return (init_cube(NULL));
 }
-void	get_params(char *av)
+
+t_player *init_player(t_player *p)
+{
+	static t_player	*player;
+
+	if (p == NULL)
+		return (player);
+	player = p;
+	return (player);
+}
+
+t_player *player(void)
+{
+	return (init_player(NULL));
+}
+
+void	get_params(char **av)
 {
 	t_cube	*c;
 
+	if(!av[1] || av[2])
+	{
+		printf(GREEN "Usage: ./cub3d " BLUE "map.cub\n" RESET);
+		ft_exit();
+	}
+
 	c = cube();
-	c->map = get_map(av);
+	c->map = get_map(av[1]);
 	c->mlx = mlx_init();
 	c->keycode = D;
 }
