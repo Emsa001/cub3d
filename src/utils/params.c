@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   params.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 19:23:36 by escura           ###   ########.fr       */
+/*   Created: 2024/06/18 19:18:52 by escura            #+#    #+#             */
+/*   Updated: 2024/06/18 19:19:56 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void init_game(char *map)
+void check_params(char **av)
 {
-	init_cube(ft_malloc(sizeof(t_cube)));
-	init_map(map);
-	init_player(ft_malloc(sizeof(t_player)));
-}
-
-int	main(int argc, char **argv)
-{
-	check_params(argv);
-	ft_alloc_init();
-
-	init_game(argv[1]);
-	start_game();
-	
-	ft_destructor();
-	return (0);
+	if (!av[1] || av[2])
+	{
+		printf(GREEN "Usage: ./cub3d " BLUE "map.cub\n" RESET);
+		exit_game();
+	}
 }

@@ -5,39 +5,41 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/18 17:19:15 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 19:18:47 by escura           ###   ########.fr       */
+/*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
+/*   Updated: 2024/06/18 19:59:56 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_map(char *av)
+/* PLAYER */
+
+t_player	*init_player(t_player *p)
 {
-	char	**map;
-	int		i;
-	int		fd;
-	char	*c;
-	t_map	*map_info;
+	static t_player	*player;
 
-	c = ft_strjoin("./maps/", av);
-	fd = open(c, O_RDONLY);
-	ft_free(c);
-	if (fd == -1)
-		ft_error("Map not found");
-	map = ft_malloc(sizeof(char *) * 100);
-	i = 0;
-	while (1)
-	{
-		map[i] = get_next_line(fd);
-		if (!map[i])
-			break ;
-		i++;
-	}
-	map[i] = NULL;
-	close(fd);
-	map_info = check_map(map, i);
-	ft_arrdel((void **)map);
+	if (p == NULL)
+		return (player);
+	player = p;
 
-	cube()->map = map_info;
+    get_player_position(cube()->map->map);
+	
+	player->a = PI / 2;
+	player->x_px = player->x * BLOCK_SIZE;
+	player->y_px = player->y * BLOCK_SIZE;
+
+	player->x_dir = 0;
+	player->y_dir = 0;
+
+	player->btn_w = false;
+	player->btn_s = false;
+	player->btn_a = false;
+	player->btn_d = false;
+
+	return (player);
+}
+
+t_player	*player(void)
+{
+	return (init_player(NULL));
 }

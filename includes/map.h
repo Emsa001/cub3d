@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 17:21:26 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/18 19:19:44 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_map
 	int		*c;
 }			t_map;
 
-void		get_params(char **av);
+void		init_map(char *av);
 void		ft_error(char *str);
 void		print_map(char **map);
 int			ft_strlen_space(char *s);
@@ -48,7 +48,7 @@ char		*ft_strstr(char *haystack, char *needle);
 void		get_map_sizes(t_map *map_info, char **map);
 void		get_no_so_we_ea(t_map *map_info, char **map);
 int			*get_color(t_map *map_info, char **map, char c);
-void		get_player_position(t_map *map_info, char **map);
+void		get_player_position(char **map);
 void		get_2d_map(t_map *map_info, char **map, int size);
 void		check_valid(char **map, t_map *map_info);
 

@@ -6,7 +6,7 @@
 #    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/06/18 17:38:21 by escura           ###   ########.fr        #
+#    Updated: 2024/06/18 19:33:51 by escura           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ OBJ_TEST = $(filter-out $(OBJ_DIR)/main.o,$(OBJ))
 all: $(NAME)
 
 run: all
-	./$(NAME)
+	./$(NAME) map.cub
 
 $(NAME): $(LIBFT) $(OBJ)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(OBJ) -o $(NAME) $(LDLIBS) $(LDFLAGS)
