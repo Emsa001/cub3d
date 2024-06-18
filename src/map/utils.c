@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_utils.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:59:54 by btvildia          #+#    #+#             */
-/*   Updated: 2024/06/18 16:10:20 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/18 20:29:53 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,52 +96,6 @@ char	*get_next_string(char *line, char *str)
 		i++;
 	tmp = ft_strdup(line + i);
 	return (tmp);
-}
-
-char	*ft_strstr(char *haystack, char *needle)
-{
-	size_t	len;
-
-	len = ft_strlen(needle);
-	if (!haystack)
-		return (NULL);
-	if (len == 0 || !*needle)
-		return ((char *)haystack);
-	while (*haystack)
-	{
-		if (ft_strncmp(haystack, needle, len) == 0)
-			return ((char *)haystack);
-		haystack++;
-	}
-	return (NULL);
-}
-
-char	*ft_remove_substr(char *str, char *sub)
-{
-	char	*result;
-	char	*found;
-	int		len;
-	int		new_len;
-	int		i;
-
-	result = NULL;
-	found = ft_strstr(str, sub);
-	if (!str || !sub)
-		return (NULL);
-	if (found)
-	{
-		len = ft_strlen(sub);
-		new_len = ft_strlen(str) - len;
-		result = ft_malloc((new_len + 1) * sizeof(char));
-		if (result)
-		{
-			i = found - str;
-			ft_strncpy(result, str, i);
-			ft_strncpy(result + i, found + len, new_len - i);
-			result[new_len] = '\0';
-		}
-	}
-	return (result);
 }
 
 int	ft_strlen_space(char *s)

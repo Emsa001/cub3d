@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:26:07 by triedel           #+#    #+#             */
-/*   Updated: 2024/06/18 15:16:00 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/18 20:31:21 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,15 @@ int					ft_strncmp(const char *s1, const char *s2, size_t n);
 /* ft_strnstr.c */
 char				*ft_strnstr(const char *haystack, const char *needle,
 						size_t len);
+char				*ft_strstr(char *haystack, char *needle);
 /* ft_strrchr.c */
 char				*ft_strrchr(const char *s, int c);
 /* ft_strtrim.c */
 char				*ft_strtrim(char const *s1, char const *set);
 /* ft_substr.c */
 char				*ft_substr(char const *s, unsigned int start, size_t len);
+char				*ft_remove_substr(char *str, char *sub);
+
 /* ft_tolower.c */
 int					ft_tolower(int c);
 /* ft_toupper.c */

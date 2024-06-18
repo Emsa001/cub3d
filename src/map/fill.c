@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:52:35 by btvildia          #+#    #+#             */
-/*   Updated: 2024/06/18 16:14:13 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/18 20:54:36 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,36 @@ void	fill(char **tab, t_point size, t_point begin, char to_fill[])
 	}
 }
 
+int	get_zero_count(char **map)
+{
+	int	i;
+	int	j;
+	int	zero;
+	int	p_count;
+
+	p_count = 0;
+	i = 0;
+	j = 0;
+	zero = 0;
+	while (map[i] != NULL)
+	{
+		j = 0;
+		while (map[i][j] != '\0')
+		{
+			if (map[i][j] == '0')
+				zero++;
+			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'W'
+				|| map[i][j] == 'E')
+				p_count++;
+			j++;
+		}
+		i++;
+	}
+	if (p_count != 1)
+		ft_error("Player count is not valid");
+	return (zero);
+}
+
 t_point	*get_begin_points(char **map)
 {
 	t_point	*begin_points;
@@ -74,20 +104,7 @@ t_point	*get_begin_points(char **map)
 	i = 0;
 	j = 0;
 	k = 0;
-	while (map[i] != NULL)
-	{
-		j = 0;
-		while (map[i][j] != '\0')
-		{
-			if (map[i][j] == '0')
-				k++;
-			j++;
-		}
-		i++;
-	}
-	begin_points = ft_malloc(sizeof(t_point) * (k + 1));
-	i = 0;
-	k = 0;
+	begin_points = ft_malloc(sizeof(t_point) * (get_zero_count(map) + 1));
 	while (map[i] != NULL)
 	{
 		j = 0;
