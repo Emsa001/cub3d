@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 15:42:19 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/18 15:57:19 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	movement(void)
 int	kd(int kc)
 {
 	if (kc == ESC)
-		exit(0);
+		exit_game();
 	if (kc == W)
 		pr_w = 1;
 	if (kc == S)
@@ -173,7 +173,7 @@ void	play(void)
 	p_a = player()->a;
 	c->win = mlx_new_window(c->mlx, c->map->width * 64, c->map->height * 64,
 			"Cub3D");
-	mlx_do_key_autorepeatoff(c->mlx);
+	mlx_do_key_autorepeaton(c->mlx);
 	mlx_hook(c->win, KeyPress, KeyPressMask, kd, (void *)c);
 	mlx_hook(c->win, KeyRelease, KeyReleaseMask, ku, (void *)c);
 	mlx_loop_hook(c->mlx, draw, (void *)c);

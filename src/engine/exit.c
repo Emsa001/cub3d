@@ -1,28 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.h                                           :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 15:47:10 by escura           ###   ########.fr       */
+/*   Created: 2024/06/18 15:52:35 by escura            #+#    #+#             */
+/*   Updated: 2024/06/18 15:57:46 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PLAYER_H
-# define PLAYER_H
+#include "cub3d.h"
 
-# include "cub3d.h"
-
-typedef struct s_player
+void	exit_game(void)
 {
-    float	x;
-    float	y;
-    float	a;
-}			t_player;
-
-t_player *init_player(t_player *p);
-t_player *player(void);
-
-#endif
+    t_cube *c = cube();
+    ft_exit();
+}
