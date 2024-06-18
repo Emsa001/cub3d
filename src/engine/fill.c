@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:52:35 by btvildia          #+#    #+#             */
-/*   Updated: 2024/06/18 15:13:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/18 15:13:23 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,4 +143,4 @@ void	check_valid(char **map, t_map *map_info)
 }
 
 
-//test
+//test 2
