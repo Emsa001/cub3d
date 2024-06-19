@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 17:47:53 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/19 20:36:06 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ typedef struct s_cube
 	void	*win;
 	char	*some_value;
 	int		keycode;
+
+	int 	x;
 	t_map	*map;
 
 }			t_cube;
