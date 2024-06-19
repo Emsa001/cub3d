@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 17:26:39 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:47:53 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,10 @@
 # define DR 0.0174533
 
 # define BLOCK_SIZE 64
-# define WIDTH 512
-# define HEIGHT 512
+# define WIDTH 1920
+# define HEIGHT 1080
+# define CENTER_WIDTH WIDTH / 2
+# define CENTER_HEIGHT HEIGHT / 2
 
 # define WALL '1'
 

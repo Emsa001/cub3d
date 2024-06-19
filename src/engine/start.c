@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 18:53:55 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 19:02:41 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void draw_wall(int x, int y){
 	const t_cube *c = cube();
 	const float dist = view_lane_distance(x, y);
 	const float height = 400;
-
-	printf("%f\n", dist);
 
 	int i = 0;
 	while(i < height){
@@ -75,7 +73,7 @@ void draw_line()
     {
 		if(is_touching(x / BLOCK_SIZE, y / BLOCK_SIZE, WALL)){
 			draw_cube(x, y, 3, 0x00FFF000);
-			draw_wall(x, y);
+			// draw_wall(x, y);
 			j++;
 			break;
 		}
