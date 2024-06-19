@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:53 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 13:57:04 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 16:40:16 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,15 @@ void	move_player(void)
     if (p->btn_a)
     {
         float left_angle = p->angle - PI / 2;
-        try_move(p->speed * cos(left_angle), p->speed * sin(left_angle));
+        try_move(0, p->speed * sin(left_angle));
+		try_move(p->speed * cos(left_angle), 0);
     }
 
     if (p->btn_d)
     {
         float right_angle = p->angle + PI / 2;
-        try_move(p->speed * cos(right_angle), p->speed * sin(right_angle));
+        try_move(0, p->speed * sin(right_angle));
+		try_move(p->speed * cos(right_angle), 0);
     }
 
 	if(p->btn_left)

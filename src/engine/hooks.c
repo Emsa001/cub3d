@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 19:25:04 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 13:54:01 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 15:58:07 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,14 @@ int	kd(int kc)
 	
 	if(kc == SHIFT)
 		p->speed = SPRINTSPEED;
+
+	if(kc == MINUS){
+		if(p->fov > 30)
+			p->fov -= 5;
+	}
+	if(kc == PLUS)
+		if(p->fov < 120)
+			p->fov += 5;
 
 	return (0);
 }
@@ -73,6 +81,6 @@ void init_hooks(void)
     mlx_do_key_autorepeaton(c->mlx);
 	mlx_hook(c->win, KeyPress, KeyPressMask, kd, (void *)c);
 	mlx_hook(c->win, KeyRelease, KeyReleaseMask, ku, (void *)c);
-	mlx_loop_hook(c->mlx, draw, (void *)c);
+	mlx_loop_hook(c->mlx, render, (void *)c);
 	mlx_loop(c->mlx);
 }
