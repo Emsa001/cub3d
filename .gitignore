@@ -6,3 +6,5 @@ cub3d
 */.a
 */.vscode
 */.obj
+includes/libft/*.o
+includes/ft_destructor/*.d
