@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:44 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 16:43:16 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 18:54:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,17 @@ float distance(float x1, float y1)
 
 float view_lane_distance(float x1, float y1)
 {
-    return (WIDTH / 2) / tan(player()->fov / 2);
+    float x2 = player()->x_px;
+    float y2 = player()->y_px;
+
+    float angle = player()->angle;
+    float angle2 = atan2f(y1 - y2, x1 - x2);
+    float diff = angle - angle2;
+
+    if (diff < -PI)
+        diff += 2 * PI;
+    if (diff > PI)
+        diff -= 2 * PI;
+
+    return distance(x1, y1) * cosf(diff);
 }
