@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 17:26:39 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/19 20:27:38 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,10 @@
 # define DR 0.0174533
 
 # define BLOCK_SIZE 64
-# define WIDTH 512
-# define HEIGHT 512
+# define WIDTH 1920
+# define HEIGHT 1080
+# define CENTRE_X WIDTH / 2
+# define CENTRE_Y HEIGHT / 2
 
 # define WALL '1'
 
@@ -69,6 +71,8 @@ typedef struct s_cube
 	void	*win;
 	char	*some_value;
 	int		keycode;
+
+	int 	x;
 	t_map	*map;
 
 }			t_cube;

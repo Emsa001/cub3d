@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 18:53:55 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 20:25:55 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,22 @@ void draw_cube(int x, int y, int size, int col){
 void draw_wall(int x, int y){
 
 	const t_cube *c = cube();
-	const float dist = view_lane_distance(x, y);
-	const float height = 400;
-
-	printf("%f\n", dist);
+	const float dist = distance(x, y);
+	const float height = 80000 / dist;
 
 	int i = 0;
-	while(i < height){
-		int color = 0x0060a5fa;
-		if(dist > 50)
-			color = 0x006366f1;
-		if(dist > 100)
-			color = 0x004f46e5;
-		if(dist > 200)
-			color = 0x004338ca;
-	
-		int size = WIDTH / cube()->map->width * BLOCK_SIZE;
-		mlx_pixel_put(c->mlx, c->win, x, y + i, color);
+	int y2 = height;
 
-		i++;
+	printf("dist: %f\n", dist);
+	int color = 0x006366f1;
+	if(dist > 100)
+		color = 0x004f46e5;
+	if(dist > 200)
+		color = 0x004338ca;
+
+	while(y2 > 0){
+		mlx_pixel_put(c->mlx, c->win, c->x, (y2 + HEIGHT / 6) , color);
+		y2--;
 	}
 }
 
@@ -74,13 +71,13 @@ void draw_line()
     while (i < WIDTH)
     {
 		if(is_touching(x / BLOCK_SIZE, y / BLOCK_SIZE, WALL)){
-			draw_cube(x, y, 3, 0x00FFF000);
+			// draw_cube(x, y, 3, 0x00FFF000);
 			draw_wall(x, y);
 			j++;
 			break;
 		}
 
-        mlx_pixel_put(c->mlx, c->win, x, y, 0x00FF0000);
+        // mlx_pixel_put(c->mlx, c->win, x, y, 0x00FF0000);
 
         int e2 = 2 * err;
         if (e2 > -dy)
@@ -104,6 +101,17 @@ void	draw_player()
 	const t_player *p = player();
 
 	draw_cube(p->x_px, p->y_px, 5, 0x00FF0000);
+}
+
+void draw_middle_line()
+{
+	const t_cube *c = cube();
+
+	int i = 0;
+	while(i < WIDTH){
+		mlx_pixel_put(c->mlx, c->win, i, HEIGHT / 2, 0x0000FF00);
+		i++;
+	}
 }
 
 int	render(t_cube *c)
@@ -132,6 +140,7 @@ int	render(t_cube *c)
 	render_player();
 	destroy_image(wall);
 	
+	draw_middle_line();
 	return (0);
 }
 
