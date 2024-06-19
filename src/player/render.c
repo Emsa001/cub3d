@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:57:03 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 20:29:08 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 20:32:03 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void render_player()
 
 	float angle = p->angle;
 
-	int multipler = 10;
+	int multipler = 4;
 
 	c->x = 0;
 

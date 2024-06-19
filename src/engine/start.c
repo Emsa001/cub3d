@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 20:25:55 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 20:34:20 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,9 @@ void draw_wall(int x, int y){
 	int y2 = height;
 
 	printf("dist: %f\n", dist);
-	int color = 0x006366f1;
-	if(dist > 100)
-		color = 0x004f46e5;
-	if(dist > 200)
-		color = 0x004338ca;
+	int blue_intensity = 255 - (int)dist; // decrease blue intensity with distance
+	if(blue_intensity < 0) blue_intensity = 0; // ensure it doesn't go below 0
+	int color = blue_intensity; // blue color
 
 	while(y2 > 0){
 		mlx_pixel_put(c->mlx, c->win, c->x, (y2 + HEIGHT / 6) , color);
