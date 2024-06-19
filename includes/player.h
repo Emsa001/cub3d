@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 19:54:35 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 12:38:07 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define PLAYER_H
 
 # include "cub3d.h"
+
+# define WALKSPEED 2
+# define SPRINTSPEED 5
 
 typedef struct s_player
 {
@@ -26,15 +29,19 @@ typedef struct s_player
     float   x_dir;
     float   y_dir;
     
-    float	a;
+    float	angle;
 
     bool     btn_w;
     bool     btn_s;
     bool     btn_a;
     bool     btn_d;
+
+    int     speed;
 }			t_player;
 
 t_player *init_player(t_player *p);
 t_player *player(void);
+int	movement(void);
+bool touch(char c);
 
 #endif

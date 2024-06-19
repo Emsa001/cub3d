@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 19:57:47 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 12:36:27 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 # define LEFT 65361
 # define DOWN 65364
 # define RIGHT 65363
+# define SHIFT 65505
 // math constants
 # define PI 3.14159265359
 # define P2 PI / 2
@@ -56,6 +57,8 @@
 # define BLOCK_SIZE 64
 # define WIDTH 1920
 # define HEIGHT 1080
+
+# define WALL '1'
 
 
 typedef struct s_cube
@@ -74,7 +77,14 @@ void		start_game(void);
 void init_hooks(void);
 int	draw(t_cube *p);
 
-void	exit_game(void);
 
+/* MLX */
+void *load_image(char *path);
+void draw_image(void *img, int x, int y);
+void destroy_image(void *img);
+void clean_window();
+
+/* EXIT */
+void	exit_game(void);
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_utils.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:59:54 by btvildia          #+#    #+#             */
-/*   Updated: 2024/06/18 16:10:20 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/19 11:54:23 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	print_map_info(void)
 		map->f[2]);
 	printf(GREEN "C: " BLUE " %d, %d, %d\n" RESET, map->c[0], map->c[1],
 		map->c[2]);
-	printf(GREEN "player_x: " BLUE "%f\n" RESET, player()->x);
-	printf(GREEN "player_y: " BLUE "%f\n" RESET, player()->y);
-	printf(GREEN "player_a: " BLUE "%f\n" RESET, player()->a);
+	printf(GREEN "player_x: " BLUE "%f (%fpx)\n" RESET, player()->x, player()->x_px);
+	printf(GREEN "player_y: " BLUE "%f (%fpx)\n" RESET, player()->y, player()->y_px);
+	printf(GREEN "player_a: " BLUE "%f\n" RESET, player()->angle);
 	while (i < map->height)
 	{
 		if (ft_strchr(map->map[i], 'N') || ft_strchr(map->map[i], 'S')

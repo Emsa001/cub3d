@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 19:25:04 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 19:34:31 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 12:38:14 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	kd(int kc)
 		player()->btn_a = true;
 	if (kc == D)
 		player()->btn_d = true;
+	if(kc == SHIFT)
+		player()->speed = SPRINTSPEED;
 	return (0);
 }
 
@@ -37,6 +39,8 @@ int	ku(int kc)
         player()->btn_a = false;
 	if (kc == D)
         player()->btn_d = false;
+	if(kc == SHIFT)
+		player()->speed = WALKSPEED;
 	return (0);
 }
 

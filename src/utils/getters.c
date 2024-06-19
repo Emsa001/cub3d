@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:21:26 by btvildia          #+#    #+#             */
-/*   Updated: 2024/06/18 19:59:49 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 11:52:03 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,13 +105,13 @@ void	get_player_position(char **map)
 				player()->x = j + 0.5;
 				player()->y = i + 0.5;
 				if (map[i][j] == 'N')
-					player()->a = 3 * PI / 2;
+					player()->angle = 3 * PI / 2;
 				else if (map[i][j] == 'S')
-					player()->a = PI / 2;
+					player()->angle = PI / 2;
 				else if (map[i][j] == 'W')
-					player()->a = PI;
+					player()->angle = PI;
 				else if (map[i][j] == 'E')
-					player()->a = 0;
+					player()->angle = 0;
 				return ;
 			}
 			j++;

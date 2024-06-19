@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 20:22:44 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 11:58:11 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,7 @@ void draw_line(int len)
 	}
 }
 
-// void	draw_arrow()
-// {
-// 	const t_player *p = player();
-	
-// 	const float	x = p->x_px + p->x_dir * 100;
-// 	const float y = p->y_px + p->y_dir * 100;
-	
-// 	draw_line(x, y, 0x00FFFF00);
-// }
+
 
 void	draw_player()
 {
@@ -70,6 +62,7 @@ void	draw_player()
 	int	i;
 
 	i = 0;
+	movement();
 	while (i < 5)
 	{
 		mlx_pixel_put(c->mlx, c->win, p->x_px + i - 2.5, p->y_px - 		2.5, 0x00FF0000);
@@ -80,49 +73,15 @@ void	draw_player()
 	}
 }
 
-int	movement(void)
-{
-	t_player *p = player();
-
-	if (p->btn_w)
-	{
-		p->x_px += p->x_dir;
-		p->y_px += p->y_dir;
-	}
-	if (p->btn_s)
-	{
-		p->x_px -= p->x_dir;
-		p->y_px -= p->y_dir;
-	}
-	if (p->btn_a)
-	{
-		p->a -= 0.1;
-		if (p->a < 0)
-			p->a += 2 * PI;
-		p->x_dir = cos(p->a) * 5;
-		p->y_dir = sin(p->a) * 5;
-	}
-	if (p->btn_d)
-	{
-		p->a += 0.1;
-		if (p->a > 2 * PI)
-			p->a -= 2 * PI;
-		p->x_dir = cos(p->a) * 5;
-		p->y_dir = sin(p->a) * 5;
-	}
-	return (0);
-}
-
 int	draw(t_cube *c)
 {
-	void	*wall;
 	int		i;
 	int		j;
+	void *wall = load_image("assets/Square.xpm");
 
 	usleep(16666);
-	mlx_clear_window(c->mlx, c->win);
-	wall = mlx_xpm_file_to_image(c->mlx, "assets/Square.xpm", &(int){0},
-			&(int){0});
+	clean_window();
+
 	i = 0;
 	j = 0;
 	while (i < c->map->height)
@@ -131,16 +90,16 @@ int	draw(t_cube *c)
 		while (j < c->map->width)
 		{
 			if (c->map->map[i][j] == '1')
-				mlx_put_image_to_window(c->mlx, c->win, wall, j * BLOCK_SIZE, i * BLOCK_SIZE);
+				draw_image(wall, j * BLOCK_SIZE, i * BLOCK_SIZE);
 			j++;
 		}
 		i++;
 	}
+
 	draw_player();
-	// draw_arrow();
-	float x = 100;
-	draw_line(x);
-	movement();
+	draw_line((float)100);
+	
+	destroy_image(wall);
 	return (0);
 }
 
