@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:21:26 by btvildia          #+#    #+#             */
-/*   Updated: 2024/06/19 17:27:17 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:29:09 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,13 @@ void	change_positions(char c, int i, int j)
 	player()->x = j + 0.5;
 	player()->y = i + 0.5;
 	if (c == 'N')
-		player()->a = 3 * PI / 2;
+		player()->angle = 3 * PI / 2;
 	else if (c == 'S')
-		player()->a = PI / 2;
+		player()->angle = PI / 2;
 	else if (c == 'W')
-		player()->a = PI;
+		player()->angle = PI;
 	else if (c == 'E')
-		player()->a = 0;
+		player()->angle = 0;
 }
 
 void	get_player_position(char **map)
