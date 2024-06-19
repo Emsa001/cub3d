@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 19:25:04 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 12:38:14 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 13:54:01 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,55 @@
 
 int	kd(int kc)
 {
+	t_player *p = player();
+
 	if (kc == ESC)
 		exit_game();
-	if (kc == W)
-		player()->btn_w = true;
-	if (kc == S)
-		player()->btn_s = true;
+	
+	if (kc == W || kc == UP)
+		p->btn_w = true;
+	if (kc == S || kc == DOWN)
+		p->btn_s = true;
 	if (kc == A)
-		player()->btn_a = true;
+		p->btn_a = true;
 	if (kc == D)
-		player()->btn_d = true;
+		p->btn_d = true;
+	
+	if(kc == LEFT){
+		p->btn_left = true;
+	}
+	if(kc == RIGHT){
+		p->btn_right = true;
+	}
+	
 	if(kc == SHIFT)
-		player()->speed = SPRINTSPEED;
+		p->speed = SPRINTSPEED;
+
 	return (0);
 }
 
 int	ku(int kc)
 {
-	if (kc == W)
-		player()->btn_w = false;
-	if (kc == S)
-        player()->btn_s = false;
+	t_player *p = player();
+	
+	if (kc == W || kc == UP)
+		p->btn_w = false;
+	if (kc == S || kc == DOWN)
+        p->btn_s = false;
 	if (kc == A)
-        player()->btn_a = false;
+        p->btn_a = false;
 	if (kc == D)
-        player()->btn_d = false;
+        p->btn_d = false;
 	if(kc == SHIFT)
-		player()->speed = WALKSPEED;
+		p->speed = WALKSPEED;
+
+	if(kc == LEFT){
+		p->btn_left = false;
+	}
+	if(kc == RIGHT){
+		p->btn_right = false;
+	}
+
 	return (0);
 }
 

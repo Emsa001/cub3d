@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:53 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 12:42:57 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 13:57:04 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ void try_move(float x, float y)
 	}
 }
 
-int	movement(void)
+void	move_player(void)
 {
 	t_player *p = player();
 	const t_cube *c = cube();
 
-	// print_map_info();
+	print_map_info();
 
 	float cos_angle = cos(p->angle);
 	float sin_angle = sin(p->angle);
@@ -48,16 +48,28 @@ int	movement(void)
 		}
 
 		try_move(0, p->speed * sin_angle);
-		try_move(p->speed * cos_angle,0);
+		try_move(p->speed * cos_angle, 0);
 	}
+	
+    if (p->btn_a)
+    {
+        float left_angle = p->angle - PI / 2;
+        try_move(p->speed * cos(left_angle), p->speed * sin(left_angle));
+    }
 
-	if (p->btn_a)
+    if (p->btn_d)
+    {
+        float right_angle = p->angle + PI / 2;
+        try_move(p->speed * cos(right_angle), p->speed * sin(right_angle));
+    }
+
+	if(p->btn_left)
 	{
 		p->angle -= 0.1;
 		if (p->angle < 0)
 			p->angle += 2 * PI;
 	}
-	if (p->btn_d)
+	if(p->btn_right)
 	{
 		p->angle += 0.1;
 		if (p->angle > 2 * PI)
@@ -66,11 +78,6 @@ int	movement(void)
 
 	p->x = p->x_px / BLOCK_SIZE;
 	p->y = p->y_px / BLOCK_SIZE;
-
-	p->x_dir = cos(p->angle) * 5;
-	p->y_dir = sin(p->angle) * 5;
-
-	return (0);
 }
 
 bool touch(char c)
@@ -79,5 +86,5 @@ bool touch(char c)
     const int y = player()->y_px / BLOCK_SIZE;
     const char **map = cube()->map->map;
     
-    return map[y][x] && map[y][x] == c;
+	return is_touching(x, y, c);
 }

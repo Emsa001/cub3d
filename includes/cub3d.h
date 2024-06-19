@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 12:36:27 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 13:33:16 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_cube		*cube(void);
 void		start_game(void);
 void init_hooks(void);
 int	draw(t_cube *p);
+bool is_touching(int x, int y, char c);
 
 
 /* MLX */

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 11:58:11 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 13:59:51 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,46 +14,47 @@
 
 #define COLOR 0x00FFFF00
 
-void draw_line(int len)
+void draw_lines()
 {
-	const t_cube *c = cube();
-	const t_player *p = player();
+	const int len = 10000;
+    const t_cube *c = cube();
+    t_player *p = player();
 
-	int x1 = p->x_px;
-	int y1 = p->y_px;
-	int x2 = p->x_px + p->x_dir * len;
-	int y2 = p->y_px + p->y_dir * len;
+    int x = p->x_px;
+    int y = p->y_px;
 
-	int dx = abs(x2 - x1);
-	int dy = abs(y2 - y1);
-	int sx = (x1 < x2) ? 1 : -1;
-	int sy = (y1 < y2) ? 1 : -1;
-	int err = dx - dy;
+	p->x_dir = cos(p->angle) * 5;
+	p->y_dir = sin(p->angle) * 5;
 
-	while (1)
-	{
-		mlx_pixel_put(c->mlx, c->win, x1, y1, COLOR);
+    int sx = (p->x_dir > 0) ? 1 : -1;
+    int sy = (p->y_dir > 0) ? 1 : -1;
+    int dx = fabsf(p->x_dir * len);
+    int dy = fabsf(p->y_dir * len);
+    int err = dx - dy;
 
-		if (x1 == x2 && y1 == y2)
+    int i = 0;
+    while (i < 1000)
+    {
+		if(is_touching(x / BLOCK_SIZE, y / BLOCK_SIZE, WALL))
 			break;
 
-		int e2 = 2 * err;
+        mlx_pixel_put(c->mlx, c->win, x, y, COLOR);
 
-		if (e2 > -dy)
-		{
-			err -= dy;
-			x1 += sx;
-		}
+        int e2 = 2 * err;
+        if (e2 > -dy)
+        {
+            err -= dy;
+            x += sx;
+        }
+        if (e2 < dx)
+        {
+            err += dx;
+            y += sy;
+        }
 
-		if (e2 < dx)
-		{
-			err += dx;
-			y1 += sy;
-		}
-	}
+        i++;
+    }
 }
-
-
 
 void	draw_player()
 {
@@ -62,7 +63,6 @@ void	draw_player()
 	int	i;
 
 	i = 0;
-	movement();
 	while (i < 5)
 	{
 		mlx_pixel_put(c->mlx, c->win, p->x_px + i - 2.5, p->y_px - 		2.5, 0x00FF0000);
@@ -96,8 +96,17 @@ int	draw(t_cube *c)
 		i++;
 	}
 
+	move_player();
 	draw_player();
-	draw_line((float)100);
+
+	float angle = player()->angle;
+
+	player()->angle -= 0.01 * player()->fov;
+	for(int i = 0; i < player()->fov * 2; i++){
+		draw_lines();
+		player()->angle += 0.01;
+	}
+	player()->angle = angle;
 	
 	destroy_image(wall);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 12:38:07 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 13:38:32 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 # define WALKSPEED 2
 # define SPRINTSPEED 5
+# define FOV 60
 
 typedef struct s_player
 {
@@ -35,13 +36,17 @@ typedef struct s_player
     bool     btn_s;
     bool     btn_a;
     bool     btn_d;
+    
+    bool     btn_left;
+    bool     btn_right;
 
+    int     fov;
     int     speed;
 }			t_player;
 
 t_player *init_player(t_player *p);
 t_player *player(void);
-int	movement(void);
+void	move_player(void);
 bool touch(char c);
 
 #endif
