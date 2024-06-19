@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 20:34:20 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 21:03:55 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,18 @@ void draw_cube(int x, int y, int size, int col){
 	}
 }
 
-void draw_wall(int x, int y){
+void draw_wall(float x, float y){
 
 	const t_cube *c = cube();
-	const float dist = distance(x, y);
+	const float dist = view_lane_distance(x, y);
 	const float height = 80000 / dist;
 
 	int i = 0;
 	int y2 = height;
 
-	printf("dist: %f\n", dist);
-	int blue_intensity = 255 - (int)dist; // decrease blue intensity with distance
-	if(blue_intensity < 0) blue_intensity = 0; // ensure it doesn't go below 0
-	int color = blue_intensity; // blue color
+	int blue_intensity = 255 - (int)dist;
+	if(blue_intensity < 0) blue_intensity = 0;
+	int color = blue_intensity;
 
 	while(y2 > 0){
 		mlx_pixel_put(c->mlx, c->win, c->x, (y2 + HEIGHT / 6) , color);
@@ -52,8 +51,8 @@ void draw_line()
     const t_cube *c = cube();
     t_player *p = player();
 
-    int x = p->x_px;
-    int y = p->y_px;
+    float x = p->x_px;
+    float y = p->y_px;
 
 	p->x_dir = cos(p->angle) * 5;
 	p->y_dir = sin(p->angle) * 5;
