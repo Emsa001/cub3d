@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:19:15 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 19:18:47 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 16:55:34 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_map(char *av)
 	ft_free(c);
 	if (fd == -1)
 		ft_error("Map not found");
-	map = ft_malloc(sizeof(char *) * 100);
+	map = ft_malloc(sizeof(char *) * MAX_SIZE);
 	i = 0;
 	while (1)
 	{
@@ -38,6 +38,5 @@ void	init_map(char *av)
 	close(fd);
 	map_info = check_map(map, i);
 	ft_arrdel((void **)map);
-
 	cube()->map = map_info;
 }

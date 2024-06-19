@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 19:57:47 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 17:18:05 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,18 @@
 # include "fcntl.h"
 # include "ft_destructor/ft_alloc.h"
 # include "libft.h"
+# include "map.h"
 # include "mlx/mlx.h"
+# include "player.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <math.h>
+# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/time.h>
 # include <unistd.h>
-# include <stdbool.h>
-
-# include "player.h"
-# include "map.h"
 
 # define YELLOW "\033[1;33m"
 # define GREEN "\033[1;32m"
@@ -57,7 +56,6 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 
-
 typedef struct s_cube
 {
 	void	*mlx;
@@ -67,14 +65,14 @@ typedef struct s_cube
 	t_map	*map;
 }			t_cube;
 
-void 		check_params(char **av);
+void		check_params(char **av);
 t_cube		*init_cube(t_cube *c);
 t_cube		*cube(void);
 void		start_game(void);
-void init_hooks(void);
-int	draw(t_cube *p);
+void		init_hooks(void);
+int			draw(t_cube *p);
 
-void	exit_game(void);
-
+void		exit_game(void);
+void		ft_error(char *str);
 
 #endif

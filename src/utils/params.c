@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   params.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 19:18:52 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 19:19:56 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 17:14:41 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void check_params(char **av)
+void	check_params(char **av)
 {
 	if (!av[1] || av[2])
 	{

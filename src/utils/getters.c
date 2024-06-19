@@ -3,26 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   getters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:21:26 by btvildia          #+#    #+#             */
-/*   Updated: 2024/06/18 19:59:49 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 17:14:39 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	*check_get_color(int *colors, char **tmp)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	if (ft_arrlen(tmp) != 3)
+		ft_error("Invalid color");
+	while (tmp[i] != NULL)
+	{
+		colors[j] = ft_atoi(tmp[i]);
+		if (colors[j] < 0 || colors[j] > 255)
+			ft_error("Invalid color");
+		i++;
+		j++;
+	}
+	return (colors);
+}
 
 int	*get_color(t_map *map_info, char **map, char c)
 {
 	int		i;
 	char	*line;
 	char	**tmp;
-	int		*tmp_color;
+	int		*colors;
 
-	tmp_color = ft_malloc(sizeof(int) * 3);
-	tmp_color[0] = -1;
-	tmp_color[1] = -1;
-	tmp_color[2] = -1;
+	colors = ft_malloc(sizeof(int) * 3);
+	colors[0] = 0;
+	colors[1] = 0;
+	colors[2] = 0;
 	i = 0;
 	while (map[i] != NULL)
 	{
@@ -31,20 +51,13 @@ int	*get_color(t_map *map_info, char **map, char c)
 		{
 			line = get_next_string(line, &c);
 			tmp = ft_split(line, ',');
-			if (ft_arrlen(tmp) != 3)
-			{
-				ft_arrdel((void **)tmp);
-				ft_error("Invalid color");
-			}
-			tmp_color[0] = ft_atoi(tmp[0]);
-			tmp_color[1] = ft_atoi(tmp[1]);
-			tmp_color[2] = ft_atoi(tmp[2]);
+			colors = check_get_color(colors, tmp);
 			ft_arrdel((void **)tmp);
-			return (tmp_color);
+			return (colors);
 		}
 		i++;
 	}
-	return (tmp_color);
+	return (colors);
 }
 
 void	get_no_so_we_ea(t_map *map_info, char **map)
@@ -86,14 +99,29 @@ void	get_map_sizes(t_map *map_info, char **map)
 	map_info->height = i;
 }
 
+void	change_positions(char c, int i, int j)
+{
+	player()->x = j + 0.5;
+	player()->y = i + 0.5;
+	if (c == 'N')
+		player()->a = 3 * PI / 2;
+	else if (c == 'S')
+		player()->a = PI / 2;
+	else if (c == 'W')
+		player()->a = PI;
+	else if (c == 'E')
+		player()->a = 0;
+}
+
 void	get_player_position(char **map)
 {
 	int	i;
 	int	j;
+	int	p_count;
 
 	i = 0;
 	j = 0;
-
+	p_count = 0;
 	while (map[i] != NULL)
 	{
 		j = 0;
@@ -102,22 +130,15 @@ void	get_player_position(char **map)
 			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'W'
 				|| map[i][j] == 'E')
 			{
-				player()->x = j + 0.5;
-				player()->y = i + 0.5;
-				if (map[i][j] == 'N')
-					player()->a = 3 * PI / 2;
-				else if (map[i][j] == 'S')
-					player()->a = PI / 2;
-				else if (map[i][j] == 'W')
-					player()->a = PI;
-				else if (map[i][j] == 'E')
-					player()->a = 0;
-				return ;
+				change_positions(map[i][j], i, j);
+				p_count++;
 			}
 			j++;
 		}
 		i++;
 	}
+	if (p_count != 1)
+		ft_error("Invalid player position");
 }
 
 int	ft_check_correct(char *line)

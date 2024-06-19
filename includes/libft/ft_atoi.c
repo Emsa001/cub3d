@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 12:36:10 by triedel           #+#    #+#             */
-/*   Updated: 2024/06/17 14:13:56 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:13:55 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	ft_atoi(const char *str)
 			sign = -1;
 		s++;
 	}
+	if (!ft_isdigit(*s))
+		return (-1);
 	while (*s && ft_isdigit(*s))
 	{
 		nb *= 10;

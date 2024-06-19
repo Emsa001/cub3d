@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:59:54 by btvildia          #+#    #+#             */
-/*   Updated: 2024/06/18 20:29:53 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:21:56 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,6 @@ void	print_map_info(void)
 		i++;
 	}
 	printf("\n");
-}
-
-void	ft_error(char *str)
-{
-	write(2, "Error: ", 7);
-	write(2, str, ft_strlen(str));
-	write(2, "\n", 1);
-	exit(1);
 }
 
 void	print_map(char **map)
