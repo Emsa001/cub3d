@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 17:18:05 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:26:39 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@
 # define LEFT 65361
 # define DOWN 65364
 # define RIGHT 65363
+# define SHIFT 65505
+
+# define MINUS 45
+# define PLUS 61
+
 // math constants
 # define PI 3.14159265359
 # define P2 PI / 2
@@ -53,8 +58,10 @@
 # define DR 0.0174533
 
 # define BLOCK_SIZE 64
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 512
+# define HEIGHT 512
+
+# define WALL '1'
 
 typedef struct s_cube
 {
@@ -63,6 +70,7 @@ typedef struct s_cube
 	char	*some_value;
 	int		keycode;
 	t_map	*map;
+
 }			t_cube;
 
 void		check_params(char **av);
@@ -70,8 +78,16 @@ t_cube		*init_cube(t_cube *c);
 t_cube		*cube(void);
 void		start_game(void);
 void		init_hooks(void);
-int			draw(t_cube *p);
+int			render(t_cube *p);
+bool		is_touching(int x, int y, char c);
 
+/* MLX */
+void		*load_image(char *path);
+void		draw_image(void *img, int x, int y);
+void		destroy_image(void *img);
+void		clean_window(void);
+
+/* EXIT */
 void		exit_game(void);
 void		ft_error(char *str);
 

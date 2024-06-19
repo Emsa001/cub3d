@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:59:54 by btvildia          #+#    #+#             */
-/*   Updated: 2024/06/19 17:21:56 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:25:30 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ void	print_map_info(void)
 		map->f[2]);
 	printf(GREEN "C: " BLUE " %d, %d, %d\n" RESET, map->c[0], map->c[1],
 		map->c[2]);
-	printf(GREEN "player_x: " BLUE "%f\n" RESET, player()->x);
-	printf(GREEN "player_y: " BLUE "%f\n" RESET, player()->y);
-	printf(GREEN "player_a: " BLUE "%f\n" RESET, player()->a);
+	printf(GREEN "player_x: " BLUE "%f (%fpx)\n" RESET, player()->x, player()->x_px);
+	printf(GREEN "player_y: " BLUE "%f (%fpx)\n" RESET, player()->y, player()->y_px);
+	printf(GREEN "player_a: " BLUE "%f\n" RESET, player()->angle);
+	printf(GREEN "player_speed: " BLUE "%d\n" RESET, player()->speed);
+	printf(GREEN "player_fov: " BLUE "%d\n" RESET, player()->fov);
 	while (i < map->height)
 	{
 		if (ft_strchr(map->map[i], 'N') || ft_strchr(map->map[i], 'S')

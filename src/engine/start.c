@@ -6,123 +6,113 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 20:22:44 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/19 17:21:49 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-#define COLOR 0x00FFFF00
-
-void draw_line(int len)
-{
+void draw_cube(int x, int y, int size, int col){
+	int i = 0;
 	const t_cube *c = cube();
-	const t_player *p = player();
-
-	int x1 = p->x_px;
-	int y1 = p->y_px;
-	int x2 = p->x_px + p->x_dir * len;
-	int y2 = p->y_px + p->y_dir * len;
-
-	int dx = abs(x2 - x1);
-	int dy = abs(y2 - y1);
-	int sx = (x1 < x2) ? 1 : -1;
-	int sy = (y1 < y2) ? 1 : -1;
-	int err = dx - dy;
-
-	while (1)
+	
+	while (i < size)
 	{
-		mlx_pixel_put(c->mlx, c->win, x1, y1, COLOR);
-
-		if (x1 == x2 && y1 == y2)
-			break;
-
-		int e2 = 2 * err;
-
-		if (e2 > -dy)
-		{
-			err -= dy;
-			x1 += sx;
-		}
-
-		if (e2 < dx)
-		{
-			err += dx;
-			y1 += sy;
-		}
+		mlx_pixel_put(c->mlx, c->win, x + i - size/2, y - 		size/2, col);
+		mlx_pixel_put(c->mlx, c->win, x - 	size/2, y + i - 	size/2, col);
+		mlx_pixel_put(c->mlx, c->win, x + i - size/2, y + 		size/2, col);
+		mlx_pixel_put(c->mlx, c->win, x + 	size/2, y + i - 	size/2, col);
+		i++;
 	}
 }
 
-// void	draw_arrow()
-// {
-// 	const t_player *p = player();
+void draw_wall(int x, int y){
+
+	const t_cube *c = cube();
+	const float dist = view_lane_distance(x, y);
+	const float height = 400;
+
+	int i = 0;
+	while(i < height){
+		int color = 0x0060a5fa;
+		if(dist > 50)
+			color = 0x006366f1;
+		if(dist > 100)
+			color = 0x004f46e5;
+		if(dist > 200)
+			color = 0x004338ca;
 	
-// 	const float	x = p->x_px + p->x_dir * 100;
-// 	const float y = p->y_px + p->y_dir * 100;
-	
-// 	draw_line(x, y, 0x00FFFF00);
-// }
+		int size = WIDTH / cube()->map->width * BLOCK_SIZE;
+		mlx_pixel_put(c->mlx, c->win, x, y + i, color);
+
+		i++;
+	}
+}
+
+void draw_line()
+{
+	const int len = 10000;
+    const t_cube *c = cube();
+    t_player *p = player();
+
+    int x = p->x_px;
+    int y = p->y_px;
+
+	p->x_dir = cos(p->angle) * 5;
+	p->y_dir = sin(p->angle) * 5;
+
+    int sx = (p->x_dir > 0) ? 1 : -1;
+    int sy = (p->y_dir > 0) ? 1 : -1;
+    int dx = fabsf(p->x_dir * len);
+    int dy = fabsf(p->y_dir * len);
+    int err = dx - dy;
+
+    int i = 0;
+	int j = 0;
+    while (i < WIDTH)
+    {
+		if(is_touching(x / BLOCK_SIZE, y / BLOCK_SIZE, WALL)){
+			draw_cube(x, y, 3, 0x00FFF000);
+			// draw_wall(x, y);
+			j++;
+			break;
+		}
+
+        mlx_pixel_put(c->mlx, c->win, x, y, 0x00FF0000);
+
+        int e2 = 2 * err;
+        if (e2 > -dy)
+        {
+            err -= dy;
+            x += sx;
+        }
+        if (e2 < dx)
+        {
+            err += dx;
+            y += sy;
+        }
+
+        i++;
+    }
+}
 
 void	draw_player()
 {
 	const t_cube *c = cube();
 	const t_player *p = player();
-	int	i;
 
-	i = 0;
-	while (i < 5)
-	{
-		mlx_pixel_put(c->mlx, c->win, p->x_px + i - 2.5, p->y_px - 		2.5, 0x00FF0000);
-		mlx_pixel_put(c->mlx, c->win, p->x_px - 	2.5, p->y_px + i - 	2.5, 0x00FF0000);
-		mlx_pixel_put(c->mlx, c->win, p->x_px + i - 2.5, p->y_px + 		2.5, 0x00FF0000);
-		mlx_pixel_put(c->mlx, c->win, p->x_px + 	2.5, p->y_px + i - 	2.5, 0x00FF0000);
-		i++;
-	}
+	draw_cube(p->x_px, p->y_px, 5, 0x00FF0000);
 }
 
-int	movement(void)
+int	render(t_cube *c)
 {
-	t_player *p = player();
-
-	if (p->btn_w)
-	{
-		p->x_px += p->x_dir;
-		p->y_px += p->y_dir;
-	}
-	if (p->btn_s)
-	{
-		p->x_px -= p->x_dir;
-		p->y_px -= p->y_dir;
-	}
-	if (p->btn_a)
-	{
-		p->a -= 0.1;
-		if (p->a < 0)
-			p->a += 2 * PI;
-		p->x_dir = cos(p->a) * 5;
-		p->y_dir = sin(p->a) * 5;
-	}
-	if (p->btn_d)
-	{
-		p->a += 0.1;
-		if (p->a > 2 * PI)
-			p->a -= 2 * PI;
-		p->x_dir = cos(p->a) * 5;
-		p->y_dir = sin(p->a) * 5;
-	}
-	return (0);
-}
-
-int	draw(t_cube *c)
-{
-	void	*wall;
 	int		i;
 	int		j;
+	void *wall = load_image("assets/Square.xpm");
 
 	usleep(16666);
-	mlx_clear_window(c->mlx, c->win);
-	wall = mlx_xpm_file_to_image(c->mlx, "assets/Square.xpm", &(int){0},
-			&(int){0});
+	clean_window();
+
 	i = 0;
 	j = 0;
 	while (i < c->map->height)
@@ -131,16 +121,15 @@ int	draw(t_cube *c)
 		while (j < c->map->width)
 		{
 			if (c->map->map[i][j] == '1')
-				mlx_put_image_to_window(c->mlx, c->win, wall, j * BLOCK_SIZE, i * BLOCK_SIZE);
+				draw_image(wall, j * BLOCK_SIZE, i * BLOCK_SIZE);
 			j++;
 		}
 		i++;
 	}
-	draw_player();
-	// draw_arrow();
-	float x = 100;
-	draw_line(x);
-	movement();
+
+	render_player();
+	destroy_image(wall);
+	
 	return (0);
 }
 
@@ -150,7 +139,7 @@ void	start_game(void)
 	t_player *p;
 
 	c = cube();
-	print_map_info();
+	// print_map_info();
 	
 	c->win = mlx_new_window(c->mlx, WIDTH, HEIGHT, "Cub3D");
 

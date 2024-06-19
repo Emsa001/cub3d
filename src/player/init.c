@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 16:55:03 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/19 17:26:56 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@ t_player	*init_player(t_player *p)
 	if (p == NULL)
 		return (player);
 	player = p;
-	get_player_position(cube()->map->map);
-	// player->a = PI / 2;
+
+    get_player_position(cube()->map->map);
+	
 	player->x_px = player->x * BLOCK_SIZE;
 	player->y_px = player->y * BLOCK_SIZE;
 	player->x_dir = 0;
@@ -31,6 +32,11 @@ t_player	*init_player(t_player *p)
 	player->btn_s = false;
 	player->btn_a = false;
 	player->btn_d = false;
+	player->btn_left = false;
+	player->btn_right = false;
+
+	player->speed = WALKSPEED;
+	player->fov = FOV;
 	return (player);
 }
 
