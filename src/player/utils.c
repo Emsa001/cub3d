@@ -6,33 +6,30 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:44 by escura            #+#    #+#             */
-/*   Updated: 2024/06/20 11:54:14 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/20 15:33:16 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-float	distance(float x1, float y1)
+// Distance calculation function
+float distance(float x1, float y1, float x2, float y2)
 {
-	float	x2;
-	float	y2;
-
-	x2 = player()->x_px;
-	y2 = player()->y_px;
-	return (sqrtf(powf(x2 - x1, 2) + powf(y2 - y1, 2)));
+    return sqrtf((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
 }
 
-float view_lane_distance(float x1, float y1)
+double view_lane_distance(float x1, float y1, float angle)
 {
-    float dx = player()->x_px;
-    float dy = player()->y_px;
+    float x2 = player()->x_px;
+    float y2 = player()->y_px;
+    
+    float player_angle = player()->angle;
 
-    float meet_angle = atan2f(y1 - dy, x1 - dx);
-    float player_directrion = atan2f(player()->y_dir, player()->x_dir);
+    printf("Player angle: %f\n", player_angle);
+    printf("Ray angle: %f\n", angle);
+    
+    float raw_distance = distance(x1, y1, x2, y2);
+    double adjusted_distance = raw_distance * cos(player_angle - angle);
 
-    printf("meet_angle: %f\n", meet_angle);
-
-    float dist = distance(x1, y1) * cosf(player_directrion - meet_angle);
-
-    return dist;
+    return adjusted_distance;
 }

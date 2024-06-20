@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:21:26 by btvildia          #+#    #+#             */
-/*   Updated: 2024/06/19 17:29:09 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:09:03 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,11 @@ void	change_positions(char c, int i, int j)
 		player()->angle = PI;
 	else if (c == 'E')
 		player()->angle = 0;
+	
+	player()->direction = player()->angle * (180 / PI);
+    while (player()->direction >= 360) {
+        player()->direction -= 360;
+    }
 }
 
 void	get_player_position(char **map)

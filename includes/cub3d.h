@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 20:36:06 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/20 15:35:13 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,22 @@ t_cube		*cube(void);
 void		start_game(void);
 void		init_hooks(void);
 int			render(t_cube *p);
-bool		is_touching(int x, int y, char c);
+bool is_touching(float px, float py, char c);
+float 		distance(float x1, float y1, float x2, float y2);
+
+/* DRAW */
+void draw_line(float angle);
+void	draw_middle_line(void);
+void	draw_cube(int x, int y, int size, int col);
+void	draw_h_line(float height, int color);
+void	draw_wall(float x, float y, float angle, int color);
 
 /* MLX */
 void		*load_image(char *path);
 void		draw_image(void *img, int x, int y);
 void		destroy_image(void *img);
 void		clean_window(void);
+void put_pixel(int x, int y, int color);
 
 /* EXIT */
 void		exit_game(void);

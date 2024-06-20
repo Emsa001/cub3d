@@ -3,35 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 15:57:03 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 20:43:05 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/20 16:51:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	render_player(void)
+static void	draw_player(void)
 {
-	t_cube		*c;
-	t_player	*p;
-	float		angle;
-	int			multipler;
+	const t_cube	*c = cube();
+	const t_player	*p = player();
+
+	draw_cube(p->x_px, p->y_px, 5, 0x00FF0000);
+}
+
+void render_player(void) {
+	t_cube *c = cube();
+	t_player *p = player();
 
 	move_player();
 	draw_player();
-	c = cube();
-	p = player();
-	angle = p->angle;
-	multipler = 4;
-	c->x = 0;
-	p->angle -= 0.01 / (multipler / 2) * p->fov * (multipler / 2);
-	for (int i = 0; i < p->fov * multipler; i++)
-	{
-		draw_line();
-		p->angle += 0.01 / (multipler / 2);
-		c->x += WIDTH / (p->fov * multipler);
+
+	float angle = p->angle;
+	int numRays = 150; // Set numRays to a constant value
+	int i = 0;
+
+	float fovInRadians = p->fov * PI / 180;
+	float halfFovInRadians = fovInRadians / 2.0;
+	float angleOffset = angle - halfFovInRadians;
+
+	float rayWidth = (float)WIDTH / numRays; 
+	printf("Casting: %d rays\n", numRays);
+
+	while (i < numRays) {
+		float fraction = (float)i / numRays;
+		float rayAngle = angleOffset + fraction * fovInRadians;
+		draw_line(rayAngle);
+		c->x = rayWidth * i;
+		i++;
 	}
-	p->angle = angle;
 }

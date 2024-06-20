@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:35:04 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 11:46:30 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/20 14:43:50 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,11 @@ void clean_window()
     const t_cube *c = cube();
 
     mlx_clear_window(c->mlx, c->win);
+}
+
+void put_pixel(int x, int y, int color)
+{
+    const t_cube *c = cube();
+
+    mlx_pixel_put(c->mlx, c->win, x, y, color);
 }

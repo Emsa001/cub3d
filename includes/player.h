@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 17:18:52 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/20 15:33:21 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_player
     float   y_dir;
     
     float	angle;
+    double  direction;
 
     bool     btn_w;
     bool     btn_s;
@@ -42,6 +43,9 @@ typedef struct s_player
 
     int     fov;
     int     speed;
+
+    float plane_x;
+    float plane_y;
 }			t_player;
 
 t_player *init_player(t_player *p);
@@ -49,7 +53,9 @@ t_player *player(void);
 void	move_player(void);
 bool touch(char c);
 void render_player(void);
-float distance(float x1, float y1);
-float view_lane_distance(float x1, float y1);
+
+
+double view_lane_distance(float x1, float y1, float angle);
+
 
 #endif
