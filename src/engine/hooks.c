@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 19:25:04 by escura            #+#    #+#             */
-/*   Updated: 2024/06/20 14:35:40 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/20 17:39:32 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,6 @@ void init_hooks(void)
     mlx_do_key_autorepeaton(c->mlx);
 	mlx_hook(c->win, KeyPress, KeyPressMask, kd, (void *)c);
 	mlx_hook(c->win, KeyRelease, KeyReleaseMask, ku, (void *)c);
-	mlx_loop_hook(c->mlx, render, (void *)c);
+	mlx_loop_hook(c->mlx, render_scene, (void *)c);
 	mlx_loop(c->mlx);
 }

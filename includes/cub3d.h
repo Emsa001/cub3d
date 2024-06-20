@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/06/20 15:35:13 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/20 20:47:55 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <string.h>
 # include <sys/time.h>
 # include <unistd.h>
+# include "textures.h"
 
 # define YELLOW "\033[1;33m"
 # define GREEN "\033[1;32m"
@@ -77,12 +78,30 @@ typedef struct s_cube
 
 }			t_cube;
 
+typedef struct s_render
+{
+	void *mlx;
+	void *win;
+	void *img_ptr;
+	char *img_data;
+
+	int bits_per_pixel;
+	int size_line;
+	int endian;
+
+	
+} t_render;
+
+/* ENGINE */
+t_render *init_render(t_render *r);
+t_render *render(void);
+
 void		check_params(char **av);
 t_cube		*init_cube(t_cube *c);
 t_cube		*cube(void);
 void		start_game(void);
 void		init_hooks(void);
-int			render(t_cube *p);
+int			render_scene(t_cube *p);
 bool is_touching(float px, float py, char c);
 float 		distance(float x1, float y1, float x2, float y2);
 
@@ -98,7 +117,7 @@ void		*load_image(char *path);
 void		draw_image(void *img, int x, int y);
 void		destroy_image(void *img);
 void		clean_window(void);
-void put_pixel(int x, int y, int color);
+void 		put_pixel(int x, int y, int color);
 
 /* EXIT */
 void		exit_game(void);

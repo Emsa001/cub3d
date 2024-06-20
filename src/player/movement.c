@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:53 by escura            #+#    #+#             */
-/*   Updated: 2024/06/20 14:45:03 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/20 19:07:34 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ void move_player(void) {
     if (p->direction > 180)
         p->direction -= 360;
     
-    printf("\n");
-    printf("direction: %f\n", p->direction);
-    printf("angle: %f\n", p->angle);
-    printf("x_dir: %f\n", p->x_dir);
-    printf("y_dir: %f\n", p->y_dir);
-    printf("x: %f\n", p->x);
-    printf("y: %f\n", p->y);
-    printf("\n");
+    // printf("\n");
+    // printf("direction: %f\n", p->direction);
+    // printf("angle: %f\n", p->angle);
+    // printf("x_dir: %f\n", p->x_dir);
+    // printf("y_dir: %f\n", p->y_dir);
+    // printf("x: %f\n", p->x);
+    // printf("y: %f\n", p->y);
+    // printf("\n");
 
     // float tmp_x = p->plane_x;
     // p->plane_x = p->plane_x * cos(p->speed) - p->plane_y * sin(p->speed);
