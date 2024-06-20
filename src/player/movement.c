@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:53 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 17:29:20 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:16:22 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	move_player(void)
 	float			right_angle;
 
 	p = player();
-	print_map_info();
+	// print_map_info();
 	cos_angle = cos(p->angle);
 	sin_angle = sin(p->angle);
 	if (p->btn_w || p->btn_s)
@@ -84,9 +84,9 @@ void	move_player(void)
 
 bool	touch(char c)
 {
-	const int x = player()->x_px / BLOCK_SIZE;
-	const int y = player()->y_px / BLOCK_SIZE;
-	const char **map = cube()->map->map;
+	const int	x = player()->x_px / BLOCK_SIZE;
+	const int	y = player()->y_px / BLOCK_SIZE;
+	const char	**map = cube()->map->map;
 
 	return (is_touching(x, y, c));
 }
