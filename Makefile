@@ -6,7 +6,7 @@
 #    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/06/18 19:33:51 by escura           ###   ########.fr        #
+#    Updated: 2024/06/20 23:16:01 by escura           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,13 @@ all: $(NAME)
 run: all
 	./$(NAME) map.cub
 
+t:
+	time ./$(NAME) 1
+	time ./$(NAME) 5
+	time ./$(NAME) 10
+	time ./$(NAME) 20
+	time ./$(NAME) 30
+
 $(NAME): $(LIBFT) $(OBJ)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(OBJ) -o $(NAME) $(LDLIBS) $(LDFLAGS)
 
@@ -76,31 +83,31 @@ mlx:
 	git clone https://github.com/42Paris/minilibx-linux.git ./includes/mlx
 	
 # ===== Tests =====
-TEST_DIR = tests
-TEST_REPO = git@github.com:triedel42/minishell-tests
-TEST = $(TEST_DIR)/test
-LIBGTEST_DIR = googletest
-LIBGTEST = $(LIBGTEST_DIR)/build/lib/libgtest.a
-CXX = c++
-CXXFLAGS = -std=c++14
-CXXFLAGS += -I$(LIBGTEST_DIR)/googletest/include
-CXXFLAGS += -Wno-write-strings
-LDLIBS += -L$(LIBGTEST_DIR)/build/lib
+# TEST_DIR = tests
+# TEST_REPO = git@github.com:triedel42/minishell-tests
+# TEST = $(TEST_DIR)/test
+# LIBGTEST_DIR = googletest
+# LIBGTEST = $(LIBGTEST_DIR)/build/lib/libgtest.a
+# CXX = c++
+# CXXFLAGS = -std=c++14
+# CXXFLAGS += -I$(LIBGTEST_DIR)/googletest/include
+# CXXFLAGS += -Wno-write-strings
+# LDLIBS += -L$(LIBGTEST_DIR)/build/lib
 
-t: $(TEST)
-	./$(TEST)
+# t: $(TEST)
+# 	./$(TEST)
 
-$(TEST): $(TEST_DIR) $(OBJ_TEST) $(LIBGTEST)
-	$(CXX) -o $@ $(CFLAGS) $(CPPFLAGS) $(CXXFLAGS) $(wildcard tests/*.cc) $(OBJ_TEST) $(LDLIBS) -lgtest
+# $(TEST): $(TEST_DIR) $(OBJ_TEST) $(LIBGTEST)
+# 	$(CXX) -o $@ $(CFLAGS) $(CPPFLAGS) $(CXXFLAGS) $(wildcard tests/*.cc) $(OBJ_TEST) $(LDLIBS) -lgtest
 
-$(TEST_DIR):
-	git clone $(TEST_REPO) $(TEST_DIR)
+# $(TEST_DIR):
+# 	git clone $(TEST_REPO) $(TEST_DIR)
 
-$(LIBGTEST_DIR):
-	git clone --depth=1 https://github.com/google/googletest $@
+# $(LIBGTEST_DIR):
+# 	git clone --depth=1 https://github.com/google/googletest $@
 
-$(LIBGTEST): $(LIBGTEST_DIR)
-	cd $< && mkdir -p build && cd build && cmake ..
-	make -j$(shell nproc) -C$(LIBGTEST_DIR)/build
+# $(LIBGTEST): $(LIBGTEST_DIR)
+# 	cd $< && mkdir -p build && cd build && cmake ..
+# 	make -j$(shell nproc) -C$(LIBGTEST_DIR)/build
 
 .PHONY: all clean fclean re run t v

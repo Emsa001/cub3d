@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/06/20 20:47:55 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/20 21:43:01 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ typedef struct s_render
 	int bits_per_pixel;
 	int size_line;
 	int endian;
-
 	
 } t_render;
 
