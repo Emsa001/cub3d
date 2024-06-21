@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/06/20 21:43:01 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/21 19:06:19 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ typedef struct s_render
 	void *mlx;
 	void *win;
 	void *img_ptr;
-	char *img_data;
+	char *data;
 
 	int bits_per_pixel;
 	int size_line;
@@ -108,8 +108,7 @@ float 		distance(float x1, float y1, float x2, float y2);
 void draw_line(float angle);
 void	draw_middle_line(void);
 void	draw_cube(int x, int y, int size, int col);
-void	draw_h_line(float height, int color);
-void	draw_wall(float x, float y, float angle, int color);
+void	draw_h_line(float height, float distance);
 
 /* MLX */
 void		*load_image(char *path);

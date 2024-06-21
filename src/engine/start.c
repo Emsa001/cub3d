@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/06/20 20:46:55 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/21 18:37:45 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void render_background() {
 
     for (int y = 0; y < sky->height; y++) {
         for (int x = 0; x < sky->width; x++) {
-            int pixel = *(int *)(sky->img_data + ((x + y * sky->width) * sky->bpp / 8));
+            int pixel = *(int *)(sky->data + ((x + y * sky->width) * sky->bpp / 8));
             put_pixel(x, y, pixel);
         }
     }
@@ -27,7 +27,7 @@ void render_background() {
 
     for (int y = 0; y < floor->height; y++) {
         for (int x = 0; x < floor->width; x++) {
-            int pixel = *(int *)(floor->img_data + ((x + y * floor->width) * floor->bpp / 8));
+            int pixel = *(int *)(floor->data + ((x + y * floor->width) * floor->bpp / 8));
             put_pixel(x, y + HEIGHT / 1.62, pixel);
         }
     }
@@ -38,7 +38,7 @@ void render_view()
 	t_cube *c = cube();
 
 	float angle = player()->angle;
-	int numRays = 200;
+	int numRays = 2000;
 	int i = 0;
 
 	float fovInRadians = player()->fov * PI / 180;
@@ -74,6 +74,10 @@ int render_scene(t_cube *c) {
 
     // render_background();
 	render_view();
+    // for(int i = 0; i < 500; i++){
+    //     draw_h_line(500, i);
+    // }
+
 
     mlx_put_image_to_window(render()->mlx, render()->win, render()->img_ptr, 0, 0);
     mlx_destroy_image(render()->mlx, render()->img_ptr);

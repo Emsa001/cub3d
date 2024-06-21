@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:10:09 by escura            #+#    #+#             */
-/*   Updated: 2024/06/20 20:51:12 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/21 19:05:18 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,22 @@ t_textures *init_textures(t_textures *t, void *mlx)
 	t_texture *floor = ft_malloc(sizeof(t_texture));
 
 	sky->image = mlx_xpm_file_to_image(mlx, "assets/sky.xpm", &sky->width, &sky->height);
-	sky->img_data = mlx_get_data_addr(sky->image, &sky->bpp, &sky->size_line, &sky->endian);
+	sky->data = mlx_get_data_addr(sky->image, &sky->bpp, &sky->size_line, &sky->endian);
 	t->sky = sky;
 
 	floor->image = mlx_xpm_file_to_image(mlx, "assets/floor.xpm", &floor->width, &floor->height);
-	floor->img_data = mlx_get_data_addr(floor->image, &floor->bpp, &floor->size_line, &floor->endian);
+	floor->data = mlx_get_data_addr(floor->image, &floor->bpp, &floor->size_line, &floor->endian);
 	t->floor = floor;
+
+	t_texture *wall_north = ft_malloc(sizeof(t_texture));
+	t_texture *wall_south = ft_malloc(sizeof(t_texture));
+	t_texture *wall_east = ft_malloc(sizeof(t_texture));
+	t_texture *wall_west = ft_malloc(sizeof(t_texture));
+
+	wall_north->image = mlx_xpm_file_to_image(mlx, "assets/wall2.xpm", &wall_north->width, &wall_north->height);
+	wall_north->data = mlx_get_data_addr(wall_north->image, &wall_north->bpp, &wall_north->size_line, &wall_north->endian);
+	t->wall_north = wall_north;
+	
 
 	texture = t;
 	return (texture);

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:35:04 by escura            #+#    #+#             */
-/*   Updated: 2024/06/20 20:43:32 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/21 17:29:13 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,13 @@ void put_pixel(int x, int y, int color)
 {
     t_render *r = render();
 
-    r->img_data = mlx_get_data_addr(r->img_ptr, &r->bits_per_pixel, &r->size_line, &r->endian);
+    r->data = mlx_get_data_addr(r->img_ptr, &r->bits_per_pixel, &r->size_line, &r->endian);
     if(x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
         return ;
         
-    r->img_data[y * r->size_line + x * r->bits_per_pixel / 8] = color;
+    int index = y * r->size_line + x * r->bits_per_pixel / 8;
+    r->data[index] = color;
+    r->data[index] = color & 0xFF;              // Blue component
+    r->data[index + 1] = (color >> 8) & 0xFF;   // Green component
+    r->data[index + 2] = (color >> 16) & 0xFF;  // Red component
 }

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/06/20 20:51:04 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/21 17:58:32 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct s_texture
     int bpp;
     int size_line;
     int endian;
-    char *img_data;
+    char *data;
     
     int width;
     int height;
@@ -36,11 +36,12 @@ typedef struct s_textures
     t_texture *wall_north;
     t_texture *wall_south;
     t_texture *wall_east;
-    t_texture *wall_west
+    t_texture *wall_west;
 } t_textures;
 
 t_textures *init_textures(t_textures *t, void *mlx);
 t_textures *textures(void);
+int get_pixel_from_image(int x, int y);
 
 
 #endif
