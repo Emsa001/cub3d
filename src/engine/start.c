@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/06/20 15:36:47 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/21 15:28:29 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	render(t_cube *c)
 
 	wall = load_image("assets/Square.xpm");
 	usleep(16666);
+	// draw_floor();
+	// draw_ceiling();
 	clean_window();
 	i = 0;
 	j = 0;
@@ -36,16 +38,16 @@ int	render(t_cube *c)
 	}
 	render_player();
 	destroy_image(wall);
-	draw_middle_line();
+	// draw_middle_line();
 	return (0);
 }
 
 void	start_game(void)
 {
-	t_cube		*c;
+	t_cube	*c;
 
 	c = cube();
-	// print_map_info();
+	// print_map_info();z
 	c->win = mlx_new_window(c->mlx, WIDTH, HEIGHT, "Cub3D");
 	init_hooks();
 }

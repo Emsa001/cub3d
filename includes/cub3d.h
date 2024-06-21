@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/06/20 15:35:13 by escura           ###   ########.fr       */
+/*   Updated: 2024/06/21 15:18:48 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,43 +65,56 @@
 
 # define WALL '1'
 
+typedef struct s_texture
+{
+	void		*img;
+	int			*addr;
+	int			bpp;
+	int			line_length;
+	int			endian;
+	int			width;
+	int			height;
+}				t_texture;
+
 typedef struct s_cube
 {
-	void	*mlx;
-	void	*win;
-	char	*some_value;
-	int		keycode;
+	void		*mlx;
+	void		*win;
+	char		*some_value;
+	int			keycode;
+	t_texture	*texture;
+	int			x;
+	int			y;
+	t_map		*map;
 
-	int 	x;
-	t_map	*map;
+}				t_cube;
 
-}			t_cube;
-
-void		check_params(char **av);
-t_cube		*init_cube(t_cube *c);
-t_cube		*cube(void);
-void		start_game(void);
-void		init_hooks(void);
-int			render(t_cube *p);
-bool is_touching(float px, float py, char c);
-float 		distance(float x1, float y1, float x2, float y2);
+void			check_params(char **av);
+t_cube			*init_cube(t_cube *c);
+t_cube			*cube(void);
+void			start_game(void);
+void			init_hooks(void);
+int				render(t_cube *p);
+bool			is_touching(float px, float py, char c);
+float			distance(float x1, float y1, float x2, float y2);
 
 /* DRAW */
-void draw_line(float angle);
-void	draw_middle_line(void);
-void	draw_cube(int x, int y, int size, int col);
-void	draw_h_line(float height, int color);
-void	draw_wall(float x, float y, float angle, int color);
+void			draw_line(float angle, int i);
+void			draw_floor(void);
+void			draw_ceiling(void);
+void			draw_middle_line(void);
+void			draw_cube(int x, int y, int size, int col);
+void			draw_wall(float x, float y, float angle, int color, int i);
 
 /* MLX */
-void		*load_image(char *path);
-void		draw_image(void *img, int x, int y);
-void		destroy_image(void *img);
-void		clean_window(void);
-void put_pixel(int x, int y, int color);
+void			*load_image(char *path);
+void			draw_image(void *img, int x, int y);
+void			destroy_image(void *img);
+void			clean_window(void);
+void			put_pixel(int x, int y, int color);
 
 /* EXIT */
-void		exit_game(void);
-void		ft_error(char *str);
+void			exit_game(void);
+void			ft_error(char *str);
 
 #endif
