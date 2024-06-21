@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/06/21 17:37:47 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/06/21 17:51:41 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ int	get_currect_pixel_color(int j, int line_height, int i)
 	int				y;
 	int				pos;
 
-	x = j / line_height + i;
+	// x = j / line_height + i * 64 / 150; // original size
+	x = j / line_height + i; // fit to the screen
 	y = j * 64 / line_height;
 	pos = y * 64 + x;
 	color = c->texture->addr[pos];
