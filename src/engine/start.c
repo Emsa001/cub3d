@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/06/21 18:37:45 by escura           ###   ########.fr       */
+/*   Updated: 2024/07/12 20:39:40 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,43 +33,37 @@ void render_background() {
     }
 }
 
-void render_view()
+
+// void render_map() {
+//     t_cube *c = cube();
+//     int i, j;
+
+//     for (i = 0; i < c->map->height; i++) {
+//         for (j = 0; j < c->map->width; j++) {
+//             if (c->map->map[i][j] == '1')
+//                 draw_cube(j * BLOCK_SIZE, i * BLOCK_SIZE, BLOCK_SIZE, 0x00FF0000);
+//         }
+//     }
+// }
+
+void update_fps(t_cube *c) 
 {
-	t_cube *c = cube();
+    time_t current_time = time(NULL);
+    c->frame_count++;
 
-	float angle = player()->angle;
-	int numRays = 2000;
-	int i = 0;
-
-	float fovInRadians = player()->fov * PI / 180;
-	float halfFovInRadians = fovInRadians / 2.0;
-	float angleOffset = angle - halfFovInRadians;
-
-	float rayWidth = (float)WIDTH / numRays; 
-
-	while (i < numRays) {
-		float fraction = (float)i / numRays;
-		float rayAngle = angleOffset + fraction * fovInRadians;
-		draw_line(rayAngle);
-		c->x = rayWidth * i;
-		i++;
-	}
-}
-
-void render_map() {
-    t_cube *c = cube();
-    int i, j;
-
-    for (i = 0; i < c->map->height; i++) {
-        for (j = 0; j < c->map->width; j++) {
-            if (c->map->map[i][j] == '1')
-                draw_cube(j * BLOCK_SIZE, i * BLOCK_SIZE, BLOCK_SIZE, 0x00FF0000);
-        }
+    if (current_time - c->last_time >= 1) {
+        c->fps = c->frame_count;
+        c->frame_count = 0;
+        c->last_time = current_time;
     }
+
+    char fps_str[50];
+    sprintf(fps_str, "(fps: %d)", c->fps);
+    mlx_string_put(c->mlx, c->win, 10, 10, 0xFFFFFF, fps_str);
 }
 
 int render_scene(t_cube *c) {
-    usleep(16666);
+    // usleep(16666);
     render()->img_ptr = mlx_new_image(render()->mlx, WIDTH, HEIGHT);
 
     // render_background();
@@ -84,7 +78,8 @@ int render_scene(t_cube *c) {
     
     // render_map();
     move_player();
-    draw_middle_line();
+    // draw_middle_line();
+    update_fps(c);
     return 0;
 }
 
@@ -95,3 +90,20 @@ void start_game(void) {
 	render()->win = c->win;
     init_hooks();
 }
+
+
+// void	draw_cube(int x, int y, int size, int col)
+// {
+// 	int				i;
+// 	const t_cube	*c = cube();
+
+// 	i = 0;
+// 	while (i < size)
+// 	{
+// 		mlx_pixel_put(c->mlx, c->win, x + i - size / 2, y - size / 2, col);
+// 		mlx_pixel_put(c->mlx, c->win, x - size / 2, y + i - size / 2, col);
+// 		mlx_pixel_put(c->mlx, c->win, x + i - size / 2, y + size / 2, col);
+// 		mlx_pixel_put(c->mlx, c->win, x + size / 2, y + i - size / 2, col);
+// 		i++;
+// 	}
+// }

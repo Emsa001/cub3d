@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/06/21 19:06:19 by escura           ###   ########.fr       */
+/*   Updated: 2024/07/12 20:35:52 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,9 @@ typedef struct s_cube
 
 	int 	x;
 	t_map	*map;
-
+	int		fps;
+	int		frame_count;
+	time_t	last_time;
 }			t_cube;
 
 typedef struct s_render
@@ -108,7 +110,7 @@ float 		distance(float x1, float y1, float x2, float y2);
 void draw_line(float angle);
 void	draw_middle_line(void);
 void	draw_cube(int x, int y, int size, int col);
-void	draw_h_line(float height, float distance);
+// void	draw_h_line(float height, float distance, int color);
 
 /* MLX */
 void		*load_image(char *path);

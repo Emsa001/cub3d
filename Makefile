@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
+#    By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/06/20 23:16:01 by escura           ###   ########.fr        #
+#    Updated: 2024/07/12 20:37:24 by btvildia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ SRC = $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/*/*.c)
 CC = cc
 CPP = clang++
 # CFLAGS = -Wall -Wextra -Werror
-CPPFLAGS += -g -fPIE
+CPPFLAGS += -g -fPIE -O3
 CPPFLAGS += -I$(LIBFT_DIR) -Iincludes
 LDFLAGS += -L./includes/mlx -lmlx -lXext -lX11 -lm -lz 
 

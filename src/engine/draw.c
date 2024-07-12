@@ -3,60 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/06/21 19:07:20 by escura           ###   ########.fr       */
+/*   Updated: 2024/07/12 20:26:08 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_cube(int x, int y, int size, int col)
-{
-	int				i;
-	const t_cube	*c = cube();
-
-	i = 0;
-	while (i < size)
-	{
-		mlx_pixel_put(c->mlx, c->win, x + i - size / 2, y - size / 2, col);
-		mlx_pixel_put(c->mlx, c->win, x - size / 2, y + i - size / 2, col);
-		mlx_pixel_put(c->mlx, c->win, x + i - size / 2, y + size / 2, col);
-		mlx_pixel_put(c->mlx, c->win, x + size / 2, y + i - size / 2, col);
-		i++;
-	}
-}
+int col = 0;
 
 void	draw_h_line(float height, float distance)
 {
 	const t_cube *c = cube();
 	int i = 0;
-
+	
+	float texture_y = 0;
+	float step = 450 / height;
+	int color = col;
+	int y = 0;
 	while (i < height / 2)
 	{
-		int color = get_pixel_from_image(c->x, HEIGHT / 2 - i);
+		y = (int)texture_y % 450;
+		color = get_pixel_from_image(c->x, y);
 		put_pixel(c->x, HEIGHT / 2 - i, color);
-
-		color = get_pixel_from_image(c->x, HEIGHT / 2 + i);
 		put_pixel(c->x, HEIGHT / 2 + i, color);
+		texture_y += step;
 		i++;
 	}
 }
 
-// void	draw_h_line(float height, int x)
-// {
-// 	const t_cube *c = cube();
-
-// 	int y = 0;
-//     while (y < height / 2) {
-//         int color = get_pixel_from_image(x, HEIGHT / 2 + y);
-//         put_pixel(x, y, color);
-//         y++;
-//     }
-// }
-
-void draw_wall(float x, float y, float angle, int color)
+void draw_wall(float x, float y, float angle)
 {
 	const t_cube *c = cube();
 	const t_player *p = player();
@@ -79,10 +57,11 @@ void	draw_line(float angle)
 	int sy = player()->y_dir > 0 ? 1 : -1;
 
 	static int color;
+	int texture_x;
 
 	while(!is_touching(x, y, WALL))
 	{
-		// put_pixel(x, y, color);
+		put_pixel(x, y, color);
 		x += cos(angle);
 		y += sin(angle);
 	}
@@ -91,6 +70,30 @@ void	draw_line(float angle)
 		color = 255;
 	else if (is_touching(x, (y - sy), WALL))
 		color = 125;
+	col = color;
+	draw_wall(x, y, angle);
+}
 
-	draw_wall(x, y, angle, color);
+void render_view()
+{
+	t_cube *c = cube();
+
+	float angle = player()->angle;
+	int numRays = WIDTH;
+	int i = 0;
+
+	float fovInRadians = player()->fov * PI / 180;
+	float halfFovInRadians = fovInRadians / 2.0;
+	float angleOffset = angle - halfFovInRadians;
+
+	float rayWidth = (float)WIDTH / numRays; 
+
+	while (i < numRays) 
+    {
+		float fraction = (float)i / numRays;
+		float rayAngle = angleOffset + fraction * fovInRadians;
+		draw_line(rayAngle);
+		c->x = rayWidth * i;
+		i++;
+	}
 }
