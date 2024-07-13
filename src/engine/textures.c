@@ -3,18 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 17:23:28 by escura            #+#    #+#             */
-/*   Updated: 2024/06/21 18:39:40 by escura           ###   ########.fr       */
+/*   Updated: 2024/07/13 18:14:11 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int get_pixel_from_image(int x, int y)
+int get_pixel_from_image(int x, int y, int side)
 {
-    t_texture *t = textures()->wall_north;
+    t_texture *t;
+    if(side == 1)
+        t = textures()->wall_north;
+    else if(side == 2)
+        t = textures()->wall_south;
 
     x = x % t->width;
     y = y % t->height;

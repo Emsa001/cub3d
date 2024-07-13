@@ -6,27 +6,27 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/07/13 18:06:18 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/13 18:27:05 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int col = 0;
+int side = 0;
 
 void draw_h_line(float height, float tex_x)
 {
     const t_cube *c = cube();
-    int color = col;
+    int color = 0;
     int start = (HEIGHT - height) / 2;
     int end = start + height;
 
-	float step = 450 / height;
+	float step = 64 / height;
 	float y = 0;
 	
     while (start < end)
     {
-        color = get_pixel_from_image(tex_x, y);
+        color = get_pixel_from_image(tex_x, y, side);
         put_pixel(c->x, start, color);
 		y += step;
         start++;
@@ -53,13 +53,10 @@ void	draw_line(float angle)
 	
 	int sx = cos(angle) > 0 ? 1 : -1;
 	int sy = sin(angle) > 0 ? 1 : -1;
-
-	static int color = 255;
 	float tex_x = 0;
 
 	while(!is_touching(x, y, WALL))
 	{
-		put_pixel(x, y, color);
 		x += cos(angle);
 		y += sin(angle);
 	}
@@ -68,16 +65,15 @@ void	draw_line(float angle)
 	if (is_touching((x - sx), y, WALL))
 	{
 		tex_x = (int)x % BLOCK_SIZE;
-		color = 255;
+		side = 1;
 	}
 	else if (is_touching(x, (y - sy), WALL))
 	{
 		tex_x = (int)y % BLOCK_SIZE;
-		color = 125;
+		side = 2;
 	}
-	col = color;
 	
-	tex_x = tex_x / BLOCK_SIZE * 450;
+	tex_x = tex_x / BLOCK_SIZE * 64;
 	
 	draw_wall(x, y, angle, tex_x);
 }
