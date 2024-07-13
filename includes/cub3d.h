@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/07/12 20:35:52 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/13 18:07:56 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,3 +124,21 @@ void		exit_game(void);
 void		ft_error(char *str);
 
 #endif
+
+// void	draw_h_line(float height, float distance)
+// {
+// 	const t_cube *c = cube();
+// 	int i = 0;
+	
+// 	float step = 450 / height;
+// 	int color = col;
+// 	float y = 0;
+// 	while (i < height)
+// 	{
+// 		color = get_pixel_from_image(c->x, y / 2);
+// 		put_pixel(c->x, HEIGHT / 2 + i, color);
+// 		y += step;
+// 		i++;
+// 	}
+	
+// }
