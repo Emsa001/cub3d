@@ -6,11 +6,12 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/07/13 18:27:05 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/13 18:34:55 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
 
 int side = 0;
 
@@ -21,7 +22,7 @@ void draw_h_line(float height, float tex_x)
     int start = (HEIGHT - height) / 2;
     int end = start + height;
 
-	float step = 64 / height;
+	float step = 450 / height;
 	float y = 0;
 	
     while (start < end)
@@ -73,7 +74,7 @@ void	draw_line(float angle)
 		side = 2;
 	}
 	
-	tex_x = tex_x / BLOCK_SIZE * 64;
+	tex_x = tex_x / BLOCK_SIZE * 450;
 	
 	draw_wall(x, y, angle, tex_x);
 }
