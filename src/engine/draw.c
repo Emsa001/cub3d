@@ -6,28 +6,36 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/07/13 18:34:55 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/13 21:45:25 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
-int side = 0;
+int side = 1;
 
 void draw_h_line(float height, float tex_x)
 {
     const t_cube *c = cube();
+	t_player *p = player();
     int color = 0;
-    int start = (HEIGHT - height) / 2;
-    int end = start + height;
-
-	float step = 450 / height;
 	float y = 0;
+    int end;
+	int start;
+	float step = 450 / height;
 	
+	float vertical_offset = (p->z_dir * 0.5) * HEIGHT;
+	
+	if(height > HEIGHT)
+	{
+		y = (height - HEIGHT) * step / 2;
+		height = HEIGHT;
+	}
+    start = (HEIGHT - height) / 2 + vertical_offset;
+	end = start + height;
     while (start < end)
     {
-        color = get_pixel_from_image(tex_x, y, side);
+		color = get_pixel_from_image(tex_x, y, side);
         put_pixel(c->x, start, color);
 		y += step;
         start++;
@@ -41,8 +49,6 @@ void draw_wall(float x, float y, float angle, float tex_x)
 
 	dist = view_lane_distance(x, y, angle);
 	line_height = (BLOCK_SIZE / dist) * (WIDTH / 2);
-	if (line_height > HEIGHT)
-		line_height = HEIGHT;
 	draw_h_line(line_height, tex_x);
 }
 
@@ -55,7 +61,7 @@ void	draw_line(float angle)
 	int sx = cos(angle) > 0 ? 1 : -1;
 	int sy = sin(angle) > 0 ? 1 : -1;
 	float tex_x = 0;
-
+	
 	while(!is_touching(x, y, WALL))
 	{
 		x += cos(angle);
@@ -63,12 +69,12 @@ void	draw_line(float angle)
 	}
 	
 	tex_x = (int)y % BLOCK_SIZE;
-	if (is_touching((x - sx), y, WALL))
+	if (is_touching(x - sx, y, WALL))
 	{
 		tex_x = (int)x % BLOCK_SIZE;
 		side = 1;
 	}
-	else if (is_touching(x, (y - sy), WALL))
+	else if (is_touching(x, y - sy, WALL))
 	{
 		tex_x = (int)y % BLOCK_SIZE;
 		side = 2;

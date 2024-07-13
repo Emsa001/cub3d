@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/07/13 18:28:42 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/13 19:00:41 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define DOWN 65364
 # define RIGHT 65363
 # define SHIFT 65505
+# define SPACE 32
 
 # define MINUS 45
 # define PLUS 61

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:53 by escura            #+#    #+#             */
-/*   Updated: 2024/06/20 19:07:34 by escura           ###   ########.fr       */
+/*   Updated: 2024/07/13 21:34:58 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,20 @@ void move_player(void) {
         if (p->angle > 2 * PI)
             p->angle -= 2 * PI;
     }
+
+    if(p->btn_up)
+    {
+        p->z_dir += 0.1;
+        if(p->z_dir > 2)
+            p->z_dir = 2;
+    }
+    if(p->btn_down)
+    {
+        p->z_dir -= 0.1;
+        if(p->z_dir < -2)
+            p->z_dir = -2;
+    }
+
     p->x = p->x_px / BLOCK_SIZE;
     p->y = p->y_px / BLOCK_SIZE;
 

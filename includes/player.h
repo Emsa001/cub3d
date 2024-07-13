@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/07/13 15:15:45 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/13 19:40:14 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_player
 
     float   x_dir;
     float   y_dir;
+    float   z_dir;
     
     float	angle;
     double  direction;
@@ -38,6 +39,8 @@ typedef struct s_player
     bool     btn_a;
     bool     btn_d;
     
+    bool     btn_up;
+    bool     btn_down;
     bool     btn_left;
     bool     btn_right;
 
@@ -46,6 +49,7 @@ typedef struct s_player
 
     float plane_x;
     float plane_y;
+    
 }			t_player;
 
 t_player *init_player(t_player *p);

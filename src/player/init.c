@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/06/20 14:40:43 by escura           ###   ########.fr       */
+/*   Updated: 2024/07/13 21:26:31 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_player	*init_player(t_player *p)
 	
 	player->x_dir = 0;
 	player->y_dir = 0;
+	player->z_dir = 0;
 
 	player->btn_w = false;
 	player->btn_s = false;
@@ -36,6 +37,8 @@ t_player	*init_player(t_player *p)
 	player->btn_d = false;
 	player->btn_left = false;
 	player->btn_right = false;
+	player->btn_up = false;
+	player->btn_down = false;
 
 	player->speed = WALKSPEED;
 	player->fov = FOV;
