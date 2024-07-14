@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 19:25:04 by escura            #+#    #+#             */
-/*   Updated: 2024/07/14 13:42:54 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/14 13:53:44 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int ku(int kc)
 void init_hooks(void)
 {
     const t_cube *c = cube();
-    
+
     mlx_do_key_autorepeaton(c->mlx);
     mlx_hook(c->win, KeyPress, KeyPressMask, kd, (void *)c);
     mlx_hook(c->win, KeyRelease, KeyReleaseMask, ku, (void *)c);
