@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/07/13 21:45:25 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/14 13:34:50 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,16 @@ void draw_h_line(float height, float tex_x)
 	
 	if(height > HEIGHT)
 	{
-		y = (height - HEIGHT) * step / 2;
-		height = HEIGHT;
+		// y = (height - HEIGHT) * step / 2;
+		// height = HEIGHT;
 	}
     start = (HEIGHT - height) / 2 + vertical_offset;
+	
 	end = start + height;
     while (start < end)
     {
 		color = get_pixel_from_image(tex_x, y, side);
-        put_pixel(c->x, start, color);
+        put_pixel(c->x , start, color);
 		y += step;
         start++;
     }
