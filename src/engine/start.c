@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/07/14 13:44:22 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/14 21:55:38 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,34 @@ void render_background() {
     }
 }
 
+void	draw_cube(int x, int y, int size, int col)
+{
+	int				i;
+	const t_cube	*c = cube();
 
-// void render_map() {
-//     t_cube *c = cube();
-//     int i, j;
+	i = 0;
+	while (i < size)
+	{
+		mlx_pixel_put(c->mlx, c->win, x + i - size / 2, y - size / 2, col);
+		mlx_pixel_put(c->mlx, c->win, x - size / 2, y + i - size / 2, col);
+		mlx_pixel_put(c->mlx, c->win, x + i - size / 2, y + size / 2, col);
+		mlx_pixel_put(c->mlx, c->win, x + size / 2, y + i - size / 2, col);
+		i++;
+	}
+}
 
-//     for (i = 0; i < c->map->height; i++) {
-//         for (j = 0; j < c->map->width; j++) {
-//             if (c->map->map[i][j] == '1')
-//                 draw_cube(j * BLOCK_SIZE, i * BLOCK_SIZE, BLOCK_SIZE, 0x00FF0000);
-//         }
-//     }
-// }
+void render_map() 
+{
+    t_cube *c = cube();
+    int i, j;
+
+    for (i = 0; i < c->map->height; i++) {
+        for (j = 0; j < c->map->width; j++) {
+            if (c->map->map[i][j] == '1')
+                draw_cube(j * BLOCK_SIZE, i * BLOCK_SIZE, BLOCK_SIZE, 0x00FF0000);
+        }
+    }
+}
 
 void update_fps(t_cube *c) 
 {

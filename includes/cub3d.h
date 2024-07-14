@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/07/14 13:43:30 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/14 21:26:50 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@
 # define P3 3 * PI / 2
 # define DR 0.0174533
 
+# define T_SIZE 64
 # define BLOCK_SIZE 64
 # define WIDTH 1920
 # define HEIGHT 1080
@@ -75,6 +76,8 @@ typedef struct s_cube
 	int		keycode;
 
 	int 	x;
+
+	float tex_x;
 	t_map	*map;
 	int		fps;
 	int		frame_count;

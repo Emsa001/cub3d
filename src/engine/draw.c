@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/07/14 13:55:40 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/14 21:55:30 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int side = 1;
 
-void draw_h_line(float height, float tex_x)
+
+void draw_h_line(float height)
 {
     const t_cube *c = cube();
 	t_player *p = player();
@@ -22,7 +23,8 @@ void draw_h_line(float height, float tex_x)
 	float y = 0;
     int end;
 	int start;
-	float step = 450 / height;
+	
+	float step = T_SIZE / height;
 	
 	float vertical_offset = (p->z_dir * 0.5) * HEIGHT;
 	
@@ -36,21 +38,35 @@ void draw_h_line(float height, float tex_x)
 	end = start + height;
     while (start < end)
     {
-		color = get_pixel_from_image(tex_x, y, side);
+		color = get_pixel_from_image(c->tex_x, y, side);
         put_pixel(c->x , start, color);
 		y += step;
         start++;
     }
 }
 
-void draw_wall(float x, float y, float angle, float tex_x)
+int calculate_direction(float x, float y, float angle)
 {
-	float dist;
-	float line_height;
+	int sx = cos(angle) > 0 ? 1 : -1; 
+	int sy = sin(angle) > 0 ? 1 : -1;
 
-	dist = view_lane_distance(x, y, angle);
-	line_height = (BLOCK_SIZE / dist) * (WIDTH / 2);
-	draw_h_line(line_height, tex_x);
+	if(is_touching(x - sx, y, WALL))
+	{
+		cube()->tex_x = (int)x % BLOCK_SIZE;
+		if (sy == 1)
+			return 1;
+		else
+			return 3;
+	}
+	else if(is_touching(x, y - sy, WALL))
+	{
+		cube()->tex_x = (int)y % BLOCK_SIZE;
+		if (sx == 1)
+			return 2;
+		else
+			return 4;
+	}
+	return 0;
 }
 
 void	draw_line(float angle)
@@ -58,32 +74,19 @@ void	draw_line(float angle)
 	t_player *p = player();
 	float x = p->x_px;
 	float y = p->y_px;
-	
-	int sx = cos(angle) > 0 ? 1 : -1;
-	int sy = sin(angle) > 0 ? 1 : -1;
-	float tex_x = 0;
+	float dist = 0;
+	float line_height = 0;
 	
 	while(!is_touching(x, y, WALL))
 	{
 		x += cos(angle);
 		y += sin(angle);
 	}
-	
-	tex_x = (int)y % BLOCK_SIZE;
-	if (is_touching(x - sx, y, WALL))
-	{
-		tex_x = (int)x % BLOCK_SIZE;
-		side = 1;
-	}
-	else if (is_touching(x, y - sy, WALL))
-	{
-		tex_x = (int)y % BLOCK_SIZE;
-		side = 2;
-	}
-	
-	tex_x = tex_x / BLOCK_SIZE * 450;
-	
-	draw_wall(x, y, angle, tex_x);
+	side = calculate_direction(x, y, angle);
+
+	dist = view_lane_distance(x, y, angle);
+	line_height = (BLOCK_SIZE / dist) * (WIDTH / 2);
+	draw_h_line(line_height);
 }
 
 void render_view()
