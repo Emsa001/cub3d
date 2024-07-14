@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/07/13 19:00:41 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/14 13:43:30 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ float 		distance(float x1, float y1, float x2, float y2);
 
 /* DRAW */
 void draw_line(float angle);
-void	draw_middle_line(void);
+void	draw_cross_in_centre(void);
 void	draw_cube(int x, int y, int size, int col);
 
 /* MLX */

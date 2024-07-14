@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/07/13 18:31:54 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/14 13:44:22 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int render_scene(t_cube *c) {
     
     // render_map();
     move_player();
-    // draw_middle_line();
+    draw_cross_in_centre();
     update_fps(c);
     return 0;
 }

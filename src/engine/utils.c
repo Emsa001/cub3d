@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/07/12 20:43:00 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/14 13:48:30 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,21 @@ void	draw_middle_line(void)
 	while (i < WIDTH)
 	{
 		mlx_pixel_put(c->mlx, c->win, i, HEIGHT / 2, 0x0000FF00);
+		i++;
+	}
+}
+
+void draw_cross_in_centre(void)
+{
+    const t_cube *c = cube();
+    int x_center = WIDTH / 2;
+    int y_center = HEIGHT / 2;
+    int i = -7;
+
+    while (i <= 7)
+	{
+		mlx_pixel_put(c->mlx, c->win, x_center + i, y_center, 0x0000FF00);
+		mlx_pixel_put(c->mlx, c->win, x_center, y_center + i, 0x0000FF00);
 		i++;
 	}
 }
