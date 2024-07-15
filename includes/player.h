@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/07/13 19:40:14 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/15 15:35:07 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_player
 {
     float	x;
     float	y;
+    float   z;
 
     float   x_px;
     float   y_px;
@@ -43,6 +44,8 @@ typedef struct s_player
     bool     btn_down;
     bool     btn_left;
     bool     btn_right;
+
+    int    jump;
 
     int     fov;
     int     speed;

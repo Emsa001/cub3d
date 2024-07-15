@@ -6,44 +6,13 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/07/14 21:55:30 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/15 19:28:11 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 int side = 1;
-
-
-void draw_h_line(float height)
-{
-    const t_cube *c = cube();
-	t_player *p = player();
-    int color = 0;
-	float y = 0;
-    int end;
-	int start;
-	
-	float step = T_SIZE / height;
-	
-	float vertical_offset = (p->z_dir * 0.5) * HEIGHT;
-	
-	if(height > HEIGHT)
-	{
-		y = (height - HEIGHT) * step / 2;
-		height = HEIGHT;
-	}
-    start = (HEIGHT - height) / 2 + vertical_offset;
-	
-	end = start + height;
-    while (start < end)
-    {
-		color = get_pixel_from_image(c->tex_x, y, side);
-        put_pixel(c->x , start, color);
-		y += step;
-        start++;
-    }
-}
 
 int calculate_direction(float x, float y, float angle)
 {
@@ -69,6 +38,38 @@ int calculate_direction(float x, float y, float angle)
 	return 0;
 }
 
+int vert_offset(float z_dir)
+{
+	return (z_dir * 0.5) * HEIGHT;
+}
+
+void draw_h_line(float height)
+{
+    const t_cube *c = cube();
+    int color = 0;
+	float tex_y = 0;
+    int end;
+	int start;
+	
+	float step = T_SIZE / height;
+	
+	if(height > HEIGHT)
+	{
+		tex_y = (height - HEIGHT) * step / 2;
+		height = HEIGHT;
+	}
+    start = (HEIGHT - height) / 2 + vert_offset(player()->z_dir);
+	
+	end = start + height;
+    while (start < end)
+    {
+		color = get_pixel_from_image(c->tex_x, tex_y, side);
+        put_pixel(c->x , start, color);
+		tex_y += step;
+        start++;
+    }
+}
+
 void	draw_line(float angle)
 {
 	t_player *p = player();
@@ -82,7 +83,6 @@ void	draw_line(float angle)
 		x += cos(angle);
 		y += sin(angle);
 	}
-	side = calculate_direction(x, y, angle);
 
 	dist = view_lane_distance(x, y, angle);
 	line_height = (BLOCK_SIZE / dist) * (WIDTH / 2);
@@ -100,7 +100,7 @@ void render_view()
 	float halfFovInRadians = fovInRadians / 2.0;
 	float angleOffset = angle - halfFovInRadians;
 
-	while (i < WIDTH) 
+	while (i < WIDTH)
     {
 		float fraction = (float)i / WIDTH;
 		float rayAngle = angleOffset + fraction * fovInRadians;

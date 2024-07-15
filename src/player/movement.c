@@ -6,11 +6,32 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:53 by escura            #+#    #+#             */
-/*   Updated: 2024/07/14 14:01:47 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/15 15:37:02 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void try_jump(void)
+{
+    t_player *p = player();
+    if (p->jump == 1)
+    {
+        p->z += 0.1;
+        if (p->z > 2)
+            p->z = 2;
+        printf("z: %f\n", p->z);
+    }
+    else if(p->jump == 2)
+    {
+        p->z -= 0.1;
+        if (p->z < 0)
+            p->z = 0;
+        if(p->z == 0)
+            p->jump = 0;
+        printf("z: %f\n", p->z);
+    }
+}
 
 void	try_move(float x, float y)
 {
@@ -78,6 +99,7 @@ void move_player(void) {
         if(p->z_dir < -2)
             p->z_dir = -2;
     }
+    try_jump();
 
     p->x = p->x_px / BLOCK_SIZE;
     p->y = p->y_px / BLOCK_SIZE;

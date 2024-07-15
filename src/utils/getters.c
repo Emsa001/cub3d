@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:21:26 by btvildia          #+#    #+#             */
-/*   Updated: 2024/06/20 12:09:03 by escura           ###   ########.fr       */
+/*   Updated: 2024/07/15 14:55:19 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	change_positions(char c, int i, int j)
 {
 	player()->x = j + 0.5;
 	player()->y = i + 0.5;
+	player()->z = 0;
 	if (c == 'N')
 		player()->angle = 3 * PI / 2;
 	else if (c == 'S')
