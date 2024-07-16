@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/07/13 18:13:20 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/16 17:11:56 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_textures
     t_texture *wall_south;
     t_texture *wall_east;
     t_texture *wall_west;
+
+    t_texture *door;
 } t_textures;
 
 t_textures *init_textures(t_textures *t, void *mlx);

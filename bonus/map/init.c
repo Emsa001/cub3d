@@ -1,34 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/07/16 17:40:08 by btvildia         ###   ########.fr       */
+/*   Created: 2024/06/18 17:19:15 by escura            #+#    #+#             */
+/*   Updated: 2024/06/19 20:44:45 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool is_touching(float px, float py, char c)
+void	init_map(char *av)
 {
-	int		x = px / BLOCK_SIZE;
-	int		y = py / BLOCK_SIZE;
-    return cube()->map->map[y][x] && cube()->map->map[y][x] == c;
-}
+	char	**map;
+	int		i;
+	int		fd;
+	char	*c;
+	t_map	*map_info;
 
-void	draw_middle_line(void)
-{
-	const t_cube	*c = cube();
-	int				i;
-
+	c = ft_strjoin("./maps/", av);
+	fd = open(c, O_RDONLY);
+	ft_free(c);
+	if (fd == -1)
+		ft_error("Map not found");
+	map = ft_malloc(sizeof(char *) * MAX_SIZE);
 	i = 0;
-	while (i < WIDTH)
+	while (1)
 	{
-		mlx_pixel_put(c->mlx, c->win, i, HEIGHT / 2, 0x0000FF00);
+		map[i] = get_next_line(fd);
+		if (!map[i])
+			break ;
 		i++;
 	}
+	map[i] = NULL;
+	close(fd);
+	map_info = check_map(map, i);
+	ft_arrdel((void **)map);
+	cube()->map = map_info;
 }
-

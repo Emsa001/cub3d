@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/07/16 17:40:08 by btvildia         ###   ########.fr       */
+/*   Created: 2024/06/18 15:52:35 by escura            #+#    #+#             */
+/*   Updated: 2024/06/19 17:17:54 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool is_touching(float px, float py, char c)
+void	ft_error(char *str)
 {
-	int		x = px / BLOCK_SIZE;
-	int		y = py / BLOCK_SIZE;
-    return cube()->map->map[y][x] && cube()->map->map[y][x] == c;
+	write(2, "Error: ", 7);
+	write(2, str, ft_strlen(str));
+	write(2, "\n", 1);
+	exit_game();
 }
 
-void	draw_middle_line(void)
+void	exit_game(void)
 {
-	const t_cube	*c = cube();
-	int				i;
+	t_cube	*c;
 
-	i = 0;
-	while (i < WIDTH)
-	{
-		mlx_pixel_put(c->mlx, c->win, i, HEIGHT / 2, 0x0000FF00);
-		i++;
-	}
+	c = cube();
+	ft_exit();
 }
-

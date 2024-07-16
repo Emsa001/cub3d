@@ -1,34 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   params.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/07/16 17:40:08 by btvildia         ###   ########.fr       */
+/*   Created: 2024/06/18 19:18:52 by escura            #+#    #+#             */
+/*   Updated: 2024/06/19 17:14:41 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool is_touching(float px, float py, char c)
+void	check_params(char **av)
 {
-	int		x = px / BLOCK_SIZE;
-	int		y = py / BLOCK_SIZE;
-    return cube()->map->map[y][x] && cube()->map->map[y][x] == c;
-}
-
-void	draw_middle_line(void)
-{
-	const t_cube	*c = cube();
-	int				i;
-
-	i = 0;
-	while (i < WIDTH)
+	if (!av[1] || av[2])
 	{
-		mlx_pixel_put(c->mlx, c->win, i, HEIGHT / 2, 0x0000FF00);
-		i++;
+		printf(GREEN "Usage: ./cub3d " BLUE "map.cub\n" RESET);
+		exit_game();
 	}
 }
-

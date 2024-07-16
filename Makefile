@@ -6,14 +6,20 @@
 #    By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/07/12 20:37:24 by btvildia         ###   ########.fr        #
+#    Updated: 2024/07/16 17:51:17 by btvildia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
+B_NAME = cub3d
+
 SRC_DIR = src
+B_SRC_DIR = bonus
 SRC = $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/*/*.c)
+
+B_SRC = $(wildcard $(B_SRC_DIR)/*.c) $(wildcard $(B_SRC_DIR)/*/*.c)
+
 
 # Compiler and Flags
 CC = cc
@@ -40,7 +46,11 @@ LDLIBS = -L$(LIBFT_DIR) -lft
 
 OBJ_DIR = .obj
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
-OBJ_TEST = $(filter-out $(OBJ_DIR)/main.o,$(OBJ))
+# OBJ_TEST = $(filter-out $(OBJ_DIR)/main.o,$(OBJ))
+
+B_OBJ_DIR = .obj_bonus
+B_OBJ = $(patsubst $(B_SRC_DIR)/%.c, $(B_OBJ_DIR)/%.o, $(B_SRC))
+
 
 all: $(NAME)
 
@@ -57,19 +67,29 @@ t:
 $(NAME): $(LIBFT) $(OBJ)
 	$(CC) $(CFLAGS) $(CPPFLAGS) $(OBJ) -o $(NAME) $(LDLIBS) $(LDFLAGS)
 
+bonus: $(LIBFT) $(B_OBJ)
+	$(CC) $(CFLAGS) $(CPPFLAGS) $(B_OBJ) -o $(B_NAME) $(LDLIBS) $(LDFLAGS)
+
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(LIBFT)
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+
+$(B_OBJ_DIR)/%.o: $(B_SRC_DIR)/%.c $(LIBFT)
+	mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
+
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR) DEBUG=$(DEBUG) FSANITIZE=$(FSANITIZE)
 	
 clean:
 	rm -rf $(OBJ_DIR)
+	rm -rf $(B_OBJ_DIR)
 	$(MAKE) clean -C $(LIBFT_DIR)
 
 fclean: clean
 	rm -f $(NAME) 
+	rm -f $(B_NAME)
 	$(MAKE) fclean -C $(LIBFT_DIR)
 
 re: fclean

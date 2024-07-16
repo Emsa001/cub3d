@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/07/16 17:36:35 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/16 17:35:14 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,22 @@ int calculate_direction(float x, float y, float angle)
 		else
 			return 4;
 	}
+	else if(is_touching(x - sx, y, DOOR))
+	{
+		cube()->tex_x = (int)x % BLOCK_SIZE;
+		return 5;
+	}
+	else if(is_touching(x, y - sy, DOOR))
+	{
+		cube()->tex_x = (int)y % BLOCK_SIZE;
+		return 5;
+	}
 	return 0;
+}
+
+int vert_offset(float z_dir)
+{
+	return (z_dir * 0.5) * HEIGHT;
 }
 
 void draw_h_line(float height)
@@ -53,7 +68,7 @@ void draw_h_line(float height)
 		tex_y = (height - HEIGHT) * step / 2;
 		height = HEIGHT;
 	}
-    start = (HEIGHT - height) / 2;
+    start = (HEIGHT - height) / 2 + vert_offset(player()->z_dir);
 	
 	end = start + height;
     while (start < end)
@@ -73,8 +88,9 @@ void	draw_line(float angle)
 	float dist = 0;
 	float line_height = 0;
 	
-	while(!is_touching(x, y, WALL))
+	while(!is_touching(x, y, WALL) && !is_touching(x, y, DOOR))
 	{
+		put_pixel(x, y, 255);
 		x += cos(angle);
 		y += sin(angle);
 	}

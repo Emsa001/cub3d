@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:21:26 by btvildia          #+#    #+#             */
-/*   Updated: 2024/07/16 17:42:47 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/16 14:00:53 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	change_positions(char c, int i, int j)
 {
 	player()->x = j + 0.5;
 	player()->y = i + 0.5;
+	player()->z = 0;
 	if (c == 'N')
 		player()->angle = 3 * PI / 2;
 	else if (c == 'S')

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/07/15 14:54:12 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/16 14:01:32 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@
 # define CENTER_HEIGHT HEIGHT / 2
 
 # define WALL '1'
+# define DOOR 'D'
 
 typedef struct s_cube
 {
