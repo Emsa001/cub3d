@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:53 by escura            #+#    #+#             */
-/*   Updated: 2024/07/16 21:18:56 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/16 21:57:46 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ void open_door(void)
     t_door *doors = c->map->doors;
     static int open;
     
-    if(doors[0].y >= doors[0].first_y - 0.8 && doors[0].y == doors[0].first_y)
+    if(doors[0].y >= doors[0].first_y - 0.9 && doors[0].y == doors[0].first_y)
             open = 1;
-    else if(doors[0].y <= doors[0].first_y && doors[0].y <= doors[0].first_y - 0.8)
+    else if(doors[0].y <= doors[0].first_y && doors[0].y <= doors[0].first_y - 0.9)
             open = 0;
 
     if(open == 1)
