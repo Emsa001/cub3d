@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/07/16 17:26:17 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/16 21:22:21 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void update_fps(t_cube *c)
 int render_scene(t_cube *c) 
 {
     t_render *r = render();
-    usleep(16666);
+    // print_door_info(c->map->doors);
     r->img_ptr = mlx_new_image(r->mlx, WIDTH, HEIGHT);
 
     // render_background();
@@ -96,8 +96,8 @@ int render_scene(t_cube *c)
     
     // render_map();
     move_player();
-    // draw_cross_in_centre();
-    // update_fps(c);
+    draw_cross_in_centre();
+    update_fps(c);
     return 0;
 }
 
@@ -109,19 +109,3 @@ void start_game(void) {
     init_hooks();
 }
 
-
-// void	draw_cube(int x, int y, int size, int col)
-// {
-// 	int				i;
-// 	const t_cube	*c = cube();
-
-// 	i = 0;
-// 	while (i < size)
-// 	{
-// 		mlx_pixel_put(c->mlx, c->win, x + i - size / 2, y - size / 2, col);
-// 		mlx_pixel_put(c->mlx, c->win, x - size / 2, y + i - size / 2, col);
-// 		mlx_pixel_put(c->mlx, c->win, x + i - size / 2, y + size / 2, col);
-// 		mlx_pixel_put(c->mlx, c->win, x + size / 2, y + i - size / 2, col);
-// 		i++;
-// 	}
-// }

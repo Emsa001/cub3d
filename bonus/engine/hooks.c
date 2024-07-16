@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 19:25:04 by escura            #+#    #+#             */
-/*   Updated: 2024/07/15 15:36:19 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/16 21:22:44 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ int kd(int kc)
     
     if(kc == SHIFT)
         p->speed = SPRINTSPEED;
-    if(kc == SPACE)
-        p->jump = 1;
 
     if(kc == MINUS){
         if(p->fov > 30)
@@ -73,6 +71,10 @@ int kd(int kc)
     if(kc == PLUS)
         if(p->fov < 120)
             p->fov += 5;
+    
+    if(kc == E)
+        p->interact = true;
+
     return (0);
 }
 
@@ -91,9 +93,6 @@ int ku(int kc)
         p->btn_d = false;
     if(kc == SHIFT)
         p->speed = WALKSPEED;
-    if(kc == SPACE)
-        p->jump = 2;
-
     if(kc == LEFT){
         p->btn_left = false;
     }
@@ -106,6 +105,9 @@ int ku(int kc)
     if(kc == DOWN)
         p->btn_down = false;
 
+    if(kc == E)
+        p->interact = false;
+
     return (0);
 }
 
@@ -117,8 +119,8 @@ void init_hooks(void)
     mlx_do_key_autorepeaton(c->mlx);
     mlx_hook(c->win, KeyPress, KeyPressMask, kd, (void *)c);
     mlx_hook(c->win, KeyRelease, KeyReleaseMask, ku, (void *)c);
-    // mlx_hook(c->win, MotionNotify, PointerMotionMask, mouse_move, (void *)c);
-    // mlx_mouse_hide(c->mlx, c->win);
+    mlx_hook(c->win, MotionNotify, PointerMotionMask, mouse_move, (void *)c);
+    mlx_mouse_hide(c->mlx, c->win);
     mlx_loop_hook(c->mlx, render_scene, (void *)c);
     mlx_loop(c->mlx);
 }

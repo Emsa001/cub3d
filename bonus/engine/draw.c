@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/07/16 17:35:14 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/16 21:22:27 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,22 @@ void draw_h_line(float height)
     }
 }
 
+bool touch_door(float px, float py)
+{
+	t_map *m = cube()->map;
+	float door_x = m->doors[0].x;
+	float door_y = m->doors[0].y;
+
+	float x = door_x * BLOCK_SIZE;
+	float y = door_y * BLOCK_SIZE;
+	
+	if (px >= x && px <= x + BLOCK_SIZE && py >= y && py <= y + BLOCK_SIZE)
+		return true;
+
+	return (false);
+	
+}
+
 void	draw_line(float angle)
 {
 	t_player *p = player();
@@ -88,9 +104,8 @@ void	draw_line(float angle)
 	float dist = 0;
 	float line_height = 0;
 	
-	while(!is_touching(x, y, WALL) && !is_touching(x, y, DOOR))
+	while(!is_touching(x, y, WALL) && !touch_door(x, y))
 	{
-		put_pixel(x, y, 255);
 		x += cos(angle);
 		y += sin(angle);
 	}

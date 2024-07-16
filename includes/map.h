@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/06/19 17:19:00 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/16 20:56:03 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,18 @@ typedef struct s_point
 	int		y;
 }			t_point;
 
+typedef struct s_door
+{
+	float	x;
+	float	y;
+	float	z;
+	
+	float  first_x;
+	float  first_y;
+
+	int		id;
+}			t_door;
+
 typedef struct s_map
 {
 	int		width;
@@ -34,6 +46,7 @@ typedef struct s_map
 	char	*ea;
 	int		*f;
 	int		*c;
+	t_door	*doors;
 }			t_map;
 
 void		init_map(char *av);
@@ -41,6 +54,8 @@ void		print_map_info(void);
 void		print_map(char **map);
 int			ft_strlen_space(char *s);
 int			ft_check_line(char *line);
+t_door		*init_door(t_map *map_info);
+void 	  print_door_info(t_door *doors);
 void		get_player_position(char **map);
 t_map		*check_map(char **map, int size);
 char		*ft_remove_substr(char *str, char *sub);

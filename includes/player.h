@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/07/15 15:35:07 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/16 18:51:10 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct s_player
     bool     btn_left;
     bool     btn_right;
 
-    int    jump;
+    bool    interact;
 
     int     fov;
     int     speed;

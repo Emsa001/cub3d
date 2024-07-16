@@ -6,7 +6,7 @@
 #    By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/07/16 17:51:17 by btvildia         ###   ########.fr        #
+#    Updated: 2024/07/16 17:52:36 by btvildia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ LDLIBS = -L$(LIBFT_DIR) -lft
 
 OBJ_DIR = .obj
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
-# OBJ_TEST = $(filter-out $(OBJ_DIR)/main.o,$(OBJ))
+OBJ_TEST = $(filter-out $(OBJ_DIR)/main.o,$(OBJ))
 
 B_OBJ_DIR = .obj_bonus
 B_OBJ = $(patsubst $(B_SRC_DIR)/%.c, $(B_OBJ_DIR)/%.o, $(B_SRC))

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/07/16 14:01:32 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/16 20:41:12 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define A 97
 # define S 115
 # define D 100
+# define E 101
 # define UP 65362
 # define LEFT 65361
 # define DOWN 65364
@@ -109,6 +110,7 @@ void		start_game(void);
 void		init_hooks(void);
 int			render_scene(t_cube *p);
 bool is_touching(float px, float py, char c);
+bool touch_door(float px, float py);
 float 		distance(float x1, float y1, float x2, float y2);
 
 /* DRAW */
