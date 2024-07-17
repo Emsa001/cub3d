@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 19:25:04 by escura            #+#    #+#             */
-/*   Updated: 2024/07/17 20:46:51 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/17 21:58:18 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ int kd(int kc)
         p->spawn = true;
     if(kc == O)
         p->remove = true;
+    if(kc == F)
+        p->catch = true;
 
     return (0);
 }
@@ -123,6 +125,8 @@ int ku(int kc)
         p->spawn = false;
     if(kc == O)
         p->remove = false;
+    if(kc == F)
+        p->catch = false;
 
     return (0);
 }

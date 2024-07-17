@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/07/17 15:02:55 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/17 21:31:24 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@
 # define RIGHT 65363
 # define SHIFT 65505
 # define SPACE 32
+
 # define I 105
 # define O 111
+# define F 102
 
 # define MINUS 45
 # define PLUS 61

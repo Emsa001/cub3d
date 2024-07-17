@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:53 by escura            #+#    #+#             */
-/*   Updated: 2024/07/17 20:43:24 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/17 21:56:35 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ void spawn_block(float angle, int i)
     ft_free(possible);
 }
 
+
 void open_door(void)
 {
     t_player *p = player();
@@ -165,6 +166,17 @@ void open_door(void)
         doors[0].y = doors[0].y + 0.05;
 
     p->interact = false;
+}
+
+void catch_block(float angle)
+{
+    t_player *p = player();
+    t_cube *c = cube();
+    
+    if(!c->map->blocks)
+        return;
+    c->map->blocks[0].x = p->x -0.5 + 2.5 * cos(angle);
+    c->map->blocks[0].y = p->y -0.5 + 2.5 * sin(angle);
 }
 
 void	try_move(float x, float y)
@@ -246,6 +258,11 @@ void move_player(void) {
     {
         spawn_block(p->angle, 0);
         p->remove = false;
+    }
+    if(p->catch)
+    {
+        catch_block(p->angle);
+        p->catch = false;
     }
 
     p->x = p->x_px / BLOCK_SIZE;

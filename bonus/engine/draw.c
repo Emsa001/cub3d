@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/07/17 20:35:30 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/17 20:57:39 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ bool touch_block(float px, float py, char c)
 	float block_x;
 	float block_y;
 	int i = 0;
+	float x;
+	float y;
 
 	if(c == BLOCK)
 	{
@@ -107,24 +109,29 @@ bool touch_block(float px, float py, char c)
 		{
 			block_x = m->blocks[i].x;
 			block_y = m->blocks[i].y;
-			if (px >= block_x * BLOCK_SIZE && px <= block_x * BLOCK_SIZE + BLOCK_SIZE && py >= block_y * BLOCK_SIZE && py <= block_y * BLOCK_SIZE + BLOCK_SIZE)
+			x = block_x * BLOCK_SIZE;
+			y = block_y * BLOCK_SIZE;
+			if (px >= x && px <= x + BLOCK_SIZE && py >= y && py <= y + BLOCK_SIZE)
 				return true;
 			i++;
 		}
 	}
-	if(c == DOOR)
+	else if(c == DOOR)
 	{
 		if(!m->doors)
 			return false;
-		block_x = m->doors[0].x;
-		block_y = m->doors[0].y;
+		while(m->doors[i].x != -1)
+		{
+			block_x = m->doors[i].x;
+			block_y = m->doors[i].y;
+			x = block_x * BLOCK_SIZE;
+			y = block_y * BLOCK_SIZE;
+			if (px >= x && px <= x + BLOCK_SIZE && py >= y && py <= y + BLOCK_SIZE)
+				return true;
+			i++;
+		}
+		
 	}
-
-	float x = block_x * BLOCK_SIZE;
-	float y = block_y * BLOCK_SIZE;
-	
-	if (px >= x && px <= x + BLOCK_SIZE && py >= y && py <= y + BLOCK_SIZE)
-		return true;
 
 	return (false);
 }

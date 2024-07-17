@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/07/17 20:46:12 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/17 21:32:08 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ typedef struct s_player
     bool remove;
 
     bool catch;
-    bool release;
 
     int     fov;
     int     speed;
