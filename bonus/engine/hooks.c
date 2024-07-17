@@ -6,13 +6,21 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 19:25:04 by escura            #+#    #+#             */
-/*   Updated: 2024/07/17 19:07:33 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/17 20:46:51 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 #define MOUSE_SENSITIVITY 0.002
+
+int mouse_left_click(int button)
+{
+    t_player *p = player();
+    if (button == 1)
+        p->catch = true;
+    return (0);
+}
 
 int mouse_move(int x, int y, t_cube *c)
 {
@@ -127,8 +135,9 @@ void init_hooks(void)
     mlx_do_key_autorepeaton(c->mlx);
     mlx_hook(c->win, KeyPress, KeyPressMask, kd, (void *)c);
     mlx_hook(c->win, KeyRelease, KeyReleaseMask, ku, (void *)c);
-    mlx_hook(c->win, MotionNotify, PointerMotionMask, mouse_move, (void *)c);
-    mlx_mouse_hide(c->mlx, c->win);
+    // mlx_hook(c->win, MotionNotify, PointerMotionMask, mouse_move, (void *)c);
+    // mlx_hook(c->win, ButtonPress, ButtonPressMask, mouse_left_click, (void *)c);
+    // mlx_mouse_hide(c->mlx, c->win);
     mlx_loop_hook(c->mlx, render_scene, (void *)c);
     mlx_loop(c->mlx);
 }

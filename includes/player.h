@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/07/17 14:36:40 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/17 20:46:12 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct s_player
     float   z_dir;
     
     float	angle;
-    float ray_angle;
     double  direction;
 
     bool     btn_w;
@@ -50,6 +49,9 @@ typedef struct s_player
 
     bool spawn;
     bool remove;
+
+    bool catch;
+    bool release;
 
     int     fov;
     int     speed;

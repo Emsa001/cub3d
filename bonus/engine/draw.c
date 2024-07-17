@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/07/17 20:20:36 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/17 20:35:30 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,6 @@ void render_view()
 	float fovInRadians = player()->fov * PI / 180;
 	float halfFovInRadians = fovInRadians / 2.0;
 	float angleOffset = angle - halfFovInRadians;
-	player()->ray_angle = angleOffset + halfFovInRadians;
 
 	while (i < WIDTH)
     {

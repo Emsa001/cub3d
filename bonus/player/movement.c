@@ -6,14 +6,11 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:53 by escura            #+#    #+#             */
-/*   Updated: 2024/07/17 20:19:11 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/17 20:43:24 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-
-int g = 0;
 
 
 t_block *get_all_possible_blocks(int x, int y)
@@ -48,7 +45,7 @@ t_block *get_all_possible_blocks(int x, int y)
 
 void get_currect_block(t_block *possible, float ray_angle, int *x, int *y)
 {
-    if(ray_angle >= 345 && ray_angle < 15)
+    if(ray_angle >= 345 || ray_angle < 15)
     {
         *x = possible[0].x;
         *y = possible[0].y;
@@ -110,7 +107,7 @@ void get_currect_block(t_block *possible, float ray_angle, int *x, int *y)
     }
 }
 
-void spawn_block(float angle)
+void spawn_block(float angle, int i)
 {
     t_player *p = player();
     t_cube *c = cube();
@@ -126,48 +123,29 @@ void spawn_block(float angle)
     possible = get_all_possible_blocks(p->x, p->y);
 
     get_currect_block(possible, angle, &x, &y);
-
-    if(map->map[y][x] == '0')
-    {
-        map->map[y][x] = '2';
-        c->map->blocks = init_block(map, '2');
-    }
-    else
-    {
-        printf("Can't spawn block here (%d)\n", g++);
-        printf("block is: %d, %d\n", x, y);
-    }
-    ft_free(possible);
-    p->interact = false;
-}
-
-void remove_block(float angle)
-{
-    t_player *p = player();
-    t_cube *c = cube();
-    t_map *map = c->map;
-    t_block *possible;
-
-    int x = 0;
-    int y = 0;
-
-    angle = angle * (180 / PI);
     
-    possible = get_all_possible_blocks(p->x, p->y);
-
-    get_currect_block(possible, angle, &x, &y);
-
-    if(map->map[y][x] == '2')
+    if(i == 1)
     {
-        map->map[y][x] = '0';
-        c->map->blocks = init_block(map, '2');
+        if(map->map[y][x] == '0')
+        {
+            map->map[y][x] = '2';
+            c->map->blocks = init_block(map, '2');
+        }
+        else
+            printf("Can't spawn block here \n");
     }
     else
-        printf("Can't remove block here\n");
+    {
+        if(map->map[y][x] == '2')
+        {
+            map->map[y][x] = '0';
+            c->map->blocks = init_block(map, '2');
+        }
+        else
+            printf("Can't remove block here \n");
+    }
     ft_free(possible);
-    p->interact = false;
 }
-
 
 void open_door(void)
 {
@@ -261,12 +239,12 @@ void move_player(void) {
 
     if(p->spawn)
     {
-        spawn_block(p->ray_angle);
+        spawn_block(p->angle, 1);
         p->spawn = false;
     }
     if(p->remove)
     {
-        remove_block(p->ray_angle);
+        spawn_block(p->angle, 0);
         p->remove = false;
     }
 
