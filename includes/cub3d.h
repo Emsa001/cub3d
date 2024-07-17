@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/07/16 20:41:12 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/17 15:02:55 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@
 # define RIGHT 65363
 # define SHIFT 65505
 # define SPACE 32
+# define I 105
+# define O 111
 
 # define MINUS 45
 # define PLUS 61
@@ -69,6 +71,7 @@
 
 # define WALL '1'
 # define DOOR 'D'
+# define BLOCK '2'
 
 typedef struct s_cube
 {
@@ -110,7 +113,7 @@ void		start_game(void);
 void		init_hooks(void);
 int			render_scene(t_cube *p);
 bool is_touching(float px, float py, char c);
-bool touch_door(float px, float py);
+bool touch_block(float px, float py, char c);
 float 		distance(float x1, float y1, float x2, float y2);
 
 /* DRAW */

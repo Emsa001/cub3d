@@ -6,25 +6,25 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:35:41 by btvildia          #+#    #+#             */
-/*   Updated: 2024/07/16 20:56:46 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/17 13:48:28 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void    print_door_info(t_door *doors)
+void    print_block_info(t_block *blocks)
 {
     int i;
 
     i = 0;
-    while (doors[i].x != -1)
+    while (blocks[i].x != -1)
     {
-        printf("Door %d: x = %f, y = %f\n", doors[i].id, doors[i].x, doors[i].y);
+        printf("Door %d: x = %f, y = %f\n", blocks[i].id, blocks[i].x, blocks[i].y);
         i++;
     }
 }
 
-int door_count(t_map *map_info)
+int block_count(t_map *map_info, char c)
 {
     int i;
     int j;
@@ -38,7 +38,7 @@ int door_count(t_map *map_info)
         j = 0;
         while (map_info->map[i][j] != '\0')
         {
-            if (map_info->map[i][j] == 'D')
+            if (map_info->map[i][j] == c)
                 count++;
             j++;
         }
@@ -47,18 +47,18 @@ int door_count(t_map *map_info)
     return (count);
 }
 
-t_door    *init_door(t_map *map_info)
+t_block    *init_block(t_map *map_info , char c)
 {
-    t_door    *doors;
+    t_block    *blocks;
     int        i;
     int        j;
     int        k;
 
-    int count = door_count(map_info);
+    int count = block_count(map_info, c);
     if(count == 0)
         return (NULL);
 
-    doors = ft_malloc(sizeof(t_door) * (count + 1));
+    blocks = ft_malloc(sizeof(t_block) * (count + 1));
     i = 0;
     j = 0;
     k = 0;
@@ -67,24 +67,24 @@ t_door    *init_door(t_map *map_info)
         j = 0;
         while (map_info->map[i][j] != '\0')
         {
-            if (map_info->map[i][j] == 'D')
+            if (map_info->map[i][j] == c)
             {
-                doors[k].x = j;
-                doors[k].y = i;
-                doors[k].z = 0;
-                doors[k].first_x = j;
-                doors[k].first_y = i;
-                doors[k].id = k;
+                blocks[k].x = j;
+                blocks[k].y = i;
+                blocks[k].z = 0;
+                blocks[k].first_x = j;
+                blocks[k].first_y = i;
+                blocks[k].id = k;
                 k++;
             }
             j++;
         }
         i++;
     }
-    doors[k].x = -1;
-    doors[k].y = -1;
-    doors[k].z = 0;
-    doors[k].id = -1;
+    blocks[k].x = -1;
+    blocks[k].y = -1;
+    blocks[k].z = 0;
+    blocks[k].id = -1;
     
-    return (doors);
+    return (blocks);
 }

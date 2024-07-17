@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/07/16 18:43:45 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/17 14:43:09 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	check_valid(char **map, t_map *map_info)
 {
 	t_point	size;
 	t_point	*begin_points;
-	char	to_fill[6];
+	char	to_fill[7];
 
 	begin_points = ft_malloc(sizeof(t_point) * (get_zero_count(map) + 1));
 	begin_points = get_begin_points(map, begin_points);
@@ -51,6 +51,7 @@ void	check_valid(char **map, t_map *map_info)
 	to_fill[3] = 'W';
 	to_fill[4] = 'E';
 	to_fill[5] = 'D';
+	to_fill[6] = '2';
 	size.x = map_info->width + 1;
 	size.y = map_info->height;
 	fill_loop(to_fill, begin_points, map_info, size);
@@ -75,6 +76,7 @@ t_map	*check_map(char **map, int size)
 	get_2d_map(map_info, map, size);
 	get_map_sizes(map_info, map_info->map);
 	check_valid(map_info->map, map_info);
-	map_info->doors = init_door(map_info);
+	map_info->doors = init_block(map_info, 'D');
+	map_info->blocks = init_block(map_info, '2');
 	return (map_info);
 }

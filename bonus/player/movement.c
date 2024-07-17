@@ -6,17 +6,174 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:53 by escura            #+#    #+#             */
-/*   Updated: 2024/07/16 21:57:46 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/17 20:19:11 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+
+int g = 0;
+
+
+t_block *get_all_possible_blocks(int x, int y)
+{
+    t_block *possible = ft_malloc(sizeof(t_block) * 12);
+    possible[0].x = x + 2;
+    possible[0].y = y;
+    possible[1].x = x + 2;
+    possible[1].y = y + 1;
+    possible[2].x = x + 1;
+    possible[2].y = y + 2;
+    possible[3].x = x;
+    possible[3].y = y + 2;
+    possible[4].x = x - 1;
+    possible[4].y = y + 2;
+    possible[5].x = x - 2;
+    possible[5].y = y + 1;
+    possible[6].x = x - 2;
+    possible[6].y = y;
+    possible[7].x = x - 2;
+    possible[7].y = y - 1;
+    possible[8].x = x - 1;
+    possible[8].y = y - 2;
+    possible[9].x = x;
+    possible[9].y = y - 2;
+    possible[10].x = x + 1;
+    possible[10].y = y - 2;
+    possible[11].x = x + 2;
+    possible[11].y = y - 1;
+    return possible;
+}
+
+void get_currect_block(t_block *possible, float ray_angle, int *x, int *y)
+{
+    if(ray_angle >= 345 && ray_angle < 15)
+    {
+        *x = possible[0].x;
+        *y = possible[0].y;
+    }
+    else if(ray_angle >= 15 && ray_angle < 45)
+    {
+        *x = possible[1].x;
+        *y = possible[1].y;
+    }
+    else if(ray_angle >= 45 && ray_angle < 75)
+    {
+        *x = possible[2].x;
+        *y = possible[2].y;
+    }
+    else if(ray_angle >= 75 && ray_angle < 105)
+    {
+        *x = possible[3].x;
+        *y = possible[3].y;
+    }
+    else if(ray_angle >= 105 && ray_angle < 135)
+    {
+        *x = possible[4].x;
+        *y = possible[4].y;
+    }
+    else if(ray_angle >= 135 && ray_angle < 165)
+    {
+        *x = possible[5].x;
+        *y = possible[5].y;
+    }
+    else if(ray_angle >= 165 && ray_angle < 195)
+    {
+        *x = possible[6].x;
+        *y = possible[6].y;
+    }
+    else if(ray_angle >= 195 && ray_angle < 225)
+    {
+        *x = possible[7].x;
+        *y = possible[7].y;
+    }
+    else if(ray_angle >= 225 && ray_angle < 255)
+    {
+        *x = possible[8].x;
+        *y = possible[8].y;
+    }
+    else if(ray_angle >= 255 && ray_angle < 285)
+    {
+        *x = possible[9].x;
+        *y = possible[9].y;
+    }
+    else if(ray_angle >= 285 && ray_angle < 315)
+    {
+        *x = possible[10].x;
+        *y = possible[10].y;
+    }
+    else if(ray_angle >= 315 && ray_angle < 345)
+    {
+        *x = possible[11].x;
+        *y = possible[11].y;
+    }
+}
+
+void spawn_block(float angle)
+{
+    t_player *p = player();
+    t_cube *c = cube();
+    t_map *map = c->map;
+    t_block *possible;
+
+    
+    int x = 0;
+    int y = 0;
+
+    angle = angle * (180 / PI);
+    
+    possible = get_all_possible_blocks(p->x, p->y);
+
+    get_currect_block(possible, angle, &x, &y);
+
+    if(map->map[y][x] == '0')
+    {
+        map->map[y][x] = '2';
+        c->map->blocks = init_block(map, '2');
+    }
+    else
+    {
+        printf("Can't spawn block here (%d)\n", g++);
+        printf("block is: %d, %d\n", x, y);
+    }
+    ft_free(possible);
+    p->interact = false;
+}
+
+void remove_block(float angle)
+{
+    t_player *p = player();
+    t_cube *c = cube();
+    t_map *map = c->map;
+    t_block *possible;
+
+    int x = 0;
+    int y = 0;
+
+    angle = angle * (180 / PI);
+    
+    possible = get_all_possible_blocks(p->x, p->y);
+
+    get_currect_block(possible, angle, &x, &y);
+
+    if(map->map[y][x] == '2')
+    {
+        map->map[y][x] = '0';
+        c->map->blocks = init_block(map, '2');
+    }
+    else
+        printf("Can't remove block here\n");
+    ft_free(possible);
+    p->interact = false;
+}
+
+
 void open_door(void)
 {
     t_player *p = player();
     t_cube *c = cube();
-    t_door *doors = c->map->doors;
+    t_block *doors = c->map->doors;
     static int open;
     
     if(doors[0].y >= doors[0].first_y - 0.9 && doors[0].y == doors[0].first_y)
@@ -102,6 +259,17 @@ void move_player(void) {
     if(p->interact)
         open_door();
 
+    if(p->spawn)
+    {
+        spawn_block(p->ray_angle);
+        p->spawn = false;
+    }
+    if(p->remove)
+    {
+        remove_block(p->ray_angle);
+        p->remove = false;
+    }
+
     p->x = p->x_px / BLOCK_SIZE;
     p->y = p->y_px / BLOCK_SIZE;
 
@@ -136,7 +304,9 @@ bool	touch(char c)
 
     if(is_touching(x - 10, y - 10, c) || is_touching(x + 10, y - 10, c) || is_touching(x - 10, y + 10, c) || is_touching(x + 10, y + 10, c))
         return (true);
-    if(touch_door(x - 10, y - 10) || touch_door(x + 10, y - 10) || touch_door(x - 10, y + 10) || touch_door(x + 10, y + 10)) 
+    if(touch_block(x - 10, y - 10, DOOR) || touch_block(x + 10, y - 10, DOOR) || touch_block(x - 10, y + 10, DOOR) || touch_block(x + 10, y + 10, DOOR)) 
+        return (true);
+    if(touch_block(x - 10, y - 10, BLOCK) || touch_block(x + 10, y - 10, BLOCK) || touch_block(x - 10, y + 10, BLOCK) || touch_block(x + 10, y + 10, BLOCK)) 
         return (true);
     
 	return (false);

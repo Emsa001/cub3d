@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/07/16 21:55:12 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/17 20:20:36 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,17 @@ int calculate_direction(float x, float y, float angle)
 		cube()->tex_x = (int)y % BLOCK_SIZE;
 		return 5;
 	}
+	else if(is_touching(x - sx, y, '2'))
+	{
+		cube()->tex_x = (int)x % BLOCK_SIZE;
+		return 4;
+	}
+	else if(is_touching(x, y - sy, '2'))
+	{
+		cube()->tex_x = (int)y % BLOCK_SIZE;
+		return 4;
+	}
+	
 	return 0;
 }
 
@@ -80,20 +91,42 @@ void draw_h_line(float height)
     }
 }
 
-bool touch_door(float px, float py)
+bool touch_block(float px, float py, char c)
 {
 	t_map *m = cube()->map;
-	float door_x = m->doors[0].x;
-	float door_y = m->doors[0].y;
 
-	float x = door_x * BLOCK_SIZE;
-	float y = door_y * BLOCK_SIZE;
+	float block_x;
+	float block_y;
+	int i = 0;
+
+	if(c == BLOCK)
+	{
+		if(!m->blocks)
+			return false;
+		while(m->blocks[i].x != -1)
+		{
+			block_x = m->blocks[i].x;
+			block_y = m->blocks[i].y;
+			if (px >= block_x * BLOCK_SIZE && px <= block_x * BLOCK_SIZE + BLOCK_SIZE && py >= block_y * BLOCK_SIZE && py <= block_y * BLOCK_SIZE + BLOCK_SIZE)
+				return true;
+			i++;
+		}
+	}
+	if(c == DOOR)
+	{
+		if(!m->doors)
+			return false;
+		block_x = m->doors[0].x;
+		block_y = m->doors[0].y;
+	}
+
+	float x = block_x * BLOCK_SIZE;
+	float y = block_y * BLOCK_SIZE;
 	
 	if (px >= x && px <= x + BLOCK_SIZE && py >= y && py <= y + BLOCK_SIZE)
 		return true;
 
 	return (false);
-	
 }
 
 void	draw_line(float angle)
@@ -104,7 +137,7 @@ void	draw_line(float angle)
 	float dist = 0;
 	float line_height = 0;
 	
-	while(!is_touching(x, y, WALL) && !touch_door(x, y))
+	while(!is_touching(x, y, WALL) && !touch_block(x, y, BLOCK) && !touch_block(x, y, DOOR))
 	{
 		x += cos(angle);
 		y += sin(angle);
@@ -127,6 +160,7 @@ void render_view()
 	float fovInRadians = player()->fov * PI / 180;
 	float halfFovInRadians = fovInRadians / 2.0;
 	float angleOffset = angle - halfFovInRadians;
+	player()->ray_angle = angleOffset + halfFovInRadians;
 
 	while (i < WIDTH)
     {
