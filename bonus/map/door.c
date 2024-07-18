@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:35:41 by btvildia          #+#    #+#             */
-/*   Updated: 2024/07/18 14:26:03 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:38:05 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ t_block    *init_block(t_map *map_info , char c)
     int count = block_count(map_info, c);
     if(count == 0)
         return (NULL);
-
     blocks = ft_malloc(sizeof(t_block) * (count + 1));
     i = 0;
     j = 0;
@@ -93,7 +92,6 @@ t_block    *init_block(t_map *map_info , char c)
             {
                 blocks[k].x = j;
                 blocks[k].y = i;
-                blocks[k].z = 0;
                 blocks[k].first_x = j;
                 blocks[k].first_y = i;
                 blocks[k].id = k;
@@ -106,7 +104,6 @@ t_block    *init_block(t_map *map_info , char c)
     }
     blocks[k].x = -1;
     blocks[k].y = -1;
-    blocks[k].z = 0;
     blocks[k].id = -1;
     blocks[k].type = '\0';
     

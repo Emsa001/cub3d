@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/07/18 14:25:31 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:58:02 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void		ft_error(char *str);
 
 /* BLOCK */
 t_block *get_all_possible_blocks(int x, int y);
-void get_currect_block(t_block *possible, float angle, int *x, int *y);
+void get_currect_block(t_block *possible, float angle, float *x, float *y);
 void spawn_block(float angle, int i);
 void catch_block(float angle);
 void open_door(void);

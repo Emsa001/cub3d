@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/07/18 13:05:54 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/18 15:35:30 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@ typedef struct s_block
 {
 	float	x;
 	float	y;
-	float	z;
-	
 	float  first_x;
 	float  first_y;
+	
 
 	int		id;
 	char 	type;
