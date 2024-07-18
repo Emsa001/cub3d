@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/07/18 15:58:02 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/18 17:29:36 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,8 @@ t_block *get_all_possible_blocks(int x, int y);
 void get_currect_block(t_block *possible, float angle, float *x, float *y);
 void spawn_block(float angle, int i);
 void catch_block(float angle);
+void add_block(float x, float y);
+void remove_block(float x, float y);
 void open_door(void);
 
 

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:35:41 by btvildia          #+#    #+#             */
-/*   Updated: 2024/07/18 15:38:05 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/18 18:38:31 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void    print_block_info(t_block *blocks)
     int i;
 
     i = 0;
+    printf("Block info:\n");
     while (blocks[i].x != -1)
     {
         printf("Door %d: x = %f, y = %f\n", blocks[i].id, blocks[i].x, blocks[i].y);
@@ -69,6 +70,39 @@ int block_count(t_map *map_info, char c)
     return (count);
 }
 
+void add_block(float x, float y)
+{
+    int i;
+    t_block *new_blocks;
+    t_block *tmp;
+    t_block *blocks = cube()->map->blocks;
+
+
+    i = 0;
+    while (blocks[i].x != -1)
+        i++;
+    new_blocks = ft_malloc(sizeof(t_block) * (i + 2));
+    i = 0;
+    while (blocks[i].x != -1)
+    {
+        new_blocks[i] = blocks[i];
+        i++;
+    }
+    new_blocks[i].x = x;
+    new_blocks[i].y = y;
+    new_blocks[i].first_x = x;
+    new_blocks[i].first_y = y;
+    new_blocks[i].id = i;
+    new_blocks[i].type = '2';
+    new_blocks[i + 1].x = -1;
+    new_blocks[i + 1].y = -1;
+    new_blocks[i + 1].id = -1;
+    new_blocks[i + 1].type = '\0';
+    tmp = cube()->map->blocks;
+    cube()->map->blocks = new_blocks;
+    ft_free(tmp);
+}
+
 t_block    *init_block(t_map *map_info , char c)
 {
     t_block    *blocks;
@@ -77,8 +111,6 @@ t_block    *init_block(t_map *map_info , char c)
     int        k;
 
     int count = block_count(map_info, c);
-    if(count == 0)
-        return (NULL);
     blocks = ft_malloc(sizeof(t_block) * (count + 1));
     i = 0;
     j = 0;
@@ -106,6 +138,5 @@ t_block    *init_block(t_map *map_info , char c)
     blocks[k].y = -1;
     blocks[k].id = -1;
     blocks[k].type = '\0';
-    
     return (blocks);
 }
