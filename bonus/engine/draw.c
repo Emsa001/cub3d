@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/07/18 13:25:37 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:23:49 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ int calculate_direction(float x, float y, float angle)
 {
 	int sx = cos(angle) > 0 ? 1 : -1; 
 	int sy = sin(angle) > 0 ? 1 : -1;
+	t_cube *c = cube();
 
 	if(is_touching(x - sx, y, WALL))
 	{
-		cube()->tex_x = (int)x % BLOCK_SIZE;
+		c->tex_x = (int)x % BLOCK_SIZE;
 		if (sy == 1)
 			return 1;
 		else
@@ -29,7 +30,7 @@ int calculate_direction(float x, float y, float angle)
 	}
 	else if(is_touching(x, y - sy, WALL))
 	{
-		cube()->tex_x = (int)y % BLOCK_SIZE;
+		c->tex_x = (int)y % BLOCK_SIZE;
 		if (sx == 1)
 			return 2;
 		else
@@ -37,25 +38,24 @@ int calculate_direction(float x, float y, float angle)
 	}
 	else if(is_touching(x - sx, y, DOOR))
 	{
-		cube()->tex_x = (int)x % BLOCK_SIZE;
+		c->tex_x = (int)x % BLOCK_SIZE;
 		return 5;
 	}
 	else if(is_touching(x, y - sy, DOOR))
 	{
-		cube()->tex_x = (int)y % BLOCK_SIZE;
+		c->tex_x = (int)y % BLOCK_SIZE;
 		return 5;
 	}
-	else if(is_touching(x - sx, y, BLOCK))
+	else if(touch_block(c->map->blocks, x - sx, y, BLOCK))
 	{
-		cube()->tex_x = (int)x % BLOCK_SIZE;
+		c->tex_x = (int)x % BLOCK_SIZE;
 		return 6;
 	}
-	else if(is_touching(x, y - sy, BLOCK))
+	else if(touch_block(c->map->blocks, x, y - sy, BLOCK))
 	{
-		cube()->tex_x = (int)y % BLOCK_SIZE;
+		c->tex_x = (int)y % BLOCK_SIZE;
 		return 6;
 	}
-	
 	return 6;
 }
 
@@ -84,9 +84,9 @@ void draw_h_line(float height)
 	end = start + height;
     while (start < end)
     {
-		// if(player()->catch && side == 6)
-		// 	color = 255;
-		// else
+		if(player()->catch && side == 6)
+			color = 255;
+		else
 			color = get_pixel_from_image(c->tex_x, tex_y, side);
         put_pixel(c->x , start, color);
 		tex_y += step;

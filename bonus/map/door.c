@@ -6,11 +6,33 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:35:41 by btvildia          #+#    #+#             */
-/*   Updated: 2024/07/18 13:09:09 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/18 14:26:03 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void open_door(void)
+{
+    t_player *p = player();
+    t_cube *c = cube();
+    t_block *doors = c->map->doors;
+    static int open;
+    if(c->map->doors == NULL)
+        return;
+    
+    if(doors[0].y >= doors[0].first_y - 0.9 && doors[0].y == doors[0].first_y)
+            open = 1;
+    else if(doors[0].y <= doors[0].first_y && doors[0].y <= doors[0].first_y - 0.9)
+            open = 0;
+
+    if(open == 1)
+        doors[0].y = doors[0].y - 0.05;
+    else
+        doors[0].y = doors[0].y + 0.05;
+
+    p->interact = false;
+}
 
 void    print_block_info(t_block *blocks)
 {
