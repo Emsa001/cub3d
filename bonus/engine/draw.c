@@ -6,13 +6,13 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/07/17 20:57:39 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/18 13:25:37 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int side = 1;
+int side = 6;
 
 int calculate_direction(float x, float y, float angle)
 {
@@ -45,18 +45,18 @@ int calculate_direction(float x, float y, float angle)
 		cube()->tex_x = (int)y % BLOCK_SIZE;
 		return 5;
 	}
-	else if(is_touching(x - sx, y, '2'))
+	else if(is_touching(x - sx, y, BLOCK))
 	{
 		cube()->tex_x = (int)x % BLOCK_SIZE;
-		return 4;
+		return 6;
 	}
-	else if(is_touching(x, y - sy, '2'))
+	else if(is_touching(x, y - sy, BLOCK))
 	{
 		cube()->tex_x = (int)y % BLOCK_SIZE;
-		return 4;
+		return 6;
 	}
 	
-	return 0;
+	return 6;
 }
 
 int vert_offset(float z_dir)
@@ -74,7 +74,7 @@ void draw_h_line(float height)
 	
 	float step = T_SIZE / height;
 	
-	if(height > HEIGHT)
+	if(start + height > HEIGHT)
 	{
 		tex_y = (height - HEIGHT) * step / 2;
 		height = HEIGHT;
@@ -84,56 +84,33 @@ void draw_h_line(float height)
 	end = start + height;
     while (start < end)
     {
-		color = get_pixel_from_image(c->tex_x, tex_y, side);
+		// if(player()->catch && side == 6)
+		// 	color = 255;
+		// else
+			color = get_pixel_from_image(c->tex_x, tex_y, side);
         put_pixel(c->x , start, color);
 		tex_y += step;
         start++;
     }
 }
 
-bool touch_block(float px, float py, char c)
+bool touch_block(t_block *blocks, float px, float py, char c)
 {
-	t_map *m = cube()->map;
-
-	float block_x;
-	float block_y;
 	int i = 0;
-	float x;
-	float y;
+	float x, y;
 
-	if(c == BLOCK)
-	{
-		if(!m->blocks)
-			return false;
-		while(m->blocks[i].x != -1)
-		{
-			block_x = m->blocks[i].x;
-			block_y = m->blocks[i].y;
-			x = block_x * BLOCK_SIZE;
-			y = block_y * BLOCK_SIZE;
-			if (px >= x && px <= x + BLOCK_SIZE && py >= y && py <= y + BLOCK_SIZE)
-				return true;
-			i++;
-		}
-	}
-	else if(c == DOOR)
-	{
-		if(!m->doors)
-			return false;
-		while(m->doors[i].x != -1)
-		{
-			block_x = m->doors[i].x;
-			block_y = m->doors[i].y;
-			x = block_x * BLOCK_SIZE;
-			y = block_y * BLOCK_SIZE;
-			if (px >= x && px <= x + BLOCK_SIZE && py >= y && py <= y + BLOCK_SIZE)
-				return true;
-			i++;
-		}
+	if (!blocks)
+		return false;
 		
+	while (blocks[i].x != -1)
+	{
+		x = blocks[i].x * BLOCK_SIZE;
+		y = blocks[i].y * BLOCK_SIZE;
+		if (px >= x && px <= x + BLOCK_SIZE && py >= y && py <= y + BLOCK_SIZE)
+			return true;
+		i++;
 	}
-
-	return (false);
+	return false;
 }
 
 void	draw_line(float angle)
@@ -144,7 +121,7 @@ void	draw_line(float angle)
 	float dist = 0;
 	float line_height = 0;
 	
-	while(!is_touching(x, y, WALL) && !touch_block(x, y, BLOCK) && !touch_block(x, y, DOOR))
+	while(!is_touching(x, y, WALL) && !touch_block(cube()->map->blocks, x, y, BLOCK) && !touch_block(cube()->map->doors, x, y, DOOR))
 	{
 		x += cos(angle);
 		y += sin(angle);

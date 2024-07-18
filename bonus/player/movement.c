@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:53 by escura            #+#    #+#             */
-/*   Updated: 2024/07/17 21:56:35 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/18 13:25:04 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ void	try_move(float x, float y)
 	temp_y = p->y_px;
 	p->x_px += x;
 	p->y_px += y;
-	if (touch(WALL))
+	if (touch())
 	{
 		p->x_px -= x;
 		p->y_px -= y;
@@ -260,10 +260,7 @@ void move_player(void) {
         p->remove = false;
     }
     if(p->catch)
-    {
         catch_block(p->angle);
-        p->catch = false;
-    }
 
     p->x = p->x_px / BLOCK_SIZE;
     p->y = p->y_px / BLOCK_SIZE;
@@ -291,18 +288,26 @@ void move_player(void) {
 }
 
 
-bool	touch(char c)
+bool	touch()
 {
 	const int	x = player()->x_px;
 	const int	y = player()->y_px;
 	const char	**map = cube()->map->map;
 
-    if(is_touching(x - 10, y - 10, c) || is_touching(x + 10, y - 10, c) || is_touching(x - 10, y + 10, c) || is_touching(x + 10, y + 10, c))
+    const int x_p = x + 10;
+    const int y_p = y + 10;
+    const int x_m = x - 10;
+    const int y_m = y - 10;
+    char c = '1';
+    char b = '2';
+    char d = 'D';
+
+    if(is_touching(x_m , y_m, c) || is_touching(x_p , y_m, c) || is_touching(x_m , y_p, c) || is_touching(x_p , y_p, c))
         return (true);
-    if(touch_block(x - 10, y - 10, DOOR) || touch_block(x + 10, y - 10, DOOR) || touch_block(x - 10, y + 10, DOOR) || touch_block(x + 10, y + 10, DOOR)) 
+    if(touch_block(cube()->map->blocks, x_m, y_m, b) || touch_block(cube()->map->blocks, x_p, y_m, b) || touch_block(cube()->map->blocks, x_m, y_p, b) || touch_block(cube()->map->blocks, x_p, y_p, b))
         return (true);
-    if(touch_block(x - 10, y - 10, BLOCK) || touch_block(x + 10, y - 10, BLOCK) || touch_block(x - 10, y + 10, BLOCK) || touch_block(x + 10, y + 10, BLOCK)) 
+    if(touch_block(cube()->map->doors, x_m, y_m, d) || touch_block(cube()->map->doors, x_p, y_m, d) || touch_block(cube()->map->doors, x_m, y_p, d) || touch_block(cube()->map->doors, x_p, y_p, d))
         return (true);
-    
+
 	return (false);
 }

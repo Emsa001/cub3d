@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/07/17 21:32:08 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/18 13:20:05 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_player
 t_player *init_player(t_player *p);
 t_player *player(void);
 void	move_player(void);
-bool touch(char c);
+bool touch();
 void render_player(void);
 
 

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 18:35:41 by btvildia          #+#    #+#             */
-/*   Updated: 2024/07/17 13:48:28 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/18 13:09:09 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ t_block    *init_block(t_map *map_info , char c)
                 blocks[k].first_x = j;
                 blocks[k].first_y = i;
                 blocks[k].id = k;
+                blocks[k].type = c;
                 k++;
             }
             j++;
@@ -85,6 +86,7 @@ t_block    *init_block(t_map *map_info , char c)
     blocks[k].y = -1;
     blocks[k].z = 0;
     blocks[k].id = -1;
+    blocks[k].type = '\0';
     
     return (blocks);
 }

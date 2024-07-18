@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 19:25:04 by escura            #+#    #+#             */
-/*   Updated: 2024/07/17 21:58:18 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/18 12:59:13 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ int mouse_left_click(int button)
     t_player *p = player();
     if (button == 1)
         p->catch = true;
+    if(button == 3)
+        p->catch = false;
     return (0);
 }
 

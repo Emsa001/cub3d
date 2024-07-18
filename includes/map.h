@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/07/17 13:43:50 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/18 13:05:54 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_block
 	float  first_y;
 
 	int		id;
+	char 	type;
 }			t_block;
 
 typedef struct s_map
