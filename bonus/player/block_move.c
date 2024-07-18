@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:53:45 by btvildia          #+#    #+#             */
-/*   Updated: 2024/07/18 18:40:56 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/18 19:56:09 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void spawn_block(float angle, int i)
 
 int get_block_id(t_block *blocks, float px, float py, float angle)
 {
-    int id = -1;
     int i = 0;
     float x = 0;
     float y = 0;
@@ -47,33 +46,37 @@ int get_block_id(t_block *blocks, float px, float py, float angle)
 
     float full_angle = angle * 180 / PI;
 
-    float missing_distance = 2 +(-cos(angle * PI / 45));
+    float md = 2 +(-cos(angle * PI / 45));
 
     while(blocks[i].x != -1)
     {
         x = blocks[i].x;
         y = blocks[i].y;
-        if((p_x - missing_distance <= x && x <= p_x + missing_distance) && (p_y - missing_distance <= y && y <= p_y + missing_distance))
+        if((p_x - md <= x && x <= p_x + md) && (p_y - md <= y && y <= p_y + md))
             return i;
         i++;
     }
-
-    return id;
+    return -1;
 }
 
 void catch_block(float angle)
 {
     t_player *p = player();
     t_cube *c = cube();
+    static int id;
     
     if(!c->map->blocks)
         return;
-    
-    int id = 0;
-    id = get_block_id(c->map->blocks, p->x, p->y, angle);
+    if(!p->catched)
+    {
+        id = get_block_id(c->map->blocks, p->x, p->y, angle);
+        p->catched = true;
+    }
     if(id == -1)
+    {
+        p->catched = false;
         return;
-    
+    }
     c->map->blocks[id].x = p->x -0.5 + 2.5 * cos(angle);
     c->map->blocks[id].y = p->y -0.5 + 2.5 * sin(angle);
 }
