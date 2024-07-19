@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 19:25:04 by escura            #+#    #+#             */
-/*   Updated: 2024/07/18 19:54:19 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/19 18:43:57 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,9 +147,9 @@ void init_hooks(void)
     mlx_do_key_autorepeaton(c->mlx);
     mlx_hook(c->win, KeyPress, KeyPressMask, kd, (void *)c);
     mlx_hook(c->win, KeyRelease, KeyReleaseMask, ku, (void *)c);
-    mlx_hook(c->win, MotionNotify, PointerMotionMask, mouse_move, (void *)c);
-    mlx_hook(c->win, ButtonPress, ButtonPressMask, mouse_left_click, (void *)c);
-    mlx_mouse_hide(c->mlx, c->win);
+    // mlx_hook(c->win, MotionNotify, PointerMotionMask, mouse_move, (void *)c);
+    // mlx_hook(c->win, ButtonPress, ButtonPressMask, mouse_left_click, (void *)c);
+    // mlx_mouse_hide(c->mlx, c->win);
     mlx_loop_hook(c->mlx, render_scene, (void *)c);
     mlx_loop(c->mlx);
 }
