@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/07/19 21:23:26 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/19 21:54:17 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,10 @@ int calculate_direction(float x, float y, float angle)
 
 int vert_offset()
 {
-	float offset = 0;
 	t_player *p = player();
 	float z_dir = p->z_dir;
-
-	offset = HEIGHT / 2 + z_dir * HEIGHT / 2;
-
-	return offset;
+	return (z_dir) * HEIGHT;
+	
 }
 
 void draw_h_line(float height, int start_x)

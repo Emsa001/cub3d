@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 19:25:04 by escura            #+#    #+#             */
-/*   Updated: 2024/07/19 21:06:09 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/19 21:58:13 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,23 @@ int mouse_left_click(int button)
 
 int mouse_move(int x, int y, t_cube *c)
 {
+    // p->z_dir can be from 0 to 1
+    // cennter of the screen is 0.5
+
 	t_player *p = player();
 	int dx = x - WIDTH / 2;
 	int dy = y - HEIGHT / 2;
 
-	p->angle += dx * MOUSE_SENSITIVITY;
-	if (p->angle > 2 * PI)
-		p->angle -= 2 * PI;
-	if (p->angle < 0)
-		p->angle += 2 * PI;
-	if (p->z_dir - dy * MOUSE_SENSITIVITY > -0.5 && p->z_dir - dy * MOUSE_SENSITIVITY < 0.5)
-        p->z_dir -= dy * MOUSE_SENSITIVITY;
+    p->angle += dx * MOUSE_SENSITIVITY;
+    p->z_dir -= dy * MOUSE_SENSITIVITY;
+    if (p->z_dir > 1)
+        p->z_dir = 1;
+    if (p->z_dir < 0)
+        p->z_dir = 0;
+    if (p->angle > 2 * PI)
+        p->angle -= 2 * PI;
+    if (p->angle < 0)
+        p->angle += 2 * PI;
 
 	mlx_mouse_move(c->mlx, c->win, WIDTH / 2, HEIGHT / 2);
 	return (0);
