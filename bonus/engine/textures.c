@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 17:23:28 by escura            #+#    #+#             */
-/*   Updated: 2024/07/16 18:02:21 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/19 11:43:56 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ int get_pixel_from_image(int x, int y, int side)
         t = textures()->wall_south;
     else if(side == 3)
         t = textures()->wall_east;
+    else if(side == 4)
+        t = textures()->wall_west;
     else if(side == 5)
         t = textures()->door;
     else
-        t = textures()->wall_west;
+        t = textures()->wall_east;
 
     x = x % t->width;
     y = y % t->height;

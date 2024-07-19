@@ -6,11 +6,30 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/07/18 15:39:52 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/18 20:05:50 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+bool touch_block(t_block *blocks, float px, float py, char c)
+{
+	int i = 0;
+	float x, y;
+
+	if (!blocks)
+		return false;
+		
+	while (blocks[i].x != -1)
+	{
+		x = blocks[i].x * BLOCK_SIZE;
+		y = blocks[i].y * BLOCK_SIZE;
+		if (px >= x && px <= x + BLOCK_SIZE && py >= y && py <= y + BLOCK_SIZE)
+			return true;
+		i++;
+	}
+	return false;
+}
 
 bool is_touching(float px, float py, char c)
 {

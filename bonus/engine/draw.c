@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/07/18 15:40:23 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:51:45 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,56 +64,37 @@ int vert_offset(float z_dir)
 	return (z_dir * 0.5) * HEIGHT;
 }
 
-void draw_h_line(float height)
+void draw_h_line(float height, int start_x)
 {
     const t_cube *c = cube();
     int color = 0;
 	float tex_y = 0;
     int end;
-	int start;
+	int start_y = 0;
 	
 	float step = T_SIZE / height;
 	
-	if(start + height > HEIGHT)
+	if(start_y + height > HEIGHT)
 	{
 		tex_y = (height - HEIGHT) * step / 2;
 		height = HEIGHT;
 	}
-    start = (HEIGHT - height) / 2 + vert_offset(player()->z_dir);
+    start_y = (HEIGHT - height) / 2 + vert_offset(player()->z_dir);
 	
-	end = start + height;
-    while (start < end)
+	end = start_y + height;
+    while (start_y < end)
     {
 		if(player()->catch && side == 6)
 			color = 255;
 		else
 			color = get_pixel_from_image(c->tex_x, tex_y, side);
-        put_pixel(c->x , start, color);
+        put_pixel(start_x , start_y, color);
 		tex_y += step;
-        start++;
+        start_y++;
     }
 }
 
-bool touch_block(t_block *blocks, float px, float py, char c)
-{
-	int i = 0;
-	float x, y;
-
-	if (!blocks)
-		return false;
-		
-	while (blocks[i].x != -1)
-	{
-		x = blocks[i].x * BLOCK_SIZE;
-		y = blocks[i].y * BLOCK_SIZE;
-		if (px >= x && px <= x + BLOCK_SIZE && py >= y && py <= y + BLOCK_SIZE)
-			return true;
-		i++;
-	}
-	return false;
-}
-
-void	draw_line(float angle)
+void	draw_line(float angle , int start_x)
 {
 	t_player *p = player();
 	float x = p->x_px;
@@ -131,7 +112,7 @@ void	draw_line(float angle)
 
 	dist = view_lane_distance(x, y, angle);
 	line_height = (BLOCK_SIZE / dist) * (WIDTH / 2);
-	draw_h_line(line_height);
+	draw_h_line(line_height, start_x);
 }
 
 void render_view()
@@ -149,8 +130,7 @@ void render_view()
     {
 		float fraction = (float)i / WIDTH;
 		float rayAngle = angleOffset + fraction * fovInRadians;
-		draw_line(rayAngle);
-		c->x = i;
+		draw_line(rayAngle, i);
 		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/07/18 17:24:07 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:11:02 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,42 +62,42 @@ void render_map()
     }
 }
 
-void update_fps(t_cube *c) 
+void update_fps(void) 
 {
-    time_t current_time = time(NULL);
-    c->frame_count++;
-
-    if (current_time - c->last_time >= 1) {
-        c->fps = c->frame_count;
-        c->frame_count = 0;
-        c->last_time = current_time;
+    static int fps = 0;
+    static int last_fps = 0;
+    static time_t last_time = 0;
+    char fps_str[20];
+    t_cube *c = cube();
+    
+    time_t now = time(NULL);
+    fps++;
+    if (now - last_time >= 1) 
+    {
+        last_time = now;
+        last_fps = fps;
+        fps = 0;
     }
-
-    char fps_str[50];
-    sprintf(fps_str, "(fps: %d)", c->fps);
+    
+    sprintf(fps_str, "(fps: %d)", last_fps);
     mlx_string_put(c->mlx, c->win, 10, 10, 0xFFFFFF, fps_str);
 }
 
 int render_scene(t_cube *c) 
 {
     t_render *r = render();
-    // print_door_info(c->map->doors);
     r->img_ptr = mlx_new_image(r->mlx, WIDTH, HEIGHT);
 
     // render_background();
 	render_view();
-    // for(int i = 0; i < 500; i++){
-    //     draw_h_line(500, i);
-    // }
-
-// 
+    
     mlx_put_image_to_window(r->mlx, r->win, r->img_ptr , 0, 0);
     mlx_destroy_image(r->mlx, r->img_ptr);
     
     // render_map();
     move_player();
     draw_cross_in_centre();
-    update_fps(c);
+    update_fps();
     return 0;
 }
 

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/07/18 17:29:36 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:08:50 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,8 @@ typedef struct s_cube
 	char	*some_value;
 	int		keycode;
 
-	int 	x;
-
 	float tex_x;
 	t_map	*map;
-	int		fps;
-	int		frame_count;
-	time_t	last_time;
 }			t_cube;
 
 typedef struct s_render
@@ -119,7 +114,7 @@ bool touch_block(t_block *blocks, float px, float py, char c);
 float 		distance(float x1, float y1, float x2, float y2);
 
 /* DRAW */
-void draw_line(float angle);
+void draw_line(float angle, int i);
 void	draw_cross_in_centre(void);
 void	draw_cube(int x, int y, int size, int col);
 

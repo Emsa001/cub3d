@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:53 by escura            #+#    #+#             */
-/*   Updated: 2024/07/16 17:43:19 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:09:25 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	try_move(float x, float y)
 	temp_y = p->y_px;
 	p->x_px += x;
 	p->y_px += y;
-	if (touch(WALL))
+	if (touch())
 	{
 		p->x_px -= x;
 		p->y_px -= y;
@@ -65,20 +65,6 @@ void move_player(void) {
         if (p->angle > 2 * PI)
             p->angle -= 2 * PI;
     }
-
-    if(p->btn_up)
-    {
-        p->z_dir += 0.1;
-        if(p->z_dir > 2)
-            p->z_dir = 2;
-    }
-    if(p->btn_down)
-    {
-        p->z_dir -= 0.1;
-        if(p->z_dir < -2)
-            p->z_dir = -2;
-    }
-
     p->x = p->x_px / BLOCK_SIZE;
     p->y = p->y_px / BLOCK_SIZE;
 
@@ -105,11 +91,11 @@ void move_player(void) {
 }
 
 
-bool	touch(char c)
+bool	touch()
 {
 	const int	x = player()->x_px;
 	const int	y = player()->y_px;
 	const char	**map = cube()->map->map;
 
-	return (is_touching(x, y, c));
+	return (is_touching(x, y, WALL));
 }

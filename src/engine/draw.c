@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/07/16 17:36:35 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/19 12:03:48 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ int calculate_direction(float x, float y, float angle)
 	return 0;
 }
 
-void draw_h_line(float height)
+void draw_h_line(float height, int start_x)
 {
     const t_cube *c = cube();
     int color = 0;
 	float tex_y = 0;
     int end;
-	int start;
+	int start_y;
 	
 	float step = T_SIZE / height;
 	
@@ -53,19 +53,19 @@ void draw_h_line(float height)
 		tex_y = (height - HEIGHT) * step / 2;
 		height = HEIGHT;
 	}
-    start = (HEIGHT - height) / 2;
+    start_y = (HEIGHT - height) / 2;
 	
-	end = start + height;
-    while (start < end)
+	end = start_y + height;
+    while (start_y < end)
     {
 		color = get_pixel_from_image(c->tex_x, tex_y, side);
-        put_pixel(c->x , start, color);
+        put_pixel(start_x , start_y, color);
 		tex_y += step;
-        start++;
+        start_y++;
     }
 }
 
-void	draw_line(float angle)
+void	draw_line(float angle , int start_x)
 {
 	t_player *p = player();
 	float x = p->x_px;
@@ -83,7 +83,7 @@ void	draw_line(float angle)
 
 	dist = view_lane_distance(x, y, angle);
 	line_height = (BLOCK_SIZE / dist) * (WIDTH / 2);
-	draw_h_line(line_height);
+	draw_h_line(line_height, start_x);
 }
 
 void render_view()
@@ -101,8 +101,7 @@ void render_view()
     {
 		float fraction = (float)i / WIDTH;
 		float rayAngle = angleOffset + fraction * fovInRadians;
-		draw_line(rayAngle);
-		c->x = i;
+		draw_line(rayAngle, i);
 		i++;
 	}
 }

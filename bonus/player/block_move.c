@@ -6,12 +6,11 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:53:45 by btvildia          #+#    #+#             */
-/*   Updated: 2024/07/18 19:56:09 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/18 20:07:22 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 void spawn_block(float angle, int i)
 {
