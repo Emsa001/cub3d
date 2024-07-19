@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/07/19 15:23:40 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/19 21:03:42 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_player	*init_player(t_player *p)
 	
 	player->x_px = player->x * BLOCK_SIZE;
 	player->y_px = player->y * BLOCK_SIZE;
+	player->z = -0.5;
 	
 	player->x_dir = 0;
 	player->y_dir = 0;

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/07/19 16:32:21 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/19 21:23:26 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int calculate_direction(float x, float y, float angle)
 	int sy = sin(angle) > 0 ? 1 : -1;
 	t_cube *c = cube();
 
-	if(is_touching(x - sx, y, WALL))
+	if(is_touching(x - sx, y))
 	{
 		c->tex_x = (int)x % BLOCK_SIZE;
 		if (sy == 1)
@@ -28,7 +28,7 @@ int calculate_direction(float x, float y, float angle)
 		else
 			return 3;
 	}
-	else if(is_touching(x, y - sy, WALL))
+	else if(is_touching(x, y - sy))
 	{
 		c->tex_x = (int)y % BLOCK_SIZE;
 		if (sx == 1)
@@ -59,9 +59,15 @@ int calculate_direction(float x, float y, float angle)
 	return 6;
 }
 
-int vert_offset(float z_dir)
+int vert_offset()
 {
-	return (z_dir * 0.5) * HEIGHT;
+	float offset = 0;
+	t_player *p = player();
+	float z_dir = p->z_dir;
+
+	offset = HEIGHT / 2 + z_dir * HEIGHT / 2;
+
+	return offset;
 }
 
 void draw_h_line(float height, int start_x)
@@ -74,14 +80,22 @@ void draw_h_line(float height, int start_x)
 	
 	float step = T_SIZE / height;
 	
-	if(start_y + height > HEIGHT)
+	if(height > HEIGHT)
 	{
 		tex_y = (height - HEIGHT) * step / 2;
 		height = HEIGHT;
 	}
-    start_y = (HEIGHT - height) / 2 + vert_offset(player()->z_dir);
+    start_y = (player()->z * height + vert_offset());
+	printf("player()->z: %f\n",player()->z);
 	
-	end = start_y + height;
+	// printf("start_y: %d\n", start_y);
+	
+	// if(start_y < 0)
+	// 	start_y = 0;
+	// start_y = vert_offset(player()->z_dir);
+
+	end = start_y + height ;
+	
     while (start_y < end)
     {
 		if(player()->catch && side == 6)
@@ -102,7 +116,7 @@ void	draw_line(float angle , int start_x)
 	float dist = 0;
 	float line_height = 0;
 	
-	while(!is_touching(x, y, WALL) && !touch_block(cube()->map->blocks, x, y) && !touch_block(cube()->map->doors, x, y))
+	while(!is_touching(x, y) && !touch_block(cube()->map->blocks, x, y) && !touch_block(cube()->map->doors, x, y))
 	{
 		x += cos(angle);
 		y += sin(angle);

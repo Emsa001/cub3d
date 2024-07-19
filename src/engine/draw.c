@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/07/19 12:03:48 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/19 19:08:15 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int calculate_direction(float x, float y, float angle)
 	int sx = cos(angle) > 0 ? 1 : -1; 
 	int sy = sin(angle) > 0 ? 1 : -1;
 
-	if(is_touching(x - sx, y, WALL))
+	if(is_touching(x - sx, y))
 	{
 		cube()->tex_x = (int)x % BLOCK_SIZE;
 		if (sy == 1)
@@ -27,7 +27,7 @@ int calculate_direction(float x, float y, float angle)
 		else
 			return 3;
 	}
-	else if(is_touching(x, y - sy, WALL))
+	else if(is_touching(x, y - sy))
 	{
 		cube()->tex_x = (int)y % BLOCK_SIZE;
 		if (sx == 1)
@@ -72,8 +72,7 @@ void	draw_line(float angle , int start_x)
 	float y = p->y_px;
 	float dist = 0;
 	float line_height = 0;
-	
-	while(!is_touching(x, y, WALL))
+	while(!is_touching(x, y))
 	{
 		x += cos(angle);
 		y += sin(angle);
@@ -86,6 +85,7 @@ void	draw_line(float angle , int start_x)
 	draw_h_line(line_height, start_x);
 }
 
+
 void render_view()
 {
 	t_cube *c = cube();
@@ -96,7 +96,6 @@ void render_view()
 	float fovInRadians = player()->fov * PI / 180;
 	float halfFovInRadians = fovInRadians / 2.0;
 	float angleOffset = angle - halfFovInRadians;
-
 	while (i < WIDTH)
     {
 		float fraction = (float)i / WIDTH;

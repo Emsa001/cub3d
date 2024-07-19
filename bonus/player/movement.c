@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:53 by escura            #+#    #+#             */
-/*   Updated: 2024/07/19 16:36:42 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/19 21:09:08 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,10 @@ void move_player(void) {
     }
 
     if(p->btn_up)
-    {
-        p->z_dir += 0.1;
-        if(p->z_dir > 2)
-            p->z_dir = 2;
-    }
+        p->z += 0.1;
     if(p->btn_down)
-    {
-        p->z_dir -= 0.1;
-        if(p->z_dir < -2)
-            p->z_dir = -2;
-    }
+        p->z -= 0.1;
+
 
     if(p->interact)
     {
@@ -137,11 +130,8 @@ bool	touch()
     const int x_m = x - 10;
     const int y_m = y - 10;
     t_cube *c = cube();
-    char w = '1';
-    char b = '2';
-    char d = 'D';
 
-    if(is_touching(x_m , y_m, w) || is_touching(x_p , y_m, w) || is_touching(x_m , y_p, w) || is_touching(x_p , y_p, w))
+    if(is_touching(x_m , y_m) || is_touching(x_p , y_m) || is_touching(x_m , y_p) || is_touching(x_p , y_p))
         return (true);
     if(touch_block(c->map->blocks, x_m, y_m) || touch_block(c->map->blocks, x_p, y_m) || touch_block(c->map->blocks, x_m, y_p) || touch_block(c->map->blocks, x_p, y_p))
         return (true);

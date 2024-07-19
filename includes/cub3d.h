@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/07/19 17:17:56 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/19 19:02:45 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ t_cube		*cube(void);
 void		start_game(void);
 void		init_hooks(void);
 int			render_scene(t_cube *p);
-bool is_touching(float px, float py, char c);
+bool is_touching(float px, float py);
 bool touch_block(t_block *blocks, float px, float py);
 float 		distance(float x1, float y1, float x2, float y2);
 
