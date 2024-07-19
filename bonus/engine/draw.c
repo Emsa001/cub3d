@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/07/19 12:51:45 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:32:21 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,22 +36,22 @@ int calculate_direction(float x, float y, float angle)
 		else
 			return 4;
 	}
-	else if(is_touching(x - sx, y, DOOR))
+	else if(touch_block(c->map->doors, x - sx, y))
 	{
 		c->tex_x = (int)x % BLOCK_SIZE;
 		return 5;
 	}
-	else if(is_touching(x, y - sy, DOOR))
+	else if(touch_block(c->map->doors, x , y - sy))
 	{
 		c->tex_x = (int)y % BLOCK_SIZE;
 		return 5;
 	}
-	else if(touch_block(c->map->blocks, x - sx, y, BLOCK))
+	else if(touch_block(c->map->blocks, x - sx, y))
 	{
 		c->tex_x = (int)x % BLOCK_SIZE;
 		return 6;
 	}
-	else if(touch_block(c->map->blocks, x, y - sy, BLOCK))
+	else if(touch_block(c->map->blocks, x, y - sy))
 	{
 		c->tex_x = (int)y % BLOCK_SIZE;
 		return 6;
@@ -102,7 +102,7 @@ void	draw_line(float angle , int start_x)
 	float dist = 0;
 	float line_height = 0;
 	
-	while(!is_touching(x, y, WALL) && !touch_block(cube()->map->blocks, x, y, BLOCK) && !touch_block(cube()->map->doors, x, y, DOOR))
+	while(!is_touching(x, y, WALL) && !touch_block(cube()->map->blocks, x, y) && !touch_block(cube()->map->doors, x, y))
 	{
 		x += cos(angle);
 		y += sin(angle);

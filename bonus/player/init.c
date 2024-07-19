@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/07/18 19:47:36 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/19 15:23:40 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,13 @@ t_player	*init_player(t_player *p)
 	player->btn_right = false;
 	player->btn_up = false;
 	player->btn_down = false;
+
 	player->interact = false;
+	player->opened = false;
 	player->spawn = false;
 	player->remove = false;
 	player->catch = false;
 	player->catched = false;
-
 	player->speed = WALKSPEED;
 	player->fov = FOV;
 	

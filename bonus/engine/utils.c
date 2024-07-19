@@ -6,13 +6,13 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/07/18 20:05:50 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:24:30 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool touch_block(t_block *blocks, float px, float py, char c)
+bool touch_block(t_block *blocks, float px, float py)
 {
 	int i = 0;
 	float x, y;

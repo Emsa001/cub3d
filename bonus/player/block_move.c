@@ -6,30 +6,80 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:53:45 by btvildia          #+#    #+#             */
-/*   Updated: 2024/07/18 20:07:22 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:37:28 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void spawn_block(float angle, int i)
+void remove_block(float angle)
 {
     t_player *p = player();
     t_cube *c = cube();
-    t_map *map = c->map;
+    int id = get_block_id(c->map->blocks, p->x, p->y, angle);
+    t_block *new_blocks;
+    t_block *tmp;
+    t_block *blocks = c->map->blocks;
+    int i = 0;
+    int j = 0;
+    
+    if(id == -1)
+        return;
+    new_blocks = ft_malloc(sizeof(t_block) * (block_count(c->map, '2')));
+    while(blocks[i].x != -1)
+    {
+        if(i != id)
+        {
+            new_blocks[j] = blocks[i];
+            j++;
+        }
+        i++;
+    }
+    new_blocks[j].x = -1;
+    new_blocks[j].y = -1;
+    new_blocks[j].id = -1;
+    new_blocks[j].type = '\0';
+    tmp = c->map->blocks;
+    c->map->blocks = new_blocks;
+    ft_free(tmp);
+}
 
+void add_block(float angle)
+{
+    int i;
+    t_player *p = player();
     float x = 0;
     float y = 0;
 
     x = p->x - 0.5 + 2.5 * cos(angle);
     y = p->y - 0.5 + 2.5 * sin(angle);
-    
-    if(i == 1)
-        add_block(x, y);
-    // else
-        // remove_block(x, y);
-}
+    t_block *new_blocks;
+    t_block *tmp;
+    t_block *blocks = cube()->map->blocks;
 
+
+    i = 0;
+    while (blocks[i].x != -1)
+        i++;
+    new_blocks = ft_malloc(sizeof(t_block) * (i + 2));
+    i = 0;
+    while (blocks[i].x != -1)
+    {
+        new_blocks[i] = blocks[i];
+        i++;
+    }
+    new_blocks[i].x = x;
+    new_blocks[i].y = y;
+    new_blocks[i].id = i;
+    new_blocks[i].type = '2';
+    new_blocks[i + 1].x = -1;
+    new_blocks[i + 1].y = -1;
+    new_blocks[i + 1].id = -1;
+    new_blocks[i + 1].type = '\0';
+    tmp = cube()->map->blocks;
+    cube()->map->blocks = new_blocks;
+    ft_free(tmp);
+}
 
 // it gets max 3 when the angle is 45, 135, 225, 315
 // it gets min 1 when the angle is 0, 90, 180, 270
@@ -57,6 +107,50 @@ int get_block_id(t_block *blocks, float px, float py, float angle)
     }
     return -1;
 }
+
+void open_door(float angle, int id)
+{
+    static bool opening = false;
+    t_player *p = player();
+    t_map *map = cube()->map;
+
+    if(id == -1)
+        return;
+    if(!opening)
+    {
+        map->doors[id].save_y = map->doors[id].y;
+        opening = true;
+    }
+    if(map->doors[id].y >= map->doors[id].save_y - 0.9)
+        map->doors[id].y -= 0.05;
+    else if(map->doors[id].y <= map->doors[id].save_y - 0.9)
+    {
+        printf("Door ID[%d] opened\n", id);
+        p->opened = true;
+    }
+}
+
+void close_door(float angle, int id)
+{
+    t_player *p = player();
+    t_map *map = cube()->map;
+    if(id == -1)
+        return;
+    static bool closing = false;
+    if(!closing)
+    {
+        map->doors[id].save_y = map->doors[id].y + 0.9;
+        closing = true;
+    }
+    if(map->doors[id].y <= map->doors[id].save_y)
+        map->doors[id].y += 0.05;
+    else if(map->doors[id].y >= map->doors[id].save_y)
+    {
+        printf("Door ID[%d] closed\n", id);
+        p->opened = false;
+    }
+}
+
 
 void catch_block(float angle)
 {

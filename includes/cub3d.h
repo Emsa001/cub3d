@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/07/19 13:08:50 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:45:33 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void		start_game(void);
 void		init_hooks(void);
 int			render_scene(t_cube *p);
 bool is_touching(float px, float py, char c);
-bool touch_block(t_block *blocks, float px, float py, char c);
+bool touch_block(t_block *blocks, float px, float py);
 float 		distance(float x1, float y1, float x2, float y2);
 
 /* DRAW */
@@ -130,13 +130,13 @@ void		exit_game(void);
 void		ft_error(char *str);
 
 /* BLOCK */
-t_block *get_all_possible_blocks(int x, int y);
-void get_currect_block(t_block *possible, float angle, float *x, float *y);
-void spawn_block(float angle, int i);
+int get_block_id(t_block *blocks, float px, float py, float angle);
+int block_count(t_map *map_info, char c);
 void catch_block(float angle);
-void add_block(float x, float y);
-void remove_block(float x, float y);
-void open_door(void);
+void add_block(float angle);
+void remove_block(float angle);
+void open_door(float angle, int id);
+void close_door(float angle, int id);
 
 
 #endif

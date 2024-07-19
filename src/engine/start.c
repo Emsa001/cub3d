@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/07/19 12:48:19 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/19 14:13:00 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void render_floor_ceeling()
         }
     }
 }
-
 
 int render_scene(t_cube *c) 
 {

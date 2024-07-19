@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:53 by escura            #+#    #+#             */
-/*   Updated: 2024/07/18 15:40:25 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/19 16:36:42 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,21 @@ void move_player(void) {
     }
 
     if(p->interact)
-        open_door();
-
+    {
+        int id = get_block_id(cube()->map->doors, p->x, p->y, p->angle);
+        if(p->opened)
+            close_door(p->angle, id);
+        else
+            open_door(p->angle, id);
+    }
     if(p->spawn)
     {
-        spawn_block(p->angle, 1);
+        add_block(p->angle);
         p->spawn = false;
     }
     if(p->remove)
     {
-        spawn_block(p->angle, 0);
+        remove_block(p->angle);
         p->remove = false;
     }
     if(p->catch)
@@ -131,15 +136,16 @@ bool	touch()
     const int y_p = y + 10;
     const int x_m = x - 10;
     const int y_m = y - 10;
-    char c = '1';
+    t_cube *c = cube();
+    char w = '1';
     char b = '2';
     char d = 'D';
 
-    if(is_touching(x_m , y_m, c) || is_touching(x_p , y_m, c) || is_touching(x_m , y_p, c) || is_touching(x_p , y_p, c))
+    if(is_touching(x_m , y_m, w) || is_touching(x_p , y_m, w) || is_touching(x_m , y_p, w) || is_touching(x_p , y_p, w))
         return (true);
-    if(touch_block(cube()->map->blocks, x_m, y_m, b) || touch_block(cube()->map->blocks, x_p, y_m, b) || touch_block(cube()->map->blocks, x_m, y_p, b) || touch_block(cube()->map->blocks, x_p, y_p, b))
+    if(touch_block(c->map->blocks, x_m, y_m) || touch_block(c->map->blocks, x_p, y_m) || touch_block(c->map->blocks, x_m, y_p) || touch_block(c->map->blocks, x_p, y_p))
         return (true);
-    if(touch_block(cube()->map->doors, x_m, y_m, d) || touch_block(cube()->map->doors, x_p, y_m, d) || touch_block(cube()->map->doors, x_m, y_p, d) || touch_block(cube()->map->doors, x_p, y_p, d))
+    if(touch_block(c->map->doors, x_m, y_m) || touch_block(c->map->doors, x_p, y_m) || touch_block(c->map->doors, x_m, y_p) || touch_block(c->map->doors, x_p, y_p))
         return (true);
 
 	return (false);
