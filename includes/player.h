@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/07/19 21:05:11 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/20 14:59:28 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ typedef struct s_player
     bool     btn_left;
     bool     btn_right;
 
+    bool   jumping;
+    bool   falling;
     bool   jump;
 
     bool    interact;
@@ -67,6 +69,7 @@ typedef struct s_player
 t_player *init_player(t_player *p);
 t_player *player(void);
 void	move_player(void);
+void jump_player(void);
 bool touch();
 void render_player(void);
 

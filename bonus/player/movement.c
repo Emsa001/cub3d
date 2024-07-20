@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:53 by escura            #+#    #+#             */
-/*   Updated: 2024/07/19 21:09:08 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/20 16:43:43 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,55 @@ void	try_move(float x, float y)
 		p->x_px -= x;
 		p->y_px -= y;
 	}
+}
+
+float calculate_jump_speed(float z)
+{
+    if(z < -0.4)
+        return 0.15;
+    else if(z < -0.3)
+        return 0.13;
+    else if(z < -0.2)
+        return 0.1;
+    else if(z < -0.1)
+        return 0.08;
+    else
+        return 0.05;
+}
+
+float calculate_fall_speed(float z)
+{
+    if(z < -0.4)
+        return 0.15;
+    else if(z < -0.3)
+        return 0.13;
+    else if(z < -0.2)
+        return 0.1;
+    else if(z < -0.1)
+        return 0.08;
+    else
+        return 0.05;
+}
+
+void fall_player(void)
+{
+    t_player *p = player();
+    if(p->z > -0.5)
+        p->z -= calculate_fall_speed(p->z);
+    else
+        p->falling = false;
+}
+
+void jump_player(void)
+{
+    t_player *p = player();
+    if(p->z < 0.1)
+        p->z += calculate_jump_speed(p->z);
+    else
+    {
+        p->jumping = false;
+        p->falling = true;
+    }
 }
 
 void move_player(void) {
@@ -92,6 +141,13 @@ void move_player(void) {
     }
     if(p->catch)
         catch_block(p->angle);
+    
+    if(p->jump && !p->falling)
+        p->jumping = true;
+    if(p->jumping)
+        jump_player();
+    if(p->falling)
+        fall_player();
 
     p->x = p->x_px / BLOCK_SIZE;
     p->y = p->y_px / BLOCK_SIZE;

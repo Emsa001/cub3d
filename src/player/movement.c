@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:53 by escura            #+#    #+#             */
-/*   Updated: 2024/07/19 12:09:25 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/20 14:18:08 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,5 @@ bool	touch()
 	const int	y = player()->y_px;
 	const char	**map = cube()->map->map;
 
-	return (is_touching(x, y, WALL));
+	return (is_touching(x, y));
 }

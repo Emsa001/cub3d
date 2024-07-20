@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/07/19 21:54:17 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/20 16:16:20 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,19 +77,8 @@ void draw_h_line(float height, int start_x)
 	
 	float step = T_SIZE / height;
 	
-	if(height > HEIGHT)
-	{
-		tex_y = (height - HEIGHT) * step / 2;
-		height = HEIGHT;
-	}
     start_y = (player()->z * height + vert_offset());
-	printf("player()->z: %f\n",player()->z);
-	
-	// printf("start_y: %d\n", start_y);
-	
-	// if(start_y < 0)
-	// 	start_y = 0;
-	// start_y = vert_offset(player()->z_dir);
+	// printf("player()->z: %f\n",player()->z);
 
 	end = start_y + height ;
 	
