@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/07/20 16:14:34 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/20 20:33:16 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ t_player	*init_player(t_player *p)
 	player->btn_up = false;
 	player->btn_down = false;
 
-	player->jumping = false;
-	player->falling = false;
-	player->jump = false;
+	player->jump_speed = 0;
 
 	player->interact = false;
 	player->opened = false;

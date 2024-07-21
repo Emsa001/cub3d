@@ -6,15 +6,11 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 19:25:04 by escura            #+#    #+#             */
-/*   Updated: 2024/07/20 15:57:15 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/20 20:56:01 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-#define MOUSE_SENSITIVITY 0.002
-
-
 
 int mouse_left_click(int button)
 {
@@ -84,8 +80,8 @@ int kd(int kc)
     
     if(kc == SHIFT)
         p->speed = SPRINTSPEED;
-    if(kc == SPACE)
-        p->jump = true;
+    if(kc == SPACE && p->z <= -0.5)
+        p->jump_speed = JUMP_SPEED;
 
     if(kc == MINUS){
         if(p->fov > 30)
@@ -122,8 +118,6 @@ int ku(int kc)
         p->btn_d = false;
     if(kc == SHIFT)
         p->speed = WALKSPEED;
-    if(kc == SPACE)
-        p->jump = false;
     
     if(kc == LEFT){
         p->btn_left = false;

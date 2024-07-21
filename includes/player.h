@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/07/20 14:59:28 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/20 20:43:24 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 
 # define WALKSPEED 2
 # define SPRINTSPEED 5
+# define MOUSE_SENSITIVITY 0.002
+# define JUMP_SPEED 0.11
 # define FOV 60
 
 typedef struct s_player
@@ -45,9 +47,7 @@ typedef struct s_player
     bool     btn_left;
     bool     btn_right;
 
-    bool   jumping;
-    bool   falling;
-    bool   jump;
+    float   jump_speed;
 
     bool    interact;
     bool    opened;
