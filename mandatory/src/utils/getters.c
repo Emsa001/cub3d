@@ -6,11 +6,11 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:21:26 by btvildia          #+#    #+#             */
-/*   Updated: 2024/07/16 17:42:47 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:01:50 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub.h"
 
 int	*check_get_color(int *colors, char **tmp)
 {

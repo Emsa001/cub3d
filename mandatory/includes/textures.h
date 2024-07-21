@@ -6,13 +6,15 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 15:30:37 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/21 19:22:35 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #ifndef TEXTURES_H
 # define TEXTURES_H
+
+# include "cub.h"
 
 typedef struct s_texture
 {
@@ -30,15 +32,10 @@ typedef struct s_texture
 
 typedef struct s_textures
 {
-    t_texture *sky;
-    t_texture *floor;
-
     t_texture *wall_north;
     t_texture *wall_south;
     t_texture *wall_east;
     t_texture *wall_west;
-
-    t_texture *door;
 } t_textures;
 
 t_textures *init_textures(t_textures *t, void *mlx);

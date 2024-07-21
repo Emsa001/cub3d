@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 15:27:10 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:00:53 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define MAX_SIZE 1000
 
-# include "cub3d.h"
+# include "cub.h"
 
 typedef struct s_point
 {

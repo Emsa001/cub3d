@@ -6,11 +6,11 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 15:36:31 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:01:28 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub.h"
 
 bool is_touching(float px, float py)
 {

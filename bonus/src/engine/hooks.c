@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 19:25:04 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 13:12:24 by escura           ###   ########.fr       */
+/*   Updated: 2024/07/21 19:47:25 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int kd(int kc)
     t_player *p = player();
 
     if (kc == ESC)
-        exit_game();
+        exit_game(0);
     
     if (kc == W)
         p->btn_w = true;

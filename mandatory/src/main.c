@@ -6,11 +6,11 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 15:39:04 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/21 19:33:12 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub.h"
 
 static void init_game(char *map)
 {
@@ -23,7 +23,6 @@ int	main(int argc, char **argv)
 {
 	check_params(argv);
 	ft_alloc_init();
-
 	init_game(argv[1]);
 	start_game();
 	

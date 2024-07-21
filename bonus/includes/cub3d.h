@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 15:08:15 by escura           ###   ########.fr       */
+/*   Updated: 2024/07/21 19:47:31 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void		clean_window(void);
 void 		put_pixel(int x, int y, int color);
 
 /* EXIT */
-void		exit_game(void);
+void		exit_game(int code);
 void		ft_error(char *str);
 
 /* BLOCK */

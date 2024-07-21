@@ -6,14 +6,14 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 15:35:12 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:00:55 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PLAYER_H
 # define PLAYER_H
 
-# include "cub3d.h"
+# include "cub.h"
 
 # define WALKSPEED 2
 # define SPRINTSPEED 5

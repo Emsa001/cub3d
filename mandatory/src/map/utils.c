@@ -6,11 +6,11 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:59:54 by btvildia          #+#    #+#             */
-/*   Updated: 2024/07/21 15:36:57 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:01:37 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub.h"
 
 void	print_map(char **map)
 {

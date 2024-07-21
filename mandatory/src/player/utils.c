@@ -6,11 +6,11 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:44 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 15:38:10 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:01:46 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub.h"
 
 // Distance calculation function
 float distance(float x1, float y1, float x2, float y2)

@@ -6,18 +6,18 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 19:25:04 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 15:35:19 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:00:33 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub.h"
 
 int	kd(int kc)
 {
 	t_player *p = player();
 
 	if (kc == ESC)
-		exit_game();
+		exit_game(0);
 	
 	if (kc == W || kc == UP)
 		p->btn_w = true;

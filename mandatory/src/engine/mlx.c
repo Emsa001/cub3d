@@ -6,11 +6,11 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:35:04 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 15:35:45 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:01:22 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub.h"
 
 void *load_image(char *path)
 {
