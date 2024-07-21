@@ -1,0 +1,5 @@
+.vscode
+cub3d_bonus
+cub3d
+*.o
+*/*.o
