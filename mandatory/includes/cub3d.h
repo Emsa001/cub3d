@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 13:09:53 by escura           ###   ########.fr       */
+/*   Updated: 2024/07/21 15:29:11 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,6 @@
 # define DOWN 65364
 # define RIGHT 65363
 # define SHIFT 65505
-# define SPACE 32
-# define LEFT_CLICK 1
-# define RIGHT_CLICK 3
-
-# define I 105
-# define O 111
-# define F 102
 
 # define MINUS 45
 # define PLUS 61
@@ -74,8 +67,6 @@
 # define CENTER_HEIGHT HEIGHT / 2
 
 # define WALL '1'
-# define DOOR 'D'
-# define BLOCK '2'
 
 typedef struct s_cube
 {
@@ -113,13 +104,10 @@ void		start_game(void);
 void		init_hooks(void);
 int			render_scene(t_cube *p);
 bool is_touching(float px, float py);
-bool touch_block(t_block *blocks, float px, float py);
 float 		distance(float x1, float y1, float x2, float y2);
 
 /* DRAW */
 void draw_line(float angle, int i);
-void	draw_cross_in_centre(void);
-void	draw_cube(int x, int y, int size, int col);
 
 /* MLX */
 void		*load_image(char *path);
@@ -131,15 +119,5 @@ void 		put_pixel(int x, int y, int color);
 /* EXIT */
 void		exit_game(void);
 void		ft_error(char *str);
-
-/* BLOCK */
-int get_block_id(t_block *blocks, float px, float py, float angle);
-int block_count(t_map *map_info, char c);
-void catch_block(float angle);
-void add_block(float angle);
-void remove_block(float angle);
-void open_door(float angle, int id);
-void close_door(float angle, int id);
-
 
 #endif

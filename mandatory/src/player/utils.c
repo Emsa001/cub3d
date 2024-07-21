@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:44 by escura            #+#    #+#             */
-/*   Updated: 2024/06/20 16:54:44 by escura           ###   ########.fr       */
+/*   Updated: 2024/07/21 15:38:10 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ double view_lane_distance(float x1, float y1, float angle)
     float y2 = player()->y_px;
     
     float player_angle = player()->angle;
-
-    // printf("Player angle: %f\n", player_angle);
-    // printf("Ray angle: %f\n", angle);
     
     float raw_distance = distance(x1, y1, x2, y2);
     double adjusted_distance = raw_distance * cos(player_angle - angle);
