@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:10:09 by escura            #+#    #+#             */
-/*   Updated: 2024/07/16 21:31:59 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:36:03 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,11 @@ t_textures *init_textures(t_textures *t, void *mlx)
 
 	if (t == NULL)
 		return (texture);
+
+	t_texture *player = ft_malloc(sizeof(t_texture));
+	player->image = mlx_xpm_file_to_image(mlx, "assets/player.xpm", &player->width, &player->height);
+	player->data = mlx_get_data_addr(player->image, &player->bpp, &player->size_line, &player->endian);
+	t->player = player;
 
 	t_texture *sky = ft_malloc(sizeof(t_texture));
 	t_texture *floor = ft_malloc(sizeof(t_texture));

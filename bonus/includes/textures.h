@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/07/19 11:38:30 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/07/21 18:35:54 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,14 @@ typedef struct s_textures
     t_texture *wall_west;
 
     t_texture *door;
+
+    t_texture *player;
 } t_textures;
 
 t_textures *init_textures(t_textures *t, void *mlx);
 t_textures *textures(void);
-int get_pixel_from_image(int x, int y, int side);
+int get_pixel_from_image(t_texture *t, int x, int y);
+void resize_texture(const t_texture *src, t_texture *dst, int new_width, int new_height);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 15:18:06 by escura           ###   ########.fr       */
+/*   Updated: 2024/07/21 15:53:13 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,6 @@ void render_background() {
         }
     }
 }
-
-void	draw_cube(int x, int y, int size, int col)
-{
-	int				i;
-	const t_cube	*c = cube();
-
-	i = 0;
-	while (i < size)
-	{
-		mlx_pixel_put(c->mlx, c->win, x + i - size / 2, y - size / 2, col);
-		mlx_pixel_put(c->mlx, c->win, x - size / 2, y + i - size / 2, col);
-		mlx_pixel_put(c->mlx, c->win, x + i - size / 2, y + size / 2, col);
-		mlx_pixel_put(c->mlx, c->win, x + size / 2, y + i - size / 2, col);
-		i++;
-	}
-}
-
 
 void update_fps(void) 
 {
@@ -78,11 +61,11 @@ int render_scene(t_cube *c)
 
     // render_background();
 	render_view();
+    render_minimap();
     
     mlx_put_image_to_window(r->mlx, r->win, r->img_ptr , 0, 0);
     mlx_destroy_image(r->mlx, r->img_ptr);
     
-    render_minimap();
     move_player();
     draw_cross_in_centre();
     update_fps();

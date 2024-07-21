@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 15:08:15 by escura           ###   ########.fr       */
+/*   Updated: 2024/07/21 19:25:18 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@
 # define DOOR 'D'
 # define BLOCK '2'
 
+#define M_PI 3.14159265358979323846
+
 typedef struct s_cube
 {
 	void	*mlx;
@@ -95,7 +97,7 @@ typedef struct s_render
 	void *img_ptr;
 	char *data;
 
-	int bits_per_pixel;
+	int bpp;
 	int size_line;
 	int endian;
 	int side;
@@ -115,11 +117,14 @@ int			render_scene(t_cube *p);
 bool is_touching(float px, float py);
 bool touch_block(t_block *blocks, float px, float py);
 float 		distance(float x1, float y1, float x2, float y2);
+bool find_hitbox(float x, float y);
+t_texture *rotate_image(t_texture *original, float angle);
+int get_scene_pixel(int x, int y);
 
 /* DRAW */
 void draw_line(float angle, int i);
 void	draw_cross_in_centre(void);
-void	draw_cube(int x, int y, int size, int col);
+void draw_texture(t_texture *texture, int x_pos, int y_pos);
 
 /* MLX */
 void		*load_image(char *path);
