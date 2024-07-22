@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:10:09 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 18:36:03 by escura           ###   ########.fr       */
+/*   Updated: 2024/07/22 18:26:09 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /* CUBE */
 
-t_cube	*init_cube(t_cube *c)
+t_cube	*cube_init(t_cube *c)
 {
 	static t_cube	*cube;
 	
@@ -26,6 +26,7 @@ t_cube	*init_cube(t_cube *c)
 	
 	t_render *r = ft_malloc(sizeof(t_render));
 	r->mlx = c->mlx;
+	r->side = 6;
 	init_render(r);
 
 	t_textures *t = ft_malloc(sizeof(t_textures));
@@ -37,7 +38,7 @@ t_cube	*init_cube(t_cube *c)
 
 t_cube	*cube(void)
 {
-	return (init_cube(NULL));
+	return (cube_init(NULL));
 }
 
 t_render *init_render(t_render *r)

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 17:22:50 by escura           ###   ########.fr       */
+/*   Updated: 2024/07/22 18:25:56 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_player
     float plane_y;    
 }			t_player;
 
-t_player *init_player(t_player *p);
+t_player *player_init(t_player *p);
 t_player *player(void);
 void	move_player(void);
 void jump_player(void);

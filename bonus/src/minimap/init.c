@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/07/22 18:26:10 by escura           ###   ########.fr       */
+/*   Created: 2024/07/22 18:13:57 by escura            #+#    #+#             */
+/*   Updated: 2024/07/22 18:59:51 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void init_game(char *map)
+void	minimap_init(void)
 {
-	cube_init(ft_malloc(sizeof(t_cube)));
-	map_init(map);
-	player_init(ft_malloc(sizeof(t_player)));
-	minimap_init();
+	t_minimap	*minimap;
+
+	minimap = ft_malloc(sizeof(t_minimap));
+	minimap->size = 1.8;
+	minimap->x = WIDTH - MINIMAP_PIXEL_WIDTH;
+	minimap->y = 0;
+	minimap->radius = MINIMAP_RADIUS / minimap->size;
+	get_map()->minimap = minimap;
 }
 
-int	main(int argc, char **argv)
+t_minimap	*minimap(void)
 {
-	check_params(argv);
-	ft_alloc_init();
-
-	init_game(argv[1]);
-	start_game();
-	
-	ft_destructor();
-	return (0);
+	return (get_map()->minimap);
 }

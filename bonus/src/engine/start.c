@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 15:53:13 by escura           ###   ########.fr       */
+/*   Updated: 2024/07/22 19:01:35 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int render_scene(t_cube *c)
 
     // render_background();
 	render_view();
-    render_minimap();
+    minimap_render();
     
     mlx_put_image_to_window(r->mlx, r->win, r->img_ptr , 0, 0);
     mlx_destroy_image(r->mlx, r->img_ptr);

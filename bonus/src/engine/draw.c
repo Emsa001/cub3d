@@ -6,13 +6,11 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 18:58:02 by escura           ###   ########.fr       */
+/*   Updated: 2024/07/22 17:51:08 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int side = 6;
 
 int calculate_direction(float x, float y, float angle)
 {
@@ -88,7 +86,8 @@ static t_texture *get_wall_side(int side){
 void draw_h_line(float height, int start_x)
 {
     const t_cube *c = cube();
-	
+	const t_render *r = render();
+
     int color = 0;
 	float tex_y = 0;
     int end;
@@ -108,10 +107,10 @@ void draw_h_line(float height, int start_x)
 	
     while (start_y < end)
     {
-		if(player()->catch && side == 6)
+		if(player()->catch && r->side == 6)
 			color = 255;
 		else
-			color = get_pixel_from_image(get_wall_side(side), c->tex_x, tex_y);
+			color = get_pixel_from_image(get_wall_side(r->side), c->tex_x, tex_y);
         put_pixel(start_x , start_y, color);
 		tex_y += step;
         start_y++;
@@ -130,26 +129,7 @@ bool find_hitbox(float x, float y)
 	return true;
 }
 
-void	draw_line(float angle , int start_x)
-{
-	t_player *p = player();
-	float x = p->x_px;
-	float y = p->y_px;
-	float dist = 0;
-	float line_height = 0;
-	
-	while(find_hitbox(x,y))
-	{
-		x += cos(angle);
-		y += sin(angle);
-	}
 
-	side = calculate_direction(x, y, angle);
-
-	dist = view_lane_distance(x, y, angle);
-	line_height = (BLOCK_SIZE / dist) * (WIDTH / 2);
-	draw_h_line(line_height, start_x);
-}
 
 void render_view()
 {
@@ -218,4 +198,59 @@ void draw_texture(t_texture *texture, int x_pos, int y_pos)
             	put_pixel(x_pos + x, y_pos + y, color);
         }
     }
+}
+
+void draw_circle(int center_x, int center_y, int radius, int color)
+{
+    int x = radius;
+    int y = 0;
+    int err = 0;
+
+    while (x >= y)
+    {
+        // Fill the circle by drawing horizontal lines
+        for (int i = center_x - x; i <= center_x + x; i++)
+        {
+            put_pixel(i, center_y + y, color);
+            put_pixel(i, center_y - y, color);
+        }
+
+        for (int i = center_x - y; i <= center_x + y; i++)
+        {
+            put_pixel(i, center_y + x, color);
+            put_pixel(i, center_y - x, color);
+        }
+
+        y++;
+        err += 2 * y + 1;
+
+        if (err > x * 2)
+        {
+            x--;
+            err -= 2 * x + 1;
+        }
+    }
+}
+
+void	draw_line(float angle , int start_x)
+{
+    t_render *r = render();
+	t_player *p = player();
+    
+	float x = p->x_px;
+	float y = p->y_px;
+	float dist = 0;
+	float line_height = 0;
+	
+	while(find_hitbox(x,y))
+	{
+		x += cos(angle);
+		y += sin(angle);
+	}
+
+	r->side = calculate_direction(x, y, angle);
+
+	dist = view_lane_distance(x, y, angle);
+	line_height = (BLOCK_SIZE / dist) * (WIDTH / 2);
+	draw_h_line(line_height, start_x);
 }

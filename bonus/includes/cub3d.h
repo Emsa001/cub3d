@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 19:25:18 by escura           ###   ########.fr       */
+/*   Updated: 2024/07/22 18:26:09 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_cube
 	int		keycode;
 
 	float tex_x;
+
 	t_map	*map;
 }			t_cube;
 
@@ -109,7 +110,7 @@ t_render *init_render(t_render *r);
 t_render *render(void);
 
 void		check_params(char **av);
-t_cube		*init_cube(t_cube *c);
+t_cube		*cube_init(t_cube *c);
 t_cube		*cube(void);
 void		start_game(void);
 void		init_hooks(void);
@@ -120,6 +121,7 @@ float 		distance(float x1, float y1, float x2, float y2);
 bool find_hitbox(float x, float y);
 t_texture *rotate_image(t_texture *original, float angle);
 int get_scene_pixel(int x, int y);
+void draw_circle(int center_x, int center_y, int radius, int color);
 
 /* DRAW */
 void draw_line(float angle, int i);

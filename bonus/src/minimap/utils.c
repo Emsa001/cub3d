@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/07/22 18:26:10 by escura           ###   ########.fr       */
+/*   Created: 2024/07/22 18:30:29 by escura            #+#    #+#             */
+/*   Updated: 2024/07/22 18:30:59 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void init_game(char *map)
+float minimap_center_x(void)
 {
-	cube_init(ft_malloc(sizeof(t_cube)));
-	map_init(map);
-	player_init(ft_malloc(sizeof(t_player)));
-	minimap_init();
+    const t_minimap *m = minimap();
+    return m->x + MINIMAP_PIXEL_WIDTH / 2.0f;
 }
 
-int	main(int argc, char **argv)
+float minimap_center_y(void)
 {
-	check_params(argv);
-	ft_alloc_init();
-
-	init_game(argv[1]);
-	start_game();
-	
-	ft_destructor();
-	return (0);
+    const t_minimap *m = minimap();
+    return m->y + MINIMAP_PIXEL_HEIGHT / 2.0f;
 }

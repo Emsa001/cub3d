@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 15:18:18 by escura           ###   ########.fr       */
+/*   Updated: 2024/07/22 18:57:33 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,16 @@
 # define MAP_H
 
 # define MAX_SIZE 1000
+
+#define MINIMAP_BLOCK_SIZE 48
+#define MINIMAP_COLOR 0x27272a
+
+#define MINIMAP_PIXEL_WIDTH 400
+#define MINIMAP_PIXEL_HEIGHT 400
+#define MINIMAP_RADIUS 300 
+
+#define PLAYER_SIZE 5
+#define PLAYER_DOT_COLOR 0x3b82f6
 
 # include "cub3d.h"
 
@@ -35,6 +45,15 @@ typedef struct s_block
 	char 	type;
 }			t_block;
 
+typedef struct s_minimap
+{
+	float size;
+	int radius;
+
+	int x;
+	int y;
+}			t_minimap;
+
 typedef struct s_map
 {
 	int		width;
@@ -48,9 +67,13 @@ typedef struct s_map
 	int		*c;
 	t_block	*doors;
 	t_block	*blocks;
+
+	t_minimap *minimap;
 }			t_map;
 
-void		init_map(char *av);
+
+void		map_init(char *av);
+t_map 		*get_map();
 void		print_map_info(void);
 void		print_map(char **map);
 int			ft_strlen_space(char *s);
@@ -71,5 +94,12 @@ t_point		*get_begin_points(char **map, t_point *begin_points);
 void		fill_loop(char to_fill[], t_point *begin_points, t_map *map_info,
 				t_point size);
 
-void render_minimap();
+t_minimap *minimap();
+void minimap_render();
+void minimap_draw_player();
+void minimap_block(int x, int y, int screen_x, int screen_y);
+
+float minimap_center_x(void);
+float minimap_center_y(void);
+
 #endif
