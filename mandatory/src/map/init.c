@@ -12,6 +12,8 @@
 
 #include "cub.h"
 
+// 
+
 void init_map(char *av)
 {
 	char **map;
