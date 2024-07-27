@@ -12,8 +12,20 @@
 
 #include "cub.h"
 
+// format must end .cub
+
+static void	check_format(char *map)
+{
+	int	len;
+
+	len = ft_strlen(map);
+	if (len <= 4 || map[len - 1] != 'b' || map[len - 2] != 'u' || map[len - 3] != 'c' || map[len - 4] != '.')
+		ft_error("Error\nInvalid file format\n");
+}
+
 static void init_game(char *map)
 {
+	check_format(map);
 	init_cube(ft_malloc(sizeof(t_cube)));
 	init_map(map);
 	init_player(ft_malloc(sizeof(t_player)));
