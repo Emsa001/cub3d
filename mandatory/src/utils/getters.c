@@ -12,10 +12,10 @@
 
 #include "cub.h"
 
-int	*check_get_color(int *colors, char **tmp)
+int *check_get_color(int *colors, char **tmp)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = 0;
 	j = 0;
@@ -32,12 +32,12 @@ int	*check_get_color(int *colors, char **tmp)
 	return (colors);
 }
 
-int	*get_color(t_map *map_info, char **map, char c)
+int *get_color(t_map *map_info, char **map, char *c)
 {
-	int		i;
-	char	*line;
-	char	**tmp;
-	int		*colors;
+	int i;
+	char *line = NULL;
+	char **tmp;
+	int *colors;
 
 	colors = ft_malloc(sizeof(int) * 3);
 	colors[0] = 0;
@@ -47,10 +47,11 @@ int	*get_color(t_map *map_info, char **map, char c)
 	while (map[i] != NULL)
 	{
 		line = map[i];
-		if (ft_strchr(line, c) != NULL)
+		if (ft_strchr(line, c[0]) != NULL)
 		{
-			line = get_next_string(line, &c);
+			line = get_next_string(line, c);
 			tmp = ft_split(line, ',');
+			ft_free(line);
 			colors = check_get_color(colors, tmp);
 			ft_arrdel((void **)tmp);
 			return (colors);
@@ -60,9 +61,9 @@ int	*get_color(t_map *map_info, char **map, char c)
 	return (colors);
 }
 
-void	get_no_so_we_ea(t_map *map_info, char **map)
+void get_no_so_we_ea(t_map *map_info, char **map)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (map[i] != NULL)
@@ -79,11 +80,11 @@ void	get_no_so_we_ea(t_map *map_info, char **map)
 	}
 }
 
-void	get_map_sizes(t_map *map_info, char **map)
+void get_map_sizes(t_map *map_info, char **map)
 {
-	int	i;
-	int	j;
-	int	width;
+	int i;
+	int j;
+	int width;
 
 	i = 0;
 	j = 0;
@@ -99,7 +100,7 @@ void	get_map_sizes(t_map *map_info, char **map)
 	map_info->height = i;
 }
 
-void	change_positions(char c, int i, int j)
+void change_positions(char c, int i, int j)
 {
 	player()->x = j + 0.5;
 	player()->y = i + 0.5;
@@ -111,18 +112,19 @@ void	change_positions(char c, int i, int j)
 		player()->angle = PI;
 	else if (c == 'E')
 		player()->angle = 0;
-	
+
 	player()->direction = player()->angle * (180 / PI);
-    while (player()->direction >= 360) {
-        player()->direction -= 360;
-    }
+	while (player()->direction >= 360)
+	{
+		player()->direction -= 360;
+	}
 }
 
-void	get_player_position(char **map)
+void get_player_position(char **map)
 {
-	int	i;
-	int	j;
-	int	p_count;
+	int i;
+	int j;
+	int p_count;
 
 	i = 0;
 	j = 0;
@@ -132,8 +134,7 @@ void	get_player_position(char **map)
 		j = 0;
 		while (map[i][j] != '\0')
 		{
-			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'W'
-				|| map[i][j] == 'E')
+			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'W' || map[i][j] == 'E')
 			{
 				change_positions(map[i][j], i, j);
 				p_count++;
@@ -146,25 +147,24 @@ void	get_player_position(char **map)
 		ft_error("Invalid player position");
 }
 
-int	ft_check_correct(char *line)
+int ft_check_correct(char *line)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (line[i] != '\0')
 	{
-		if (line[i] != '1' && line[i] != '0' && line[i] != 'N' && line[i] != 'S'
-			&& line[i] != 'W' && line[i] != 'E' && ft_isspace(line[i]) == 0)
+		if (line[i] != '1' && line[i] != '0' && line[i] != 'N' && line[i] != 'S' && line[i] != 'W' && line[i] != 'E' && ft_isspace(line[i]) == 0)
 			return (0);
 		i++;
 	}
 	return (1);
 }
 
-void	get_2d_map(t_map *map_info, char **map, int size)
+void get_2d_map(t_map *map_info, char **map, int size)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = 0;
 	j = 0;

@@ -24,10 +24,14 @@ void	exit_game(int code)
 {
 	t_textures	*t = textures();
 
-	mlx_destroy_image(cube()->mlx, t->wall_north->image);
-	mlx_destroy_image(cube()->mlx, t->wall_south->image);
-	mlx_destroy_image(cube()->mlx, t->wall_east->image);
-	mlx_destroy_image(cube()->mlx, t->wall_west->image);
+	if(t)
+	{
+		mlx_destroy_image(cube()->mlx, t->wall_north->image);
+		mlx_destroy_image(cube()->mlx, t->wall_south->image);
+		mlx_destroy_image(cube()->mlx, t->wall_east->image);
+		mlx_destroy_image(cube()->mlx, t->wall_west->image);
+	}
+
 
 	ft_destructor();
 	exit (1);

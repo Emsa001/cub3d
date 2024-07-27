@@ -12,11 +12,11 @@
 
 #include "cub.h"
 
-int	get_zero_count(char **map)
+int get_zero_count(char **map)
 {
-	int	i;
-	int	j;
-	int	zero;
+	int i;
+	int j;
+	int zero;
 
 	i = 0;
 	j = 0;
@@ -35,11 +35,11 @@ int	get_zero_count(char **map)
 	return (zero);
 }
 
-void	check_valid(char **map, t_map *map_info)
+void check_valid(char **map, t_map *map_info)
 {
-	t_point	size;
-	t_point	*begin_points;
-	char	to_fill[5];
+	t_point size;
+	t_point *begin_points;
+	char to_fill[5];
 
 	begin_points = ft_malloc(sizeof(t_point) * (get_zero_count(map) + 1));
 	begin_points = get_begin_points(map, begin_points);
@@ -56,9 +56,9 @@ void	check_valid(char **map, t_map *map_info)
 	ft_free(begin_points);
 }
 
-t_map	*check_map(char **map, int size)
+t_map *check_map(char **map, int size)
 {
-	t_map	*map_info;
+	t_map *map_info;
 
 	map_info = ft_malloc(sizeof(t_map));
 	map_info->width = 0;
@@ -69,8 +69,8 @@ t_map	*check_map(char **map, int size)
 	map_info->ea = NULL;
 	map_info->map = NULL;
 	get_no_so_we_ea(map_info, map);
-	map_info->f = get_color(map_info, map, 'F');
-	map_info->c = get_color(map_info, map, 'C');
+	map_info->f = get_color(map_info, map, "F");
+	map_info->c = get_color(map_info, map, "C");
 	get_2d_map(map_info, map, size);
 	get_map_sizes(map_info, map_info->map);
 	check_valid(map_info->map, map_info);

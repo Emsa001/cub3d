@@ -12,9 +12,9 @@
 
 #include "cub.h"
 
-void	print_map(char **map)
+void print_map(char **map)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (map[i] != NULL)
@@ -27,12 +27,12 @@ void	print_map(char **map)
 	usleep(10000);
 }
 
-char	*get_next_string(char *line, char *str)
+char *get_next_string(char *line, char *str)
 {
-	int		i;
-	int		j;
-	char	*tmp;
-	char	**check_split;
+	int i;
+	int j;
+	char *tmp;
+	char **check_split;
 
 	i = 0;
 	j = 0;
@@ -59,10 +59,10 @@ char	*get_next_string(char *line, char *str)
 	return (tmp);
 }
 
-int	ft_strlen_space(char *s)
+int ft_strlen_space(char *s)
 {
-	size_t	i;
-	int		j;
+	size_t i;
+	int j;
 
 	i = 0;
 	j = 0;
@@ -81,17 +81,16 @@ int	ft_strlen_space(char *s)
 	return (j);
 }
 
-int	ft_check_line(char *line)
+int ft_check_line(char *line)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	if (ft_strlen_space(line) == 0)
 		return (0);
 	while (line[i] != '\0')
 	{
-		if (line[i] != '1' && line[i] != '0' && line[i] != 'N' && line[i] != 'S'
-			&& line[i] != 'W' && line[i] != 'E' && ft_isspace(line[i]) == 0)
+		if (line[i] != '1' && line[i] != '0' && line[i] != 'N' && line[i] != 'S' && line[i] != 'W' && line[i] != 'E' && ft_isspace(line[i]) == 0)
 			return (0);
 		i++;
 	}

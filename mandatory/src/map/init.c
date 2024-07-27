@@ -12,13 +12,13 @@
 
 #include "cub.h"
 
-void	init_map(char *av)
+void init_map(char *av)
 {
-	char	**map;
-	int		i;
-	int		fd;
-	char	*c;
-	t_map	*map_info;
+	char **map;
+	int i;
+	int fd;
+	char *c;
+	t_map *map_info;
 
 	c = ft_strjoin("./maps/", av);
 	fd = open(c, O_RDONLY);
@@ -29,9 +29,11 @@ void	init_map(char *av)
 	i = 0;
 	while (1)
 	{
+		if (i >= MAX_SIZE)
+			ft_error("Map too big");
 		map[i] = get_next_line(fd);
 		if (!map[i])
-			break ;
+			break;
 		i++;
 	}
 	map[i] = NULL;
