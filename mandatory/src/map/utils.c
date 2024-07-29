@@ -53,9 +53,16 @@ char *get_next_string(char *line, char *str)
 		i++;
 		j++;
 	}
-	while (line[i] != '\0' && ft_isspace(line[i]))
+	while (line[i] != '\0' && ft_isspace(line[i]) && line[i] != '\n')
 		i++;
-	tmp = ft_strdup(line + i);
+	tmp = ft_malloc(sizeof(char) * (ft_strlen(line) - i + 1));
+	j = 0;
+	while (line[i] != '\0' && line[i] != '\n')
+	{
+		tmp[j] = line[i];
+		i++;
+		j++;
+	}
 	return (tmp);
 }
 
