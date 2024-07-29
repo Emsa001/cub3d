@@ -26,13 +26,13 @@ int get_block_id(t_block *blocks, float px, float py, float angle)
 
     float full_angle = angle * 180 / PI;
 
-    float md = 2 +(-cos(angle * PI / 45));
+    float md = 2 + (-cos(angle * PI / 45));
 
-    while(blocks[i].x != -1)
+    while (blocks[i].x != -1)
     {
         x = blocks[i].x;
         y = blocks[i].y;
-        if((p_x - md <= x && x <= p_x + md) && (p_y - md <= y && y <= p_y + md))
+        if ((p_x - md <= x && x <= p_x + md) && (p_y - md <= y && y <= p_y + md))
             return i;
         i++;
     }
@@ -44,19 +44,20 @@ void catch_block(float angle)
     t_player *p = player();
     t_cube *c = cube();
     static int id;
-    
-    if(!c->map->blocks)
+
+    if (!c->map->blocks)
         return;
-    if(!p->catched)
+    if (!p->catched)
     {
         id = get_block_id(c->map->blocks, p->x, p->y, angle);
         p->catched = true;
     }
-    if(id == -1)
+    if (id == -1)
     {
         p->catched = false;
         return;
     }
-    c->map->blocks[id].x = p->x -0.5 + 2.5 * cos(angle);
-    c->map->blocks[id].y = p->y -0.5 + 2.5 * sin(angle);
+    c->map->blocks[id].x = p->x - 0.5 + 2.5 * cos(angle);
+    c->map->blocks[id].y = p->y - 0.5 + 2.5 * sin(angle);
+    c->map->blocks[id].z = p->z + 0.5;
 }

@@ -63,6 +63,7 @@ char *get_next_string(char *line, char *str)
 		i++;
 		j++;
 	}
+	tmp[j] = '\0';
 	return (tmp);
 }
 

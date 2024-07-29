@@ -19,14 +19,14 @@ static void init_game(char *map)
 	init_player(ft_malloc(sizeof(t_player)));
 }
 
-int	main(int argc, char **argv)
+int main(int argc, char **argv)
 {
 	check_params(argv);
 	ft_alloc_init();
 
 	init_game(argv[1]);
 	start_game();
-	
+
 	ft_destructor();
 	return (0);
 }
