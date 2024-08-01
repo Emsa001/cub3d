@@ -101,16 +101,75 @@ void draw_h_line(float height, int start_x)
 	}
 }
 
+static bool touch_edge(float x, float y)
+{
+	if (x >= 0 && y >= 0 && x < cube()->map->width * BLOCK_SIZE && y < cube()->map->height * BLOCK_SIZE)
+		return false;
+	return true;
+}
+
 static bool find_hitbox(float x, float y)
 {
 	if (is_touching(x, y))
-		return false;
+		return true;
 	if (touch_block(cube()->map->blocks, x, y))
-		return false;
+		return true;
 	if (touch_block(cube()->map->doors, x, y))
-		return false;
+		return true;
 
-	return true;
+	return false;
+}
+
+void draw_pixel(float x, float y, float angle, int start_x)
+{
+	float dist = 0;
+	float line_height = 0;
+
+	side = calculate_direction(x, y, angle);
+
+	dist = view_lane_distance(x, y, angle);
+	line_height = (BLOCK_SIZE / dist) * (WIDTH / 2);
+	draw_h_line(line_height, start_x);
+}
+
+void handle_pixel_drawing(float x, float y, float angle, int start_x)
+{
+	static bool save = false;
+	static bool block_save = false;
+	static bool door_save = false;
+	t_cube *c = cube();
+
+	if (is_touching(x, y))
+	{
+		if (!save)
+		{
+			draw_pixel(x, y, angle, start_x);
+		}
+		save = true;
+	}
+	else if (touch_block(c->map->blocks, x, y))
+	{
+		if (!block_save)
+		{
+			draw_pixel(x, y, angle, start_x);
+		}
+		block_save = true;
+	}
+	else if (touch_block(c->map->doors, x, y))
+	{
+		if (!door_save)
+		{
+			draw_pixel(x, y, angle, start_x);
+		}
+		door_save = true;
+	}
+	else if (save || block_save || door_save)
+	{
+		// draw_pixel(x, y, angle, start_x);
+		save = false;
+		block_save = false;
+		door_save = false;
+	}
 }
 
 void draw_line(float angle, int start_x)
@@ -118,20 +177,16 @@ void draw_line(float angle, int start_x)
 	t_player *p = player();
 	float x = p->x_px;
 	float y = p->y_px;
-	float dist = 0;
-	float line_height = 0;
+	float cosAngle = cos(angle);
+	float sinAngle = sin(angle);
 
-	while (find_hitbox(x, y))
+	while (!touch_edge(x, y))
 	{
-		x += cos(angle);
-		y += sin(angle);
+		handle_pixel_drawing(x, y, angle, start_x);
+
+		x += cosAngle;
+		y += sinAngle;
 	}
-
-	side = calculate_direction(x, y, angle);
-
-	dist = view_lane_distance(x, y, angle);
-	line_height = (BLOCK_SIZE / dist) * (WIDTH / 2);
-	draw_h_line(line_height, start_x);
 }
 
 void render_view()
