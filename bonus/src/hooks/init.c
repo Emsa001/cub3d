@@ -5,48 +5,27 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 13:10:09 by escura            #+#    #+#             */
-/*   Updated: 2024/08/02 22:05:47 by escura           ###   ########.fr       */
+/*   Created: 2024/08/02 20:34:18 by escura            #+#    #+#             */
+/*   Updated: 2024/08/02 20:45:12 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "hooks.h"
 
-/* CUBE */
-
-t_cube	*cube_init(t_cube *c)
+void init_hooks(void)
 {
-	static t_cube	*cube;
-	
-	if (c == NULL)
-		return (cube);
+    const t_render *r = render();
+    const t_cube *c = cube();
 
-	c->keycode = D;
-	cube = c;
-	return (cube);
-}
+    mlx_do_key_autorepeaton(r->mlx);
+    
+    mlx_hook(r->win, KeyPress, KeyPressMask, key_down, (void *)c);
+    mlx_hook(r->win, KeyRelease, KeyReleaseMask, key_up, (void *)c);
+    mlx_hook(r->win, MotionNotify, PointerMotionMask, mouse_move, (void *)c);
+    mlx_hook(r->win, ButtonPress, ButtonPressMask, mouse_click, (void *)c);
 
-t_cube	*cube(void)
-{
-	return (cube_init(NULL));
-}
+    mlx_mouse_hide(r->mlx, r->win);
 
-t_render *init_render(t_render *r)
-{
-	static t_render	*render;
-
-	if (r == NULL)
-		return (render);
-
-	r->mlx = mlx_init();
-	r->win = mlx_new_window(r->mlx, WIDTH, HEIGHT, "Cub3D");
-	r->side = 6;
-	render = r;
-	
-	return (render);
-}
-
-t_render *render(void)
-{
-	return (init_render(NULL));
+    mlx_loop_hook(r->mlx, render_scene, (void *)c);
+    mlx_loop(r->mlx);
 }

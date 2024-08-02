@@ -1,37 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_file.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/08/02 22:04:52 by escura           ###   ########.fr       */
+/*   Created: 2024/08/02 22:06:58 by escura            #+#    #+#             */
+/*   Updated: 2024/08/02 22:12:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "textures.h"
 
-static void init_game(char *map)
+void *get_texture_file(char *file, int *width, int *height)
 {
-	cube_init(ft_malloc(sizeof(t_cube)));
-	map_init(map);
+    if(!file || open(file, O_RDONLY) < 0)
+        ft_error("Error\nInvalid texture file\n");
 
-	init_render(ft_malloc(sizeof(t_render)));
-	player_init(ft_malloc(sizeof(t_player)));
-	init_textures(ft_malloc(sizeof(t_textures)));
-	
-	minimap_init();
-}
-
-int	main(int argc, char **argv)
-{
-	check_params(argv);
-	ft_alloc_init();
-
-	init_game(argv[1]);
-	start_game();
-	
-	ft_destructor();
-	return (0);
+    void *image = mlx_xpm_file_to_image(render()->mlx, file, width, height);
+    return (mlx_get_data_addr(image, width, height, height));
 }

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/07/22 18:25:56 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/02 20:40:11 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	move_player(void);
 void jump_player(void);
 bool touch();
 void render_player(void);
-
+void player_rotate(int x, int y);
 
 double view_lane_distance(float x1, float y1, float angle);
 

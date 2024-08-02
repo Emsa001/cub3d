@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/07/22 18:26:09 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/02 22:11:45 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@
 
 typedef struct s_cube
 {
-	void	*mlx;
-	void	*win;
 	char	*some_value;
 	int		keycode;
 

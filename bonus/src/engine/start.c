@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/07/22 19:01:35 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/02 20:44:44 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void update_fps(void)
     static int fps = 0;
     static int last_fps = 0;
     static time_t last_time = 0;
-    t_cube *c = cube();
+    const t_render *r = render();
     
     time_t now = time(NULL);
     fps++;
@@ -50,7 +50,7 @@ void update_fps(void)
     }
     
     char *fps_str = ft_itoa(last_fps);
-    mlx_string_put(c->mlx, c->win, 10, 10, 0xFFFFFF, fps_str);
+    mlx_string_put(r->mlx, r->win, 10, 10, 0xFFFFFF, fps_str);
     ft_free(fps_str);
 }
 
@@ -73,10 +73,7 @@ int render_scene(t_cube *c)
 }
 
 void start_game(void) {
-    t_cube *c = cube();
-    // print_map_info();
-    c->win = mlx_new_window(c->mlx, WIDTH, HEIGHT, "Cub3D");
-	render()->win = c->win;
+    // start the game
     init_hooks();
 }
 

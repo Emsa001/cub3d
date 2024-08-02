@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/08/02 22:04:52 by escura           ###   ########.fr       */
+/*   Created: 2024/08/02 20:34:36 by escura            #+#    #+#             */
+/*   Updated: 2024/08/02 20:45:49 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "hooks.h"
 
-static void init_game(char *map)
+int mouse_click(int button)
 {
-	cube_init(ft_malloc(sizeof(t_cube)));
-	map_init(map);
-
-	init_render(ft_malloc(sizeof(t_render)));
-	player_init(ft_malloc(sizeof(t_player)));
-	init_textures(ft_malloc(sizeof(t_textures)));
-	
-	minimap_init();
+    t_player *p = player();
+    if (button == LEFT_CLICK)
+        p->catch = true;
+    if(button == RIGHT_CLICK)
+    {
+        p->catch = false;
+        p->catched = false;
+    }
+    return (0);
 }
 
-int	main(int argc, char **argv)
+int mouse_move(int x, int y)
 {
-	check_params(argv);
-	ft_alloc_init();
+    const t_render *r = render();
+    player_rotate(x,y);
 
-	init_game(argv[1]);
-	start_game();
-	
-	ft_destructor();
+	mlx_mouse_move(r->mlx, r->win, WIDTH / 2, HEIGHT / 2);
 	return (0);
 }

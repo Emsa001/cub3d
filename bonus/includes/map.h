@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/07/22 18:57:33 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/02 21:56:37 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,16 @@ typedef struct s_minimap
 	int x;
 	int y;
 }			t_minimap;
+
+typedef struct minimap_utils{
+    float center_x;
+    float center_y;
+    float start_x;
+    float start_y;
+    float end_x;
+    float end_y;
+}             t_minimap_utils;
+
 
 typedef struct s_map
 {

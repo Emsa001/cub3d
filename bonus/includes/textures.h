@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 18:35:54 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/02 22:09:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ typedef struct s_textures
     t_texture *player;
 } t_textures;
 
-t_textures *init_textures(t_textures *t, void *mlx);
+t_textures *init_textures(t_textures *t);
 t_textures *textures(void);
+void *get_texture_file(char *file, int *width, int *height);
 int get_pixel_from_image(t_texture *t, int x, int y);
 void resize_texture(const t_texture *src, t_texture *dst, int new_width, int new_height);
 

@@ -1,37 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/08/02 22:04:52 by escura           ###   ########.fr       */
+/*   Created: 2024/08/02 20:31:52 by escura            #+#    #+#             */
+/*   Updated: 2024/08/02 20:33:19 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "settings.h"
 
-static void init_game(char *map)
+void settings_render(void)
 {
-	cube_init(ft_malloc(sizeof(t_cube)));
-	map_init(map);
-
-	init_render(ft_malloc(sizeof(t_render)));
-	player_init(ft_malloc(sizeof(t_player)));
-	init_textures(ft_malloc(sizeof(t_textures)));
-	
-	minimap_init();
-}
-
-int	main(int argc, char **argv)
-{
-	check_params(argv);
-	ft_alloc_init();
-
-	init_game(argv[1]);
-	start_game();
-	
-	ft_destructor();
-	return (0);
+    printf("Render\n");
 }

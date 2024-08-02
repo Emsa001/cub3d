@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:35:04 by escura            #+#    #+#             */
-/*   Updated: 2024/07/22 17:47:58 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/02 20:46:45 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 void *load_image(char *path)
 {
-    const t_cube *c = cube();
+    const t_render *r = render();
 
     void	*img;
     int		img_width;
     int		img_height;
 
-    img = mlx_xpm_file_to_image(c->mlx, path, &img_width, &img_height);
+    img = mlx_xpm_file_to_image(r->mlx, path, &img_width, &img_height);
     if (img == NULL)
         printf("Error: failed to load image: %s\n", path);
     return img;
@@ -28,23 +28,23 @@ void *load_image(char *path)
 
 void draw_image(void *img, int x, int y)
 {
-    const t_cube *c = cube();
+    const t_render *r = render();
 
-	mlx_put_image_to_window(c->mlx, c->win, img, x, y);
+	mlx_put_image_to_window(r->mlx, r->win, img, x, y);
 }
 
 void destroy_image(void *img)
 {
-    const t_cube *c = cube();
+    const t_render *r = render();
 
-    mlx_destroy_image(c->mlx, img);
+    mlx_destroy_image(r->mlx, img);
 }
 
 void clean_window()
 {
-    const t_cube *c = cube();
+    const t_render *r = render();
 
-    mlx_clear_window(c->mlx, c->win);
+    mlx_clear_window(r->mlx, r->win);
 }
 
 void put_pixel(int x, int y, int color)

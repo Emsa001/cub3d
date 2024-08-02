@@ -6,11 +6,11 @@
 #    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/07/21 14:18:03 by escura           ###   ########.fr        #
+#    Updated: 2024/08/02 21:49:52 by escura           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ../cub3d_bonus
+NAME = cub3d_bonus
 
 SRC_DIR = src
 SRC = $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/*/*.c) $(wildcard $(SRC_DIR)/*/*/*.c)
@@ -27,7 +27,7 @@ CFLAGS += -I$(LIBFT_DIR) -I$(INCLUDES_DIR)
 LDFLAGS += -L./$(INCLUDES_DIR)/mlx -lmlx -lXext -lX11 -lm -lz 
 
 DEBUG 		= 0
-FSANITIZE 	= 0
+FSANITIZE 	= 1
 
 ifeq ($(DEBUG), 1)
     CFLAGS += -DDEBUG=1
@@ -45,6 +45,9 @@ OBJ_DIR = .obj
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 all: $(NAME)
+
+run: $(NAME)
+	./$(NAME) map.cub
 
 $(NAME): $(LIBFT) $(OBJ)
 	$(CC) $(CFLAGS)$(OBJ) -o $(NAME) $(LDLIBS) $(LDFLAGS)
