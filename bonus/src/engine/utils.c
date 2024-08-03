@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/08/02 21:49:09 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/03 18:24:02 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,8 @@ bool touch_block(t_block *blocks, float px, float py)
 	return false;
 }
 
-bool is_touching(float px, float py)
+bool is_touching(float px, float py, t_cube *c)
 {
-	t_cube	*c = cube();
 	int		x = px / BLOCK_SIZE;
 	int		y = py / BLOCK_SIZE;
 
@@ -52,7 +51,7 @@ void	draw_middle_line(void)
 	i = 0;
 	while (i < WIDTH)
 	{
-		mlx_pixel_put(r->mlx, r->win, i, HEIGHT / 2, 0x0000FF00);
+		put_pixel(i, HEIGHT / 2, 0x0000FF00, r);
 		i++;
 	}
 }
@@ -66,8 +65,8 @@ void draw_cross_in_centre(void)
 
     while (i <= 7)
 	{
-		mlx_pixel_put(r->mlx, r->win, x_center + i, y_center, 0x0000FF00);
-		mlx_pixel_put(r->mlx, r->win, x_center, y_center + i, 0x0000FF00);
+		put_pixel(x_center + i, y_center, 0x0000FF00, r);
+		put_pixel(x_center, y_center + i, 0x0000FF00, r);
 		i++;
 	}
 }

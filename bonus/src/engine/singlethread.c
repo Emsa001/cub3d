@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   start.c                                            :+:      :+:    :+:   */
+/*   singlethread.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/08/03 17:25:42 by escura           ###   ########.fr       */
+/*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
+/*   Updated: 2024/08/03 17:59:04 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void start_game(void)
+int render_scene_singlethread(t_cube *c)
 {
     t_render *r = render();
-    t_cube *c = cube();
-    // start the game
-    init_hooks();
+    r->img_ptr = mlx_new_image(r->mlx, WIDTH, HEIGHT);
 
-    // mlx_loop_hook(r->mlx, render_scene_singlethread, (void *)c);
-    mlx_loop_hook(r->mlx, render_scene_multithread, (void *)c);
-    mlx_loop(r->mlx);
+    // render_background();
+	// render_view();
+    // render_minimap();
+    // render_player();
+    // move_player();
+    
+    mlx_put_image_to_window(r->mlx, r->win, r->img_ptr , 0, 0);
+    mlx_destroy_image(r->mlx, r->img_ptr);
+    
+    update_fps();
+    return 0;
 }
+
+

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:51:28 by escura            #+#    #+#             */
-/*   Updated: 2024/07/22 19:00:53 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/03 18:24:42 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,25 @@
 /* it detects colors, I believe there is better way to do it */
 static void minimap_draw_fov(float angle)
 {
+    t_render *r = render();
     float x = minimap_center_x();
     float y = minimap_center_y();
     int col = 0;
     int i = 0;
     
-    while (i < 100 && col <= 20)
-    {
-        x += cos(angle);
-        y += sin(angle);
+    const double cos_angle = cos(angle);
+    const double sin_angle = sin(angle);
 
-        if(get_scene_pixel((int)x, (int)y) == MINIMAP_COLOR){
-            if(i % 4 == 0)
-                put_pixel((int)x, (int)y, 0xa1a1aa);
-        }else
+    while (i < 100 && col <= 3)
+    {
+        x += 6 * cos_angle;
+        y += 6 * sin_angle;
+
+        if(get_scene_pixel((int)x, (int)y) != MINIMAP_COLOR)
             col++;
 
-        i++;
+        put_pixel((int)x, (int)y, 0xa1a1aa, r);
+        i += 6;
     }
 }
 
@@ -52,6 +54,6 @@ void minimap_draw_player()
         float fraction = (float)i / WIDTH;
         float rayAngle = angleOffset + fraction * fovInRadians;
         minimap_draw_fov(rayAngle);
-        i += 170 - p->fov;
+        i += (170 - p->fov);
     }
 }

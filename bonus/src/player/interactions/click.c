@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   start.c                                            :+:      :+:    :+:   */
+/*   click.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/08/03 17:25:42 by escura           ###   ########.fr       */
+/*   Created: 2024/08/03 17:04:34 by escura            #+#    #+#             */
+/*   Updated: 2024/08/03 17:05:01 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void start_game(void)
+void player_mouseclick(int button)
 {
-    t_render *r = render();
-    t_cube *c = cube();
-    // start the game
-    init_hooks();
-
-    // mlx_loop_hook(r->mlx, render_scene_singlethread, (void *)c);
-    mlx_loop_hook(r->mlx, render_scene_multithread, (void *)c);
-    mlx_loop(r->mlx);
+    t_player *p = player();
+    
+    if (button == LEFT_CLICK)
+        p->catch = true;
+    if(button == RIGHT_CLICK)
+    {
+        p->catch = false;
+        p->catched = false;
+    }
 }

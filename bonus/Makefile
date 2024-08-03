@@ -6,14 +6,14 @@
 #    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/08/02 21:49:52 by escura           ###   ########.fr        #
+#    Updated: 2024/08/03 18:37:18 by escura           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3d_bonus
+NAME = ../cub3d_bonus
 
 SRC_DIR = src
-SRC = $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/*/*.c) $(wildcard $(SRC_DIR)/*/*/*.c)
+SRC = $(filter-out $(wildcard $(SRC_DIR)/_*), $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/*/*.c) $(wildcard $(SRC_DIR)/*/*/*.c))
 
 INCLUDES_DIR = includes
 

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/08/02 21:56:37 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/03 17:11:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,9 @@ void		fill_loop(char to_fill[], t_point *begin_points, t_map *map_info,
 				t_point size);
 
 t_minimap *minimap();
-void minimap_render();
+
+void render_minimap();
+
 void minimap_draw_player();
 void minimap_block(int x, int y, int screen_x, int screen_y);
 

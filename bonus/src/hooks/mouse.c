@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 20:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/08/02 20:45:49 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/03 17:05:14 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,7 @@
 
 int mouse_click(int button)
 {
-    t_player *p = player();
-    if (button == LEFT_CLICK)
-        p->catch = true;
-    if(button == RIGHT_CLICK)
-    {
-        p->catch = false;
-        p->catched = false;
-    }
+    player_mouseclick(button);
     return (0);
 }
 

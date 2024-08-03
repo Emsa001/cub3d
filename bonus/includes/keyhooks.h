@@ -1,25 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   start.c                                            :+:      :+:    :+:   */
+/*   keyhooks.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/08/03 17:25:42 by escura           ###   ########.fr       */
+/*   Created: 2024/08/03 16:49:37 by escura            #+#    #+#             */
+/*   Updated: 2024/08/03 16:50:48 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#ifndef KEYHOOKS_H
+# define KEYHOOKS_H
 
-void start_game(void)
-{
-    t_render *r = render();
-    t_cube *c = cube();
-    // start the game
-    init_hooks();
+// keycodes
+# define ESC 65307
+# define W 119
+# define A 97
+# define S 115
+# define D 100
+# define E 101
+# define UP 65362
+# define LEFT 65361
+# define DOWN 65364
+# define RIGHT 65363
+# define SHIFT 65505
+# define SPACE 32
+# define LEFT_CLICK 1
+# define RIGHT_CLICK 3
 
-    // mlx_loop_hook(r->mlx, render_scene_singlethread, (void *)c);
-    mlx_loop_hook(r->mlx, render_scene_multithread, (void *)c);
-    mlx_loop(r->mlx);
-}
+# define I 105
+# define O 111
+# define F 102
+
+# define MINUS 45
+# define PLUS 61
+
+#endif

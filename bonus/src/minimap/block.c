@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:52:56 by escura            #+#    #+#             */
-/*   Updated: 2024/07/22 18:59:29 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/03 18:24:35 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static t_texture	dst_texture(void)
 
 static void	draw_block(int i, int j, int screen_x, int screen_y)
 {
+	t_render	*r = render();
 	const t_texture	texture = dst_texture();
 	const float		pixel_x = screen_x + i;
 	const float		pixel_y = screen_y + j;
@@ -40,7 +41,7 @@ static void	draw_block(int i, int j, int screen_x, int screen_y)
 
 	if (dx * dx + dy * dy <= pow(minimap()->radius, 2))
 		put_pixel((int)pixel_x, (int)pixel_y, get_pixel_from_image(&texture, i,
-				j));
+				j),r);
 }
 
 void	minimap_block(int x, int y, int screen_x, int screen_y)

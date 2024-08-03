@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 22:06:58 by escura            #+#    #+#             */
-/*   Updated: 2024/08/02 22:12:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/03 16:40:07 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ void *get_texture_file(char *file, int *width, int *height)
         ft_error("Error\nInvalid texture file\n");
 
     void *image = mlx_xpm_file_to_image(render()->mlx, file, width, height);
-    return (mlx_get_data_addr(image, width, height, height));
+    return (image);
 }

@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   start.c                                            :+:      :+:    :+:   */
+/*   multithreating.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/08/03 17:25:42 by escura           ###   ########.fr       */
+/*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
+/*   Updated: 2024/08/03 18:08:49 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void start_game(void)
+int render_scene_multithread(t_cube *c)
 {
     t_render *r = render();
-    t_cube *c = cube();
-    // start the game
-    init_hooks();
-
-    // mlx_loop_hook(r->mlx, render_scene_singlethread, (void *)c);
-    mlx_loop_hook(r->mlx, render_scene_multithread, (void *)c);
-    mlx_loop(r->mlx);
+    r->img_ptr = mlx_new_image(r->mlx, WIDTH, HEIGHT);
+    
+    // Create threads
+    render_view();
+    // render_background_thread(c);
+    // render_player_thread(c);
+    // render_minimap_thread(c);
+    
+    move_player();
+    update_fps();
+    return 0;
 }

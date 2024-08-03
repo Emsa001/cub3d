@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:16:56 by escura            #+#    #+#             */
-/*   Updated: 2024/08/02 20:30:31 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/03 17:11:00 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	set_block(int i, int j, t_minimap_utils *utils)
 	}
 }
 
-void	minimap_render(void)
+void	render_minimap(void)
 {
 	t_minimap_utils *utils;
 	int i;
