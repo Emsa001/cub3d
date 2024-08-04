@@ -6,13 +6,13 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:32:21 by escura            #+#    #+#             */
-/*   Updated: 2024/08/03 18:34:22 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/04 16:33:55 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <pthread.h>
-#define NUM_THREADS 2
+#define NUM_THREADS 12
 
 void* draw_lines_thread(void* arg)
 {

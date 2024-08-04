@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/03 18:35:28 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/04 17:19:43 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static t_texture *get_wall_side(int side, t_textures *texs)
 
 static void draw_h_line(float height, int start_x, ThreadParams *params)
 {
+    
     const t_cube *c = params->cube;
     const t_player *p = params->player;
     const t_render *r = params->render;
@@ -83,17 +84,22 @@ static void draw_h_line(float height, int start_x, ThreadParams *params)
     start_y = (p->z * height + vert_offset(p));
     end = start_y + height;
 
+    if(end > HEIGHT)
+        end = HEIGHT;
+        
+    t_texture *wall_side = get_wall_side(r->side, texs);
+
     while (start_y < end) {
-        // color = params->color;
-        // if (p->catch && r->side == 6)
-        //     color = 255;
-        // else
-        color = get_pixel_from_image(get_wall_side(r->side, texs), c->tex_x, tex_y);
+        if (p->catch && r->side == 6)
+            color = 255;
+        else
+            color = get_pixel_from_image(wall_side, c->tex_x, tex_y);
         put_pixel(start_x, start_y, color, params->render);
         tex_y += step;
         start_y++;
     }
 }
+
 
 static bool find_hitbox(float x, float y, t_cube *c)
 {
@@ -119,10 +125,14 @@ void draw_line(float angle, int start_x, ThreadParams *params)
         x += cos(angle);
         y += sin(angle);
     }
-
-    r->side = calculate_direction(x, y, angle, c);
     const float dist = view_lane_distance(x, y, angle);
     const float line_height = (BLOCK_SIZE / dist) * (WIDTH / 2);
     
+    pthread_mutex_lock(params->mutex);
+    
+    r->side = calculate_direction(x, y, angle, c);
     draw_h_line(line_height, start_x, params);
+
+    pthread_mutex_unlock(params->mutex);
+
 }
