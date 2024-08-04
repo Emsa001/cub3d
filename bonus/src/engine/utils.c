@@ -12,6 +12,13 @@
 
 #include "cub3d.h"
 
+bool touch_edge(float x, float y)
+{
+	if (x >= 0 && y >= 0 && x < cube()->map->width * BLOCK_SIZE && y < cube()->map->height * BLOCK_SIZE)
+		return false;
+	return true;
+}
+
 bool touch_block(t_block *blocks, float px, float py)
 {
 	int i = 0;

@@ -101,92 +101,64 @@ void draw_h_line(float height, int start_x)
 	}
 }
 
-static bool touch_edge(float x, float y)
+void draw_pixel(float x, float y, float angle, int start_x, float dist)
 {
-	if (x >= 0 && y >= 0 && x < cube()->map->width * BLOCK_SIZE && y < cube()->map->height * BLOCK_SIZE)
-		return false;
-	return true;
-}
-
-static bool find_hitbox(float x, float y)
-{
-	if (is_touching(x, y))
-		return true;
-	if (touch_block(cube()->map->blocks, x, y))
-		return true;
-	if (touch_block(cube()->map->doors, x, y))
-		return true;
-
-	return false;
-}
-
-void draw_pixel(float x, float y, float angle, int start_x)
-{
-	float dist = 0;
+	// float dist = 0;
 	float line_height = 0;
 
 	side = calculate_direction(x, y, angle);
 
-	dist = view_lane_distance(x, y, angle);
+	// dist = view_lane_distance(x, y, angle);
 	line_height = (BLOCK_SIZE / dist) * (WIDTH / 2);
 	draw_h_line(line_height, start_x);
 }
 
-void handle_pixel_drawing(float x, float y, float angle, int start_x)
+void handle_pixel_drawing(t_ray *ray, float x, float y, float angle, int start_x)
 {
 	static bool save = false;
-	static bool block_save = false;
-	static bool door_save = false;
+
+	static int x_save = 0;
+	static int y_save = 0;
+
 	t_cube *c = cube();
 
 	if (is_touching(x, y))
 	{
 		if (!save)
 		{
-			draw_pixel(x, y, angle, start_x);
+			x_save = x;
+			y_save = y;
 		}
 		save = true;
 	}
-	else if (touch_block(c->map->blocks, x, y))
+	else if (save)
 	{
-		if (!block_save)
-		{
-			draw_pixel(x, y, angle, start_x);
-		}
-		block_save = true;
-	}
-	else if (touch_block(c->map->doors, x, y))
-	{
-		if (!door_save)
-		{
-			draw_pixel(x, y, angle, start_x);
-		}
-		door_save = true;
-	}
-	else if (save || block_save || door_save)
-	{
-		// draw_pixel(x, y, angle, start_x);
+		ray->x = x_save;
+		ray->y = y_save;
+		ray->angle = angle;
+		ray->start_x = start_x;
+		ray->dist = view_lane_distance(x_save, y_save, angle);
+		draw_pixel(x_save, y_save, angle, start_x, ray->dist);
 		save = false;
-		block_save = false;
-		door_save = false;
 	}
 }
 
-void draw_line(float angle, int start_x)
+t_ray draw_line(float angle, int start_x)
 {
 	t_player *p = player();
+	t_ray ray;
 	float x = p->x_px;
 	float y = p->y_px;
-	float cosAngle = cos(angle);
-	float sinAngle = sin(angle);
+	float cosangle = cos(angle);
+	float sinangle = sin(angle);
 
 	while (!touch_edge(x, y))
 	{
-		handle_pixel_drawing(x, y, angle, start_x);
-
-		x += cosAngle;
-		y += sinAngle;
+		handle_pixel_drawing(&ray, x, y, angle, start_x);
+		x += cosangle;
+		y += sinangle;
 	}
+	return ray;
 }
 
 void render_view()
@@ -196,6 +168,8 @@ void render_view()
 	float angle = player()->angle;
 	int i = 0;
 
+	t_ray ray[WIDTH];
+
 	float fovInRadians = player()->fov * PI / 180;
 	float halfFovInRadians = fovInRadians / 2.0;
 	float angleOffset = angle - halfFovInRadians;
@@ -204,7 +178,14 @@ void render_view()
 	{
 		float fraction = (float)i / WIDTH;
 		float rayAngle = angleOffset + fraction * fovInRadians;
-		draw_line(rayAngle, i);
+		ray[i] = draw_line(rayAngle, i);
+		i++;
+	}
+
+	i = 0;
+	while (ray[i].start_x < WIDTH)
+	{
+		// draw_pixel(ray[i].x, ray[i].y, angle, ray[i].start_x, ray[i].dist);
 		i++;
 	}
 }

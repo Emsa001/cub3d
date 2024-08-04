@@ -102,6 +102,15 @@ typedef struct s_render
 
 } t_render;
 
+typedef struct s_ray
+{
+	float x;
+	float y;
+	float angle;
+	int start_x;
+	float dist;
+} t_ray;
+
 /* ENGINE */
 t_render *init_render(t_render *r);
 t_render *render(void);
@@ -113,11 +122,12 @@ void start_game(void);
 void init_hooks(void);
 int render_scene(t_cube *p);
 bool is_touching(float px, float py);
+bool touch_edge(float x, float y);
 bool touch_block(t_block *blocks, float px, float py);
 float distance(float x1, float y1, float x2, float y2);
 
 /* DRAW */
-void draw_line(float angle, int i);
+// void draw_line(float angle, int i);
 void draw_cross_in_centre(void);
 void draw_cube(int x, int y, int size, int col);
 
