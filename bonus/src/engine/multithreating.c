@@ -6,11 +6,16 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/08/05 13:54:25 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/05 13:58:49 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void clean_main_image(t_render *r){
+    mlx_put_image_to_window(r->mlx, r->win, r->img_ptr, 0, 0);
+    mlx_destroy_image(r->mlx, r->img_ptr);
+}
 
 int render_scene_multithread(t_cube *c)
 {
@@ -19,9 +24,12 @@ int render_scene_multithread(t_cube *c)
     
     // Create threads
     render_view();
+    render_minimap();
     // render_background_thread(c);
     // render_player_thread(c);
-    // render_minimap();
+    clean_main_image(r);
+
+
     
     move_player();
     update_fps();

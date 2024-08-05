@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:32:21 by escura            #+#    #+#             */
-/*   Updated: 2024/08/04 17:38:07 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/05 13:57:57 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,4 @@ void render_view()
     for (int i = 0; i < NUM_THREADS; i++) {
         pthread_join(threads[i], NULL);
     }
-
-    mlx_put_image_to_window(r->mlx, r->win, r->img_ptr, 0, 0);
-    mlx_destroy_image(r->mlx, r->img_ptr);
 }
