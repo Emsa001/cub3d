@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/08/04 17:21:44 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/04 17:38:57 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 
 # define T_SIZE 64
 # define BLOCK_SIZE 64
-# define WIDTH 1920
+# define WIDTH 2040
 # define HEIGHT 1080
 # define CENTER_WIDTH WIDTH / 2
 # define CENTER_HEIGHT HEIGHT / 2

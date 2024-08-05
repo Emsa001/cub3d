@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/04 17:31:48 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/04 17:39:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,11 @@ static void draw_h_line(float height, int start_x, ThreadParams *params)
     t_texture *wall_side = get_wall_side(r->side, texs);
 
     while (start_y < end) {
-		color = params->color;
-        // if (p->catch && r->side == 6)
-        //     color = 255;
-        // else
-        //     color = get_pixel_from_image(wall_side, c->tex_x, tex_y);
+		// color = params->color;
+        if (p->catch && r->side == 6)
+            color = 255;
+        else
+            color = get_pixel_from_image(wall_side, c->tex_x, tex_y);
         put_pixel(start_x, start_y, color, params->render);
         tex_y += step;
         start_y++;
