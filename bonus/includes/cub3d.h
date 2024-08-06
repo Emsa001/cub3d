@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 19:47:31 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:29:58 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,12 @@ typedef struct s_render
 
 typedef struct s_ray
 {
-	float x;
-	float y;
+	float *x;
+	float *y;
 	float angle;
 	int start_x;
 	float dist;
+	float *distances;
 } t_ray;
 
 /* ENGINE */
