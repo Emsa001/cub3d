@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 19:11:16 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/08/06 18:52:04 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int calculate_direction(float x, float y, float angle)
 	if(sin(angle) > 0)
 		sy = 1;
 
-	if(is_touching(x - sx, y))
+	if(is_touching(x - sx, y) || is_touching(x - sx, y - sy))
 	{
 		cube()->tex_x = (int)x % BLOCK_SIZE;
 		if (sy == 1)
@@ -33,7 +33,7 @@ int calculate_direction(float x, float y, float angle)
 		else
 			return 3;
 	}
-	else if(is_touching(x, y - sy))
+	else if(is_touching(x, y - sy) || is_touching(x, y))
 	{
 		cube()->tex_x = (int)y % BLOCK_SIZE;
 		if (sx == 1)
@@ -41,6 +41,7 @@ int calculate_direction(float x, float y, float angle)
 		else
 			return 4;
 	}
+	
 	return 0;
 }
 

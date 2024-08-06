@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/08/06 16:41:34 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/06 16:59:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ typedef struct s_ray
 {
 	float x;
 	float y;
-	float dist;
+	int dist;
 } t_ray;
 
 /* ENGINE */

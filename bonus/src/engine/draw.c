@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/06 16:41:56 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/06 18:57:59 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int calculate_direction(float x, float y, float angle)
 	int sy = sin(angle) > 0 ? 1 : -1;
 	t_cube *c = cube();
 
-	if (is_touching(x - sx, y))
+	if (is_touching(x - sx, y) || is_touching(x - sx, y - sy))
 	{
 		c->tex_x = (int)x % BLOCK_SIZE;
 		if (sy == 1)
@@ -28,7 +28,7 @@ int calculate_direction(float x, float y, float angle)
 		else
 			return 3;
 	}
-	else if (is_touching(x, y - sy))
+	else if (is_touching(x, y - sy) || is_touching(x, y))
 	{
 		c->tex_x = (int)y % BLOCK_SIZE;
 		if (sx == 1)
