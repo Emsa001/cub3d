@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/06 14:37:58 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/06 16:41:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ void draw_h_line(float height, int start_x)
 	float step = T_SIZE / height;
 
 	// TODO: - doesn't work properly
-	// if (height > HEIGHT)
-	// {
-	// 	tex_y = ((height - HEIGHT) * step / 2);
-	// 	height = HEIGHT;
-	// }
+	if (height > HEIGHT)
+	{
+		tex_y = ((height - HEIGHT) * step / 2);
+		height = HEIGHT;
+	}
 
 	if (side != 6)
 		start_y = (player()->z * height + vert_offset());
@@ -101,40 +101,20 @@ void draw_h_line(float height, int start_x)
 	}
 }
 
-void bouble_sort_dist(float dist[])
-{
-	int i = 0;
-	int j = 0;
-	float temp = 0;
 
-	while (dist[i] != 0)
-	{
-		j = 0;
-		while (dist[j] != 0)
-		{
-			if (dist[i] > dist[j])
-			{
-				temp = dist[i];
-				dist[i] = dist[j];
-				dist[j] = temp;
-			}
-			j++;
-		}
-		i++;
-	}
-}
-
-void draw_pixel(float x, float y, float angle, int start_x, float dist)
+void draw_pixel(t_ray ray, float angle, int start_x)
 {
 	float line_height = 0;
-	side = calculate_direction(x, y, angle);
-	line_height = (BLOCK_SIZE * HEIGHT) / dist;
+	side = calculate_direction(ray.x, ray.y, angle);
+	line_height = (BLOCK_SIZE * HEIGHT) / ray.dist;
 	draw_h_line(line_height, start_x);
 }
 
 bool handle_pixel_drawing(float x, float y)
 {
 	static bool save = false;
+	static bool block = false;
+	static bool door = false;
 	
 	t_cube *c = cube();
 
@@ -145,41 +125,51 @@ bool handle_pixel_drawing(float x, float y)
 			save = true;
 			return true;
 		}
-		
 	}
-	else if (save)
+	else if(touch_block(c->map->blocks, x, y))
+	{
+		if (!block)
+		{
+			block = true;
+			return true;
+		}
+	}
+	else if(touch_block(c->map->doors, x, y))
+	{
+		if (!door)
+		{
+			door = true;
+			return true;
+		}
+	}
+	else if(save || block || door)
 	{
 		save = false;
+		block = false;
+		door = false;
 		return true;
 	}
 	return false;
 }
 
-t_ray draw_line(float angle, int start_x)
+void draw_line(float angle, int start_x)
 {
 	t_player *p = player();
-	t_ray ray;
-	float x = p->x_px;
-	float y = p->y_px;
+	t_ray *ray;
 	float cosangle = cos(angle);
 	float sinangle = sin(angle);
-	ray.angle = angle;
-	ray.start_x = start_x;
-	ray.dist = 0;
-	ray.distances = ft_malloc(sizeof(float) * 100);
-	ray.x = ft_malloc(sizeof(float) * 100);
-	ray.y = ft_malloc(sizeof(float) * 100);
+	float x = p->x_px;
+	float y = p->y_px;
+	ray = ft_malloc(sizeof(t_ray) * 100);
 	int i = 0;
 
 	while (!touch_edge(x, y))
 	{
 		if(handle_pixel_drawing(x, y))
 		{
-			ray.x[i] = x;
-			ray.y[i] = y;
-			ray.dist = view_lane_distance(x, y, angle);
-			ray.distances[i] = ray.dist;
-			draw_pixel(ray.x[i], ray.y[i], angle, start_x, ray.distances[i]);
+			ray[i].dist = view_lane_distance(x, y, angle);
+			ray[i].x = x;
+			ray[i].y = y;
 			i++;
 		}
 		x += cosangle;
@@ -189,15 +179,10 @@ t_ray draw_line(float angle, int start_x)
 	while(i > 0)
 	{
 		i--;
-		if (ray.distances[i] != 0)
-			draw_pixel(ray.x[i], ray.y[i], angle, start_x, ray.distances[i]);
+		if (ray[i].dist != 0)
+			draw_pixel(ray[i], angle, start_x);
 	}
-
-	
-	ft_free(ray.distances);
-	ft_free(ray.x);
-	ft_free(ray.y);
-	return ray;
+	ft_free(ray);
 }
 
 void render_view()
@@ -207,7 +192,6 @@ void render_view()
 	float angle = player()->angle;
 	int i = 0;
 	
-	t_ray ray[WIDTH];
 	float fovInRadians = player()->fov * PI / 180;
 	float halfFovInRadians = fovInRadians / 2.0;
 	float angleOffset = angle - halfFovInRadians;
@@ -216,14 +200,7 @@ void render_view()
 	{
 		float fraction = (float)i / WIDTH;
 		float rayAngle = angleOffset + fraction * fovInRadians;
-		ray[i] = draw_line(rayAngle, i);
+		draw_line(rayAngle, i);
 		i++;
 	}
-
-	// i = 0;
-	// while (ray[i].start_x < WIDTH)
-	// {
-	// 	// draw_pixel(ray[i].x, ray[i].y, angle, ray[i].start_x, ray[i].distances);
-	// 	i++;
-	// }
 }
