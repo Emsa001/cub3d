@@ -3,40 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 15:18:06 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/07 16:53:36 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void render_background()
-{
-
-    t_texture *sky = textures()->sky;
-
-    for (int y = 0; y < sky->height; y++)
-    {
-        for (int x = 0; x < sky->width; x++)
-        {
-            int pixel = *(int *)(sky->data + ((x + y * sky->width) * sky->bpp / 8));
-            put_pixel(x, y, pixel);
-        }
-    }
-
-    t_texture *floor = textures()->floor;
-
-    for (int y = 0; y < floor->height; y++)
-    {
-        for (int x = 0; x < floor->width; x++)
-        {
-            int pixel = *(int *)(floor->data + ((x + y * floor->width) * floor->bpp / 8));
-            put_pixel(x, y + HEIGHT / 1.62, pixel);
-        }
-    }
-}
 
 void draw_cube(int x, int y, int size, int col)
 {
@@ -80,7 +55,6 @@ int render_scene(t_cube *c)
     t_render *r = render();
     r->img_ptr = mlx_new_image(r->mlx, WIDTH, HEIGHT);
 
-    // render_background();
     render_view();
 
     mlx_put_image_to_window(r->mlx, r->win, r->img_ptr, 0, 0);

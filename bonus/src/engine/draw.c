@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/06 18:57:59 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/07 17:32:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,56 +59,55 @@ int calculate_direction(float x, float y, float angle)
 	return 6;
 }
 
-int vert_offset()
+int vert_offset() 
 {
-	t_player *p = player();
-	float z_dir = p->z_dir;
-	return (z_dir)*HEIGHT;
-}
-
-void draw_h_line(float height, int start_x)
-{
-	const t_cube *c = cube();
-	int color = 0;
-	float tex_y = 0;
-	int end;
-	int start_y = 0;
-
-	float step = T_SIZE / height;
-
-	// TODO: - doesn't work properly
-	if (height > HEIGHT)
-	{
-		tex_y = ((height - HEIGHT) * step / 2);
-		height = HEIGHT;
-	}
-
-	if (side != 6)
-		start_y = (player()->z * height + vert_offset());
-	if (side == 6)
-		start_y = ((player()->z - c->map->blocks[0].z) * height + vert_offset());
-	end = start_y + height;
-
-	while (start_y < end)
-	{
-		if (player()->catch && side == 6)
-			color = 255;
-		else
-			color = get_pixel_from_image(c->tex_x, tex_y, side);
-		put_pixel(start_x, start_y, color);
-		tex_y += step;
-		start_y++;
-	}
+    t_player *p = player();
+    return (p->z_dir) * HEIGHT;
 }
 
 
-void draw_pixel(t_ray ray, float angle, int start_x)
-{
-	float line_height = 0;
-	side = calculate_direction(ray.x, ray.y, angle);
-	line_height = (BLOCK_SIZE * HEIGHT) / ray.dist;
-	draw_h_line(line_height, start_x);
+void draw_wall(float height, int start_x) {
+    const t_cube *c = cube();
+    int color = 0;
+    float tex_y = 0;
+    int end;
+    int start_y = 0;
+
+    float step = T_SIZE / height;
+
+    if (height > HEIGHT) {
+        tex_y = ((height - HEIGHT) * step / 2);
+        height = HEIGHT;
+    }
+
+    t_player *p = player();
+    if (side != 6) {
+        start_y = (p->z * height + vert_offset());
+    } else {
+        start_y = ((p->z - c->map->blocks[0].z) * height + vert_offset());
+    }
+    end = start_y + height;
+
+    while (start_y < end) {
+        if (p->catch && side == 6) {
+            color = 255;
+        } else {
+            color = get_pixel_from_image(c->tex_x, tex_y, side);
+        }
+        put_pixel(start_x, start_y, color);
+        tex_y += step;
+        start_y++;
+    }
 }
+
+
+void draw_pixel(t_ray ray, float angle, int start_x) 
+{
+    side = calculate_direction(ray.x, ray.y, angle);
+    float line_height = (BLOCK_SIZE * HEIGHT) / ray.dist;
+    draw_wall(line_height, start_x);
+}
+
 
 bool handle_pixel_drawing(float x, float y)
 {
@@ -152,37 +151,32 @@ bool handle_pixel_drawing(float x, float y)
 	return false;
 }
 
-void draw_line(float angle, int start_x)
-{
-	t_player *p = player();
-	t_ray *ray;
-	float cosangle = cos(angle);
-	float sinangle = sin(angle);
-	float x = p->x_px;
-	float y = p->y_px;
-	ray = ft_malloc(sizeof(t_ray) * 100);
-	int i = 0;
+void draw_line(float angle, int start_x) {
+    t_player *p = player();
+    float cosangle = cos(angle);
+    float sinangle = sin(angle);
+    float x = p->x_px;
+    float y = p->y_px;
+    t_ray rays[MAX_SIZE];
+    int i = 0;
 
-	while (!touch_edge(x, y))
-	{
-		if(handle_pixel_drawing(x, y))
-		{
-			ray[i].dist = view_lane_distance(x, y, angle);
-			ray[i].x = x;
-			ray[i].y = y;
-			i++;
-		}
-		x += cosangle;
-		y += sinangle;
-	}
-	
-	while(i > 0)
-	{
-		i--;
-		if (ray[i].dist != 0)
-			draw_pixel(ray[i], angle, start_x);
-	}
-	ft_free(ray);
+    while (!touch_edge(x, y)) {
+        if (handle_pixel_drawing(x, y)) {
+            rays[i].dist = view_lane_distance(x, y, angle);
+            rays[i].x = x;
+            rays[i].y = y;
+            i++;
+        }
+        x += cosangle;
+        y += sinangle;
+    }
+
+    while (i > 0) {
+        i--;
+        if (rays[i].dist != 0) {
+            draw_pixel(rays[i], angle, start_x);
+        }
+    }
 }
 
 void render_view()
@@ -204,3 +198,4 @@ void render_view()
 		i++;
 	}
 }
+

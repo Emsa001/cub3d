@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:10:09 by escura            #+#    #+#             */
-/*   Updated: 2024/08/06 17:35:08 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/07 13:23:55 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_textures *init_textures(t_textures *t, void *mlx)
 	sky->data = mlx_get_data_addr(sky->image, &sky->bpp, &sky->size_line, &sky->endian);
 	t->sky = sky;
 
-	floor->image = mlx_xpm_file_to_image(mlx, "assets/floor.xpm", &floor->width, &floor->height);
+	floor->image = mlx_xpm_file_to_image(mlx, "assets/south.xpm", &floor->width, &floor->height);
 	floor->data = mlx_get_data_addr(floor->image, &floor->bpp, &floor->size_line, &floor->endian);
 	t->floor = floor;
 
