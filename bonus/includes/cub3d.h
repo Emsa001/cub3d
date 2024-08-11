@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 15:39:28 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/11 16:11:25 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,6 @@ void				draw_circle(int center_x, int center_y, int radius,
 
 /* DRAW */
 void				draw_line(float angle, int start_x, ThreadParams *params);
-void				draw_cross_in_centre(void);
 
 /* MLX */
 void				*load_image(char *path);
@@ -152,5 +151,7 @@ void				add_block(float angle);
 void				remove_block(float angle);
 void				open_door(float angle, int id);
 void				close_door(float angle, int id);
+
+bool touch_edge(float x, float y, t_cube *c);
 
 #endif

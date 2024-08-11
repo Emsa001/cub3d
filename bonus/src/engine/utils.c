@@ -6,15 +6,15 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 15:41:57 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/11 16:10:47 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool touch_edge(float x, float y)
+bool touch_edge(float x, float y, t_cube *c)
 {
-	if (x >= 0 && y >= 0 && x < cube()->map->width * BLOCK_SIZE && y < cube()->map->height * BLOCK_SIZE)
+	if (x >= 0 && y >= 0 && x < c->map->width * BLOCK_SIZE && y < c->map->height * BLOCK_SIZE)
 		return false;
 	return true;
 }
@@ -48,32 +48,4 @@ bool is_touching(float px, float py, t_cube *c)
 	if (c->map->map[y][x] == WALL)
 		return (true);
 	return (false);
-}
-
-void draw_middle_line(void)
-{
-	const t_render *r = render();
-	int				i;
-
-	i = 0;
-	while (i < WIDTH)
-	{
-		put_pixel(i, HEIGHT / 2, 0x0000FF00, r);
-		i++;
-	}
-}
-
-void draw_cross_in_centre(void)
-{
-    const t_render *r = render();
-    int x_center = WIDTH / 2;
-    int y_center = HEIGHT / 2;
-    int i = -7;
-
-	while (i <= 7)
-	{
-		put_pixel(x_center + i, y_center, 0x0000FF00, r);
-		put_pixel(x_center, y_center + i, 0x0000FF00, r);
-		i++;
-	}
 }

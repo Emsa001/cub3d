@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:49:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/03 18:25:38 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/11 16:07:59 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ bool	touch()
 {
 	const int	x = player()->x_px;
 	const int	y = player()->y_px;
-	const char	**map = cube()->map->map;
+	const char	**map = (const char **)cube()->map->map;
 
     const int x_p = x + 10;
     const int y_p = y + 10;
