@@ -3,31 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 17:23:28 by escura            #+#    #+#             */
-/*   Updated: 2024/07/19 17:02:22 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/08/11 17:50:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int get_pixel_from_image(int x, int y, int side)
+int get_scene_pixel(int x, int y)
 {
-    t_texture *t;
-    if(side == 1)
-        t = textures()->wall_north;
-    else if(side == 2)
-        t = textures()->wall_south;
-    else if(side == 3)
-        t = textures()->wall_east;
-    else if(side == 4)
-        t = textures()->wall_west;
-    else if(side == 5)
-        t = textures()->door;
-    else
-        t = textures()->wall_west;
+    t_render *r = render();
 
+    x = x % WIDTH;
+    y = y % HEIGHT;
+
+    if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
+        char *pixel = r->data + (y * r->size_line + x * (r->bpp / 8));
+        return *(int *)pixel;
+    }
+    return 0;
+}
+
+int get_pixel_from_image(t_texture *t, int x, int y)
+{
     x = x % t->width;
     y = y % t->height;
 
@@ -36,4 +36,25 @@ int get_pixel_from_image(int x, int y, int side)
         return *(int *)pixel;
     }
     return 0;
+}
+
+void resize_texture(const t_texture *src, t_texture *dst, int new_width, int new_height)
+{
+    int x_ratio = (int)((src->width << 16) / new_width) + 1;
+    int y_ratio = (int)((src->height << 16) / new_height) + 1;
+    int x2, y2;
+    for (int i = 0; i < new_height; i++)
+    {
+        for (int j = 0; j < new_width; j++)
+        {
+            x2 = ((j * x_ratio) >> 16);
+            y2 = ((i * y_ratio) >> 16);
+            int src_pos = (y2 * src->size_line) + (x2 * (src->bpp / 8));
+            int dst_pos = (i * dst->size_line) + (j * (dst->bpp / 8));
+            dst->data[dst_pos] = src->data[src_pos];
+            dst->data[dst_pos + 1] = src->data[src_pos + 1];
+            dst->data[dst_pos + 2] = src->data[src_pos + 2];
+            dst->data[dst_pos + 3] = src->data[src_pos + 3]; // Assuming 4 bytes per pixel
+        }
+    }
 }

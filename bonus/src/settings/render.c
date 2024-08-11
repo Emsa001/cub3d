@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/19 15:57:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 17:20:13 by marvin           ###   ########.fr       */
+/*   Created: 2024/08/02 20:31:52 by escura            #+#    #+#             */
+/*   Updated: 2024/08/02 20:33:19 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "settings.h"
 
-void render_player(){
-    draw_cross_in_centre();
+void settings_render(void)
+{
+    printf("Render\n");
 }

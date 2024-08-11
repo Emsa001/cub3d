@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:44 by escura            #+#    #+#             */
-/*   Updated: 2024/08/06 17:02:30 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/11 17:19:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ double view_lane_distance(float x1, float y1, float angle)
     float y2 = player()->y_px;
     
     float player_angle = player()->angle;
+
+    // printf("Player angle: %f\n", player_angle);
+    // printf("Ray angle: %f\n", angle);
     
     float raw_distance = distance(x1, y1, x2, y2);
     double adjusted_distance = raw_distance * cos(player_angle - angle);

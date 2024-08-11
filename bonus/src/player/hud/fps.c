@@ -1,37 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   fps.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 21:58:21 by marvin           ###   ########.fr       */
+/*   Created: 2024/08/03 17:24:07 by escura            #+#    #+#             */
+/*   Updated: 2024/08/11 18:01:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void init_game(char *map)
+void update_fps(void) 
 {
-	cube_init(ft_malloc(sizeof(t_cube)));
-	map_init(map);
-
-	init_render(ft_malloc(sizeof(t_render)));
-	player_init(ft_malloc(sizeof(t_player)));
-	init_textures(ft_malloc(sizeof(t_textures)));
-	
-	minimap_init();
-}
-
-int	main(int argc, char **argv)
-{
-	check_params(argv);
-	ft_alloc_init();
-
-	init_game(argv[1]);
-	start_game();
-	
-	ft_destructor();
-	return (0);
+    static int fps = 0;
+    static int last_fps = 0;
+    static time_t last_time = 0;
+    const t_render *r = render();
+    
+    time_t now = time(NULL);
+    fps++;
+    if (now - last_time >= 1) 
+    {
+        last_time = now;
+        last_fps = fps;
+        fps = 0;
+    }
+    
+    char *fps_str = ft_itoa(last_fps);
+    mlx_string_put(r->mlx, r->win, 10, 10, 0xFFFFFF, fps_str);
+    ft_free(fps_str);
 }

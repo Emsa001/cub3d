@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   singlethread.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 21:58:21 by marvin           ###   ########.fr       */
+/*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
+/*   Updated: 2024/08/11 21:58:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void init_game(char *map)
+int render_scene_singlethread(t_cube *c)
 {
-	cube_init(ft_malloc(sizeof(t_cube)));
-	map_init(map);
+    t_render *r = render();
+    r->img_ptr = mlx_new_image(r->mlx, WIDTH, HEIGHT);
 
-	init_render(ft_malloc(sizeof(t_render)));
-	player_init(ft_malloc(sizeof(t_player)));
-	init_textures(ft_malloc(sizeof(t_textures)));
-	
-	minimap_init();
+    // render_background();
+	render_view();
+    // render_minimap();
+    // render_player();
+    // move_player();
+    
+    mlx_put_image_to_window(r->mlx, r->win, r->img_ptr , 0, 0);
+    mlx_destroy_image(r->mlx, r->img_ptr);
+    update_fps();
+    return 0;
 }
 
-int	main(int argc, char **argv)
-{
-	check_params(argv);
-	ft_alloc_init();
 
-	init_game(argv[1]);
-	start_game();
-	
-	ft_destructor();
-	return (0);
-}

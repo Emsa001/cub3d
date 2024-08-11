@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   start.c                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 21:59:18 by marvin           ###   ########.fr       */
+/*   Created: 2024/07/22 18:30:29 by escura            #+#    #+#             */
+/*   Updated: 2024/07/22 18:30:59 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void start_game(void)
+float minimap_center_x(void)
 {
-    t_render *r = render();
-    t_cube *c = cube();
-    // start the game
-    init_hooks();
+    const t_minimap *m = minimap();
+    return m->x + MINIMAP_PIXEL_WIDTH / 2.0f;
+}
 
-    // mlx_loop_hook(r->mlx, render_scene_singlethread, (void *)c);
-    mlx_loop_hook(r->mlx, render_scene_multithread, (void *)c);
-    mlx_loop(r->mlx);
+float minimap_center_y(void)
+{
+    const t_minimap *m = minimap();
+    return m->y + MINIMAP_PIXEL_HEIGHT / 2.0f;
 }

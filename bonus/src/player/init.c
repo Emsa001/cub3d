@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/07/20 20:33:16 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/08/11 17:20:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /* PLAYER */
 
-t_player	*init_player(t_player *p)
+t_player	*player_init(t_player *p)
 {
 	static t_player	*player;
 
@@ -57,5 +57,5 @@ t_player	*init_player(t_player *p)
 
 t_player	*player(void)
 {
-	return (init_player(NULL));
+	return (player_init(NULL));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/07/19 19:03:49 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/08/11 18:14:36 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void draw_middle_line(void)
 	i = 0;
 	while (i < WIDTH)
 	{
-		mlx_pixel_put(c->mlx, c->win, i, HEIGHT / 2, 0x0000FF00);
+		put_pixel(i, HEIGHT / 2, 0x00FF0000);
 		i++;
 	}
 }
@@ -73,8 +73,8 @@ void draw_cross_in_centre(void)
 
 	while (i <= 7)
 	{
-		mlx_pixel_put(c->mlx, c->win, x_center + i, y_center, 0x0000FF00);
-		mlx_pixel_put(c->mlx, c->win, x_center, y_center + i, 0x0000FF00);
+		put_pixel(x_center + i, y_center, 0x0000FF00);
+		put_pixel(x_center, y_center + i, 0x0000FF00);
 		i++;
 	}
 }

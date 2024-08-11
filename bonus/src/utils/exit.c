@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:52:35 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 19:47:39 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/08/11 18:14:51 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ void	exit_game(int code)
 {
 	t_textures	*t = textures();
 
-	mlx_destroy_image(cube()->mlx, t->wall_north->image);
-	mlx_destroy_image(cube()->mlx, t->wall_south->image);
-	mlx_destroy_image(cube()->mlx, t->wall_east->image);
-	mlx_destroy_image(cube()->mlx, t->wall_west->image);
+	// mlx_destroy_image(cube()->mlx, t->wall_north->image);
+	// mlx_destroy_image(cube()->mlx, t->wall_south->image);
+	// mlx_destroy_image(cube()->mlx, t->wall_east->image);
+	// mlx_destroy_image(cube()->mlx, t->wall_west->image);
 
 	ft_destructor();
 	exit (1);

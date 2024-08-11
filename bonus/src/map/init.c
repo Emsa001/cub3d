@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:19:15 by escura            #+#    #+#             */
-/*   Updated: 2024/07/18 17:20:13 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/08/11 17:53:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_map(char *av)
+void	map_init(char *av)
 {
 	char	**map;
 	int		i;
@@ -40,3 +40,9 @@ void	init_map(char *av)
 	ft_arrdel((void **)map);
 	cube()->map = map_info;
 }
+
+t_map *get_map()
+{
+	return (cube()->map);
+}
+

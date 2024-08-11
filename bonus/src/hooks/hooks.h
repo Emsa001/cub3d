@@ -1,37 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   hooks.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 21:58:21 by marvin           ###   ########.fr       */
+/*   Created: 2024/08/02 20:34:44 by escura            #+#    #+#             */
+/*   Updated: 2024/08/11 21:58:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+# include "cub3d.h"
+#ifndef HOOKS_H
+# define HOOKS_H
 
-static void init_game(char *map)
-{
-	cube_init(ft_malloc(sizeof(t_cube)));
-	map_init(map);
 
-	init_render(ft_malloc(sizeof(t_render)));
-	player_init(ft_malloc(sizeof(t_player)));
-	init_textures(ft_malloc(sizeof(t_textures)));
-	
-	minimap_init();
-}
+/* KeyBoard */
 
-int	main(int argc, char **argv)
-{
-	check_params(argv);
-	ft_alloc_init();
+int key_down(int keycode);
+int key_up(int keycode);
 
-	init_game(argv[1]);
-	start_game();
-	
-	ft_destructor();
-	return (0);
-}
+
+/* Mouse */
+int mouse_click(int button);
+int mouse_move(int x, int y);
+
+#endif
