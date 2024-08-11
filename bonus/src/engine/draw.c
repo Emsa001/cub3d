@@ -6,13 +6,15 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/07 17:32:44 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/11 16:47:40 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 int side = 6;
+
+// ; ;
 
 int calculate_direction(float x, float y, float angle)
 {
