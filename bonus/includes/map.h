@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 15:44:54 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/11 16:27:06 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ typedef struct s_map
 }				t_map;
 
 void			map_init(char *av);
-t_map			*get_map(void);
 void			print_map_info(void);
 void			print_map(char **map);
 int				ft_strlen_space(char *s);

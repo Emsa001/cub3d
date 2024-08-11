@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+         #
+#    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/07/21 18:03:12 by btvildia         ###   ########.fr        #
+#    Updated: 2024/08/11 16:20:45 by escura           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ run: all
 	./$(NAME) map.cub
 
 runb: bonus
-	./$(NAME_BONUS) bonus2.cub
+	./$(NAME_BONUS) map.cub
 
 bonus:
 	make -j$(nproc) -C bonus

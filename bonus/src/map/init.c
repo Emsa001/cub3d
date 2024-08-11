@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:19:15 by escura            #+#    #+#             */
-/*   Updated: 2024/07/22 18:26:02 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/11 16:27:55 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,4 @@ void	map_init(char *av)
 	map_info = check_map(map, i);
 	ft_arrdel((void **)map);
 	cube()->map = map_info;
-}
-
-t_map *get_map()
-{
-	return (cube()->map);
 }

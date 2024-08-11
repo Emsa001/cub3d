@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:21:26 by btvildia          #+#    #+#             */
-/*   Updated: 2024/08/02 21:59:33 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/11 16:28:55 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ void	get_no_so_we_ea(t_map *map_info, char **map)
 	}
 }
 
+
+
 void	get_map_sizes(t_map *map_info, char **map)
 {
 	int	i;
@@ -96,7 +98,7 @@ void	get_map_sizes(t_map *map_info, char **map)
 		i++;
 	}
 	map_info->width -= 1;
-	map_info->height = i;
+	map_info->height = i - 1; // subtract 1 to avoid accessing beyond the array size
 }
 
 void	change_positions(char c, int i, int j)
@@ -170,7 +172,7 @@ void	get_2d_map(t_map *map_info, char **map, int size)
 
 	i = 0;
 	j = 0;
-	map_info->map = ft_malloc(sizeof(char *) * size);
+	map_info->map = ft_malloc(sizeof(char *) * (size));
 	while (map[i] != NULL)
 	{
 		if (ft_check_line(map[i]) == 0)
