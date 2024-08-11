@@ -6,14 +6,14 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/08/03 17:11:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/11 15:39:43 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_H
-# define MAP_H
+#define MAP_H
 
-# define MAX_SIZE 1000
+#define MAX_SIZE 1000
 
 #define MINIMAP_BLOCK_SIZE 48
 #define MINIMAP_COLOR 0x27272a
@@ -29,21 +29,22 @@
 
 typedef struct s_point
 {
-	int		x;
-	int		y;
-}			t_point;
+	int x;
+	int y;
+} t_point;
 
 typedef struct s_block
 {
-	float	x;
-	float	y;
+	float x;
+	float y;
+	float z;
 
 	float save_x;
 	float save_y;
-	
-	int		id;
-	char 	type;
-}			t_block;
+
+	int id;
+	char type;
+} t_block;
 
 typedef struct s_minimap
 {

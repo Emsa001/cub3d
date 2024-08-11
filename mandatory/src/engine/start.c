@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 12:19:36 by escura           ###   ########.fr       */
+/*   Updated: 2024/07/21 18:01:23 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub.h"
 
 void render_floor_ceeling()
 {
@@ -41,7 +41,6 @@ int render_scene(t_cube *c)
     mlx_put_image_to_window(r->mlx, r->win, r->img_ptr , 0, 0);
     mlx_destroy_image(r->mlx, r->img_ptr);
 
-    // draw_middle_line();
     move_player();
 
     return 0;
@@ -50,7 +49,6 @@ int render_scene(t_cube *c)
 void start_game(void) 
 {
     t_cube *c = cube();
-    // print_map_info();
     c->win = mlx_new_window(c->mlx, WIDTH, HEIGHT, "Cub3D");
 	render()->win = c->win;
     init_hooks();

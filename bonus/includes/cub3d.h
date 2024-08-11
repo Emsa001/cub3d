@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/08/04 17:38:57 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/11 15:39:28 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,86 +61,96 @@
 
 typedef struct s_cube
 {
-	char	*some_value;
-	int		keycode;
+	char			*some_value;
+	int				keycode;
 
-	float	tex_x;
+	float			tex_x;
 
-	t_map	*map;
-}			t_cube;
+	t_map			*map;
+}					t_cube;
 
 typedef struct s_render
 {
-	void	*mlx;
-	void	*win;
-	void	*img_ptr;
-	char	*data;
+	void			*mlx;
+	void			*win;
+	void			*img_ptr;
+	char			*data;
 
-	int		bpp;
-	int		size_line;
-	int		endian;
-	int		side;
+	int				bpp;
+	int				size_line;
+	int				endian;
+	int				side;
 
-}			t_render;
+}					t_render;
 
-typedef struct {
-    int start;
-    int end;
-    float angleOffset;
-    float fovInRadians;
+typedef struct
+{
+	int				start;
+	int				end;
+	float			angleOffset;
+	float			fovInRadians;
 
-	int color;
+	int				color;
 
-    t_cube *cube;
-    t_render *render;
-    t_player *player;
-	t_textures *textures;
-	
-    pthread_mutex_t *mutex;
-} ThreadParams;
+	t_cube			*cube;
+	t_render		*render;
+	t_player		*player;
+	t_textures		*textures;
+
+	pthread_mutex_t	*mutex;
+}					ThreadParams;
+
+typedef struct s_ray
+{
+	float			x;
+	float			y;
+	int				dist;
+}					t_ray;
 
 /* ENGINE */
-t_render	*init_render(t_render *r);
-t_render	*render(void);
-void 		render_view();
+t_render			*init_render(t_render *r);
+t_render			*render(void);
+void				render_view(void);
 
-void		check_params(char **av);
-t_cube		*cube_init(t_cube *c);
-t_cube		*cube(void);
-void		start_game(void);
-void		init_hooks(void);
+void				check_params(char **av);
+t_cube				*cube_init(t_cube *c);
+t_cube				*cube(void);
+void				start_game(void);
+void				init_hooks(void);
 
-int			render_scene_multithread(t_cube *c);
-int			render_scene_singlethread(t_cube *c);
+int					render_scene_multithread(t_cube *c);
+int					render_scene_singlethread(t_cube *c);
 
-bool		is_touching(float px, float py, t_cube *c);
-bool		touch_block(t_block *blocks, float px, float py);
-float		distance(float x1, float y1, float x2, float y2);
-int			get_scene_pixel(int x, int y);
-void		draw_circle(int center_x, int center_y, int radius, int color);
+bool				is_touching(float px, float py, t_cube *c);
+bool				touch_block(t_block *blocks, float px, float py);
+float				distance(float x1, float y1, float x2, float y2);
+int					get_scene_pixel(int x, int y);
+void				draw_circle(int center_x, int center_y, int radius,
+						int color);
 
 /* DRAW */
-void 		draw_line(float angle, int start_x, ThreadParams *params);
-void		draw_cross_in_centre(void);
+void				draw_line(float angle, int start_x, ThreadParams *params);
+void				draw_cross_in_centre(void);
 
 /* MLX */
-void		*load_image(char *path);
-void		draw_image(void *img, int x, int y);
-void		destroy_image(void *img);
-void		clean_window(void);
-void		put_pixel(int x, int y, int color, t_render *r);
+void				*load_image(char *path);
+void				draw_image(void *img, int x, int y);
+void				destroy_image(void *img);
+void				clean_window(void);
+void				put_pixel(int x, int y, int color, t_render *r);
 
 /* EXIT */
-void		exit_game(void);
-void		ft_error(char *str);
+void				exit_game(int code);
+void				ft_error(char *str);
 
 /* BLOCK */
-int			get_block_id(t_block *blocks, float px, float py, float angle);
-int			block_count(t_map *map_info, char c);
-void		catch_block(float angle);
-void		add_block(float angle);
-void		remove_block(float angle);
-void		open_door(float angle, int id);
-void		close_door(float angle, int id);
+int					get_block_id(t_block *blocks, float px, float py,
+						float angle);
+int					block_count(t_map *map_info, char c);
+void				catch_block(float angle);
+void				add_block(float angle);
+void				remove_block(float angle);
+void				open_door(float angle, int id);
+void				close_door(float angle, int id);
 
 #endif

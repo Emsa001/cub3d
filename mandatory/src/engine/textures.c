@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 17:23:28 by escura            #+#    #+#             */
-/*   Updated: 2024/07/14 19:13:48 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:46:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub.h"
 
 int get_pixel_from_image(int x, int y, int side)
 {
@@ -21,8 +21,10 @@ int get_pixel_from_image(int x, int y, int side)
         t = textures()->wall_south;
     else if(side == 3)
         t = textures()->wall_east;
-    else
+    else if (side == 4)
         t = textures()->wall_west;
+    else 
+        return 0;
 
     x = x % t->width;
     y = y % t->height;

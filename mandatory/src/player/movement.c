@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:53 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 12:29:38 by escura           ###   ########.fr       */
+/*   Updated: 2024/07/21 18:01:44 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "cub.h"
 
 void	try_move(float x, float y)
 {
@@ -68,24 +68,10 @@ void move_player(void) {
     p->x = p->x_px / BLOCK_SIZE;
     p->y = p->y_px / BLOCK_SIZE;
 
-    // Update direction vectors based on angle
     p->x_dir = cos(p->angle);
     p->y_dir = sin(p->angle);
 
     p->direction = p->angle * (180 / PI);
     if (p->direction > 180)
         p->direction -= 360;
-    
-    // printf("\n");
-    // printf("direction: %f\n", p->direction);
-    // printf("angle: %f\n", p->angle);
-    // printf("x_dir: %f\n", p->x_dir);
-    // printf("y_dir: %f\n", p->y_dir);
-    // printf("x: %f\n", p->x);
-    // printf("y: %f\n", p->y);
-    // printf("\n");
-
-    // float tmp_x = p->plane_x;
-    // p->plane_x = p->plane_x * cos(p->speed) - p->plane_y * sin(p->speed);
-	// p->plane_y = tmp_x * sin(p->speed) + p->plane_y * cos(p->speed);
 }

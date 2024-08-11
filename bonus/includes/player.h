@@ -6,18 +6,20 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/08/03 17:05:08 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/11 15:39:22 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PLAYER_H
-# define PLAYER_H
+#define PLAYER_H
 
-# define WALKSPEED 2
-# define SPRINTSPEED 5
-# define MOUSE_SENSITIVITY 0.002
-# define JUMP_SPEED 0.11
-# define FOV 60
+#include "cub3d.h"
+
+#define WALKSPEED 2
+#define SPRINTSPEED 5
+#define MOUSE_SENSITIVITY 0.0001
+#define JUMP_SPEED 0.11
+#define FOV 60
 
 // typedef struct s_events
 // {
@@ -42,58 +44,55 @@
 
 typedef struct s_player
 {
-	float	x;
-	float	y;
-	float	z;
+    float x;
+    float y;
+    float z;
 
-	float	x_px;
-	float	y_px;
+    float x_px;
+    float y_px;
 
-	float	x_dir;
-	float	y_dir;
-	float	z_dir;
+    float x_dir;
+    float y_dir;
+    float z_dir;
 
-	float	angle;
-	double	direction;
+    float angle;
+    double direction;
+
+    bool btn_w;
+    bool btn_s;
+    bool btn_a;
+    bool btn_d;
+
+    bool btn_up;
+    bool btn_down;
+    bool btn_left;
+    bool btn_right;
+    bool interact;
+    bool opened;
 
 	bool	btn_w;
 	bool	btn_s;
 	bool	btn_a;
 	bool	btn_d;
 
-	bool	btn_up;
-	bool	btn_down;
-	bool	btn_left;
-	bool	btn_right;
-	bool	interact;
-	bool	opened;
+    bool catch;
+    bool catched;
 
-	bool	spawn;
-	bool	remove;
+    float jump_speed;
+    int fov;
+    int speed;
 
-	bool	catch;
-	bool	catched;
+    float plane_x;
+    float plane_y;
+} t_player;
 
-	float	jump_speed;
-	int		fov;
-	int		speed;
+t_player *init_player(t_player *p);
+t_player *player(void);
+void move_player(void);
+void jump_player(void);
+bool touch();
+void render_player(void);
 
-	float	plane_x;
-	float	plane_y;
-}			t_player;
-
-t_player	*player_init(t_player *p);
-t_player	*player(void);
-void		move_player(void);
-void		jump_player(void);
-bool		touch(void);
-void		render_player(void);
-void		player_rotate(int x, int y);
-
-double		view_lane_distance(float x1, float y1, float angle);
-
-void		player_keydown(int keycode);
-void		player_keyup(int keycode);
-void		player_mouseclick(int button);
+double view_lane_distance(float x1, float y1, float angle);
 
 #endif

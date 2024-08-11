@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 13:29:42 by escura           ###   ########.fr       */
+/*   Updated: 2024/07/21 18:00:55 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PLAYER_H
 # define PLAYER_H
 
-# include "cub3d.h"
+# include "cub.h"
 
 # define WALKSPEED 2
 # define SPRINTSPEED 5
@@ -32,14 +32,7 @@ typedef struct s_events
     bool    btn_down;
     bool    btn_left;
     bool    btn_right;
-    bool    interact;
-    bool    opened;
-
-    bool    spawn;
-    bool    remove;
-
-    bool    catch;
-    bool    catched;
+    
 }			t_events;
 
 typedef struct s_player
@@ -67,21 +60,9 @@ typedef struct s_player
     bool     btn_down;
     bool     btn_left;
     bool     btn_right;
-    bool    interact;
-    bool    opened;
-
-    bool spawn;
-    bool remove;
-
-    bool catch;
-    bool catched;
-
-    float   jump_speed;
+    
     int     fov;
     int     speed;
-
-    float plane_x;
-    float plane_y;    
 }			t_player;
 
 t_player *init_player(t_player *p);
