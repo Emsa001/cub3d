@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/12 19:33:34 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/12 20:52:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,19 @@ int darken_color(int color, float ratio)
     g = g - (g * ratio);
     b = b - (b * ratio);
 
+    if (r < 0)
+        r = 0;
+
+    if (g < 0)
+        g = 0;
+
+    if (b < 0)
+        b = 0;
+
     return (r << 16) | (g << 8) | b;
 }
 
-void draw_floor(t_ray ray, int height, int start_x, ThreadParams *params, int dist, float angle)
+void draw_floor(int height, int start_x, ThreadParams *params, float angle)
 {
     const t_cube *c = params->cube;
     const t_player *p = params->player;
@@ -90,20 +99,23 @@ void draw_floor(t_ray ray, int height, int start_x, ThreadParams *params, int di
     
     float cosangle = cos(angle);
     float sinangle = sin(angle);
+    int color = 0;
 
     t_texture *floor = texs->floor;
 
     while (start_y < HEIGHT) 
     {
         float current_dist = (HEIGHT / (2.0 * start_y - HEIGHT)) * (p->z + 1);
-
-        floor_x = p->x_px + current_dist * cosangle;
-        floor_y = p->y_px + current_dist * sinangle;
+        
+        floor_x = (p->x) + current_dist * cosangle;
+        floor_y = (p->y) + current_dist * sinangle;
         
         tex_x = (int)(floor_x * T_SIZE) ;
         tex_y = (int)(floor_y * T_SIZE) ;
 
-        int color = get_pixel_from_image(floor, tex_x, tex_y);
+        color = get_pixel_from_image(floor, tex_x, tex_y);
+
+        color = darken_color(color, current_dist / 3 );
 
         put_pixel(start_x, start_y, color);
 
@@ -142,6 +154,9 @@ static void draw_wall(int height, int start_x, ThreadParams *params, int dist)
             color = 255;
         else
             color = get_pixel_from_image(wall_side, c->tex_x, tex_y);
+        
+        color = darken_color(color, (float)dist / 500);
+        
         put_pixel(start_x, start_y, color);
         tex_y += step;
         start_y++;
@@ -154,8 +169,8 @@ void draw_pixel(t_ray ray, float angle, int start_x, ThreadParams *params)
     t_render *r = params->render;
     r->side = calculate_direction(ray.x, ray.y, angle, params->cube);
     int line_height = (BLOCK_SIZE * HEIGHT) / ray.dist;
-    draw_floor(ray, line_height, start_x, params, ray.dist, angle);
     draw_wall(line_height, start_x, params, ray.dist);
+    draw_floor(line_height, start_x, params, angle);
 }
 
 bool touch_side(float x, float y, t_state *state)
