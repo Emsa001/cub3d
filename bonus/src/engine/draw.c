@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 23:16:45 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/12 12:27:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,20 @@ static t_texture *get_wall_side(int side, t_textures *texs)
     return t;
 }
 
-static void draw_h_line(float height, int start_x, ThreadParams *params)
+int darken_color(int color, float ratio)
+{
+    int r = (color >> 16) & 0xFF;
+    int g = (color >> 8) & 0xFF;
+    int b = color & 0xFF;
+
+    r = r - (r * ratio);
+    g = g - (g * ratio);
+    b = b - (b * ratio);
+
+    return (r << 16) | (g << 8) | b;
+}
+
+static void draw_h_line(int height, int start_x, ThreadParams *params, int dist)
 {
     
     const t_cube *c = params->cube;
@@ -75,40 +88,40 @@ static void draw_h_line(float height, int start_x, ThreadParams *params)
     float tex_y = 0;
     int start_y = 0;
     int end = 0;
-    float step = T_SIZE / height;
-
-    if (height > HEIGHT) {
-        tex_y = ((height - HEIGHT) * step / 2);
-        height = HEIGHT;
-    }
 
     start_y = (p->z * height + vert_offset(p));
     end = start_y + height;
+    float step = T_SIZE / (float) height;
 
+    if(start_y > HEIGHT)
+        start_y = HEIGHT;
     if(end > HEIGHT)
         end = HEIGHT;
-        
+
     t_texture *wall_side = get_wall_side(r->side, texs);
 
     while (start_y < end) 
     {
-		// color = params->color;
         if (p->catch && r->side == 6)
             color = 255;
         else
             color = get_pixel_from_image(wall_side, c->tex_x, tex_y);
+            
+        color = darken_color(color, (float)dist / 500);
+
         put_pixel(start_x, start_y, color);
         tex_y += step;
         start_y++;
     }
 }
 
+
 void draw_pixel(t_ray ray, float angle, int start_x, ThreadParams *params) 
 {
     t_render *r = params->render;
     r->side = calculate_direction(ray.x, ray.y, angle, params->cube);
-    float line_height = (BLOCK_SIZE * HEIGHT) / ray.dist;
-    draw_h_line(line_height, start_x, params);
+    int line_height = (BLOCK_SIZE * HEIGHT) / ray.dist;
+    draw_h_line(line_height, start_x, params, ray.dist);
 }
 
 bool touch_side(float x, float y, t_state *state)
@@ -148,6 +161,7 @@ bool touch_side(float x, float y, t_state *state)
     return false;
 }
 
+// Ray-casting + Painter's algorithm algorithm
 
 void draw_line(float angle, int start_x, ThreadParams *params)
 {
@@ -156,20 +170,22 @@ void draw_line(float angle, int start_x, ThreadParams *params)
     const t_player *p = params->player;
     float cosangle = cos(angle);
     float sinangle = sin(angle);
+    int dist;
 
     float x = p->x_px;
     float y = p->y_px;
-
-    bool save = false;
     
     t_ray rays[MAX_SIZE];
     t_state state = {false, false, false};
     int i = 0;
     while(!touch_edge(x, y))
     {
+        dist = view_lane_distance(x, y, angle);
+        if(dist > 450)
+            break;
         if(touch_side(x, y, &state))
         {
-            rays[i].dist = view_lane_distance(x, y, angle);
+            rays[i].dist = dist;
             rays[i].x = x;
             rays[i].y = y;
             i++;
@@ -189,3 +205,49 @@ void draw_line(float angle, int start_x, ThreadParams *params)
     
     pthread_mutex_unlock(params->mutex);
 }
+
+// ray-casting algorithm
+
+// static bool find_hitbox(float x, float y, t_cube *c)
+// {
+//     if (is_touching(x, y))
+//         return false;
+//     if (touch_block(c->map->blocks, x, y))
+//         return false;
+//     if (touch_block(c->map->doors, x, y))
+//         return false;
+//     return true;
+// }
+
+// void draw_line(float angle, int start_x, ThreadParams *params)
+// {
+//     t_cube *c = params->cube;
+//     t_render *r = params->render;
+//     const t_player *p = params->player;
+//     float cosangle = cos(angle);
+//     float sinangle = sin(angle);
+
+//     float x = p->x_px;
+//     float y = p->y_px;
+
+//     bool save = false;
+//     int i = 0;
+//     int dist;
+//     while(find_hitbox(x, y, c))
+//     {
+//         dist = view_lane_distance(x, y, angle);
+//         if(dist > 450)
+//             break;
+//         x = x + cosangle;
+//         y = y + sinangle;
+//     }
+    
+//     pthread_mutex_lock(params->mutex);
+    
+//     r->side = calculate_direction(x, y, angle, c);
+//     int line_height = (BLOCK_SIZE * HEIGHT) / dist;
+//     draw_h_line(line_height, start_x, params , dist);
+    
+//     pthread_mutex_unlock(params->mutex);
+
+// }

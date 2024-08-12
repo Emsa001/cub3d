@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 16:59:24 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/12 11:49:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ bool		touch(void);
 void		render_player(void);
 void		player_rotate(int x, int y);
 
-double		view_lane_distance(float x1, float y1, float angle);
+int		view_lane_distance(float x1, float y1, float angle);
 
 void		player_keydown(int keycode);
 void		player_keyup(int keycode);

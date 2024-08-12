@@ -6,13 +6,13 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:32:21 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 23:23:36 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/12 12:10:03 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <pthread.h>
-#define NUM_THREADS 8
+#define NUM_THREADS 1
 
 void* draw_lines_thread(void* arg)
 {
