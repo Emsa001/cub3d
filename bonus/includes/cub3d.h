@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/08/12 11:50:45 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/12 18:54:34 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct s_render
 	int size_line;
 	int endian;
 	int side;
+	float ray_angle;
 
 } t_render;
 
