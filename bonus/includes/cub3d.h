@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/08/12 18:54:34 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/13 16:26:18 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 
 # define T_SIZE 64
 # define BLOCK_SIZE 64
-# define WIDTH 1080
+# define WIDTH 1280
 # define HEIGHT 720
 # define CENTER_WIDTH WIDTH / 2
 # define CENTER_HEIGHT HEIGHT / 2

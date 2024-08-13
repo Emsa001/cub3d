@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/12 20:52:38 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/13 18:02:17 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int calculate_direction(float x, float y, float angle, t_cube *c)
         c->tex_x = (int)y % BLOCK_SIZE;
         return 6;
     }
-    return 6;
+    return 0;
 }
 
 static int vert_offset(t_player *p)
@@ -59,7 +59,9 @@ static t_texture *get_wall_side(int side, t_textures *texs)
     else if (side == 5)
         t = texs->door;
     else if (side == 6)
-        t = texs->wall_west;
+        t = texs->wall_west;\
+    else
+        return NULL;
     return t;
 }
 
@@ -110,8 +112,8 @@ void draw_floor(int height, int start_x, ThreadParams *params, float angle)
         floor_x = (p->x) + current_dist * cosangle;
         floor_y = (p->y) + current_dist * sinangle;
         
-        tex_x = (int)(floor_x * T_SIZE) ;
-        tex_y = (int)(floor_y * T_SIZE) ;
+        tex_x = (int)(floor_x * T_SIZE) % T_SIZE;
+        tex_y = (int)(floor_y * T_SIZE) % T_SIZE;
 
         color = get_pixel_from_image(floor, tex_x, tex_y);
 
@@ -131,23 +133,23 @@ static void draw_wall(int height, int start_x, ThreadParams *params, int dist)
     const t_player *p = params->player;
     const t_render *r = params->render;
     const t_textures *texs = params->textures;
+    t_texture *wall_side = get_wall_side(r->side, texs);
+    if(!wall_side)
+        return;
     
     int color = 0;
     float tex_y = 0;
     int start_y = 0;
     int end = 0;
-
+    float step;
+    step = T_SIZE / (float) height;
     start_y = (p->z * height + vert_offset(p));
-    end = start_y + height;
-    float step = T_SIZE / (float) height;
-
-    if(start_y > HEIGHT)
-        start_y = HEIGHT;
-    if(end > HEIGHT)
-        end = HEIGHT;
-
-    t_texture *wall_side = get_wall_side(r->side, texs);
     
+    if(height > HEIGHT)
+        end = HEIGHT;
+    else
+        end = start_y + height;
+            
     while (start_y < end) 
     {
         if (p->catch && r->side == 6)
@@ -156,61 +158,25 @@ static void draw_wall(int height, int start_x, ThreadParams *params, int dist)
             color = get_pixel_from_image(wall_side, c->tex_x, tex_y);
         
         color = darken_color(color, (float)dist / 500);
-        
+
         put_pixel(start_x, start_y, color);
         tex_y += step;
         start_y++;
     }   
 }
 
+// ray-casting algorithm
 
-void draw_pixel(t_ray ray, float angle, int start_x, ThreadParams *params) 
+static bool find_hitbox(float x, float y, t_cube *c)
 {
-    t_render *r = params->render;
-    r->side = calculate_direction(ray.x, ray.y, angle, params->cube);
-    int line_height = (BLOCK_SIZE * HEIGHT) / ray.dist;
-    draw_wall(line_height, start_x, params, ray.dist);
-    draw_floor(line_height, start_x, params, angle);
-}
-
-bool touch_side(float x, float y, t_state *state)
-{
-    t_cube *c = cube();
     if (is_touching(x, y))
-    {
-        if (!state->save)
-        {
-            state->save = true;
-            return true;
-        }
-    }
-    else if (touch_block(c->map->blocks, x, y))
-    {
-        if (!state->block)
-        {
-            state->block = true;
-            return true;
-        }
-    }
-    else if (touch_block(c->map->doors, x, y))
-    {
-        if (!state->door)
-        {
-            state->door = true;
-            return true;
-        }
-    }
-    else if (state->save || state->block || state->door)
-    {
-        state->save = false;
-        state->block = false;
-        state->door = false;
-        return true;
-    }
-    return false;
+        return false;
+    if (touch_block(c->map->blocks, x, y))
+        return false;
+    if (touch_block(c->map->doors, x, y))
+        return false;
+    return true;
 }
-
-// Ray-casting + Painter's algorithm algorithm
 
 void draw_line(float angle, int start_x, ThreadParams *params)
 {
@@ -219,55 +185,80 @@ void draw_line(float angle, int start_x, ThreadParams *params)
     const t_player *p = params->player;
     float cosangle = cos(angle);
     float sinangle = sin(angle);
-    int dist;
 
     float x = p->x_px;
     float y = p->y_px;
-    
-    t_ray rays[MAX_SIZE];
-    t_state state = {false, false, false};
-    int i = 0;
 
-    r->ray_angle = angle;
-    while(!touch_edge(x, y))
+    bool save = false;
+    int i = 0;
+    int dist;
+    while(find_hitbox(x, y, c))
     {
         dist = view_lane_distance(x, y, angle);
-        // if(dist > 450)
-        //     break;
-        if(touch_side(x, y, &state))
-        {
-            rays[i].dist = dist;
-            rays[i].x = x;
-            rays[i].y = y;
-            i++;
-        }
-        x += cosangle;
-        y += sinangle;
+        if(dist > 500)
+            break;
+        x = x + cosangle;
+        y = y + sinangle;
     }
     
     pthread_mutex_lock(params->mutex);
     
-    while (i > 0)
-    {
-        i--;
-        if(rays[i].dist != 0)
-            draw_pixel(rays[i], angle, start_x, params);
-    }
+    r->side = calculate_direction(x, y, angle, c);
+    int line_height = (BLOCK_SIZE * HEIGHT) / dist;
+
+    draw_wall(line_height, start_x, params, dist);
+    draw_floor(line_height, start_x, params, angle);
     
     pthread_mutex_unlock(params->mutex);
+
 }
 
-// ray-casting algorithm
+// // Ray-casting + Painter's algorithm algorithm
 
-// static bool find_hitbox(float x, float y, t_cube *c)
+// void draw_pixel(t_ray ray, float angle, int start_x, ThreadParams *params) 
 // {
+//     t_render *r = params->render;
+//     r->side = calculate_direction(ray.x, ray.y, angle, params->cube);
+//     int line_height = (BLOCK_SIZE * HEIGHT) / ray.dist;
+//     // draw_wall(line_height, start_x, params, ray.dist);
+//     draw_floor(line_height, start_x, params, angle);
+// }
+
+// bool touch_side(float x, float y, t_state *state)
+// {
+//     t_cube *c = cube();
 //     if (is_touching(x, y))
-//         return false;
-//     if (touch_block(c->map->blocks, x, y))
-//         return false;
-//     if (touch_block(c->map->doors, x, y))
-//         return false;
-//     return true;
+//     {
+//         if (!state->save)
+//         {
+//             state->save = true;
+//             return true;
+//         }
+//     }
+//     else if (touch_block(c->map->blocks, x, y))
+//     {
+//         if (!state->block)
+//         {
+//             state->block = true;
+//             return true;
+//         }
+//     }
+//     else if (touch_block(c->map->doors, x, y))
+//     {
+//         if (!state->door)
+//         {
+//             state->door = true;
+//             return true;
+//         }
+//     }
+//     else if (state->save || state->block || state->door)
+//     {
+//         state->save = false;
+//         state->block = false;
+//         state->door = false;
+//         return true;
+//     }
+//     return false;
 // }
 
 // void draw_line(float angle, int start_x, ThreadParams *params)
@@ -277,28 +268,40 @@ void draw_line(float angle, int start_x, ThreadParams *params)
 //     const t_player *p = params->player;
 //     float cosangle = cos(angle);
 //     float sinangle = sin(angle);
+//     int dist;
 
 //     float x = p->x_px;
 //     float y = p->y_px;
-
-//     bool save = false;
+    
+//     t_ray rays[MAX_SIZE];
+//     t_state state = {false, false, false};
 //     int i = 0;
-//     int dist;
-//     while(find_hitbox(x, y, c))
+
+//     r->ray_angle = angle;
+//     while(!touch_edge(x, y))
 //     {
 //         dist = view_lane_distance(x, y, angle);
-//         if(dist > 450)
-//             break;
-//         x = x + cosangle;
-//         y = y + sinangle;
+//         // if(dist > 450)
+//         //     break;
+//         if(touch_side(x, y, &state))
+//         {
+//             rays[i].dist = dist;
+//             rays[i].x = x;
+//             rays[i].y = y;
+//             i++;
+//         }
+//         x += cosangle;
+//         y += sinangle;
 //     }
     
 //     pthread_mutex_lock(params->mutex);
     
-//     r->side = calculate_direction(x, y, angle, c);
-//     int line_height = (BLOCK_SIZE * HEIGHT) / dist;
-//     draw_h_line(line_height, start_x, params , dist);
+//     while (i > 0)
+//     {
+//         i--;
+//         if(rays[i].dist != 0)
+//             draw_pixel(rays[i], angle, start_x, params);
+//     }
     
 //     pthread_mutex_unlock(params->mutex);
-
 // }
