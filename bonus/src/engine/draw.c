@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/13 22:23:57 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/13 22:47:29 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void draw_floor(int height, int start_x, ThreadParams *params, float angle)
 
         color = get_pixel_from_image(floor, floor_x * T_SIZE, floor_y * T_SIZE);
 
-        color = darken_color(color, current_dist / 3 );
+        color = darken_color(color, (float)current_dist / 7);
 
         put_pixel(start_x, start_y, color);
 
