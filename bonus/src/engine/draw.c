@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/13 23:34:59 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/13 23:52:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,36 +121,35 @@ void draw_floor(int height, int start_x, ThreadParams *params, float angle)
 
 static void draw_wall(int height, int start_x, ThreadParams *params, int dist)
 {
+    int color;
+    float tex_y = 0;
+    float step = T_SIZE / (float)height;
+    float darker = (float)dist / 500;
     const t_cube *c = params->cube;
     const t_player *p = params->player;
     const t_render *r = params->render;
     const t_textures *texs = params->textures;
+    bool catched = p->catch && r->side == 6;
+
     t_texture *wall_side = get_wall_side(r->side, texs);
-    if(!wall_side)
+    if (!wall_side)
         return;
     
-    int color = 0;
-    float tex_y = 0;
-    int start_y = 0;
-    int end = 0;
-    float step;
-    step = T_SIZE / (float) height;
-    start_y = (p->z * height + vert_offset(p));
+    int start_y = (p->z * height + vert_offset(p));
+    int end_y = start_y + height;
     
-    if(height > HEIGHT)
-        end = HEIGHT;
-    else
-        end = start_y + height;
-            
-    while (start_y < end && dist < 500)
+    if(end_y > HEIGHT)
+        end_y = HEIGHT;
+    
+    while(start_y < end_y && dist < 500)
     {
-        if (p->catch && r->side == 6)
+        if (catched)
             color = 255;
         else
+        {
             color = get_pixel_from_image(wall_side, c->tex_x, tex_y);
-        
-        color = darken_color(color, (float)dist / 500);
-
+            color = darken_color(color, darker);
+        }
         put_pixel(start_x, start_y, color);
         tex_y += step;
         start_y++;
@@ -200,7 +199,6 @@ void draw_line(float angle, int start_x, ThreadParams *params)
 
     pthread_mutex_unlock(params->mutex);
 }
-
 
 // // Ray-casting + Painter's algorithm algorithm
 
