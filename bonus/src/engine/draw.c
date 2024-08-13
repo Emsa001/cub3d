@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/13 18:02:17 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/13 22:23:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,30 +92,26 @@ void draw_floor(int height, int start_x, ThreadParams *params, float angle)
     const t_cube *c = params->cube;
     const t_player *p = params->player;
     const t_textures *texs = params->textures;
-    int start_y = (p->z * height + vert_offset(p)) + height;
+    int start_y = HEIGHT / 2 + height / 2;
     float floor_x = 0;
     float floor_y = 0;
-
-    int tex_x = 0;
-    int tex_y = 0;
     
     float cosangle = cos(angle);
     float sinangle = sin(angle);
     int color = 0;
 
+    float current_dist = 0;
+
     t_texture *floor = texs->floor;
 
-    while (start_y < HEIGHT) 
+    while (start_y < HEIGHT)
     {
-        float current_dist = (HEIGHT / (2.0 * start_y - HEIGHT)) * (p->z + 1);
+        current_dist = (HEIGHT / (2.0 * start_y - HEIGHT)) * (p->z + 1.5);
         
         floor_x = (p->x) + current_dist * cosangle;
         floor_y = (p->y) + current_dist * sinangle;
-        
-        tex_x = (int)(floor_x * T_SIZE) % T_SIZE;
-        tex_y = (int)(floor_y * T_SIZE) % T_SIZE;
 
-        color = get_pixel_from_image(floor, tex_x, tex_y);
+        color = get_pixel_from_image(floor, floor_x * T_SIZE, floor_y * T_SIZE);
 
         color = darken_color(color, current_dist / 3 );
 
@@ -127,8 +123,6 @@ void draw_floor(int height, int start_x, ThreadParams *params, float angle)
 
 static void draw_wall(int height, int start_x, ThreadParams *params, int dist)
 {
-    // drawing wall
-       
     const t_cube *c = params->cube;
     const t_player *p = params->player;
     const t_render *r = params->render;
@@ -206,8 +200,8 @@ void draw_line(float angle, int start_x, ThreadParams *params)
     r->side = calculate_direction(x, y, angle, c);
     int line_height = (BLOCK_SIZE * HEIGHT) / dist;
 
-    draw_wall(line_height, start_x, params, dist);
     draw_floor(line_height, start_x, params, angle);
+    draw_wall(line_height, start_x, params, dist);
     
     pthread_mutex_unlock(params->mutex);
 
