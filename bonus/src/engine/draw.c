@@ -6,21 +6,24 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/13 23:15:56 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/13 23:34:59 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int calculate_direction(float x, float y, float angle, t_cube *c)
+static int calculate_direction(float x, float y, float cosangle, float sinangle, t_cube *c)
 {
-    int sx = cos(angle) > 0 ? 1 : -1; 
-    int sy = sin(angle) > 0 ? 1 : -1;
+    int sx = cosangle > 0 ? 1 : -1; 
+    int sy = sinangle > 0 ? 1 : -1;
 
-    if (is_touching(x - sx, y) || is_touching(x - sx, y - sy)) {
+    bool touching_x = is_touching(x - sx, y);
+    bool touching_y = is_touching(x, y - sy);
+
+    if (touching_x || is_touching(x - sx, y - sy)) {
         c->tex_x = (int)x % BLOCK_SIZE;
         return (sy == 1) ? 1 : 3;
-    } else if (is_touching(x, y - sy)|| is_touching(x, y)) {
+    } else if (touching_y || is_touching(x, y)) {
         c->tex_x = (int)y % BLOCK_SIZE;
         return (sx == 1) ? 2 : 4;
     } else if (touch_block(c->map->doors, x - sx, y)) {
@@ -71,18 +74,11 @@ int darken_color(int color, float ratio)
     int g = (color >> 8) & 0xFF;
     int b = color & 0xFF;
 
-    r = r - (r * ratio);
-    g = g - (g * ratio);
-    b = b - (b * ratio);
+    int factor = (int)((1.0f - ratio) * 255);
 
-    if (r < 0)
-        r = 0;
-
-    if (g < 0)
-        g = 0;
-
-    if (b < 0)
-        b = 0;
+    r = (r * factor) >> 8;
+    g = (g * factor) >> 8;
+    b = (b * factor) >> 8;
 
     return (r << 16) | (g << 8) | b;
 }
@@ -179,33 +175,32 @@ void draw_line(float angle, int start_x, ThreadParams *params)
     t_cube *c = params->cube;
     t_render *r = params->render;
     const t_player *p = params->player;
+
     float cosangle = cos(angle);
     float sinangle = sin(angle);
 
     float x = p->x_px;
     float y = p->y_px;
-
-    bool save = false;
-    int i = 0;
     int dist;
+
     while(find_hitbox(x, y, c))
     {
-        x = x + cosangle;
-        y = y + sinangle;
+        x += cosangle;
+        y += sinangle;
     }
-    
+
     pthread_mutex_lock(params->mutex);
-    
+
     dist = view_lane_distance(x, y, angle);
-    r->side = calculate_direction(x, y, angle, c);
+    r->side = calculate_direction(x, y, cosangle, sinangle, c);
     int line_height = (BLOCK_SIZE * HEIGHT) / dist;
 
     draw_floor(line_height, start_x, params, angle);
     draw_wall(line_height, start_x, params, dist);
-    
-    pthread_mutex_unlock(params->mutex);
 
+    pthread_mutex_unlock(params->mutex);
 }
+
 
 // // Ray-casting + Painter's algorithm algorithm
 
