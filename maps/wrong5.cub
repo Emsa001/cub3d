@@ -1,7 +1,7 @@
-NO assets/north.xpm
-SO assets/south.xpm
-WE assets/west.xpm
-EA assets/east.xpm
+NO ./src/textures/Square.xpm
+SO ./src/textures/Square.xpm
+WE ./src/textures/Square.xpm
+EA ./src/textures/Square.xpm
 
 F 220,100,0
 C 225,30,0

@@ -6,13 +6,13 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:32:21 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 15:47:27 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/13 11:48:11 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <pthread.h>
-#define NUM_THREADS 12
+#define NUM_THREADS 1
 
 void* draw_lines_thread(void* arg)
 {
@@ -60,7 +60,6 @@ void render_view()
         0x800000, // dark red
         0x808080, // gray
     };
-
     for (int i = 0; i < NUM_THREADS; i++) {
         threadParams[i].start = i * linesPerThread;
         threadParams[i].end = (i + 1 == NUM_THREADS) ? WIDTH : (i + 1) * linesPerThread;
@@ -75,7 +74,6 @@ void render_view()
         threadParams[i].color = colors[i % 12];
 
         threadParams[i].mutex = &mutex;
-        
         pthread_create(&threads[i], NULL, draw_lines_thread, &threadParams[i]);
     }
 

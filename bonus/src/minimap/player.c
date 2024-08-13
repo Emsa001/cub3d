@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:51:28 by escura            #+#    #+#             */
-/*   Updated: 2024/08/03 18:24:42 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/13 11:48:39 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void minimap_draw_fov(float angle)
         if(get_scene_pixel((int)x, (int)y) != MINIMAP_COLOR)
             col++;
 
-        put_pixel((int)x, (int)y, 0xa1a1aa, r);
+        put_pixel((int)x, (int)y, 0xa1a1aa);
         i += 6;
     }
 }

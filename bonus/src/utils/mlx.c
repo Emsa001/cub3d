@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:35:04 by escura            #+#    #+#             */
-/*   Updated: 2024/08/03 17:57:21 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/13 11:49:20 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void clean_window()
 
 void put_pixel(int x, int y, int color, t_render *r)
 {
+    t_render *r = render();
+
     r->data = mlx_get_data_addr(r->img_ptr, &r->bpp, &r->size_line, &r->endian);
     if(x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
         return ;

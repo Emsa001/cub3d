@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:52:56 by escura            #+#    #+#             */
-/*   Updated: 2024/08/05 13:44:54 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/13 11:48:28 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	draw_block(int i, int j, int screen_x, int screen_y)
 
 	if (dx * dx + dy * dy <= pow(minimap()->radius, 2))
 		put_pixel((int)pixel_x, (int)pixel_y, get_pixel_from_image(&texture, i,
-				j),r);
+				j));
 }
 
 void	minimap_block(int x, int y, int screen_x, int screen_y)

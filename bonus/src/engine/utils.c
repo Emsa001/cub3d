@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 16:10:47 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/13 11:47:25 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,32 @@ bool is_touching(float px, float py, t_cube *c)
 	if (c->map->map[y][x] == WALL)
 		return (true);
 	return (false);
+}
+
+void draw_middle_line(void)
+{
+	const t_cube *c = cube();
+	int i;
+
+	i = 0;
+	while (i < WIDTH)
+	{
+		put_pixel(i, HEIGHT / 2, 0x00FF0000);
+		i++;
+	}
+}
+
+void draw_cross_in_centre(void)
+{
+	const t_cube *c = cube();
+	int x_center = WIDTH / 2;
+	int y_center = HEIGHT / 2;
+	int i = -7;
+
+	while (i <= 7)
+	{
+		put_pixel(x_center + i, y_center, 0x0000FF00);
+		put_pixel(x_center, y_center + i, 0x0000FF00);
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/08/02 22:04:52 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/13 11:46:51 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ static void init_game(char *map)
 	minimap_init();
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	check_params(argv);
 	ft_alloc_init();
 
 	init_game(argv[1]);
 	start_game();
-
+	
 	ft_destructor();
 	return (0);
 }

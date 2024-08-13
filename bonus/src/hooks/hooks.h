@@ -6,14 +6,14 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 20:34:44 by escura            #+#    #+#             */
-/*   Updated: 2024/08/02 20:37:49 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/13 11:48:14 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+# include "cub3d.h"
 #ifndef HOOKS_H
 # define HOOKS_H
 
-# include "cub3d.h"
 
 /* KeyBoard */
 

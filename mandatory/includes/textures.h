@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 15:42:13 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/13 11:49:23 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_textures
 
 t_textures *init_textures(t_textures *t, void *mlx);
 t_textures *textures(void);
-int get_pixel_from_image(int x, int y, int side);
 
 
 #endif

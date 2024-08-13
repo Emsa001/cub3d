@@ -6,18 +6,16 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 16:00:46 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/13 11:46:39 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PLAYER_H
 # define PLAYER_H
 
-# include "cub3d.h"
-
 # define WALKSPEED 2
 # define SPRINTSPEED 5
-# define MOUSE_SENSITIVITY 0.0001
+# define MOUSE_SENSITIVITY 0.002
 # define JUMP_SPEED 0.11
 # define FOV 60
 
@@ -84,13 +82,18 @@ typedef struct s_player
 	float	plane_y;
 }			t_player;
 
-t_player	*init_player(t_player *p);
+t_player	*player_init(t_player *p);
 t_player	*player(void);
 void		move_player(void);
 void		jump_player(void);
 bool		touch(void);
 void		render_player(void);
+void		player_rotate(int x, int y);
 
-double		view_lane_distance(float x1, float y1, float angle);
+int		view_lane_distance(float x1, float y1, float angle);
+
+void		player_keydown(int keycode);
+void		player_keyup(int keycode);
+void		player_mouseclick(int button);
 
 #endif
