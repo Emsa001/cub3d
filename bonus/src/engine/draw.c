@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/13 22:47:29 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/13 23:15:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void draw_floor(int height, int start_x, ThreadParams *params, float angle)
     const t_cube *c = params->cube;
     const t_player *p = params->player;
     const t_textures *texs = params->textures;
-    int start_y = HEIGHT / 2 + height / 2;
+    int start_y = HEIGHT;
     float floor_x = 0;
     float floor_y = 0;
     
@@ -104,20 +104,22 @@ void draw_floor(int height, int start_x, ThreadParams *params, float angle)
 
     t_texture *floor = texs->floor;
 
-    while (start_y < HEIGHT)
+    while (start_y > HEIGHT / 2 + height / 2)
     {
         current_dist = (HEIGHT / (2.0 * start_y - HEIGHT)) * (p->z + 1.5);
+        if(current_dist > 8)
+            break;
         
         floor_x = (p->x) + current_dist * cosangle;
         floor_y = (p->y) + current_dist * sinangle;
 
         color = get_pixel_from_image(floor, floor_x * T_SIZE, floor_y * T_SIZE);
-
-        color = darken_color(color, (float)current_dist / 7);
+       
+        color = darken_color(color, (float)current_dist / 8);
 
         put_pixel(start_x, start_y, color);
 
-        start_y++;
+        start_y--;
     }
 }
 
@@ -144,7 +146,7 @@ static void draw_wall(int height, int start_x, ThreadParams *params, int dist)
     else
         end = start_y + height;
             
-    while (start_y < end) 
+    while (start_y < end && dist < 500)
     {
         if (p->catch && r->side == 6)
             color = 255;
@@ -188,15 +190,13 @@ void draw_line(float angle, int start_x, ThreadParams *params)
     int dist;
     while(find_hitbox(x, y, c))
     {
-        dist = view_lane_distance(x, y, angle);
-        if(dist > 500)
-            break;
         x = x + cosangle;
         y = y + sinangle;
     }
     
     pthread_mutex_lock(params->mutex);
     
+    dist = view_lane_distance(x, y, angle);
     r->side = calculate_direction(x, y, angle, c);
     int line_height = (BLOCK_SIZE * HEIGHT) / dist;
 
