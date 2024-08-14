@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/13 23:52:08 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/14 14:46:54 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,12 @@ void draw_floor(int height, int start_x, ThreadParams *params, float angle)
 
     t_texture *floor = texs->floor;
 
-    while (start_y > HEIGHT / 2 + height / 2)
+    while (start_y > HEIGHT / 2 + (p->z * height) )
     {
-        current_dist = (HEIGHT / (2.0 * start_y - HEIGHT)) * (p->z + 1.5);
-        if(current_dist > 8)
+        
+        current_dist = p->z * HEIGHT / (start_y - HEIGHT / 2);
+           
+        if(current_dist > 7)
             break;
         
         floor_x = (p->x) + current_dist * cosangle;
@@ -111,7 +113,7 @@ void draw_floor(int height, int start_x, ThreadParams *params, float angle)
 
         color = get_pixel_from_image(floor, floor_x * T_SIZE, floor_y * T_SIZE);
        
-        color = darken_color(color, (float)current_dist / 8);
+        color = darken_color(color, (float)current_dist / 7);
 
         put_pixel(start_x, start_y, color);
 
@@ -123,20 +125,19 @@ static void draw_wall(int height, int start_x, ThreadParams *params, int dist)
 {
     int color;
     float tex_y = 0;
-    float step = T_SIZE / (float)height;
-    float darker = (float)dist / 500;
+    float step = (float)T_SIZE / height;
     const t_cube *c = params->cube;
     const t_player *p = params->player;
     const t_render *r = params->render;
     const t_textures *texs = params->textures;
     bool catched = p->catch && r->side == 6;
 
+    int start_y = (p->z - 1) * height + vert_offset(p);
+    int end_y = start_y + height;
+
     t_texture *wall_side = get_wall_side(r->side, texs);
     if (!wall_side)
         return;
-    
-    int start_y = (p->z * height + vert_offset(p));
-    int end_y = start_y + height;
     
     if(end_y > HEIGHT)
         end_y = HEIGHT;
@@ -148,7 +149,7 @@ static void draw_wall(int height, int start_x, ThreadParams *params, int dist)
         else
         {
             color = get_pixel_from_image(wall_side, c->tex_x, tex_y);
-            color = darken_color(color, darker);
+            color = darken_color(color, (float)dist / 500);
         }
         put_pixel(start_x, start_y, color);
         tex_y += step;

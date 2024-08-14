@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 17:20:42 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/14 10:35:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_player	*player_init(t_player *p)
 	
 	player->x_px = player->x * BLOCK_SIZE;
 	player->y_px = player->y * BLOCK_SIZE;
-	player->z = -0.5;
+	player->z = 0.5;
 	
 	player->x_dir = 0;
 	player->y_dir = 0;
