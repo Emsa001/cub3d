@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:46:56 by escura            #+#    #+#             */
-/*   Updated: 2024/08/14 10:37:19 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/14 16:47:06 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ void move_player(void) {
     float sin_angle = sin(p->angle);
     float left_angle, right_angle;
 
+    static float step_progress = 0;
+    float step_amplitude = 0.05;
+    float step_frequency = 0.2;
+    float base_z = 0.55;
+
+    bool is_moving = false;
+
     if (p->btn_w || p->btn_s) {
         if (p->btn_s) {
             cos_angle = -cos_angle;
@@ -44,17 +51,24 @@ void move_player(void) {
         }
         try_move(0, p->speed * sin_angle);
         try_move(p->speed * cos_angle, 0);
+
+        is_moving = true;
     }
     if (p->btn_a) {
         left_angle = p->angle - PI / 2;
         try_move(0, p->speed * sin(left_angle));
         try_move(p->speed * cos(left_angle), 0);
+        
+        is_moving = true;
     }
     if (p->btn_d) {
         right_angle = p->angle + PI / 2;
         try_move(0, p->speed * sin(right_angle));
         try_move(p->speed * cos(right_angle), 0);
+
+        is_moving = true;
     }
+
     if (p->btn_left) {
         p->angle -= 0.1;
         if (p->angle < 0)
@@ -66,6 +80,7 @@ void move_player(void) {
             p->angle -= 2 * PI;
     }
 
+    
     if(p->btn_up)
         p->z += 0.1;
     if(p->btn_down)
@@ -102,6 +117,13 @@ void move_player(void) {
     if (p->jump_speed != 0)
         p->jump_speed -= 0.01;
 
+    if (is_moving) {
+        step_progress += step_frequency;
+        p->z = base_z + step_amplitude * sin(step_progress);
+    } else {
+        p->z = base_z - 0.05;
+    }
+
     p->x = p->x_px / BLOCK_SIZE;
     p->y = p->y_px / BLOCK_SIZE;
 
@@ -112,17 +134,4 @@ void move_player(void) {
     p->direction = p->angle * (180 / PI);
     if (p->direction > 180)
         p->direction -= 360;
-    
-    // printf("\n");
-    // printf("direction: %f\n", p->direction);
-    // printf("angle: %f\n", p->angle);
-    // printf("x_dir: %f\n", p->x_dir);
-    // printf("y_dir: %f\n", p->y_dir);
-    // printf("x: %f\n", p->x);
-    // printf("y: %f\n", p->y);
-    // printf("\n");
-
-    // float tmp_x = p->plane_x;
-    // p->plane_x = p->plane_x * cos(p->speed) - p->plane_y * sin(p->speed);
-	// p->plane_y = tmp_x * sin(p->speed) + p->plane_y * cos(p->speed);
 }

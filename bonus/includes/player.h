@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/08/12 11:49:43 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/14 15:57:35 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,6 @@
 # define MOUSE_SENSITIVITY 0.002
 # define JUMP_SPEED 0.11
 # define FOV 60
-
-// typedef struct s_events
-// {
-//     bool    btn_w;
-//     bool    btn_s;
-//     bool    btn_a;
-//     bool    btn_d;
-
-//     bool    btn_up;
-//     bool    btn_down;
-//     bool    btn_left;
-//     bool    btn_right;
-//     bool    interact;
-//     bool    opened;
-
-//     bool    spawn;
-//     bool    remove;
-
-//     bool    catch;
-//     bool    catched;
-// }			t_events;
 
 typedef struct s_player
 {
