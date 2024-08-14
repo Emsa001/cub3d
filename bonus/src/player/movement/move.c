@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:46:56 by escura            #+#    #+#             */
-/*   Updated: 2024/08/14 16:47:06 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/14 18:18:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,21 +108,23 @@ void move_player(void) {
     if(p->catch)
         catch_block(p->angle);
     
+    if (is_moving && p->jump_speed == 0) 
+    {
+        step_progress += step_frequency;
+        p->z = base_z + step_amplitude * sin(step_progress);
+    } else if(p->jump_speed != 0) {
+        p->jump_speed -= 0.01;
+    }
+    
     p->z += p->jump_speed;
     if (p->z < 0.5)
     {
         p->z = 0.5;
         p->jump_speed = 0;
     }
-    if (p->jump_speed != 0)
-        p->jump_speed -= 0.01;
+    // if (p->jump_speed != 0)
+    //     p->jump_speed -= 0.01;
 
-    if (is_moving) {
-        step_progress += step_frequency;
-        p->z = base_z + step_amplitude * sin(step_progress);
-    } else {
-        p->z = base_z - 0.05;
-    }
 
     p->x = p->x_px / BLOCK_SIZE;
     p->y = p->y_px / BLOCK_SIZE;

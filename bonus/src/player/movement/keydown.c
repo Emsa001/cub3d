@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/08/14 10:38:18 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/14 18:17:58 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void player_keydown(int keycode){
     
     if(keycode == SHIFT)
         p->speed = SPRINTSPEED;
-    if(keycode == SPACE && p->z <= 0.5)
+    if(keycode == SPACE && p->z <= 0.6)
         p->jump_speed = JUMP_SPEED;
 
     if(keycode == MINUS){

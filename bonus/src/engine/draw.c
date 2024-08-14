@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/14 15:30:32 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/14 17:05:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,14 +142,14 @@ static void draw_wall(int height, int start_x, ThreadParams *params, int dist)
     if(end_y > HEIGHT)
         end_y = HEIGHT;
     
-    while(start_y < end_y && dist < 500)
+    while(start_y < end_y && dist < 450)
     {
         if (catched)
             color = 255;
         else
         {
             color = get_pixel_from_image(wall_side, c->tex_x, tex_y);
-            color = darken_color(color, (float)dist / 500);
+            color = darken_color(color, (float)dist / 450);
         }
         put_pixel(start_x, start_y, color);
         tex_y += step;
