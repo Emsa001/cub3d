@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/14 20:35:35 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/14 20:51:25 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,12 @@ int darken_color(int color, float ratio)
     return (r << 16) | (g << 8) | b;
 }
 
+float view_current_distance(t_player *p, int start_y, float angle)
+{
+    float current_dist = p->z * HEIGHT / (start_y - HEIGHT / 2);
+    return current_dist / cos(angle - p->angle);
+}
+
 void draw_floor(int height, int start_x, ThreadParams *params, float angle)
 {
     const t_cube *c = params->cube;
@@ -103,7 +109,7 @@ void draw_floor(int height, int start_x, ThreadParams *params, float angle)
     while (start_y > HEIGHT / 2 + (p->z * height) )
     {
         
-        current_dist = p->z * HEIGHT / (start_y - HEIGHT / 2);
+        current_dist = view_current_distance(p, start_y, angle);
            
         if(current_dist > 7)
             break;
