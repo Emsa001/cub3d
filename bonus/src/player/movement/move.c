@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:46:56 by escura            #+#    #+#             */
-/*   Updated: 2024/08/14 18:18:42 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/14 19:01:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,10 +122,6 @@ void move_player(void) {
         p->z = 0.5;
         p->jump_speed = 0;
     }
-    // if (p->jump_speed != 0)
-    //     p->jump_speed -= 0.01;
-
-
     p->x = p->x_px / BLOCK_SIZE;
     p->y = p->y_px / BLOCK_SIZE;
 

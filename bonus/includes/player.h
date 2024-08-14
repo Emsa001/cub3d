@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/08/14 18:18:06 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/14 19:00:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_player
 	bool	catched;
 
 	float	jump_speed;
+
 	int		fov;
 	int		speed;
 
