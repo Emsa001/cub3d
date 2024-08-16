@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:21:26 by btvildia          #+#    #+#             */
-/*   Updated: 2024/08/14 10:40:21 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/16 20:19:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,8 +175,8 @@ void	get_2d_map(t_map *map_info, char **map, int size)
 	{
 		if (ft_check_line(map[i]) == 0)
 		{
-			if (j > 0)
-				ft_error("Map should be at the end");
+			// if (j > 0)
+			// 	ft_error("Map should be at the end");
 			i++;
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 16:58:15 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/16 19:06:50 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,9 @@ typedef struct s_block
 {
 	float x;
 	float y;
-	float z;
 
-	float save_x;
-	float save_y;
+	float s_x;
+	float s_y;
 
 	int id;
 	char type;
@@ -78,6 +77,7 @@ typedef struct s_map
 	int		*c;
 	t_block	*doors;
 	t_block	*blocks;
+	t_block *lines;
 
 	t_minimap *minimap;
 }			t_map;
@@ -92,6 +92,7 @@ int			ft_check_line(char *line);
 t_block		*init_block(t_map *map_info, char c);
 void		print_block_info(t_block *doors);
 void		get_player_position(char **map);
+bool touch_line(t_block *lines, float px, float py);
 t_map		*check_map(char **map, int size);
 char		*ft_remove_substr(char *str, char *sub);
 char		*get_next_string(char *line, char *str);

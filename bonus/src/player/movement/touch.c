@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:49:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 17:55:50 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/16 15:06:32 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ bool	touch()
     if(touch_block(c->map->blocks, x_m, y_m) || touch_block(c->map->blocks, x_p, y_m) || touch_block(c->map->blocks, x_m, y_p) || touch_block(c->map->blocks, x_p, y_p))
         return (true);
     if(touch_block(c->map->doors, x_m, y_m) || touch_block(c->map->doors, x_p, y_m) || touch_block(c->map->doors, x_m, y_p) || touch_block(c->map->doors, x_p, y_p))
+        return (true);
+    if(touch_line(c->map->lines, x_m, y_m) || touch_line(c->map->lines, x_p, y_m) || touch_line(c->map->lines, x_m, y_p) || touch_line(c->map->lines, x_p, y_p))
         return (true);
 
 	return (false);

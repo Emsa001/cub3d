@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/08/12 11:01:54 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/16 19:18:11 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,49 @@ bool touch_block(t_block *blocks, float px, float py)
 			return true;
 		i++;
 	}
+	return false;
+}
+
+bool check_if_point_is_on_line(t_block line, float px, float py)
+{
+	float x1 = line.s_x * BLOCK_SIZE;
+	float y1 = line.s_y * BLOCK_SIZE;
+	float x2 = line.x * BLOCK_SIZE;
+	float y2 = line.y * BLOCK_SIZE;
+	float dx = x2 - x1;
+	float dy = y2 - y1;
+	float d = sqrt(dx * dx + dy * dy);
+	float u = ((px - x1) * dx + (py - y1) * dy) / (d * d);
+
+	if (u < 0.0 || u > 1.0)
+		return false;
+
+	float x = x1 + u * dx;
+	float y = y1 + u * dy;
+	float dist = sqrt((x - px) * (x - px) + (y - py) * (y - py));
+
+	if (dist < 5)
+		return true;
+	return false;
+}
+
+
+// one line have 2 points (s_x, s_y) and (x, y)
+
+bool touch_line(t_block *lines, float px, float py)
+{
+	int i = 0;
+
+	if (!lines)
+		return false;
+	
+	while (lines[i].x != -1)
+	{
+		if(check_if_point_is_on_line(lines[i], px, py))
+			return true;
+		i++;
+	}
+	
 	return false;
 }
 

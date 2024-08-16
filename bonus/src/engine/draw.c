@@ -6,24 +6,21 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/14 20:51:25 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/16 18:48:14 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int calculate_direction(float x, float y, float cosangle, float sinangle, t_cube *c)
+int calculate_direction(float x, float y, float cosangle, float sinangle, t_cube *c)
 {
     int sx = cosangle > 0 ? 1 : -1; 
     int sy = sinangle > 0 ? 1 : -1;
 
-    bool touching_x = is_touching(x - sx, y);
-    bool touching_y = is_touching(x, y - sy);
-
-    if (touching_x || is_touching(x - sx, y - sy)) {
+    if (is_touching(x - sx, y) || is_touching(x - sx, y - sy)) {
         c->tex_x = (int)x % BLOCK_SIZE;
         return (sy == 1) ? 1 : 3;
-    } else if (touching_y || is_touching(x, y)) {
+    } else if (is_touching(x, y - sy) || is_touching(x, y)) {
         c->tex_x = (int)y % BLOCK_SIZE;
         return (sx == 1) ? 2 : 4;
     } else if (touch_block(c->map->doors, x - sx, y)) {
@@ -35,7 +32,13 @@ static int calculate_direction(float x, float y, float cosangle, float sinangle,
     } else if (touch_block(c->map->blocks, x - sx, y)) {
         c->tex_x = (int)x % BLOCK_SIZE;
         return 6;
-    } else if (touch_block(c->map->blocks, x, y - sy)) {
+    } else if (touch_block(c->map->blocks, x, y)) {
+        c->tex_x = (int)y % BLOCK_SIZE;
+        return 6;
+    } else if (touch_line(c->map->lines, x - sx, y)){
+        c->tex_x = (int)x % BLOCK_SIZE;
+        return 6;
+    } else if (touch_line(c->map->lines, x, y)) {
         c->tex_x = (int)y % BLOCK_SIZE;
         return 6;
     }
@@ -168,12 +171,14 @@ static void draw_wall(int height, int start_x, ThreadParams *params, int dist)
 static bool find_hitbox(float x, float y, t_cube *c)
 {
     if (is_touching(x, y))
-        return false;
+        return true;
     if (touch_block(c->map->blocks, x, y))
-        return false;
+        return true;
     if (touch_block(c->map->doors, x, y))
-        return false;
-    return true;
+        return true;
+    if(touch_line(c->map->lines, x, y))
+        return true;
+    return false;
 }
 
 void draw_line(float angle, int start_x, ThreadParams *params)
@@ -189,7 +194,7 @@ void draw_line(float angle, int start_x, ThreadParams *params)
     float y = p->y_px;
     int dist;
 
-    while(find_hitbox(x, y, c))
+    while(!find_hitbox(x, y, c))
     {
         x += cosangle;
         y += sinangle;

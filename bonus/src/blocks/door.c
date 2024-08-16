@@ -68,8 +68,8 @@ t_block    *init_block(t_map *map_info , char c)
             {
                 blocks[k].x = j;
                 blocks[k].y = i;
-                blocks[k].save_x = j;
-                blocks[k].save_y = i;
+                blocks[k].s_x = j;
+                blocks[k].s_y = i;
                 blocks[k].id = k;
                 blocks[k].type = c;
                 k++;
@@ -81,8 +81,8 @@ t_block    *init_block(t_map *map_info , char c)
     blocks[k].x = -1;
     blocks[k].y = -1;
     blocks[k].id = -1;
-    blocks[k].save_x = -1;
-    blocks[k].save_y = -1;
+    blocks[k].s_x = -1;
+    blocks[k].s_y = -1;
     blocks[k].type = '\0';
     return (blocks);
 }
@@ -97,12 +97,12 @@ void open_door(float angle, int id)
         return;
     if(!opening)
     {
-        map->doors[id].save_y = map->doors[id].y;
+        map->doors[id].s_y = map->doors[id].y;
         opening = true;
     }
-    if(map->doors[id].y >= map->doors[id].save_y - 0.9)
+    if(map->doors[id].y >= map->doors[id].s_y - 0.9)
         map->doors[id].y -= 0.05;
-    else if(map->doors[id].y <= map->doors[id].save_y - 0.9)
+    else if(map->doors[id].y <= map->doors[id].s_y - 0.9)
     {
         printf("Door ID[%d] opened\n", id);
         p->opened = true;
@@ -118,12 +118,12 @@ void close_door(float angle, int id)
     static bool closing = false;
     if(!closing)
     {
-        map->doors[id].save_y = map->doors[id].y + 0.9;
+        map->doors[id].s_y = map->doors[id].y + 0.9;
         closing = true;
     }
-    if(map->doors[id].y <= map->doors[id].save_y)
+    if(map->doors[id].y <= map->doors[id].s_y)
         map->doors[id].y += 0.05;
-    else if(map->doors[id].y >= map->doors[id].save_y)
+    else if(map->doors[id].y >= map->doors[id].s_y)
     {
         printf("Door ID[%d] closed\n", id);
         p->opened = false;
