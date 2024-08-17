@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/08/16 19:06:50 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/17 19:58:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 
 #define PLAYER_SIZE 5
 #define PLAYER_DOT_COLOR 0x3b82f6
+
+#define L_WIDTH 6
 
 # include "cub3d.h"
 
@@ -92,7 +94,7 @@ int			ft_check_line(char *line);
 t_block		*init_block(t_map *map_info, char c);
 void		print_block_info(t_block *doors);
 void		get_player_position(char **map);
-bool touch_line(t_block *lines, float px, float py);
+int touch_line(t_block *lines, float px, float py);
 t_map		*check_map(char **map, int size);
 char		*ft_remove_substr(char *str, char *sub);
 char		*get_next_string(char *line, char *str);

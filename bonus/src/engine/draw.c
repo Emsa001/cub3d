@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/16 18:48:14 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/17 20:33:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,20 @@ int calculate_direction(float x, float y, float cosangle, float sinangle, t_cube
     } else if (touch_block(c->map->blocks, x, y)) {
         c->tex_x = (int)y % BLOCK_SIZE;
         return 6;
-    } else if (touch_line(c->map->lines, x - sx, y)){
+    } else if (touch_line(c->map->lines, x - sx, y) == 1){
         c->tex_x = (int)x % BLOCK_SIZE;
-        return 6;
-    } else if (touch_line(c->map->lines, x, y)) {
+        return 3;
+    } else if (touch_line(c->map->lines, x, y) == 1) {
         c->tex_x = (int)y % BLOCK_SIZE;
-        return 6;
+        return 3;
+    } else if(touch_line(c->map->lines, x - sx, y) == 2)
+    {
+        c->tex_x = (int)x % BLOCK_SIZE;
+        return 1;
+    } else if(touch_line(c->map->lines, x, y) == 2)
+    {
+        c->tex_x = (int)y % BLOCK_SIZE;
+        return 1;
     }
     return 0;
 }
@@ -205,7 +213,7 @@ void draw_line(float angle, int start_x, ThreadParams *params)
     dist = view_lane_distance(x, y, angle);
     r->side = calculate_direction(x, y, cosangle, sinangle, c);
     int line_height = (BLOCK_SIZE * HEIGHT) / dist;
-
+    
     draw_floor(line_height, start_x, params, angle);
     draw_wall(line_height, start_x, params, dist);
 

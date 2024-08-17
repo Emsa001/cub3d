@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/08/16 20:51:52 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/16 22:54:23 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,6 @@ t_block get_line(char *line)
 
 t_block *init_line(t_map *map_info , char **map)
 {
-	// this way doesn't work
 	t_block	*lines;
 	int		i = 0;
 	int		j = 0;
