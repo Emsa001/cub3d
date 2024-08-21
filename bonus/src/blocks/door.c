@@ -87,45 +87,80 @@ t_block    *init_block(t_map *map_info , char c)
     return (blocks);
 }
 
+
+int get_side(int x, int y, char **map)
+{
+    if(map[y][x - 1] == '1')
+        return 1;
+    else if(map[y - 1][x] == '1')
+        return 2;
+    else if(map[y][x + 1] == '1')
+        return 3;
+    else if(map[y + 1][x] == '1')
+        return 4;
+    return 0;
+}
+
 void open_door(float angle, int id)
 {
     static bool opening = false;
     t_player *p = player();
     t_map *map = cube()->map;
+    int side = 0;
 
     if(id == -1)
         return;
     if(!opening)
-    {
-        map->doors[id].s_y = map->doors[id].y;
         opening = true;
-    }
-    if(map->doors[id].y >= map->doors[id].s_y - 0.9)
+    side = get_side(map->doors[id].s_x, map->doors[id].s_y, map->map);
+    if(!side)
+        return;
+    if(side == 1 && map->doors[id].x >= map->doors[id].s_x - 0.9)
+        map->doors[id].x -= 0.05;    
+    else if(side == 2 && map->doors[id].y >= map->doors[id].s_y - 0.9)
         map->doors[id].y -= 0.05;
-    else if(map->doors[id].y <= map->doors[id].s_y - 0.9)
-    {
-        printf("Door ID[%d] opened\n", id);
+    else if(side == 3 && map->doors[id].x <= map->doors[id].s_x + 0.9)
+        map->doors[id].x += 0.05;
+    else if(side == 4 && map->doors[id].y <= map->doors[id].s_y + 0.9)
+        map->doors[id].y += 0.05;
+    if(side == 1 && map->doors[id].x <= map->doors[id].s_x - 0.9)
         p->opened = true;
-    }
+    else if(side == 2 && map->doors[id].y <= map->doors[id].s_y - 0.9)
+        p->opened = true;
+    else if(side == 3 && map->doors[id].x >= map->doors[id].s_x + 0.9)
+        p->opened = true;
+    else if(side == 4 && map->doors[id].y >= map->doors[id].s_y + 0.9)
+        p->opened = true;
 }
 
 void close_door(float angle, int id)
 {
     t_player *p = player();
     t_map *map = cube()->map;
+    int side = 0;
     if(id == -1)
         return;
     static bool closing = false;
     if(!closing)
-    {
-        map->doors[id].s_y = map->doors[id].y + 0.9;
         closing = true;
-    }
-    if(map->doors[id].y <= map->doors[id].s_y)
+    side = get_side(map->doors[id].s_x, map->doors[id].s_y, map->map);
+    if(!side)
+        return;
+    if(side == 1 && map->doors[id].x <= map->doors[id].s_x)
+        map->doors[id].x += 0.05;
+    else if(side == 2 && map->doors[id].y <= map->doors[id].s_y)
         map->doors[id].y += 0.05;
-    else if(map->doors[id].y >= map->doors[id].s_y)
-    {
-        printf("Door ID[%d] closed\n", id);
+    else if(side == 3 && map->doors[id].x >= map->doors[id].s_x)
+        map->doors[id].x -= 0.05;
+    else if(side == 4 && map->doors[id].y >= map->doors[id].s_y)
+        map->doors[id].y -= 0.05;
+
+    if(side == 1 && map->doors[id].x >= map->doors[id].s_x)
         p->opened = false;
-    }
+    else if(side == 2 &&map->doors[id].y >= map->doors[id].s_y)
+        p->opened = false;
+    else if(side == 3 && map->doors[id].x <= map->doors[id].s_x)
+        p->opened = false;
+    else if(side == 4 && map->doors[id].y <= map->doors[id].s_y)
+        p->opened = false;
 }
