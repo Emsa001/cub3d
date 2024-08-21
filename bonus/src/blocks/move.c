@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:53:45 by btvildia          #+#    #+#             */
-/*   Updated: 2024/07/21 13:14:42 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/16 12:32:23 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,4 @@ void catch_block(float angle)
     }
     c->map->blocks[id].x = p->x - 0.5 + 2.5 * cos(angle);
     c->map->blocks[id].y = p->y - 0.5 + 2.5 * sin(angle);
-    c->map->blocks[id].z = p->z + 0.5;
 }

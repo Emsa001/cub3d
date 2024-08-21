@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/08/13 11:48:43 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/21 19:34:50 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_player	*player_init(t_player *p)
 	
 	player->x_px = player->x * BLOCK_SIZE;
 	player->y_px = player->y * BLOCK_SIZE;
-	player->z = -0.5;
+	player->z = 0.5;
 	
 	player->x_dir = 0;
 	player->y_dir = 0;

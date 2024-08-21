@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/08/13 11:46:31 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/21 19:34:27 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 #define PLAYER_SIZE 5
 #define PLAYER_DOT_COLOR 0x3b82f6
 
+#define L_WIDTH 6
+
 # include "cub3d.h"
 
 typedef struct s_point
@@ -35,12 +37,11 @@ typedef struct s_point
 
 typedef struct s_block
 {
-	float		x;
-	float		y;
-	float		z;
+	float x;
+	float y;
 
-	float		save_x;
-	float		save_y;
+	float s_x;
+	float s_y;
 
 	int			id;
 	char		type;
@@ -97,6 +98,7 @@ typedef struct s_map
 	int		*c;
 	t_block	*doors;
 	t_block	*blocks;
+	t_block *lines;
 
 	t_minimap *minimap;
 }			t_map;
@@ -111,6 +113,7 @@ int			ft_check_line(char *line);
 t_block		*init_block(t_map *map_info, char c);
 void		print_block_info(t_block *doors);
 void		get_player_position(char **map);
+int touch_line(t_block *lines, float px, float py);
 t_map		*check_map(char **map, int size);
 char		*ft_remove_substr(char *str, char *sub);
 char		*get_next_string(char *line, char *str);

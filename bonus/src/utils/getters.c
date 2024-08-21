@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:21:26 by btvildia          #+#    #+#             */
-/*   Updated: 2024/08/11 16:28:55 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/21 19:35:10 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	change_positions(char c, int i, int j)
 	t_player	*p = player();
 	p->x = j + 0.5;
 	p->y = i + 0.5;
-	p->z = 0;
+	p->z = 0.5;
 	if (c == 'N')
 		p->angle = 3 * PI / 2;
 	else if (c == 'S')
@@ -177,8 +177,8 @@ void	get_2d_map(t_map *map_info, char **map, int size)
 	{
 		if (ft_check_line(map[i]) == 0)
 		{
-			if (j > 0)
-				ft_error("Map should be at the end");
+			// if (j > 0)
+			// 	ft_error("Map should be at the end");
 			i++;
 		}
 		else

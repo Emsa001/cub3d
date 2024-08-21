@@ -37,7 +37,6 @@ void add_block(float angle)
     }
     new_blocks[i].x = x;
     new_blocks[i].y = y;
-    new_blocks[i].z = 0;
     new_blocks[i].id = i;
     new_blocks[i].type = '2';
     new_blocks[i + 1].x = -1;
