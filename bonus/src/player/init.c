@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/08/14 18:19:00 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/21 13:06:53 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ t_player	*player_init(t_player *p)
 	player->catch = false;
 	player->catched = false;
 	player->speed = WALKSPEED;
+	player->pause = false;
 	player->fov = FOV;
 	
 	return (player);

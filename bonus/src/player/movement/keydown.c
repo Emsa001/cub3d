@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/08/14 18:17:58 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/21 13:13:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ void player_keydown(int keycode){
     if(keycode == PLUS)
         if(p->fov < 120)
             p->fov += 5;
+    
+    if(keycode == P)
+        p->pause = !p->pause;
     
     if(keycode == E)
         p->interact = true;

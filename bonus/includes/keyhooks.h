@@ -20,6 +20,7 @@
 # define S 115
 # define D 100
 # define E 101
+# define P 112
 # define UP 65362
 # define LEFT 65361
 # define DOWN 65364

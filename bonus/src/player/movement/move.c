@@ -6,11 +6,23 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:46:56 by escura            #+#    #+#             */
-/*   Updated: 2024/08/16 22:50:32 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/22 11:44:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void pouse_game(void)
+{
+    t_render *r = render();
+    t_cube *c = cube();
+    
+    r->img_ptr = mlx_new_image(r->mlx, WIDTH, HEIGHT);
+    
+    mlx_put_image_to_window(r->mlx, r->win, r->img_ptr , 0, 0);
+    mlx_destroy_image(r->mlx, r->img_ptr);
+    
+}
 
 void	try_move(float x, float y)
 {
@@ -132,4 +144,7 @@ void move_player(void) {
     p->direction = p->angle * (180 / PI);
     if (p->direction > 180)
         p->direction -= 360;
+
+    if(p->pause)
+        pouse_game();
 }

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/08/14 19:00:20 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/21 13:06:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_player
 	bool	btn_down;
 	bool	btn_left;
 	bool	btn_right;
+	bool	pause;
 	bool	interact;
 	bool	opened;
 
