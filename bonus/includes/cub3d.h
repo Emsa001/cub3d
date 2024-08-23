@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/08/21 13:21:06 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/23 13:45:47 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,8 @@ int distance(float x1, float y1, float x2, float y2);
 void 		draw_line(float angle, int start_x, ThreadParams *params);
 void		draw_cross_in_centre(void);
 void draw_cross_in_centre(void);
-void draw_cube(int x, int y, int size, int col);
+void draw_wall(int height, int start_x, ThreadParams *params, int dist);
+void draw_floor(int height, int start_x, ThreadParams *params, float angle);
 
 // updating
 void update_fps(void);
