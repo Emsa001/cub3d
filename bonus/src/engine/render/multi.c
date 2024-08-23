@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   multithreating.c                                   :+:      :+:    :+:   */
+/*   multi.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 21:06:58 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/23 23:04:52 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ int render_scene_multithread(t_cube *c)
 {
     t_render *r = render();
     r->img_ptr = mlx_new_image(r->mlx, WIDTH, HEIGHT);
-    
+    r->data = mlx_get_data_addr(r->img_ptr, &r->bpp, &r->size_line, &r->endian);
+
     // Create threads
     render_view();
-    // render_minimap();
+    render_hud();
     // render_background_thread(c);
     // render_player_thread(c);
     clean_main_image(r);
-
-
-    
     move_player();
+    
+    update_fps();
     return 0;
 }
