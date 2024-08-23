@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/08/23 15:26:04 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/23 19:05:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,11 @@ t_block get_line(char *line)
 	block_line.x = ft_float_atoi(line_split[2]);
 	block_line.y = ft_float_atoi(line_split[3]);
 	
+	while(line_split[i] != NULL)
+	{
+		ft_free(line_split[i]);
+		i++;
+	}
 	ft_free(line_split);
 	return (block_line);
 }
