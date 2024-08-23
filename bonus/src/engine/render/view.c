@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:32:21 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 14:14:18 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/23 14:45:37 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void render_view()
         threadParams[i].color = colors[i % 12];
 
         threadParams[i].mutex = &mutex;
+        
         pthread_create(&threads[i], NULL, draw_lines_thread, &threadParams[i]);
     }
 

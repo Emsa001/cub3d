@@ -6,12 +6,11 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 13:46:51 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/23 16:59:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 static int vert_offset(t_player *p)
 {
@@ -109,16 +108,25 @@ void draw_wall(int height, int start_x, ThreadParams *params, int dist)
     const t_textures *texs = params->textures;
     bool catched = p->catch && r->side == 6;
 
-    int start_y = (p->z - 1) * height + vert_offset(p);
-    int end_y = start_y + height;
 
     t_texture *wall_side = get_wall_side(r->side, texs);
     if (!wall_side)
         return;
+    int start_y = (p->z - 1) * height + vert_offset(p);
+    int end_y = start_y + height;
+
     
-    if(end_y > HEIGHT)
+    // if (height > HEIGHT)
+    // {
+    //     tex_y = (-p->z + 1) * (height) * step;
+    //     height = HEIGHT;
+    // }
+
+    // if (start_y < 0)
+    //     start_y = 0;
+    if (end_y > HEIGHT)
         end_y = HEIGHT;
-    
+        
     while(start_y < end_y && dist < 450)
     {
         if (catched)
@@ -133,3 +141,4 @@ void draw_wall(int height, int start_x, ThreadParams *params, int dist)
         start_y++;
     }   
 }
+

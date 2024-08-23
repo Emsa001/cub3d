@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:52:56 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 17:30:18 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/23 15:47:48 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ static void	draw_block(int i, int j, int screen_x, int screen_y)
 	const float		dy = pixel_y - minimap_center_y();
 
 	if (dx * dx + dy * dy <= pow(minimap()->radius, 2))
-		put_pixel((int)pixel_x, (int)pixel_y, get_pixel_from_image(&texture, i,
-				j));
+		put_pixel(pixel_x, pixel_y, get_pixel_from_image(&texture, i, j));
 }
 
 void	minimap_block(int x, int y, int screen_x, int screen_y)

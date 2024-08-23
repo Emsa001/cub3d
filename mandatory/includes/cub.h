@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 18:04:05 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/23 15:46:01 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ typedef struct s_render
 	void *img_ptr;
 	char *data;
 
-	int bits_per_pixel;
+	int bpp;
 	int size_line;
 	int endian;
 	int side;
@@ -103,8 +103,10 @@ t_cube *cube(void);
 void start_game(void);
 void init_hooks(void);
 int render_scene(t_cube *p);
+void render_view();
 bool is_touching(float px, float py);
 float distance(float x1, float y1, float x2, float y2);
+int get_pixel_from_image(int x, int y, int side);
 
 /* DRAW */
 void draw_line(float angle, int i);

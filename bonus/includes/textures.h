@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 21:49:56 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/23 14:41:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,5 @@ void			resize_texture(const t_texture *src, t_texture *dst,
 
 t_textures *init_textures(t_textures *t);
 t_textures *textures(void);
-
 
 #endif

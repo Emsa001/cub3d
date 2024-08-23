@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:52:35 by btvildia          #+#    #+#             */
-/*   Updated: 2024/07/19 16:33:37 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/08/23 15:53:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void	fill(char **tab, t_point size, t_point begin, char to_fill[])
 	{
 		if (c == to_fill[i])
 		{
-			if (begin.y >= size.y - 1 || begin.y == 0 || begin.x == 0
-				|| begin.x >= size.x - 1)
-				ft_error("Map is not closed");
+			// if (begin.y >= size.y - 1 || begin.y == 0 || begin.x == 0
+			// 	|| begin.x >= size.x - 1)
+			// 	ft_error("Map is not closed");
 			neighbor_check(tab, size, begin, to_fill);
 			tab[begin.y][begin.x] = 'X';
 			fill(tab, size, (t_point){begin.x - 1, begin.y}, to_fill);

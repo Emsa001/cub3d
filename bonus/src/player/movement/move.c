@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:46:56 by escura            #+#    #+#             */
-/*   Updated: 2024/08/22 11:44:52 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/23 14:58:40 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void pouse_game(void)
 
 void	try_move(float x, float y)
 {
-	const t_cube	*c = cube();
 	t_player		*p;
 	int				temp_x;
 	int				temp_y;

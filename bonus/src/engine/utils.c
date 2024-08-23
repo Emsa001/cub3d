@@ -6,18 +6,11 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/08/17 20:37:40 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/23 15:10:08 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-bool touch_edge(float x, float y)
-{
-	if (x >= 0 && y >= 0 && x < cube()->map->width * BLOCK_SIZE && y < cube()->map->height * BLOCK_SIZE)
-		return false;
-	return true;
-}
 
 bool touch_block(t_block *blocks, float px, float py)
 {
@@ -88,10 +81,10 @@ int touch_line(t_block *lines, float px, float py)
 
 bool is_touching(float px, float py)
 {
+	const t_cube *c = cube();
 	int x = px / BLOCK_SIZE;
 	int y = py / BLOCK_SIZE;
 
-	t_cube *c = cube();
 	if (x < 0 || y < 0 || x >= c->map->width || y >= c->map->height)
 		return (true);
 	if (c->map->map[y][x] == WALL)
@@ -112,17 +105,3 @@ void draw_middle_line(void)
 	}
 }
 
-void draw_cross_in_centre(void)
-{
-	const t_cube *c = cube();
-	int x_center = WIDTH / 2;
-	int y_center = HEIGHT / 2;
-	int i = -7;
-
-	while (i <= 7)
-	{
-		put_pixel(x_center + i, y_center, 0x0000FF00);
-		put_pixel(x_center, y_center + i, 0x0000FF00);
-		i++;
-	}
-}

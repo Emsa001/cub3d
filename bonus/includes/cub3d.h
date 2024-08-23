@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 13:45:47 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/23 15:10:17 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,20 @@
 
 typedef struct s_cube
 {
-	char *some_value;
-	int keycode;
+	char			*some_value;
+	int				keycode;
 
-	float tex_x;
-	t_map *map;
-} t_cube;
+	float			tex_x;
+
+	t_map			*map;
+}					t_cube;
 
 typedef struct s_render
 {
-	void *mlx;
-	void *win;
-	void *img_ptr;
-	char *data;
+	void			*mlx;
+	void			*win;
+	void			*img_ptr;
+	char			*data;
 
 	int bpp;
 	int size_line;
@@ -81,14 +82,31 @@ typedef struct s_render
 	int side;
 	float ray_angle;
 
-} t_render;
+}					t_render;
+
+typedef struct
+{
+	int				start;
+	int				end;
+	float			angleOffset;
+	float			fovInRadians;
+
+	int				color;
+
+	t_cube			*cube;
+	t_render		*render;
+	t_player		*player;
+	t_textures		*textures;
+
+	pthread_mutex_t	*mutex;
+}					ThreadParams;
 
 typedef struct s_ray
 {
-	float x;
-	float y;
-	int dist;
-} t_ray;
+	float			x;
+	float			y;
+	int				dist;
+}					t_ray;
 
 typedef struct s_state
 {
@@ -96,23 +114,6 @@ typedef struct s_state
     bool block;
     bool door;
 } t_state;
-
-
-typedef struct {
-    int start;
-    int end;
-    float angleOffset;
-    float fovInRadians;
-
-	int color;
-
-    t_cube *cube;
-    t_render *render;
-    t_player *player;
-	t_textures *textures;
-	
-    pthread_mutex_t *mutex;
-} ThreadParams;
 
 /* ENGINE */
 t_render	*init_render(t_render *r);
@@ -130,14 +131,11 @@ int			render_scene_singlethread(t_cube *c);
 
 int render_scene(t_cube *p);
 bool is_touching(float px, float py);
-bool touch_edge(float x, float y);
 bool touch_block(t_block *blocks, float px, float py);
 int distance(float x1, float y1, float x2, float y2);
 
 /* DRAW */
 void 		draw_line(float angle, int start_x, ThreadParams *params);
-void		draw_cross_in_centre(void);
-void draw_cross_in_centre(void);
 void draw_wall(int height, int start_x, ThreadParams *params, int dist);
 void draw_floor(int height, int start_x, ThreadParams *params, float angle);
 

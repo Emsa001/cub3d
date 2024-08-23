@@ -6,14 +6,14 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 20:34:44 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 21:58:10 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/23 14:48:21 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
 #ifndef HOOKS_H
 # define HOOKS_H
 
+# include "cub3d.h"
 
 /* KeyBoard */
 

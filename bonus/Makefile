@@ -6,14 +6,14 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/08/07 17:39:36 by marvin           ###   ########.fr        #
+#    Updated: 2024/08/23 15:39:54 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ../cub3d_bonus
 
 SRC_DIR = src
-SRC = $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/*/*.c) $(wildcard $(SRC_DIR)/*/*/*.c)
+SRC = $(filter-out $(wildcard $(SRC_DIR)/_*), $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/*/*.c) $(wildcard $(SRC_DIR)/*/*/*.c))
 
 INCLUDES_DIR = includes
 
@@ -27,14 +27,9 @@ CFLAGS += -I$(LIBFT_DIR) -I$(INCLUDES_DIR)
 LDFLAGS += -L./$(INCLUDES_DIR)/mlx -lmlx -lXext -lX11 -lm -lz 
 
 DEBUG 		= 0
-FSANITIZE 	= 0
 
 ifeq ($(DEBUG), 1)
     CFLAGS += -DDEBUG=1
-endif
-
-ifeq ($(FSANITIZE), 1)
-    CFLAGS += -fsanitize=address -fno-omit-frame-pointer
 endif
 
 LIBFT_DIR = ./$(INCLUDES_DIR)/libft/
@@ -46,6 +41,9 @@ OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 all: $(NAME)
 
+run: $(NAME)
+	./$(NAME) map.cub
+
 $(NAME): $(LIBFT) $(OBJ)
 	$(CC) $(CFLAGS)$(OBJ) -o $(NAME) $(LDLIBS) $(LDFLAGS)
 
@@ -54,7 +52,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(LIBFT)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBFT):
-	$(MAKE) -C $(LIBFT_DIR) DEBUG=$(DEBUG) FSANITIZE=$(FSANITIZE)
+	$(MAKE) -C $(LIBFT_DIR) DEBUG=$(DEBUG)
 	
 clean:
 	rm -rf $(OBJ_DIR)

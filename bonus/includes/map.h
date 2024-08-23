@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/08/17 19:58:24 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/23 15:08:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,27 +43,28 @@ typedef struct s_block
 	float s_x;
 	float s_y;
 
-	int id;
-	char type;
-} t_block;
+	int			id;
+	char		type;
+}				t_block;
 
 typedef struct s_minimap
 {
-	float size;
-	int radius;
+	float		size;
+	int			radius;
 
-	int x;
-	int y;
-}			t_minimap;
+	int			x;
+	int			y;
+}				t_minimap;
 
-typedef struct minimap_utils{
-    float center_x;
-    float center_y;
-    float start_x;
-    float start_y;
-    float end_x;
-    float end_y;
-}             t_minimap_utils;
+typedef struct minimap_utils
+{
+	float		center_x;
+	float		center_y;
+	float		start_x;
+	float		start_y;
+	float		end_x;
+	float		end_y;
+}				t_minimap_utils;
 
 
 typedef struct s_map

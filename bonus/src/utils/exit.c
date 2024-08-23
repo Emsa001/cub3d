@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:52:35 by escura            #+#    #+#             */
-/*   Updated: 2024/08/11 18:14:51 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/23 15:00:07 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_error(char *str)
 void	exit_game(int code)
 {
 	t_textures	*t = textures();
+	t_render *r = render();
 
 	// mlx_destroy_image(cube()->mlx, t->wall_north->image);
 	// mlx_destroy_image(cube()->mlx, t->wall_south->image);
