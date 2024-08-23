@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 16:59:10 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/23 18:58:09 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,15 +115,6 @@ void draw_wall(int height, int start_x, ThreadParams *params, int dist)
     int start_y = (p->z - 1) * height + vert_offset(p);
     int end_y = start_y + height;
 
-    
-    // if (height > HEIGHT)
-    // {
-    //     tex_y = (-p->z + 1) * (height) * step;
-    //     height = HEIGHT;
-    // }
-
-    // if (start_y < 0)
-    //     start_y = 0;
     if (end_y > HEIGHT)
         end_y = HEIGHT;
         

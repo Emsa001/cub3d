@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:21:26 by btvildia          #+#    #+#             */
-/*   Updated: 2024/08/23 15:30:08 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/23 18:57:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,9 @@ void	get_map_sizes(t_map *map_info, char **map)
 			map_info->width = width;
 		i++;
 	}
-	map_info->width -= 1;
-	map_info->height = i - 1; // subtract 1 to avoid accessing beyond the array size
+	// subtract 1 to avoid accessing beyond the array size
+	// map_info->width -= 1;
+	map_info->height = i;
 }
 
 void	change_positions(char c, int i, int j)
