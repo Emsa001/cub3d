@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 15:22:39 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 16:28:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,8 @@ void				draw_wall(int height, int start_x, ThreadParams *params,
 						int dist, int side, int tex_x);
 void				draw_floor(int height, int start_x, ThreadParams *params,
 						float angle);
+void 				write_string(char *str, int x, int y, int color);
+
 
 // updating
 int					get_scene_pixel(int x, int y);

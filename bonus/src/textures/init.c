@@ -6,12 +6,19 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 22:05:17 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 14:34:37 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 16:28:40 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "textures.h"
+
+static void init_font(t_textures *t){
+	t_texture *font = ft_malloc(sizeof(t_texture));
+	font->image = get_texture_file("assets/font.xpm", &font->width, &font->height);
+	font->data = mlx_get_data_addr(font->image, &font->bpp, &font->size_line, &font->endian);
+	t->font = font;
+}
 
 static void init_hudtextures(t_textures *t){
 	t_texture *healthhud = ft_malloc(sizeof(t_texture));
@@ -54,6 +61,11 @@ static void init_hudtextures(t_textures *t){
 	inventoryGui->image = get_texture_file("assets/hud/inventory_gui.xpm", &inventoryGui->width, &inventoryGui->height);
 	inventoryGui->data = mlx_get_data_addr(inventoryGui->image, &inventoryGui->bpp, &inventoryGui->size_line, &inventoryGui->endian);
 	t->inventoryGui = inventoryGui;
+
+	t_texture *titlebox = ft_malloc(sizeof(t_texture));
+	titlebox->image = get_texture_file("assets/hud/titlebox.xpm", &titlebox->width, &titlebox->height);
+	titlebox->data = mlx_get_data_addr(titlebox->image, &titlebox->bpp, &titlebox->size_line, &titlebox->endian);
+	t->titlebox = titlebox;
 }
 
 t_textures *init_textures(t_textures *t)
@@ -108,6 +120,7 @@ t_textures *init_textures(t_textures *t)
 
 
 	init_hudtextures(t);
+	init_font(t);
 	
 	texture = t;
 	return (texture);

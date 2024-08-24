@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 21:09:25 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 14:39:54 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 15:24:57 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void hud_healthbar()
 {
-    t_textures *t = textures();
-    t_player *p = player();
-    t_render *r = render();
+    const t_textures *t = textures();
+    const t_player *p = player();
+    const t_render *r = render();
     int i = 0;
     int j = 0;
     int color = 0;
 
-    put_image(t->healthhud, 0, 0);
+    put_image(t->healthhud, 10, 10);
 
     i = 0;
     while (i < p->health * 2)
@@ -31,7 +31,7 @@ void hud_healthbar()
         {
             color = get_pixel_from_image(t->healthbar, i, j);
             if (color > 0){
-                put_pixel(i, j, color, r);
+                put_pixel(i + 10, j + 10, color, r);
             }
             j++;
         }
@@ -52,6 +52,6 @@ void hud_healthbar()
         }
 
         if(icon != NULL)
-            put_image(icon, 0, 0);
+            put_image(icon, 10, 10);
     }
 }

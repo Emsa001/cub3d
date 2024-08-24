@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 14:59:29 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 16:46:45 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define SPRINTBONUS 4
 # define MOUSE_SENSITIVITY 0.003
 
-# define JUMP_SPEED 0.05
+# define JUMP_SPEED 0.08
 # define JUMP_HEIGHT 0.9
 
 # define FOV 60
