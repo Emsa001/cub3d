@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 14:41:10 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/24 18:42:36 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void init_game(char *map)
 	init_render(ft_malloc(sizeof(t_render)));
 	player_init(ft_malloc(sizeof(t_player)));
 	init_textures(ft_malloc(sizeof(t_textures)));
+	init_items();
 	
 	minimap_init();
 }

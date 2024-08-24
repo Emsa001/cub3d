@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 14:59:32 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 19:28:49 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ t_player	*player_init(t_player *p)
 	player->catch = false;
 	player->catched = false;
 	player->speed = WALKSPEED;
+	player->sprint = false;
 	player->pause = false;
 	player->fov = FOV;
 
@@ -57,6 +58,14 @@ t_player	*player_init(t_player *p)
 
 	player->mouse_hook = true;
 	player->open_inventory = false;
+
+	for(int i = 0; i < 9; i++)
+		player->inventory[i] = 28;
+	
+	for(int i = 0; i < 8; i++)
+		player->equipped[i] = -1;
+
+	player->inventory[0] = 36;
 	
 	return (player);
 }

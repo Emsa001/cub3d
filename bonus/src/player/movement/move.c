@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:46:56 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 15:21:51 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 19:04:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,27 +50,31 @@ void handle_movement(t_player *p) {
     float left_angle, right_angle;
     bool is_moving = false;
 
+    int speed = p->speed;
+    if(p->sprint)
+        speed += SPRINTBONUS;
+
     if (p->btn_w || p->btn_s) { // Forward or backward movement
         if (p->btn_s) { // Move backward
             cos_angle = -cos_angle;
             sin_angle = -sin_angle;
         }
-        try_move(0, p->speed * sin_angle);
-        try_move(p->speed * cos_angle, 0);
+        try_move(0, speed * sin_angle);
+        try_move(speed * cos_angle, 0);
         is_moving = true;
     }
 
     if (p->btn_a) { // Strafe left
         left_angle = p->angle - PI / 2;
-        try_move(0, p->speed * sin(left_angle));
-        try_move(p->speed * cos(left_angle), 0);
+        try_move(0, speed * sin(left_angle));
+        try_move(speed * cos(left_angle), 0);
         is_moving = true;
     }
 
     if (p->btn_d) { // Strafe right
         right_angle = p->angle + PI / 2;
-        try_move(0, p->speed * sin(right_angle));
-        try_move(p->speed * cos(right_angle), 0);
+        try_move(0, speed * sin(right_angle));
+        try_move(speed * cos(right_angle), 0);
         is_moving = true;
     }
 

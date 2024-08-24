@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 22:05:17 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 16:28:40 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 18:16:15 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,6 @@ static void init_hudtextures(t_textures *t){
 	inventoryGui->image = get_texture_file("assets/hud/inventory_gui.xpm", &inventoryGui->width, &inventoryGui->height);
 	inventoryGui->data = mlx_get_data_addr(inventoryGui->image, &inventoryGui->bpp, &inventoryGui->size_line, &inventoryGui->endian);
 	t->inventoryGui = inventoryGui;
-
-	t_texture *titlebox = ft_malloc(sizeof(t_texture));
-	titlebox->image = get_texture_file("assets/hud/titlebox.xpm", &titlebox->width, &titlebox->height);
-	titlebox->data = mlx_get_data_addr(titlebox->image, &titlebox->bpp, &titlebox->size_line, &titlebox->endian);
-	t->titlebox = titlebox;
 }
 
 t_textures *init_textures(t_textures *t)
@@ -120,6 +115,7 @@ t_textures *init_textures(t_textures *t)
 
 
 	init_hudtextures(t);
+	init_items_textures(t);
 	init_font(t);
 	
 	texture = t;

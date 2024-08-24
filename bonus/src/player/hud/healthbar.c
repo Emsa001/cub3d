@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 21:09:25 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 15:24:57 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 17:43:50 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void hud_healthbar()
     int j = 0;
     int color = 0;
 
-    put_image(t->healthhud, 10, 10);
+    put_image(t->healthhud, 10, 10,1);
 
     i = 0;
     while (i < p->health * 2)
@@ -52,6 +52,6 @@ void hud_healthbar()
         }
 
         if(icon != NULL)
-            put_image(icon, 10, 10);
+            put_image(icon, 10, 10,1);
     }
 }

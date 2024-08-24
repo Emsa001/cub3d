@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 16:46:45 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 19:05:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PLAYER_H
 
 # define WALKSPEED 2
-# define SPRINTBONUS 4
+# define SPRINTBONUS 5
 # define MOUSE_SENSITIVITY 0.003
 
 # define JUMP_SPEED 0.08
@@ -60,6 +60,7 @@ typedef struct s_player
 	float	jump_height;
 
 	int		fov;
+
 	int		speed;
 	bool	sprint;
 
@@ -70,6 +71,9 @@ typedef struct s_player
 
 	bool	mouse_hook;
 	bool	open_inventory;
+
+	int 	inventory[9];
+	int 	equipped[8];
 }			t_player;
 
 t_player	*player_init(t_player *p);

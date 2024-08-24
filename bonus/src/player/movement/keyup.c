@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:33 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 14:47:06 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 19:03:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void player_keyup(int keycode){
     if (keycode == D)
         p->btn_d = false;
     if(keycode == SHIFT)
-        p->speed = WALKSPEED;
+        p->sprint = false;
     
     if(keycode == LEFT){
         p->btn_left = false;
