@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 15:17:35 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 15:22:39 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@
 
 # define T_SIZE 64
 # define BLOCK_SIZE 64
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 2560
+# define HEIGHT 1440
 # define CENTER_WIDTH WIDTH / 2
 # define CENTER_HEIGHT HEIGHT / 2
 
@@ -58,7 +58,7 @@
 # define BLOCK '2'
 
 # define M_PI 3.14159265358979323846
-# define NUM_THREADS 20
+# define NUM_THREADS 12
 
 typedef struct s_cube
 {

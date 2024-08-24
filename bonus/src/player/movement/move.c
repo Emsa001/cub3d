@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:46:56 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 15:01:43 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 15:21:51 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void handle_movement(t_player *p) {
         is_moving = true;
     }
 
-    // handle_step_animation(p, is_moving);
+    handle_step_animation(p, is_moving);
 }
 
 void handle_vertical_movement(t_player *p) {
