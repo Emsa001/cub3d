@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 21:21:06 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 13:51:06 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_player	*player_init(t_player *p)
 	player->btn_up = false;
 	player->btn_down = false;
 
-	player->jump_speed = 0;
+	player->jump_height = JUMP_HEIGHT;
 
 	player->interact = false;
 	player->opened = false;

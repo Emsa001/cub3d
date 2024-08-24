@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 21:47:43 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 13:32:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void player_keydown(int keycode){
     t_player *p = player();
+    const t_cube *c = cube();
     
     if (keycode == W)
         p->btn_w = true;
@@ -37,9 +38,10 @@ void player_keydown(int keycode){
         p->btn_down = true;
     
     if(keycode == SHIFT)
-        p->speed = SPRINTSPEED;
+        p->speed = SPRINTBONUS * c->delta_time;
+        
     if(keycode == SPACE && p->z <= 0.6)
-        p->jump_speed = JUMP_SPEED;
+        p->jump_height = JUMP_HEIGHT;
 
     // if(keycode == MINUS){
     //     if(p->fov > 30)

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 23:04:52 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 13:52:22 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ int render_scene_multithread(t_cube *c)
     // render_player_thread(c);
     clean_main_image(r);
     move_player();
+
+    
+    printf("jump_height: %f, speed: %d\n", player()->jump_height, player()->speed);
+    printf("delta_time: %f\n", cube()->delta_time);
+
     
     update_fps();
     return 0;

@@ -6,7 +6,7 @@
 #    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/08/23 21:03:58 by escura           ###   ########.fr        #
+#    Updated: 2024/08/24 13:53:55 by escura           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRC_DIR = src
 SRC = $(filter-out $(wildcard $(SRC_DIR)/_*), $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/*/*.c) $(wildcard $(SRC_DIR)/*/*/*.c))
 
 INCLUDES_DIR = includes
+INCLUDES = $(wildcard $(INCLUDES_DIR)/*.h) $(wildcard $(INCLUDES_DIR)/*/*.h)
 
 # Compiler and Flags
 CC = cc
@@ -45,9 +46,9 @@ run: $(NAME)
 	./$(NAME) map.cub
 
 $(NAME): $(LIBFT) $(OBJ)
-	$(CC) $(CFLAGS)$(OBJ) -o $(NAME) $(LDLIBS) $(LDFLAGS)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LDLIBS) $(LDFLAGS)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(LIBFT)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(LIBFT)
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
@@ -75,3 +76,4 @@ mlx:
 	fi
 	
 .PHONY: all clean fclean re run v
+

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 22:58:18 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 14:00:16 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@
 # define BLOCK '2'
 
 # define M_PI 3.14159265358979323846
-# define NUM_THREADS 12
+# define NUM_THREADS 20
 
 typedef struct s_cube
 {

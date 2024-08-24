@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:33 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 21:48:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 13:22:50 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void player_keyup(int keycode){
     t_player *p = player();
+    const t_cube *c = cube();
 
     if (keycode == W )
         p->btn_w = false;
@@ -24,7 +25,7 @@ void player_keyup(int keycode){
     if (keycode == D)
         p->btn_d = false;
     if(keycode == SHIFT)
-        p->speed = WALKSPEED;
+        p->speed = WALKSPEED * cube()->delta_time;
     
     if(keycode == LEFT){
         p->btn_left = false;

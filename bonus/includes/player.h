@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 22:49:02 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 13:59:33 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 # define PLAYER_H
 
 # define WALKSPEED 2
-# define SPRINTSPEED 5
-# define MOUSE_SENSITIVITY 0.002
-# define JUMP_SPEED 0.11
+# define SPRINTBONUS 4
+# define MOUSE_SENSITIVITY 0.1
+
+# define JUMP_SPEED 0.05
+# define JUMP_HEIGHT 0.9
+
 # define FOV 60
 
 typedef struct s_player
@@ -54,10 +57,11 @@ typedef struct s_player
 	bool	catch;
 	bool	catched;
 
-	float	jump_speed;
+	float 	jump_height;
 
 	int		fov;
 	int		speed;
+	bool 	sprint;
 
 	float	plane_x;
 	float	plane_y;
@@ -71,7 +75,9 @@ void		move_player(void);
 void		jump_player(void);
 bool		touch(void);
 void		render_player(void);
-void		player_rotate(int x, int y);
+void		handle_mouse_rotate(int x, int y);
+void 		handle_arrow_rotation(t_player *p);
+
 
 int			view_lane_distance(float x1, float y1, float angle);
 

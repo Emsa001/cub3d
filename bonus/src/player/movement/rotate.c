@@ -6,13 +6,13 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 20:39:43 by escura            #+#    #+#             */
-/*   Updated: 2024/08/03 17:03:45 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 13:59:04 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	player_rotate(int x, int y)
+void	handle_mouse_rotate(int x, int y)
 {
 	// p->z_dir can be from 0 to 1
 	// cennter of the screen is 0.5
@@ -22,7 +22,7 @@ void	player_rotate(int x, int y)
 	int dy = y - HEIGHT / 2;
 
 	p->angle += dx * MOUSE_SENSITIVITY;
-	p->z_dir -= dy * MOUSE_SENSITIVITY;
+	// p->z_dir -= dy * MOUSE_SENSITIVITY;
 	if (p->z_dir > 1)
 		p->z_dir = 1;
 	if (p->z_dir < 0)
@@ -31,4 +31,22 @@ void	player_rotate(int x, int y)
 		p->angle -= 2 * PI;
 	if (p->angle < 0)
 		p->angle += 2 * PI;
+}
+
+
+void handle_arrow_rotation(t_player *p)
+{
+	const double delta_time = cube()->delta_time;
+
+    if (p->btn_left) { // Rotate left
+        p->angle -= MOUSE_SENSITIVITY * delta_time;
+        if (p->angle < 0)
+            p->angle += 2 * PI;
+    }
+
+    if (p->btn_right) { // Rotate right
+        p->angle += MOUSE_SENSITIVITY * delta_time;
+        if (p->angle > 2 * PI)
+            p->angle -= 2 * PI;
+    }
 }
