@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:46:56 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 13:58:01 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 14:02:00 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,15 @@ void move_player(void);
 
 // Function implementations
 void try_move(float x, float y) {
+    const double delta_time = cube()->delta_time;
     t_player *p = player();
+    
     int temp_x = p->x_px;
     int temp_y = p->y_px;
 
     // Update player position
-    p->x_px += x;
-    p->y_px += y;
+    p->x_px += x * delta_time;
+    p->y_px += y * delta_time;
 
     // Check for collision, revert position if necessary
     if (touch()) {
@@ -42,6 +44,7 @@ void try_move(float x, float y) {
 }
 
 void handle_movement(t_player *p) {
+
     float cos_angle = cos(p->angle);
     float sin_angle = sin(p->angle);
     float left_angle, right_angle;

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 13:32:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 14:01:36 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void player_keydown(int keycode){
         p->btn_down = true;
     
     if(keycode == SHIFT)
-        p->speed = SPRINTBONUS * c->delta_time;
+        p->speed = SPRINTBONUS;
         
     if(keycode == SPACE && p->z <= 0.6)
         p->jump_height = JUMP_HEIGHT;
