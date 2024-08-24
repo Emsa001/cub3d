@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 22:05:17 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 21:36:04 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 14:34:37 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,17 @@ static void init_hudtextures(t_textures *t){
 	healthIcon4->image = get_texture_file("assets/hud/Heart_Red_4.xpm", &healthIcon4->width, &healthIcon4->height);
 	healthIcon4->data = mlx_get_data_addr(healthIcon4->image, &healthIcon4->bpp, &healthIcon4->size_line, &healthIcon4->endian);
 	t->healthIcon[3] = healthIcon4;
+
+
+	t_texture *inventoryPlayer = ft_malloc(sizeof(t_texture));
+	inventoryPlayer->image = get_texture_file("assets/hud/inventory.xpm", &inventoryPlayer->width, &inventoryPlayer->height);
+	inventoryPlayer->data = mlx_get_data_addr(inventoryPlayer->image, &inventoryPlayer->bpp, &inventoryPlayer->size_line, &inventoryPlayer->endian);
+	t->inventoryPlayer = inventoryPlayer;
+
+	t_texture *inventoryGui = ft_malloc(sizeof(t_texture));
+	inventoryGui->image = get_texture_file("assets/hud/inventory_gui.xpm", &inventoryGui->width, &inventoryGui->height);
+	inventoryGui->data = mlx_get_data_addr(inventoryGui->image, &inventoryGui->bpp, &inventoryGui->size_line, &inventoryGui->endian);
+	t->inventoryGui = inventoryGui;
 }
 
 t_textures *init_textures(t_textures *t)

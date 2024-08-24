@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 21:34:22 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 14:34:01 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ typedef struct s_textures
 	t_texture 	*healthhud;
 	t_texture	*healthbar;
 	t_texture	*healthIcon[4];
+
+	t_texture *inventoryPlayer;
+	t_texture *inventoryGui;
 }				t_textures;
 
 void			*get_texture_file(char *file, int *width, int *height);

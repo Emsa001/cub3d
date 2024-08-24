@@ -1,28 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse.c                                            :+:      :+:    :+:   */
+/*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/02 20:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 15:14:47 by escura           ###   ########.fr       */
+/*   Created: 2024/08/24 14:35:54 by escura            #+#    #+#             */
+/*   Updated: 2024/08/24 14:52:20 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int mouse_click(int button)
+void put_image(t_texture *img, int x, int y)
 {
-    player_mouseclick(button);
-    return (0);
-}
+    t_render *r = render();
+    int i = 0;
+    int j = 0;
+    int color = 0;
 
-int mouse_move(int x, int y)
-{
-    const t_render *r = render();
-    handle_mouse_rotate(x,y);
-
-	mlx_mouse_move(r->mlx, r->win, WIDTH / 2, HEIGHT / 2);
-	return (0);
+    while (i < img->width)
+    {
+        j = 0;
+        while (j < img->height)
+        {
+            color = get_pixel_from_image(img, i, j);
+            if(color >= 0)
+                put_pixel(x + i, y + j, color, r);
+            j++;
+        }
+        i++;
+    }
 }

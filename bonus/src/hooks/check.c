@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse.c                                            :+:      :+:    :+:   */
+/*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/02 20:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 15:14:47 by escura           ###   ########.fr       */
+/*   Created: 2024/08/24 15:15:41 by escura            #+#    #+#             */
+/*   Updated: 2024/08/24 15:17:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int mouse_click(int button)
+void check_hooks()
 {
-    player_mouseclick(button);
-    return (0);
-}
-
-int mouse_move(int x, int y)
-{
+    const t_cube *c = cube();
     const t_render *r = render();
-    handle_mouse_rotate(x,y);
+    const t_player *p = player();
 
-	mlx_mouse_move(r->mlx, r->win, WIDTH / 2, HEIGHT / 2);
-	return (0);
+    if(p->mouse_hook)
+        mlx_hook(r->win, MotionNotify, PointerMotionMask, mouse_move, (void *)c);
+    else
+        mlx_hook(r->win, MotionNotify, PointerMotionMask, NULL, NULL);
 }

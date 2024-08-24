@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:10:09 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 13:24:53 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 14:02:48 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_cube	*cube_init(t_cube *c)
 		return (cube);
 
 	c->keycode = D;
-	c->delta_time = 1;
+	c->delta_time = 1.0;
 	cube = c;
 	return (cube);
 }

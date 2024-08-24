@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 20:39:43 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 13:59:04 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 14:28:23 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	handle_mouse_rotate(int x, int y)
 	// cennter of the screen is 0.5
 
 	t_player *p = player();
+	
 	int dx = x - WIDTH / 2;
 	int dy = y - HEIGHT / 2;
 
@@ -39,13 +40,13 @@ void handle_arrow_rotation(t_player *p)
 	const double delta_time = cube()->delta_time;
 
     if (p->btn_left) { // Rotate left
-        p->angle -= MOUSE_SENSITIVITY * delta_time;
+        p->angle -= 20*MOUSE_SENSITIVITY * delta_time;
         if (p->angle < 0)
             p->angle += 2 * PI;
     }
 
     if (p->btn_right) { // Rotate right
-        p->angle += MOUSE_SENSITIVITY * delta_time;
+        p->angle += 20*MOUSE_SENSITIVITY * delta_time;
         if (p->angle > 2 * PI)
             p->angle -= 2 * PI;
     }

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 14:00:16 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 15:17:35 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct s_cube
 	int				keycode;
 
 	float			tex_x;
-	double 			delta_time;
+	double			delta_time;
 
 	t_map			*map;
 }					t_cube;
@@ -123,7 +123,7 @@ t_render			*render(void);
 void				update_fps(void);
 void				render_view(void);
 void				render_hud(void);
-void				render_healthbar(void);
+void				hud_healthbar(void);
 
 void				check_params(char **av);
 t_cube				*cube_init(t_cube *c);
@@ -160,6 +160,7 @@ void				draw_image(void *img, int x, int y);
 void				destroy_image(void *img);
 void				clean_window(void);
 void				put_pixel(int x, int y, int color, t_render *r);
+void				put_image(t_texture *img, int x, int y);
 
 /* EXIT */
 void				exit_game(int code);
@@ -174,5 +175,18 @@ void				add_block(float angle);
 void				remove_block(float angle);
 void				open_door(float angle, int id);
 void				close_door(float angle, int id);
+
+
+/* KeyBoard */
+
+int key_down(int keycode);
+int key_up(int keycode);
+
+
+/* Mouse */
+int mouse_click(int button);
+int mouse_move(int x, int y);
+
+void check_hooks();
 
 #endif

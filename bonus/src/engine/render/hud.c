@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 21:04:58 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 21:09:16 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 14:59:43 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,6 @@
 void render_hud()
 {
     render_minimap();
-    render_healthbar();
+    hud_healthbar();
+    hud_inventory();
 }

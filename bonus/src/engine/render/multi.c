@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 13:52:22 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 15:17:44 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void clean_main_image(t_render *r){
     mlx_put_image_to_window(r->mlx, r->win, r->img_ptr, 0, 0);
     mlx_destroy_image(r->mlx, r->img_ptr);
+    r->img_ptr = NULL;
 }
 
 int render_scene_multithread(t_cube *c)
@@ -28,14 +29,11 @@ int render_scene_multithread(t_cube *c)
     render_hud();
     // render_background_thread(c);
     // render_player_thread(c);
-    clean_main_image(r);
     move_player();
+    clean_main_image(r);
 
-    
-    printf("jump_height: %f, speed: %d\n", player()->jump_height, player()->speed);
-    printf("delta_time: %f\n", cube()->delta_time);
-
-    
     update_fps();
+    check_hooks();
+
     return 0;
 }

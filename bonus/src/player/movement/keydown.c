@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 14:01:36 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 14:59:33 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,15 @@ void player_keydown(int keycode){
     if(keycode == P)
         p->pause = !p->pause;
     
-    if(keycode == E)
+    if(keycode == E){
+        p->open_inventory = !p->open_inventory;
         p->interact = true;
+    }
     if(keycode == I)
         p->spawn = true;
     if(keycode == O)
         p->remove = true;
     if(keycode == F)
         p->catch = true;
+
 }

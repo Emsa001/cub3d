@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   keyboard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 20:33:44 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 14:48:39 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/24 15:14:45 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "hooks.h"
+#include "cub3d.h"
 
 // Existing key press function
 int key_down(int keycode)

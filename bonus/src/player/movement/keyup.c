@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:33 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 14:01:29 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 14:47:06 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void player_keyup(int keycode){
 
     if(keycode == E)
         p->interact = false;
+
     if(keycode == I)
         p->spawn = false;
     if(keycode == O)

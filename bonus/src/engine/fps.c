@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:24:07 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 13:26:03 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 14:05:04 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void update_fps(void)
     // Update FPS every second (or other interval)
     if (current_time - last_time >= 1.0) {
         fps = frame_count / (current_time - last_time);
-        cube()->delta_time = current_time - last_time;
+        if(current_time - last_time <= 5)
+            cube()->delta_time = current_time - last_time;
         last_time = current_time;
         frame_count = 0;
     }

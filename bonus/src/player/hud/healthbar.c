@@ -6,36 +6,22 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 21:09:25 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 22:22:31 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 14:39:54 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void render_healthbar()
+void hud_healthbar()
 {
     t_textures *t = textures();
     t_player *p = player();
     t_render *r = render();
-    int x = 0;
-    int y = 0;
     int i = 0;
     int j = 0;
     int color = 0;
 
-    while (i < t->healthhud->width)
-    {
-        j = 0;
-        while (j < t->healthhud->height)
-        {
-            color = get_pixel_from_image(t->healthhud, i, j);
-            if (color > 0){
-                put_pixel(x + i, y + j, color, r);
-            }
-            j++;
-        }
-        i++;
-    }
+    put_image(t->healthhud, 0, 0);
 
     i = 0;
     while (i < p->health * 2)
@@ -45,7 +31,7 @@ void render_healthbar()
         {
             color = get_pixel_from_image(t->healthbar, i, j);
             if (color > 0){
-                put_pixel(x + i, y + j, color, r);
+                put_pixel(i, j, color, r);
             }
             j++;
         }
@@ -65,24 +51,7 @@ void render_healthbar()
             icon = t->healthIcon[3];
         }
 
-        if(icon == NULL){
-            return;
-        }
-
-        i = 0;
-        while (i < icon->width)
-        {
-            j = 0;
-            while (j < icon->height)
-            {
-                color = get_pixel_from_image(icon, i, j);
-                if (color > 0){
-                    put_pixel(x + i, y + j, color, r);
-                }
-                j++;
-            }
-            i++;
-        }
+        if(icon != NULL)
+            put_image(icon, 0, 0);
     }
-
 }

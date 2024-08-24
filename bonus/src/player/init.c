@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 13:51:06 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 14:59:32 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ t_player	*player_init(t_player *p)
 	player->fov = FOV;
 
 	player->health = 100;
+
+	player->mouse_hook = true;
+	player->open_inventory = false;
 	
 	return (player);
 }
