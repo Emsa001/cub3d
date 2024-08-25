@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 22:47:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/25 15:36:27 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,18 +78,17 @@ void draw_floor(int height, int start_x, ThreadParams *params, float angle)
 
     while (start_y > HEIGHT / 2 + (p->z * height) )
     {
-        
         current_dist = view_current_distance(p, start_y, angle);
            
-        if(current_dist > 7)
+        if(!p->vision && current_dist > 7)
             break;
         
         floor_x = (p->x) + current_dist * cosangle;
         floor_y = (p->y) + current_dist * sinangle;
 
         color = get_pixel_from_image(floor, floor_x * T_SIZE, floor_y * T_SIZE);
-       
-        color = darken_color(color, (float)current_dist / 7);
+        if(!p->vision)
+            color = darken_color(color, (float)current_dist / 7);
 
         put_pixel(start_x, start_y, color, params->render);
 
@@ -117,16 +116,19 @@ void draw_wall(int height, int start_x, ThreadParams *params, int dist, int side
     int end_y = start_y + height;
 
     if (end_y > HEIGHT)
-        end_y = HEIGHT;
-        
-    while (start_y < end_y && dist < 450)
+        end_y = HEIGHT; 
+
+    while (start_y < end_y)
     {
+        if(!p->vision && dist > 450)
+            break;
         if (catched)
             color = 255;
         else
         {
             color = get_pixel_from_image(wall_side, tex_x, tex_y);  // Use tex_x instead of c->tex_x
-            color = darken_color(color, (float)dist / 450);
+            if(!p->vision)
+                color = darken_color(color, (float)dist / 450);
         }
 
         put_pixel(start_x, start_y, color, r);

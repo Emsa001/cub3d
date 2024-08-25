@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 22:05:17 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 18:16:15 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/25 14:46:02 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,13 @@ static void init_hudtextures(t_textures *t){
 	t->inventoryGui = inventoryGui;
 }
 
+void init_tooltip(t_textures *t){
+	t_texture *tooltip_bg = ft_malloc(sizeof(t_texture));
+	tooltip_bg->image = get_texture_file("assets/hud/titlebox.xpm", &tooltip_bg->width, &tooltip_bg->height);
+	tooltip_bg->data = mlx_get_data_addr(tooltip_bg->image, &tooltip_bg->bpp, &tooltip_bg->size_line, &tooltip_bg->endian);
+	t->tooltip_bg = tooltip_bg;
+}
+
 t_textures *init_textures(t_textures *t)
 {
 	static t_textures	*texture;
@@ -117,6 +124,7 @@ t_textures *init_textures(t_textures *t)
 	init_hudtextures(t);
 	init_items_textures(t);
 	init_font(t);
+	init_tooltip(t);
 	
 	texture = t;
 	return (texture);

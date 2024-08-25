@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 14:58:49 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/25 15:47:36 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void start_game(void)
     t_render *r = render();
     t_cube *c = cube();
     init_hooks();
+    init_async_queue();
     // start the game
 
     // mlx_loop_hook(r->mlx, render_scene_singlethread, (void *)c);

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 18:27:00 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 19:33:57 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/25 18:18:55 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,31 @@ void unequip(void *props)
     t_item item = cube()->items[p->equipped[index]];
 
     printf("Unequipping item %d\n", index);
-    for(int i = 0; i < 9; i++)
+
+    int i = 0;
+    while(i < 9)
     {
         if (p->inventory[i] == -1)
         {
             p->inventory[i] = p->equipped[index];
             break;
         }
+        i++;
     }
-    p->speed -= item.props.effect;
+
+    if(i == 9)
+    {
+        printf("Inventory is full\n");
+        return;
+    }
+
+    if(index == BOOTS){
+        p->speed -= item.props.effect;
+    }
+    else if(index == WEAPON){
+        p->hand = NULL;
+    }
+
     p->equipped[index] = -1;
 
 }

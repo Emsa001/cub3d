@@ -6,18 +6,18 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 17:02:34 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 18:16:03 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/25 18:24:03 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 void init_items_textures(t_textures *t){
-    int i = 0; 
-    while(i <= 100){
+    int i = 1; 
+    while(i <= 255){
 
         char *name = "assets/items/item";
-        char *num = ft_itoa(i + 1);
+        char *num = ft_itoa(i);
         char *ext = ".xpm";
         char *path = ft_strjoin(name, num);
         char *path2 = ft_strjoin(path, ext);

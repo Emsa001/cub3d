@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:18:14 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 19:30:32 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/25 18:15:21 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,40 +24,33 @@ void hud_inventory()
 
     put_image(t->inventoryPlayer, x, y,1);
 
-    for (int i = 0; i < 8; i++) {
-        // Reset the button
-        c->buttons[i] = (t_button){0}; // Sets all fields of the button struct to 0
-    }
-
+    // Free the old buttons
+    
     for (int i = 0; i < 8; i++)
     {
         if (p->equipped[i] != -1)
         {
             put_image(t->items[p->equipped[i]], x + 25 + (i % 4) * 70, y + 25 + (i / 4) * 70, 1.5);
 
-            t_button *b = ft_malloc(sizeof(t_button));
+            t_button button;
 
             // Assign the button properties
-            b->x = x + 25 + (i % 4) * 70;
-            b->y = y + 25 + (i / 4) * 70;
-            b->width = 64;
-            b->height = 64;
-            b->function = &unequip;
-            b->arg = (void *)i;
+            button.x = x + 25 + (i % 4) * 70;
+            button.y = y + 25 + (i / 4) * 70;
+            button.width = 64;
+            button.height = 64;
+            button.function = &unequip;
+            button.arg = (void *)i;
+            button.itemId = p->equipped[i];
 
-            if (i < 8)
-                c->buttons[i] = *b;
-
-            ft_free(b);
+            add_button(button);
         }
     }
-
 
     if(p->open_inventory)
         open_inventory();
     else
         p->mouse_hook = true;
-
 }
 
 void open_inventory() {
@@ -74,32 +67,23 @@ void open_inventory() {
     write_string("Inventory", x, y - 25, 0xFFFFFF, 0.6);
     put_image(t->inventoryGui, x, y, 1);
 
-    // Clear previous buttons
-    for (int i = 8; i < 17; i++) {
-        // Reset the button
-        c->buttons[i] = (t_button){0}; // Sets all fields of the button struct to 0
-    }
-
     for (int i = 0; i < 9; i++)
     {
         if (p->inventory[i] != -1)
         {
             put_image(t->items[p->inventory[i]], x + 25 + (i % 3) * 70, y + 25 + (i / 3) * 70, 1.5);
 
-            t_button *b = ft_malloc(sizeof(t_button));
+            t_button button;
 
-            // Assign the button properties
-            b->x = x + 25 + (i % 3) * 70;
-            b->y = y + 25 + (i / 3) * 70;
-            b->width = 64;
-            b->height = 64;
-            b->function = &useItem;
-            b->arg = (void *)i;
-
-            c->buttons[i + 8] = *b;
-
-            // Free the button struct, but not the item struct since it's used later
-            ft_free(b);
+            button.x = x + 25 + (i % 3) * 70;
+            button.y = y + 25 + (i / 3) * 70;
+            button.width = 64;
+            button.height = 64;
+            button.function = &useItem;
+            button.arg = (void *)i;
+            button.itemId = p->inventory[i];
+            
+            add_button(button);
         }
     }
 }

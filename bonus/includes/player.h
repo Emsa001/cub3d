@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 19:05:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/25 17:19:42 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,12 @@ typedef struct s_player
 
 	int 	inventory[9];
 	int 	equipped[8];
+
+	bool 	vision;
+
+	t_item 	*tooltipItem;
+	t_item 	*hand;
+	bool 	swing;
 }			t_player;
 
 t_player	*player_init(t_player *p);
