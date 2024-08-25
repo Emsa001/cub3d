@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:18:14 by escura            #+#    #+#             */
-/*   Updated: 2024/08/25 18:15:21 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/25 18:53:54 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,20 @@
 
 void hud_inventory()
 {
-    const t_textures *t = textures();
     t_player *p = player();
-    t_cube *c = cube();
-    
-    int x = 10;
-    int y = HEIGHT - t->inventoryPlayer->height - 10;
+    const t_textures *t = textures();
+    const int x = 10;
+    const int y = HEIGHT - t->inventoryPlayer->height - 10;
+    int i = 0;
 
     put_image(t->inventoryPlayer, x, y,1);
-
-    // Free the old buttons
-    
-    for (int i = 0; i < 8; i++)
+    while(i < 8)
     {
         if (p->equipped[i] != -1)
         {
             put_image(t->items[p->equipped[i]], x + 25 + (i % 4) * 70, y + 25 + (i / 4) * 70, 1.5);
 
             t_button button;
-
-            // Assign the button properties
             button.x = x + 25 + (i % 4) * 70;
             button.y = y + 25 + (i / 4) * 70;
             button.width = 64;
@@ -45,6 +39,7 @@ void hud_inventory()
 
             add_button(button);
         }
+        i++;
     }
 
     if(p->open_inventory)
@@ -55,26 +50,22 @@ void hud_inventory()
 
 void open_inventory() {
     t_player *p = player();
-    t_cube *c = cube();
-    const t_render *r = render();
     const t_textures *t = textures();
-
-    p->mouse_hook = false;
-    
     const int x = (WIDTH / 2 - t->inventoryGui->width / 2);
     const int y = (HEIGHT / 2 - t->inventoryGui->height / 2);
 
+    p->mouse_hook = false;
     write_string("Inventory", x, y - 25, 0xFFFFFF, 0.6);
     put_image(t->inventoryGui, x, y, 1);
 
-    for (int i = 0; i < 9; i++)
+    int i = 0;
+    while(i < 9)
     {
         if (p->inventory[i] != -1)
         {
             put_image(t->items[p->inventory[i]], x + 25 + (i % 3) * 70, y + 25 + (i / 3) * 70, 1.5);
 
             t_button button;
-
             button.x = x + 25 + (i % 3) * 70;
             button.y = y + 25 + (i / 3) * 70;
             button.width = 64;
@@ -85,5 +76,7 @@ void open_inventory() {
             
             add_button(button);
         }
+        
+        i++;
     }
 }

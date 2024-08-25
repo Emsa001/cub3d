@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   armor.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/22 18:13:57 by escura            #+#    #+#             */
-/*   Updated: 2024/08/13 11:48:32 by escura           ###   ########.fr       */
+/*   Created: 2024/08/25 19:06:38 by escura            #+#    #+#             */
+/*   Updated: 2024/08/25 19:09:04 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "items.h"
 
-void	minimap_init(void)
+void init_armor(t_cube *c)
 {
-	t_minimap	*minimap;
+    t_item *item;
 
-	minimap = ft_malloc(sizeof(t_minimap));
-	minimap->size = 1.8;
-	minimap->x = WIDTH - MINIMAP_PIXEL_WIDTH;
-	minimap->y = 0;
-	minimap->radius = MINIMAP_RADIUS / minimap->size;
-	get_map()->minimap = minimap;
-}
-
-t_minimap	*minimap(void)
-{
-	return (get_map()->minimap);
+    item = (t_item *)ft_malloc(sizeof(t_item));
+    item->name = "Boots of speed";
+    item->fontSize = 0.37;
+    item->use = &equip;
+    item->props.id = 37;
+    item->props.slot = BOOTS;
+    item->props.effect = 10; // + to speed
+    c->items[37] = *item;
 }

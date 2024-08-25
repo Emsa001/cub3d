@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 20:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/08/25 15:01:04 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/25 19:03:12 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int mouse_move(int x, int y)
 
     r->mouse_x = x;
     r->mouse_y = y;
-    player()->tooltipItem = NULL;
+    player()->cursorItem = NULL;
 
     if(!player()->mouse_hook)
     {

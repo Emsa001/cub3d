@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:16:47 by escura            #+#    #+#             */
-/*   Updated: 2024/08/25 18:09:13 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/25 19:10:43 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,15 @@ void button_tooltip(int x, int y)
     t_cube *c = cube();
     t_button_node *current = c->buttons;
 
-    // while(current != NULL)
-    // {
-    //     printf("Tooltip: %d\n",1);
-    //     // if(x >= current->button.x && x <= current->button.x + current->button.width &&
-    //     //    y >= current->button.y && y <= current->button.y + current->button.height)
-    //     // {
-    //     //     // player()->tooltipItem = &c->items[current->button.itemId];
-    //     // }
-    //     current = current->next;
-    // }
+    while(current != NULL)
+    {
+        if(x >= current->button.x && x <= current->button.x + current->button.width &&
+           y >= current->button.y && y <= current->button.y + current->button.height)
+        {
+            player()->cursorItem = &c->items[current->button.itemId];
+        }
+        current = current->next;
+    }
 }
 
 void destroy_buttons()

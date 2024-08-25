@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/08/25 17:19:42 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/25 19:03:12 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct s_player
 
 	bool 	vision;
 
-	t_item 	*tooltipItem;
+	t_item 	*cursorItem;
 	t_item 	*hand;
 	bool 	swing;
 }			t_player;

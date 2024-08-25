@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/08/25 18:24:36 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/25 19:03:12 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_player	*player_init(t_player *p)
 	
 
 	player->vision = false;
-	player->tooltipItem = NULL;
+	player->cursorItem = NULL;
 	player->hand = NULL;
 	player->swing = false;
 	
