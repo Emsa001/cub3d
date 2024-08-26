@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:38:54 by escura            #+#    #+#             */
-/*   Updated: 2024/08/25 16:24:06 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/26 09:31:31 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	run_async_queue(void)
 
 			current->time -= 1;
 
-            printf("current->time: %d\n", current->time);
+            // printf("current->time: %d\n", current->time);
 
 			float scale = (float)current->time / 300.0f;
             if(scale > 3.0f)

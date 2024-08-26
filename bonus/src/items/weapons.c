@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:59:10 by escura            #+#    #+#             */
-/*   Updated: 2024/08/25 19:09:15 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/26 09:42:33 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,13 @@ void init_weapons(t_cube *c)
     item->props.slot = WEAPON;
     item->props.effect = 10;
     c->items[57] = *item;
+
+    item = (t_item *)ft_malloc(sizeof(t_item));
+    item->name = "Netherite Sword";
+    item->fontSize = 0.3;
+    item->use = &equip;
+    item->props.id = 255;
+    item->props.slot = WEAPON;
+    item->props.effect = 10;
+    c->items[255] = *item;
 }

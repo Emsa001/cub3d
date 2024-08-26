@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:08:59 by escura            #+#    #+#             */
-/*   Updated: 2024/08/25 18:56:44 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/26 09:42:00 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void draw_cross_in_centre(t_render *r)
 	{
 		put_pixel(x_center + i, y_center, 0x0000FF00, r);
 		put_pixel(x_center, y_center + i, 0x0000FF00, r);
-		i++;
+		i++;			
 	}
 }
 
@@ -43,7 +43,7 @@ void render_hand_item()
 	int ypos = 600;
 
 	if(p->swing){
-		rotated_hand = rotate_texture(hand, sin(x * 0.1) * -20, HORIZONTAL_MIRROR);
+		rotated_hand = rotate_texture(hand, sin(x * 0.1) * -40, HORIZONTAL_MIRROR);
 		xpos = 650;
 		ypos = 650;
 		if(x > 20){

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/08/25 19:03:12 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/26 09:42:44 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_player	*player_init(t_player *p)
 	player->inventory[5] = 59;
 	player->inventory[6] = 50;
 	player->inventory[7] = 49;
-	player->inventory[8] = 57;
+	player->inventory[8] = 255;
 	
 
 	player->vision = false;
