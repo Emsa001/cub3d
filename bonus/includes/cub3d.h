@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 15:10:17 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/24 16:04:02 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int			render_scene_singlethread(t_cube *c);
 int render_scene(t_cube *p);
 bool is_touching(float px, float py);
 bool touch_block(t_block *blocks, float px, float py);
-int distance(float x1, float y1, float x2, float y2);
+float distance(float x1, float y1, float x2, float y2);
 
 /* DRAW */
 void 		draw_line(float angle, int start_x, ThreadParams *params);
