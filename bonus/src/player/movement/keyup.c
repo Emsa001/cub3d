@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:33 by escura            #+#    #+#             */
-/*   Updated: 2024/08/03 16:50:25 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/24 19:03:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void player_keyup(int keycode){
     t_player *p = player();
+    const t_cube *c = cube();
 
     if (keycode == W )
         p->btn_w = false;
@@ -24,7 +25,7 @@ void player_keyup(int keycode){
     if (keycode == D)
         p->btn_d = false;
     if(keycode == SHIFT)
-        p->speed = WALKSPEED;
+        p->sprint = false;
     
     if(keycode == LEFT){
         p->btn_left = false;
@@ -40,6 +41,7 @@ void player_keyup(int keycode){
 
     if(keycode == E)
         p->interact = false;
+
     if(keycode == I)
         p->spawn = false;
     if(keycode == O)
@@ -49,4 +51,10 @@ void player_keyup(int keycode){
         p->catch = false;
         p->catched = false;
     }
+
+
+    if(keycode == PLUS && p->health < 100)
+        p->health += 1;
+    if(keycode == MINUS && p->health > 0)
+        p->health -= 1;
 }

@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   view.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:32:21 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 14:45:37 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/23 22:39:00 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <pthread.h>
-#define NUM_THREADS 1
 
 void* draw_lines_thread(void* arg)
 {
@@ -46,6 +44,7 @@ void render_view()
     int linesPerThread = WIDTH / NUM_THREADS;
 
     pthread_mutex_init(&mutex, NULL);
+
     int colors[12] = {
         0xFF0000, // red
         0x00FF00, // green
@@ -60,6 +59,7 @@ void render_view()
         0x800000, // dark red
         0x808080, // gray
     };
+
     for (int i = 0; i < NUM_THREADS; i++) {
         threadParams[i].start = i * linesPerThread;
         threadParams[i].end = (i + 1 == NUM_THREADS) ? WIDTH : (i + 1) * linesPerThread;
@@ -81,4 +81,6 @@ void render_view()
     for (int i = 0; i < NUM_THREADS; i++) {
         pthread_join(threads[i], NULL);
     }
+
+    pthread_mutex_destroy(&mutex);  // Clean up the mutex when done
 }

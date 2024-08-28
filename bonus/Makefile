@@ -6,7 +6,7 @@
 #    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/08/23 15:39:54 by marvin           ###   ########.fr        #
+#    Updated: 2024/08/28 17:09:57 by marvin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRC_DIR = src
 SRC = $(filter-out $(wildcard $(SRC_DIR)/_*), $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/*/*.c) $(wildcard $(SRC_DIR)/*/*/*.c))
 
 INCLUDES_DIR = includes
+INCLUDES = $(wildcard $(INCLUDES_DIR)/*.h) $(wildcard $(INCLUDES_DIR)/*/*.h)
 
 # Compiler and Flags
 CC = cc
@@ -45,9 +46,9 @@ run: $(NAME)
 	./$(NAME) map.cub
 
 $(NAME): $(LIBFT) $(OBJ)
-	$(CC) $(CFLAGS)$(OBJ) -o $(NAME) $(LDLIBS) $(LDFLAGS)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LDLIBS) $(LDFLAGS)
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(LIBFT)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INCLUDES) $(LIBFT)
 	mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
@@ -70,6 +71,9 @@ v: $(NAME)
 	valgrind --leak-check=full ./$(NAME) map.cub
 
 mlx:
-	git clone https://github.com/42Paris/minilibx-linux.git ./$(INCLUDES_DIR)/mlx
+	@if [ ! -d "$(INCLUDES_DIR)/mlx" ]; then \
+		git clone https://github.com/42Paris/minilibx-linux.git ./$(INCLUDES_DIR)/mlx; \
+	fi
 	
 .PHONY: all clean fclean re run v
+

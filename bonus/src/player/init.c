@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 14:56:41 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/26 09:42:44 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_player	*player_init(t_player *p)
 	player->btn_up = false;
 	player->btn_down = false;
 
-	player->jump_speed = 0;
+	player->jump_height = JUMP_HEIGHT;
 
 	player->interact = false;
 	player->opened = false;
@@ -50,8 +50,34 @@ t_player	*player_init(t_player *p)
 	player->catch = false;
 	player->catched = false;
 	player->speed = WALKSPEED;
+	player->sprint = false;
 	player->pause = false;
 	player->fov = FOV;
+
+	player->health = 100;
+
+	player->mouse_hook = true;
+	player->open_inventory = false;
+
+	for(int i = 0; i < 9; i++)
+		player->equipped[i] = -1;
+
+
+	player->inventory[0] = 37;
+	player->inventory[1] = 112;
+	player->inventory[2] = 112;
+	player->inventory[3] = 129;
+	player->inventory[4] = 53;
+	player->inventory[5] = 59;
+	player->inventory[6] = 50;
+	player->inventory[7] = 49;
+	player->inventory[8] = 255;
+	
+
+	player->vision = false;
+	player->cursorItem = NULL;
+	player->hand = NULL;
+	player->swing = false;
 	
 	return (player);
 }

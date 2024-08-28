@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   circle.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:43:30 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 15:05:29 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/23 22:21:41 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void	draw_circle(int center_x, int center_y, int radius, int color)
 		// Fill the circle by drawing horizontal lines
 		for (int i = center_x - x; i <= center_x + x; i++)
 		{
-			put_pixel(i, center_y + y, color);
-			put_pixel(i, center_y - y, color);
+			put_pixel(i, center_y + y, color, r);
+			put_pixel(i, center_y - y, color, r);
 		}
 
 		for (int i = center_x - y; i <= center_x + y; i++)
 		{
-			put_pixel(i, center_y + x, color);
-			put_pixel(i, center_y - x, color);
+			put_pixel(i, center_y + x, color, r);
+			put_pixel(i, center_y - x, color, r);
 		}
 
 		y++;

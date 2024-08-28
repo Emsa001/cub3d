@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 14:36:35 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/25 19:03:12 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 # define PLAYER_H
 
 # define WALKSPEED 2
-# define SPRINTSPEED 5
-# define MOUSE_SENSITIVITY 0.002
-# define JUMP_SPEED 0.11
+# define SPRINTBONUS 5
+# define MOUSE_SENSITIVITY 0.003
+
+# define JUMP_SPEED 0.08
+# define JUMP_HEIGHT 0.9
+
 # define FOV 60
 
 typedef struct s_player
@@ -54,13 +57,29 @@ typedef struct s_player
 	bool	catch;
 	bool	catched;
 
-	float	jump_speed;
+	float	jump_height;
 
 	int		fov;
+
 	int		speed;
+	bool	sprint;
 
 	float	plane_x;
 	float	plane_y;
+
+	int		health;
+
+	bool	mouse_hook;
+	bool	open_inventory;
+
+	int 	inventory[9];
+	int 	equipped[8];
+
+	bool 	vision;
+
+	t_item 	*cursorItem;
+	t_item 	*hand;
+	bool 	swing;
 }			t_player;
 
 t_player	*player_init(t_player *p);
@@ -69,9 +88,11 @@ void		move_player(void);
 void		jump_player(void);
 bool		touch(void);
 void		render_player(void);
-void		player_rotate(int x, int y);
+void		handle_mouse_rotate(int x, int y);
+void		handle_arrow_rotation(t_player *p);
+void		open_inventory(void);
 
-int		view_lane_distance(float x1, float y1, float angle);
+int			view_lane_distance(float x1, float y1, float angle);
 
 void		player_keydown(int keycode);
 void		player_keyup(int keycode);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyhooks.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:49:37 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 14:35:35 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/24 14:42:58 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@
 # define LEFT_CLICK 1
 # define RIGHT_CLICK 3
 
+# define PLUS 61
+# define MINUS 45
+
 # define I 105
 # define O 111
 # define F 102
-
-# define MINUS 45
-# define PLUS 61
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:35:04 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 15:01:17 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/25 14:39:27 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,16 @@ void clean_window()
     mlx_clear_window(r->mlx, r->win);
 }
 
-void put_pixel(int x, int y, int color)
+void put_pixel(int x, int y, int color, t_render *r)
 {
-    t_render *r = render();
-
-    r->data = mlx_get_data_addr(r->img_ptr, &r->bpp, &r->size_line, &r->endian);
     if(x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
         return ;
-        
+
+    // if(r->img_ptr == NULL)
+    //     return ;
+
     int index = y * r->size_line + x * r->bpp / 8;
+    
     r->data[index] = color & 0xFF;              // Blue component
     r->data[index + 1] = (color >> 8) & 0xFF;   // Green component
     r->data[index + 2] = (color >> 16) & 0xFF;  // Red component

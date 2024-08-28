@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 15:10:08 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/28 17:44:39 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,29 @@ int touch_line(t_block *lines, float px, float py)
 	return 0;
 }
 
-bool is_touching(float px, float py)
+
+bool touch_chest(t_block *lines, float px, float py)
 {
-	const t_cube *c = cube();
+	int i = 0;
+	float x, y;
+
+	if (!lines)
+		return false;
+	
+	while (lines[i].x != -1)
+	{
+		x = lines[i].x * BLOCK_SIZE;
+		y = lines[i].y * BLOCK_SIZE;
+		if (px >= x && px <= x + BLOCK_SIZE / 2 && py >= y && py <= y + BLOCK_SIZE / 2)
+			return true;
+		i++;
+	}
+	
+	return false;
+}
+
+bool is_touching(float px, float py, const t_cube *c)
+{
 	int x = px / BLOCK_SIZE;
 	int y = py / BLOCK_SIZE;
 
@@ -100,7 +120,7 @@ void draw_middle_line(void)
 	i = 0;
 	while (i < WIDTH)
 	{
-		put_pixel(i, HEIGHT / 2, 0x00FF0000);
+		put_pixel(i, HEIGHT / 2, 0x00FF0000, render());
 		i++;
 	}
 }

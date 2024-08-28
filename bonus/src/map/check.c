@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/08/23 19:05:43 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/28 17:31:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,39 @@ t_block *init_line(t_map *map_info , char **map)
 	return (lines);
 }
 
+
+t_block *init_chests(t_map *map_info, char **map)
+{
+	t_block	*chests;
+	int		i = 0;
+	int		j = 0;
+	int		k = 0;
+	
+	map_info->chests = NULL;
+	int chest_count = count_lines(map);
+	chests = ft_malloc(sizeof(t_block) * (chest_count + 1));
+
+	while(map[i] != NULL)
+	{
+		j = 0;
+		while(map[i][j] != '\0')
+		{
+			if (map[i][j] == 'H')
+			{
+				chests[k].x = j + 0.5;
+				chests[k].y = i	+ 0.5;
+				k++;
+			}
+			j++;
+		}
+		i++;
+	}
+	chests[k].x = -1;
+	chests[k].y = -1;
+	return (chests);
+}
+
+
 t_map	*check_map(char **map, int size)
 {
 	t_map	*map_info;
@@ -190,5 +223,6 @@ t_map	*check_map(char **map, int size)
 	map_info->doors = init_block(map_info, 'D');
 	map_info->blocks = init_block(map_info, '2');
 	map_info->lines = init_line(map_info, map);
+	map_info->chests = init_chests(map_info, map);
 	return (map_info);
 }

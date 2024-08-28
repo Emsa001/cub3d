@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   touch.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:49:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 14:59:19 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/23 22:31:03 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	touch()
     const int y_m = y - 10;
     t_cube *c = cube();
 
-    if(is_touching(x_m , y_m) || is_touching(x_p , y_m) || is_touching(x_m , y_p) || is_touching(x_p , y_p))
+    if(is_touching(x_m , y_m, c) || is_touching(x_p , y_m, c) || is_touching(x_m , y_p, c) || is_touching(x_p , y_p, c))
         return (true);
     if(touch_block(c->map->blocks, x_m, y_m) || touch_block(c->map->blocks, x_p, y_m) || touch_block(c->map->blocks, x_m, y_p) || touch_block(c->map->blocks, x_p, y_p))
         return (true);

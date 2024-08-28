@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keydown.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 14:58:26 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/24 19:03:11 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void player_keydown(int keycode){
     t_player *p = player();
+    const t_cube *c = cube();
     
     if (keycode == W)
         p->btn_w = true;
@@ -37,27 +38,31 @@ void player_keydown(int keycode){
         p->btn_down = true;
     
     if(keycode == SHIFT)
-        p->speed = SPRINTSPEED;
+        p->sprint = true;
+        
     if(keycode == SPACE && p->z <= 0.6)
-        p->jump_speed = JUMP_SPEED;
+        p->jump_height = JUMP_HEIGHT;
 
-    if(keycode == MINUS){
-        if(p->fov > 30)
-            p->fov -= 5;
-    }
-    if(keycode == PLUS)
-        if(p->fov < 120)
-            p->fov += 5;
+    // if(keycode == MINUS){
+    //     if(p->fov > 30)
+    //         p->fov -= 5;
+    // }
+    // if(keycode == PLUS)
+    //     if(p->fov < 120)
+    //         p->fov += 5;
     
     if(keycode == P)
         p->pause = !p->pause;
     
-    if(keycode == E)
+    if(keycode == E){
+        p->open_inventory = !p->open_inventory;
         p->interact = true;
+    }
     if(keycode == I)
         p->spawn = true;
     if(keycode == O)
         p->remove = true;
     if(keycode == F)
         p->catch = true;
+
 }
