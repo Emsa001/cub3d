@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/08/28 20:55:36 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/29 16:05:38 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,8 +154,8 @@ void draw_chest(int height, int start_x, ThreadParams *params, int dist, int sid
     t_texture *wall_side = get_wall_side(side, texs);
     
 
-    int start_y = (p->z - 0.5) * height + vert_offset(p);
-    int end_y = start_y + height * 0.5;
+    int start_y = (p->z - 0.4) * height + vert_offset(p);
+    int end_y = start_y + height * 0.4;
 
     while (start_y < end_y)
     {
@@ -163,6 +163,47 @@ void draw_chest(int height, int start_x, ThreadParams *params, int dist, int sid
         put_pixel(start_x, start_y, color, r);
 
         tex_y += step;
+        start_y++;
+    }
+}
+
+float view_current_distance_chest(t_player *p, int start_y, float angle)
+{
+    float current_dist = (p->z - 0.4) * HEIGHT / (start_y - HEIGHT / 2);
+    return current_dist / cos(angle - p->angle);
+}
+
+void draw_chest_top(int height, int height_top, int side, int start_x, ThreadParams *params, float angle)
+{
+    const t_cube *c = params->cube;
+    const t_player *p = params->player;
+    const t_textures *texs = params->textures;
+    float floor_x = 0;
+    float floor_y = 0;
+    
+    float cosangle = cos(angle);
+    float sinangle = sin(angle);
+    int color = 123;
+    int start_y = HEIGHT / 2 + ((p->z - 0.4) * height);
+    int end_y = (HEIGHT / 2 + ((p->z - 0.4) * height_top)) + height_top * 0.01;
+
+    if(side != 7)
+        return;
+
+    float current_dist = 0;
+
+    t_texture *floor = texs->wall_south;
+
+    while(start_y < end_y)
+    {
+        current_dist = view_current_distance_chest(p, start_y, angle);
+        
+        color = get_pixel_from_image(floor, floor_x * T_SIZE, floor_y * T_SIZE);
+        
+        floor_x = (p->x) + current_dist * cosangle;
+        floor_y = (p->y) + current_dist * sinangle;
+        put_pixel(start_x, start_y, color, params->render);
+
         start_y++;
     }
 }

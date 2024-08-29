@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/08/28 20:50:36 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/29 16:07:26 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,12 @@ void draw_line(float angle, int start_x, ThreadParams *params)
 
     float x = p->x_px;
     float y = p->y_px;
-    float save_x = 0;
-    float save_y = 0;
+    float save_x_first = 0;
+    float save_y_first= 0;
+    float save_x_last = 0;
+    float save_y_last = 0;
     bool save = false;
+    bool save_last = false;
     int dist;
 
     int local_tex_x;  // Thread-local variable for tex_x
@@ -95,33 +98,46 @@ void draw_line(float angle, int start_x, ThreadParams *params)
 
     while (!find_hitbox(x, y, c))
     {
-        if(!save && touch_chest(c->map->chests, x, y))
+        if(touch_chest(c->map->chests, x, y))
         {
-            save = true;
-            save_x = x;
-            save_y = y;
+            if(!save)
+            {
+                save = true;
+                save_x_first = x;
+                save_y_first = y;
+            }
+            x += cosangle;
+            y += sinangle;
+            if(!save_last && !touch_chest(c->map->chests, x, y))
+            {
+                save_last = true;
+                save_x_last = x;
+                save_y_last = y;
+            }
         }
-        x += cosangle;
-        y += sinangle;
+        else
+        {
+            x += cosangle;
+            y += sinangle;
+        }
     }
 
-    // wall
     dist = view_lane_distance(x, y, angle);
     local_side = calculate_direction(x, y, cosangle, sinangle, c, &local_tex_x);
     int line_height = (BLOCK_SIZE * HEIGHT) / dist;
     draw_floor(line_height, start_x, params, angle);
-    // chest
-
-    // Draw the floor
-
-    // Draw the wall using the thread-local variables
-    // pthread_mutex_lock(params->mutex);
     draw_wall(line_height, start_x, params, dist, local_side, local_tex_x);
+
     {
-        int chest_dist = view_lane_distance(save_x, save_y, angle);
+        int chest_dist = view_lane_distance(save_x_last, save_y_last, angle);
         int chest_height = (BLOCK_SIZE * HEIGHT) / chest_dist;
-        int chest_local_side = calculate_direction(save_x, save_y, cosangle, sinangle, c, &local_tex_x);
-        draw_chest(chest_height, start_x, params, dist, chest_local_side, local_tex_x);
+        int chest_local_side = calculate_direction(save_x_first, save_y_first, cosangle, sinangle, c, &local_tex_x);
+
+        chest_dist = view_lane_distance(save_x_first, save_y_first, angle);
+        int chest_height_top = (BLOCK_SIZE * HEIGHT) / chest_dist;
+        chest_local_side = calculate_direction(save_x_first, save_y_first, cosangle, sinangle, c, &local_tex_x);
+        draw_chest(chest_height_top, start_x, params, dist, chest_local_side, local_tex_x);
+        draw_chest_top(chest_height, chest_height_top, chest_local_side, start_x, params, angle);
     }
     // pthread_mutex_unlock(params->mutex);
 }

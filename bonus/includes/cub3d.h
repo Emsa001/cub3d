@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/08/28 18:13:41 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/29 15:39:40 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,8 @@ void				draw_line(float angle, int start_x, ThreadParams *params);
 void				draw_wall(int height, int start_x, ThreadParams *params,
 						int dist, int side, int tex_x);
 void				draw_floor(int height, int start_x, ThreadParams *params,
+						float angle);
+void				draw_chest_top(int height, int height_top, int side, int start_x, ThreadParams *params,
 						float angle);
 void				draw_chest(int height, int start_x, ThreadParams *params,
 						int dist, int side, int tex_x);
