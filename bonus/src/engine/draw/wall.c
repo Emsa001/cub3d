@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/08/30 16:23:57 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/30 17:37:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,44 @@ void draw_floor(int height, int start_x, ThreadParams *params, float angle)
         put_pixel(start_x, start_y, color, params->render);
 
         start_y--;
+    }
+}
+
+void draw_sky(int height, int start_x, ThreadParams *params, float angle)
+{
+    const t_cube *c = params->cube;
+    const t_player *p = params->player;
+    const t_textures *texs = params->textures;
+    int start_y = 0;
+    float sky_x = 0;
+    float sky_y = 0;
+    
+    float cosangle = cos(angle);
+    float sinangle = sin(angle);
+    int color = 0;
+
+    float current_dist = 0;
+
+    t_texture *sky = texs->floor;
+
+    while (start_y < ((p->z * height) + HEIGHT / 2) - height)
+    {
+        current_dist = view_current_distance(p, start_y, angle, 1);
+
+        if(!p->vision && current_dist > 7)  
+            break;
+            
+        sky_x = (p->x) + current_dist * cosangle;
+        sky_y = (p->y) + current_dist * sinangle;
+
+        color = get_pixel_from_image(sky, sky_x * T_SIZE, sky_y * T_SIZE);
+
+        if(!p->vision)
+            color = darken_color(color, (float)current_dist / 7);
+
+        put_pixel(start_x, start_y, color, params->render);
+
+        start_y++;
     }
 }
 

@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/08/30 14:01:33 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/30 17:37:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void draw_line(float angle, int start_x, ThreadParams *params)
     local_side = calculate_direction(x, y, cosangle, sinangle, c, &local_tex_x);
     int line_height = (BLOCK_SIZE * HEIGHT) / dist;
     draw_floor(line_height, start_x, params, angle);
+    draw_sky(line_height, start_x, params, angle);
     draw_wall(line_height, start_x, params, dist, local_side, local_tex_x);
 
     {
@@ -135,7 +136,7 @@ void draw_line(float angle, int start_x, ThreadParams *params)
         chest_dist = view_lane_distance(save_x_first, save_y_first, angle);
         int chest_height_top = (BLOCK_SIZE * HEIGHT) / chest_dist;
         chest_local_side = calculate_direction(save_x_first, save_y_first, cosangle, sinangle, c, &local_tex_x);
-        draw_chest(chest_height_top, start_x, params, chest_dist, chest_local_side, local_tex_x);
         draw_chest_top(chest_height, chest_height_top, chest_local_side, start_x, params, angle);
+        draw_chest(chest_height_top, start_x, params, chest_dist, chest_local_side, local_tex_x);
     }
 }
