@@ -6,13 +6,13 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/08/28 17:31:26 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/30 19:12:36 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	get_zero_count(char **map)
+int	count_c(char **map, char c)
 {
 	int	i;
 	int	j;
@@ -26,7 +26,7 @@ int	get_zero_count(char **map)
 		j = 0;
 		while (map[i][j] != '\0')
 		{
-			if (map[i][j] == '0')
+			if (map[i][j] == c)
 				zero++;
 			j++;
 		}
@@ -41,10 +41,10 @@ void	check_valid(char **map, t_map *map_info)
 	t_point	*begin_points;
 	char	to_fill[6];
 
-	begin_points = ft_malloc(sizeof(t_point) * (get_zero_count(map) + 1));
+	begin_points = ft_malloc(sizeof(t_point) * (count_c(map, '0') + 1));
 	begin_points = get_begin_points(map, begin_points);
-	begin_points[get_zero_count(map)].x = -1;
-	begin_points[get_zero_count(map)].y = -1;
+	begin_points[count_c(map, '0')].x = -1;
+	begin_points[count_c(map, '0')].y = -1;
 	to_fill[0] = '0';
 	to_fill[1] = 'N';
 	to_fill[2] = 'S';
@@ -178,7 +178,7 @@ t_block *init_chests(t_map *map_info, char **map)
 	int		k = 0;
 	
 	map_info->chests = NULL;
-	int chest_count = count_lines(map);
+	int chest_count = count_c(map, 'H');
 	chests = ft_malloc(sizeof(t_block) * (chest_count + 1));
 
 	while(map[i] != NULL)
