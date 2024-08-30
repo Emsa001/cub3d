@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/08/30 14:09:30 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/30 16:23:57 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void draw_chest(int height, int start_x, ThreadParams *params, int dist, int sid
 {
     int color = params->color;
     float tex_y = 0;
-    float step = (float)T_SIZE / height;
+    float step = (float)(T_SIZE * 2) / height;
     const t_player *p = params->player;
     const t_render *r = params->render;
     const t_textures *texs = params->textures;
@@ -164,7 +164,7 @@ void draw_chest(int height, int start_x, ThreadParams *params, int dist, int sid
     {
         if(!p->vision && dist > 450)
             break;
-        color = get_pixel_from_image(wall_side, tex_x, tex_y);
+        color = get_pixel_from_image(params->textures->chest, tex_x * 2, tex_y);
         if(!p->vision)
             color = darken_color(color, (float)dist / 450);
 
@@ -180,21 +180,21 @@ void draw_chest_top(int height, int height_top, int side, int start_x, ThreadPar
     const t_cube *c = params->cube;
     const t_player *p = params->player;
     const t_textures *texs = params->textures;
-    float floor_x = 0;
-    float floor_y = 0;
+    float head_x = 0;
+    float head_y = 0;
     
     float cosangle = cos(angle);
     float sinangle = sin(angle);
     int color = 123;
-    int start_y = HEIGHT / 2 + ((p->z - 0.42) * height);
-    int end_y = (HEIGHT / 2 + ((p->z - 0.42) * height_top)) + height_top * 0.02;
+    int start_y = HEIGHT / 2 + ((p->z - 0.4) * height);
+    int end_y = (HEIGHT / 2 + ((p->z - 0.4) * height_top)) + height_top * 0.01;
 
     if(side != 7)
         return;
 
     float current_dist = 0;
 
-    t_texture *floor = texs->wall_south;
+    t_texture *head = texs->wall_south;
 
     if(end_y > HEIGHT)
         end_y = HEIGHT;
@@ -205,13 +205,13 @@ void draw_chest_top(int height, int height_top, int side, int start_x, ThreadPar
         if(!p->vision && current_dist > 7)
             break;
         
-        color = get_pixel_from_image(floor, floor_x * T_SIZE, floor_y * T_SIZE);
+        color = get_pixel_from_image(params->textures->chest_top, head_x * (T_SIZE * 2), head_y * (T_SIZE * 2));
 
         if(!p->vision)
             color = darken_color(color, (float)current_dist / 7);
         
-        floor_x = (p->x) + current_dist * cosangle;
-        floor_y = (p->y) + current_dist * sinangle;
+        head_x = (p->x) + current_dist * cosangle;
+        head_y = (p->y) + current_dist * sinangle;
         put_pixel(start_x, start_y, color, params->render);
 
         start_y++;

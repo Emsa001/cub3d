@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/08/25 17:30:28 by escura           ###   ########.fr       */
+/*   Updated: 2024/08/30 14:30:24 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ typedef struct s_textures
 	t_texture	*door;
 
 	t_texture	*player;
+
+	t_texture	*chest;
+	t_texture	*chest_top;
 
 	t_texture	*healthhud;
 	t_texture	*healthbar;
