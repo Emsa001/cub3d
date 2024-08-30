@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/08/30 17:37:24 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/30 18:09:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void draw_sky(int height, int start_x, ThreadParams *params, float angle)
 
     float current_dist = 0;
 
-    t_texture *sky = texs->floor;
+    t_texture *sky = texs->sky;
 
     while (start_y < ((p->z * height) + HEIGHT / 2) - height)
     {
