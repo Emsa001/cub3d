@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/08/29 15:39:40 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/29 16:51:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,13 +129,6 @@ typedef struct
 
 	pthread_mutex_t	*mutex;
 }					ThreadParams;
-
-typedef struct s_ray
-{
-	float			x;
-	float			y;
-	int				dist;
-}					t_ray;
 
 typedef struct s_state
 {

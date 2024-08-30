@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/08/29 16:07:26 by marvin           ###   ########.fr       */
+/*   Updated: 2024/08/30 14:01:33 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int calculate_direction(float x, float y, float cosangle, float sinangle, t_cube
     }
     return 0;
 }
-
 
 static bool find_hitbox(float x, float y, t_cube *c)
 {
@@ -136,8 +135,7 @@ void draw_line(float angle, int start_x, ThreadParams *params)
         chest_dist = view_lane_distance(save_x_first, save_y_first, angle);
         int chest_height_top = (BLOCK_SIZE * HEIGHT) / chest_dist;
         chest_local_side = calculate_direction(save_x_first, save_y_first, cosangle, sinangle, c, &local_tex_x);
-        draw_chest(chest_height_top, start_x, params, dist, chest_local_side, local_tex_x);
+        draw_chest(chest_height_top, start_x, params, chest_dist, chest_local_side, local_tex_x);
         draw_chest_top(chest_height, chest_height_top, chest_local_side, start_x, params, angle);
     }
-    // pthread_mutex_unlock(params->mutex);
 }
