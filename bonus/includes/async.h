@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   async.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:37:26 by escura            #+#    #+#             */
-/*   Updated: 2024/08/25 16:01:33 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/06 12:23:42 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct async_queue_s
 
 async_queue_t *init_async_queue();
 async_queue_t *get_async_queue();
-void add_async(async_t async);
+void  add_async(async_t async);
 void run_async_queue();
 void destroy_async_queue();
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/08/30 17:37:42 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/06 13:21:39 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,6 @@ void draw_line(float angle, int start_x, ThreadParams *params)
     dist = view_lane_distance(x, y, angle);
     local_side = calculate_direction(x, y, cosangle, sinangle, c, &local_tex_x);
     int line_height = (BLOCK_SIZE * HEIGHT) / dist;
-    draw_floor(line_height, start_x, params, angle);
-    draw_sky(line_height, start_x, params, angle);
     draw_wall(line_height, start_x, params, dist, local_side, local_tex_x);
 
     {

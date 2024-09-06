@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/08/30 19:23:22 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/06 13:17:19 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@
 
 # define T_SIZE 64
 # define BLOCK_SIZE 64
-# define WIDTH 1280
-# define HEIGHT 720
+# define WIDTH 1920
+# define HEIGHT 1080
 # define CENTER_WIDTH WIDTH / 2
 # define CENTER_HEIGHT HEIGHT / 2
 
@@ -60,7 +60,7 @@
 # define BLOCK '2'
 
 # define M_PI 3.14159265358979323846
-# define NUM_THREADS 1
+# define NUM_THREADS 12
 
 typedef struct s_button
 {
@@ -165,6 +165,7 @@ void				clean_image(t_render *r);
 void				create_image(t_render *r, int width, int height);
 void				show_image(t_render *r, int x, int y);
 void add_button(t_button button);
+
 /* DRAW */
 void				draw_line(float angle, int start_x, ThreadParams *params);
 void				draw_wall(int height, int start_x, ThreadParams *params,
