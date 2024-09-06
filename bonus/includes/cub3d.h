@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/06 13:17:19 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:27:07 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ typedef struct s_cube
 	char			*some_value;
 	int				keycode;
 
-	float			tex_x;
 	double			delta_time;
 	t_button_node	*buttons;
 	t_item			items[256];
@@ -112,6 +111,24 @@ typedef struct s_render
 	int				mouse_y;
 
 }					t_render;
+
+typedef struct s_draw
+{
+	float				x;
+	float				y;
+	float				first_x;
+	float				first_y;
+	float 				last_x;
+	float 				last_y;
+	int 				height;
+	int 				height_top;
+	int 				start_x;
+	int 				start_y;
+	int 				side;
+	int 				tex_x;
+	int (*distance)(float, float, float);
+}					t_draw;
+
 
 typedef struct
 {
@@ -168,18 +185,22 @@ void add_button(t_button button);
 
 /* DRAW */
 void				draw_line(float angle, int start_x, ThreadParams *params);
-void				draw_wall(int height, int start_x, ThreadParams *params,
-						int dist, int side, int tex_x);
+void				draw_wall(t_draw draw,ThreadParams *params, int dist);
 void				draw_floor(int height, int start_x, ThreadParams *params,
 						float angle);
 void				draw_sky(int height, int start_x, ThreadParams *params,
 						float angle);
-void				draw_chest_top(int height, int height_top, int side, int start_x, ThreadParams *params,
-						float angle);
-void				draw_chest(int height, int start_x, ThreadParams *params,
-						int dist, int side, int tex_x);
+// Chest
+void				draw_chest_top(t_draw draw, ThreadParams *params, float angle);
+void				draw_chest(t_draw draw, ThreadParams *params, int tex_x, float angle);
+
+// String
 void				write_string(char *str, int x, int y, int color,
 						float size);
+						t_texture *get_wall_side(int side, t_textures *texs);
+int vert_offset(t_player *p);
+int darken_color(int color, float ratio);
+float view_current_distance(t_player *p, int start_y, float angle, float z);
 
 // updating
 int					get_scene_pixel(int x, int y);

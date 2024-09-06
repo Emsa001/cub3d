@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   wall.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/08/31 00:36:34 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/06 18:32:40 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int vert_offset(t_player *p)
+int vert_offset(t_player *p)
 {
     return (p->z_dir) * HEIGHT;
 }
 
-static t_texture *get_wall_side(int side, t_textures *texs)
+t_texture *get_wall_side(int side, t_textures *texs)
 {
     t_texture *t = NULL;
     
@@ -136,24 +136,24 @@ void draw_sky(int height, int start_x, ThreadParams *params, float angle)
     }
 }
 
-void draw_wall(int height, int start_x, ThreadParams *params, int dist, int side, int tex_x)
+void draw_wall(t_draw draw, ThreadParams *params, int dist)
 {
     int color = params->color;
     float tex_y = 0;
-    float step = (float)T_SIZE / height;
+    float step = (float)T_SIZE / draw.height;
     const t_cube *c = params->cube;
     const t_player *p = params->player;
     const t_render *r = params->render;
     const t_textures *texs = params->textures;
 
-    bool catched = p->catch && side == 6;  // Use side instead of r->side
-    t_texture *wall_side = get_wall_side(side, texs);  // Use side instead of r->side
+    bool catched = p->catch && draw.side == 6;  // Use side instead of r->side
+    t_texture *wall_side = get_wall_side(draw.side, texs);  // Use side instead of r->side
     
-    if (!wall_side || side == 7)
+    if (!wall_side || draw.side == 7)
         return;
 
-    int start_y = (p->z - 1) * height + vert_offset(p);
-    int end_y = start_y + height;
+    int start_y = (p->z - 1) * draw.height + vert_offset(p);
+    int end_y = start_y + draw.height;
 
     if (end_y > HEIGHT)
         end_y = HEIGHT; 
@@ -166,92 +166,14 @@ void draw_wall(int height, int start_x, ThreadParams *params, int dist, int side
             color = 255;
         else
         {
-            color = get_pixel_from_image(wall_side, tex_x, tex_y);  // Use tex_x instead of c->tex_x
+            color = get_pixel_from_image(wall_side, draw.tex_x, tex_y);
             if(!p->vision)
                 color = darken_color(color, (float)dist / 450);
         }
 
-        put_pixel(start_x, start_y, color, r);
+        put_pixel(draw.start_x, start_y, color, r);
 
         tex_y += step;
-        start_y++;
-    }
-}
-
-void draw_chest(int height, int start_x, ThreadParams *params, int dist, int side, int tex_x)
-{
-    int color = params->color;
-    float tex_y = 0;
-    float step = (float)(T_SIZE * 2) / height;
-    const t_player *p = params->player;
-    const t_render *r = params->render;
-    const t_textures *texs = params->textures;
-
-    if (side != 7)
-        return;
-    t_texture *wall_side = get_wall_side(side, texs);
-    
-
-    int start_y = (p->z - 0.4) * height + vert_offset(p);
-    int end_y = start_y + height * 0.4;
-
-    if(end_y > HEIGHT)
-        end_y = HEIGHT;
-
-    while (start_y < end_y)
-    {
-        if(!p->vision && dist > 450)
-            break;
-        color = get_pixel_from_image(params->textures->chest, tex_x * 2, tex_y);
-        if(!p->vision)
-            color = darken_color(color, (float)dist / 450);
-
-        put_pixel(start_x, start_y, color, r);
-
-        tex_y += step;
-        start_y++;
-    }
-}
-
-void draw_chest_top(int height, int height_top, int side, int start_x, ThreadParams *params, float angle)
-{
-    const t_cube *c = params->cube;
-    const t_player *p = params->player;
-    const t_textures *texs = params->textures;
-    float head_x = 0;
-    float head_y = 0;
-    
-    float cosangle = cos(angle);
-    float sinangle = sin(angle);
-    int color = 123;
-    int start_y = HEIGHT / 2 + ((p->z - 0.4) * height);
-    int end_y = (HEIGHT / 2 + ((p->z - 0.4) * height_top)) + height_top * 0.01;
-
-    if(side != 7)
-        return;
-
-    float current_dist = 0;
-
-    t_texture *head = texs->wall_south;
-
-    if(end_y > HEIGHT)
-        end_y = HEIGHT;
-
-    while(start_y < end_y)
-    {
-        current_dist = view_current_distance(p, start_y, angle, 0.4);
-        if(!p->vision && current_dist > 7)
-            break;
-        
-        color = get_pixel_from_image(params->textures->chest_top, head_x * (T_SIZE * 2), head_y * (T_SIZE * 2));
-
-        if(!p->vision)
-            color = darken_color(color, (float)current_dist / 7);
-        
-        head_x = (p->x) + current_dist * cosangle;
-        head_y = (p->y) + current_dist * sinangle;
-        put_pixel(start_x, start_y, color, params->render);
-
         start_y++;
     }
 }

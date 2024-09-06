@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/06 13:21:39 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/06 18:30:44 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,26 @@ static bool find_hitbox(float x, float y, t_cube *c)
     return false;
 }
 
+t_draw init_draw(void)
+{
+    t_draw draw;
+
+    draw.x = player()->x_px;
+    draw.y = player()->y_px;
+    draw.first_x = 0;
+    draw.first_y = 0;
+    draw.last_x = 0;
+    draw.last_y = 0;
+    draw.height = 0;
+    draw.height_top = 0;
+    draw.start_x = 0;
+    draw.start_y = 0;
+    draw.side = 0;
+    draw.tex_x = 0;
+    draw.distance = view_lane_distance;
+    return draw;
+}
+
 void draw_line(float angle, int start_x, ThreadParams *params)
 {
     t_cube *c = params->cube;
@@ -81,60 +101,51 @@ void draw_line(float angle, int start_x, ThreadParams *params)
 
     float cosangle = cos(angle);
     float sinangle = sin(angle);
-
-    float x = p->x_px;
-    float y = p->y_px;
-    float save_x_first = 0;
-    float save_y_first= 0;
-    float save_x_last = 0;
-    float save_y_last = 0;
+    t_draw draw = init_draw();
+    draw.start_x = start_x;
+    
     bool save = false;
     bool save_last = false;
     int dist;
 
-    int local_tex_x;  // Thread-local variable for tex_x
-    int local_side;   // Thread-local variable for side
-
-    while (!find_hitbox(x, y, c))
+    while (!find_hitbox(draw.x, draw.y, c))
     {
-        if(touch_chest(c->map->chests, x, y))
+        if(touch_chest(c->map->chests, draw.x, draw.y))
         {
             if(!save)
             {
                 save = true;
-                save_x_first = x;
-                save_y_first = y;
+                draw.first_x = draw.x;
+                draw.first_y = draw.y;
             }
-            x += cosangle;
-            y += sinangle;
-            if(!save_last && !touch_chest(c->map->chests, x, y))
+            draw.x += cosangle;
+            draw.y += sinangle;
+            if(!save_last && !touch_chest(c->map->chests, draw.x, draw.y))
             {
                 save_last = true;
-                save_x_last = x;
-                save_y_last = y;
+                draw.last_x = draw.x;
+                draw.last_y = draw.y;
             }
         }
         else
         {
-            x += cosangle;
-            y += sinangle;
+            draw.x += cosangle;
+            draw.y += sinangle;
         }
     }
 
-    dist = view_lane_distance(x, y, angle);
-    local_side = calculate_direction(x, y, cosangle, sinangle, c, &local_tex_x);
-    int line_height = (BLOCK_SIZE * HEIGHT) / dist;
-    draw_wall(line_height, start_x, params, dist, local_side, local_tex_x);
-
+    dist = draw.distance(draw.x, draw.y, angle);
+    draw.side = calculate_direction(draw.x, draw.y, cosangle, sinangle, c, &draw.tex_x);
+    draw.height = (BLOCK_SIZE * HEIGHT) / draw.distance(draw.x, draw.y, angle);
+    draw_wall(draw, params, dist);
     {
-        int chest_dist = view_lane_distance(save_x_last, save_y_last, angle);
-        int chest_height = (BLOCK_SIZE * HEIGHT) / chest_dist;
-        int chest_local_side = calculate_direction(save_x_first, save_y_first, cosangle, sinangle, c, &local_tex_x);
-
-        chest_dist = view_lane_distance(save_x_first, save_y_first, angle);
-        int chest_height_top = (BLOCK_SIZE * HEIGHT) / chest_dist;
-        chest_local_side = calculate_direction(save_x_first, save_y_first, cosangle, sinangle, c, &local_tex_x);
-        draw_chest_top(chest_height, chest_height_top, chest_local_side, start_x, params, angle);
-        draw_chest(chest_height_top, start_x, params, chest_dist, chest_local_side, local_tex_x);
+        draw.height = (BLOCK_SIZE * HEIGHT) / draw.distance(draw.last_x, draw.last_y, angle);
+        draw.height_top = (BLOCK_SIZE * HEIGHT) / draw.distance(draw.first_x, draw.first_y, angle);
+        draw.side = calculate_direction(draw.first_x, draw.first_y, cosangle, sinangle, c, &draw.tex_x);
+        if(draw.side == 7)
+        {   
+            draw_chest_top(draw, params, angle);
+            draw_chest(draw, params, draw.tex_x, angle);
+        }
     }
 }
