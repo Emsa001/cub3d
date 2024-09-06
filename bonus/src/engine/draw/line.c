@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/06 18:30:44 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/06 19:02:43 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,8 @@ void draw_line(float angle, int start_x, ThreadParams *params)
     draw.side = calculate_direction(draw.x, draw.y, cosangle, sinangle, c, &draw.tex_x);
     draw.height = (BLOCK_SIZE * HEIGHT) / draw.distance(draw.x, draw.y, angle);
     draw_wall(draw, params, dist);
+    draw_floor(draw.height, start_x, params, angle);
+    draw_sky(draw.height, start_x, params, angle);
     {
         draw.height = (BLOCK_SIZE * HEIGHT) / draw.distance(draw.last_x, draw.last_y, angle);
         draw.height_top = (BLOCK_SIZE * HEIGHT) / draw.distance(draw.first_x, draw.first_y, angle);
