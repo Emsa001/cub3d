@@ -6,13 +6,13 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 15:34:23 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/07 19:25:29 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int calculate_direction(float x, float y, float cosangle, float sinangle, t_cube *c, int *tex_x)
+int direction(float x, float y, float cosangle, float sinangle, t_cube *c, int *tex_x)
 {
     int sx = cosangle > 0 ? 1 : -1; 
     int sy = sinangle > 0 ? 1 : -1;
@@ -49,13 +49,29 @@ int calculate_direction(float x, float y, float cosangle, float sinangle, t_cube
     {
         *tex_x = (int)y % BLOCK_SIZE;
         return 1;
-    } else if(touch_chest(c->map->chests, x - sx, y))
+    }
+    return 0;
+}
+
+int chest_direction(t_draw *draw, float cosangle, float sinangle, t_cube *c)
+{
+    int sx = 0;
+    int sy = 0;
+    if (cosangle > 0)
+        sx = 1;
+    else
+        sx = -1;
+    if (sinangle > 0)
+        sy = 1;
+    else
+        sy = -1;
+    if(touch_chest(c->map->chests, draw->first_x - sx, draw->first_y))
     {
-        *tex_x = (int)x % BLOCK_SIZE;
+        draw->tex_x = (int)draw->first_x % BLOCK_SIZE;
         return 7;
-    } else if(touch_chest(c->map->chests, x, y))
+    } else if(touch_chest(c->map->chests, draw->first_x, draw->first_y))
     {
-        *tex_x = (int)y % BLOCK_SIZE;
+        draw->tex_x = (int)draw->first_y % BLOCK_SIZE;
         return 7;
     }
     return 0;
@@ -74,6 +90,8 @@ static bool find_hitbox(float x, float y, t_cube *c)
     return false;
 }
 
+int view_lane_distance(float x1, float y1, float angle);
+
 t_draw init_draw(void)
 {
     t_draw draw;
@@ -84,29 +102,30 @@ t_draw init_draw(void)
     draw.first_y = 0;
     draw.last_x = 0;
     draw.last_y = 0;
+    draw.wall_height = 0;
     draw.height = 0;
     draw.height_top = 0;
     draw.start_x = 0;
     draw.start_y = 0;
     draw.side = 0;
     draw.tex_x = 0;
-    draw.distance = view_lane_distance;
+    draw.angle = 0;
+    draw.dist = 0;
+    draw.chest_dist = 0;
     return draw;
 }
 
-void draw_line(float angle, int start_x, ThreadParams *params)
+
+void draw_line(t_draw draw, ThreadParams *params)
 {
     t_cube *c = params->cube;
     const t_player *p = params->player;
 
-    float cosangle = cos(angle);
-    float sinangle = sin(angle);
-    t_draw draw = init_draw();
-    draw.start_x = start_x;
+    float cosangle = cos(draw.angle);
+    float sinangle = sin(draw.angle);
     
     bool save = false;
     bool save_last = false;
-    int dist;
 
     while (!find_hitbox(draw.x, draw.y, c))
     {
@@ -134,20 +153,14 @@ void draw_line(float angle, int start_x, ThreadParams *params)
         }
     }
 
-    dist = draw.distance(draw.x, draw.y, angle);
-    draw.side = calculate_direction(draw.x, draw.y, cosangle, sinangle, c, &draw.tex_x);
-    draw.height = (BLOCK_SIZE * HEIGHT) / draw.distance(draw.x, draw.y, angle);
-    draw_wall(draw, params, dist);
-    draw_floor(draw.height, start_x, params, angle);
-    draw_sky(draw.height, start_x, params, angle);
-    {
-        draw.height = (BLOCK_SIZE * HEIGHT) / draw.distance(draw.last_x, draw.last_y, angle);
-        draw.height_top = (BLOCK_SIZE * HEIGHT) / draw.distance(draw.first_x, draw.first_y, angle);
-        draw.side = calculate_direction(draw.first_x, draw.first_y, cosangle, sinangle, c, &draw.tex_x);
-        if(draw.side == 7)
-        {   
-            draw_chest_top(draw, params, angle);
-            draw_chest(draw, params, draw.tex_x, angle);
-        }
+    draw.side = direction(draw.x, draw.y, cosangle, sinangle, c, &draw.tex_x);
+    lane_distance(&draw);
+    draw_wall(draw, params);
+    draw_floor(draw.wall_height, draw.start_x, params, draw.angle);
+    draw_sky(draw.wall_height, draw.start_x, params, draw.angle);
+    if(chest_direction(&draw, cosangle, sinangle, c) == 7)
+    {   
+        draw_chest_top(draw, params, draw.angle);
+        draw_chest(draw, params, draw.tex_x, draw.angle);
     }
 }

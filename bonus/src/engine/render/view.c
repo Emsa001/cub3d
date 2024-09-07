@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   view.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:32:21 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 22:39:00 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/07 18:05:23 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 void* draw_lines_thread(void* arg)
 {
     ThreadParams *params = (ThreadParams*)arg;
+    t_draw draw = init_draw();
     
     for (int i = params->start; i < params->end; i++) {
         float fraction = (float)i / WIDTH;
-        float rayAngle = params->angleOffset + fraction * params->fovInRadians;
-        
-        draw_line(rayAngle, i, params);
+        draw.angle = params->angleOffset + fraction * params->fovInRadians;
+        draw.start_x = i;
+        draw_line(draw, params);
     }
     return NULL;
 }

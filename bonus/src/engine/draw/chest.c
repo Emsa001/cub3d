@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:47:24 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/06 16:31:21 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/07 19:15:19 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void draw_chest(t_draw draw, ThreadParams *params, int tex_x, float angle)
 {
     int color = params->color;
     float tex_y = 0;
-    int dist = draw.distance(draw.first_x, draw.first_y, angle);
+    int dist = draw.chest_dist;
     float step = (float)(T_SIZE * 2) / draw.height_top;
     const t_player *p = params->player;
     const t_render *r = params->render;

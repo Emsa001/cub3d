@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/06 21:11:52 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/07 19:18:02 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,18 +114,22 @@ typedef struct s_render
 
 typedef struct s_draw
 {
+	float  			    angle;
 	float				x;
 	float				y;
 	float				first_x;
 	float				first_y;
 	float 				last_x;
 	float 				last_y;
+	int 				wall_height;
 	int 				height;
 	int 				height_top;
 	int 				start_x;
 	int 				start_y;
 	int 				side;
 	int 				tex_x;
+	int 				dist;
+	int 				chest_dist;
 	int (*distance)(float, float, float);
 }					t_draw;
 
@@ -184,8 +188,8 @@ void				show_image(t_render *r, int x, int y);
 void add_button(t_button button);
 
 /* DRAW */
-void				draw_line(float angle, int start_x, ThreadParams *params);
-void				draw_wall(t_draw draw,ThreadParams *params, int dist);
+void				draw_line(t_draw draw, ThreadParams *params);
+void				draw_wall(t_draw draw,ThreadParams *params);
 void				draw_floor(int height, int start_x, ThreadParams *params,
 						float angle);
 void				draw_sky(int height, int start_x, ThreadParams *params,
@@ -201,6 +205,7 @@ void				write_string(char *str, int x, int y, int color,
 int vert_offset(t_player *p);
 int darken_color(int color, float ratio);
 float view_current_distance(t_player *p, int start_y, float angle, float z);
+t_draw init_draw(void);
 
 // updating
 int					get_scene_pixel(int x, int y);
