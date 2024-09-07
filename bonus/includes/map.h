@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/08/28 17:40:04 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/07 15:21:40 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 #define PLAYER_SIZE 5
 #define PLAYER_DOT_COLOR 0x3b82f6
 
-#define L_WIDTH 6
+#define L_WIDTH 2
 
 # include "cub3d.h"
 
@@ -97,6 +97,7 @@ t_block		*init_block(t_map *map_info, char c);
 void		print_block_info(t_block *doors);
 void		get_player_position(char **map);
 int touch_line(t_block *lines, float px, float py);
+void check_touch_lines();
 bool touch_chest(t_block *lines, float px, float py);
 t_map		*check_map(char **map, int size);
 char		*ft_remove_substr(char *str, char *sub);

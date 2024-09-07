@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:46:56 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 19:04:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/07 14:21:56 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void try_move(float x, float y) {
     p->y_px += y * delta_time;
 
     // Check for collision, revert position if necessary
-    if (touch()) {
+    if (touch()) 
+    {
         p->x_px = temp_x;
         p->y_px = temp_y;
     }
