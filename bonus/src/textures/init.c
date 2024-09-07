@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 22:05:17 by escura            #+#    #+#             */
-/*   Updated: 2024/08/25 14:46:02 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/07 12:47:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ t_textures *init_textures(t_textures *t)
 	sky->data = mlx_get_data_addr(sky->image, &sky->bpp, &sky->size_line, &sky->endian);
 	t->sky = sky;
 
-	floor->image = get_texture_file("assets/floor2.xpm", &floor->width, &floor->height);
+	floor->image = get_texture_file("assets/floor.xpm", &floor->width, &floor->height);
 	floor->data = mlx_get_data_addr(floor->image, &floor->bpp, &floor->size_line, &floor->endian);
 	t->floor = floor;
 
@@ -99,6 +99,8 @@ t_textures *init_textures(t_textures *t)
 	t_texture *wall_south = ft_malloc(sizeof(t_texture));
 	t_texture *wall_east = ft_malloc(sizeof(t_texture));
 	t_texture *wall_west = ft_malloc(sizeof(t_texture));
+	t_texture *chest = ft_malloc(sizeof(t_texture));
+	t_texture *chest_top = ft_malloc(sizeof(t_texture));
 
 	wall_north->image = get_texture_file("assets/north.xpm", &wall_north->width, &wall_north->height);
 	wall_north->data = mlx_get_data_addr(wall_north->image, &wall_north->bpp, &wall_north->size_line, &wall_north->endian);
@@ -119,6 +121,14 @@ t_textures *init_textures(t_textures *t)
 	door->image = get_texture_file("assets/door.xpm", &door->width, &door->height);
 	door->data = mlx_get_data_addr(door->image, &door->bpp, &door->size_line, &door->endian);
 	t->door = door;
+
+	chest->image = get_texture_file("assets/chest.xpm", &chest->width, &chest->height);
+	chest->data = mlx_get_data_addr(chest->image, &chest->bpp, &chest->size_line, &chest->endian);
+	t->chest = chest;
+
+	chest_top->image = get_texture_file("assets/chest_top.xpm", &chest_top->width, &chest_top->height);
+	chest_top->data = mlx_get_data_addr(chest_top->image, &chest_top->bpp, &chest_top->size_line, &chest_top->endian);
+	t->chest_top = chest_top;
 
 
 	init_hudtextures(t);

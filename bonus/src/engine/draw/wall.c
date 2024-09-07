@@ -6,18 +6,18 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/08/25 15:36:27 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/07 12:45:23 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int vert_offset(t_player *p)
+int vert_offset(t_player *p)
 {
     return (p->z_dir) * HEIGHT;
 }
 
-static t_texture *get_wall_side(int side, t_textures *texs)
+t_texture *get_wall_side(int side, t_textures *texs)
 {
     t_texture *t = NULL;
     
@@ -33,6 +33,8 @@ static t_texture *get_wall_side(int side, t_textures *texs)
         t = texs->door;
     else if (side == 6)
         t = texs->wall_west;
+    else if (side == 7)
+        t = texs->wall_south;
     else
         return NULL;
     return t;
@@ -53,9 +55,9 @@ int darken_color(int color, float ratio)
     return (r << 16) | (g << 8) | b;
 }
 
-float view_current_distance(t_player *p, int start_y, float angle)
+float view_current_distance(t_player *p, int start_y, float angle, float z)
 {
-    float current_dist = p->z * HEIGHT / (start_y - HEIGHT / 2);
+    float current_dist = (p->z - z) * HEIGHT / (start_y - HEIGHT / 2);
     return current_dist / cos(angle - p->angle);
 }
 
@@ -78,7 +80,7 @@ void draw_floor(int height, int start_x, ThreadParams *params, float angle)
 
     while (start_y > HEIGHT / 2 + (p->z * height) )
     {
-        current_dist = view_current_distance(p, start_y, angle);
+        current_dist = view_current_distance(p, start_y, angle, 0);
            
         if(!p->vision && current_dist > 7)
             break;
@@ -96,24 +98,62 @@ void draw_floor(int height, int start_x, ThreadParams *params, float angle)
     }
 }
 
-void draw_wall(int height, int start_x, ThreadParams *params, int dist, int side, int tex_x)
+void draw_sky(int height, int start_x, ThreadParams *params, float angle)
+{
+    const t_cube *c = params->cube;
+    const t_player *p = params->player;
+    const t_textures *texs = params->textures;
+    int start_y = 0;
+    float sky_x = 0;
+    float sky_y = 0;
+    
+    float cosangle = cos(angle);
+    float sinangle = sin(angle);
+    int color = 0;
+
+    float current_dist = 0;
+
+    t_texture *sky = texs->sky;
+
+    while (start_y < ((p->z * height) + HEIGHT / 2) - height)
+    {
+        current_dist = view_current_distance(p, start_y, angle, 1);
+
+        if(!p->vision && current_dist > 7)  
+            break;
+            
+        sky_x = (p->x) + current_dist * cosangle;
+        sky_y = (p->y) + current_dist * sinangle;
+
+        color = get_pixel_from_image(sky, sky_x * T_SIZE, sky_y * T_SIZE);
+
+        if(!p->vision)
+            color = darken_color(color, (float)current_dist / 7);
+
+        put_pixel(start_x, start_y, color, params->render);
+
+        start_y++;
+    }
+}
+
+void draw_wall(t_draw draw, ThreadParams *params, int dist)
 {
     int color = params->color;
     float tex_y = 0;
-    float step = (float)T_SIZE / height;
+    float step = (float)T_SIZE / draw.height;
     const t_cube *c = params->cube;
     const t_player *p = params->player;
     const t_render *r = params->render;
     const t_textures *texs = params->textures;
 
-    bool catched = p->catch && side == 6;  // Use side instead of r->side
-    t_texture *wall_side = get_wall_side(side, texs);  // Use side instead of r->side
+    bool catched = p->catch && draw.side == 6;  // Use side instead of r->side
+    t_texture *wall_side = get_wall_side(draw.side, texs);  // Use side instead of r->side
     
-    if (!wall_side)
+    if (!wall_side || draw.side == 7)
         return;
 
-    int start_y = (p->z - 1) * height + vert_offset(p);
-    int end_y = start_y + height;
+    int start_y = (p->z - 1) * draw.height + vert_offset(p);
+    int end_y = start_y + draw.height;
 
     if (end_y > HEIGHT)
         end_y = HEIGHT; 
@@ -126,12 +166,12 @@ void draw_wall(int height, int start_x, ThreadParams *params, int dist, int side
             color = 255;
         else
         {
-            color = get_pixel_from_image(wall_side, tex_x, tex_y);  // Use tex_x instead of c->tex_x
+            color = get_pixel_from_image(wall_side, draw.tex_x, tex_y);
             if(!p->vision)
                 color = darken_color(color, (float)dist / 450);
         }
 
-        put_pixel(start_x, start_y, color, r);
+        put_pixel(draw.start_x, start_y, color, r);
 
         tex_y += step;
         start_y++;

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/08/26 09:47:47 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/07 13:18:35 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ static void init_game(char *map)
 	player_init(ft_malloc(sizeof(t_player)));
 	init_textures(ft_malloc(sizeof(t_textures)));
 	init_items();
-	
 	minimap_init();
 }
 

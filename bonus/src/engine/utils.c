@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 22:32:44 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/07 12:44:55 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,27 @@ int touch_line(t_block *lines, float px, float py)
 	}
 	
 	return 0;
+}
+
+
+bool touch_chest(t_block *lines, float px, float py)
+{
+	int i = 0;
+	float x, y;
+
+	if (!lines)
+		return false;
+	
+	while (lines[i].x != -1)
+	{
+		x = lines[i].x * BLOCK_SIZE;
+		y = lines[i].y * BLOCK_SIZE;
+		if (px >= x && px <= x + BLOCK_SIZE / 2 && py >= y && py <= y + BLOCK_SIZE / 2)
+			return true;
+		i++;
+	}
+	
+	return false;
 }
 
 bool is_touching(float px, float py, const t_cube *c)

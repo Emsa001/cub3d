@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:49:03 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 22:31:03 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/07 12:46:54 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ bool	touch()
     if(touch_block(c->map->doors, x_m, y_m) || touch_block(c->map->doors, x_p, y_m) || touch_block(c->map->doors, x_m, y_p) || touch_block(c->map->doors, x_p, y_p))
         return (true);
     if(touch_line(c->map->lines, x_m, y_m) || touch_line(c->map->lines, x_p, y_m) || touch_line(c->map->lines, x_m, y_p) || touch_line(c->map->lines, x_p, y_p))
+        return (true);
+    if(touch_chest(c->map->chests, x_m, y_m) || touch_chest(c->map->chests, x_p, y_m) || touch_chest(c->map->chests, x_m, y_p) || touch_chest(c->map->chests, x_p, y_p))
         return (true);
 
 	return (false);
