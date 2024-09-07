@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 16:06:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/07 20:54:46 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ typedef struct s_uitextures
 	t_texture		*home;
 
 	t_texture		*window;
+	t_texture		*panel;
+	t_texture		*banner[2];
 
 	t_texture		*keys[32];
 }					t_uitextures;
@@ -64,10 +66,6 @@ typedef struct s_textures
 
 	t_texture		*chest;
 	t_texture		*chest_top;
-
-	t_texture		*healthhud;
-	t_texture		*healthbar;
-	t_texture		*healthIcon[4];
 
 	t_texture		*inventoryPlayer;
 	t_texture		*inventoryGui;

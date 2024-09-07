@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 16:02:00 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/07 20:11:52 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@
 # define BLOCK '2'
 
 # define M_PI 3.14159265358979323846
-# define NUM_THREADS 12
+# define NUM_THREADS 10
 
 
 typedef struct s_cube
@@ -225,5 +225,7 @@ int					mouse_click(int button);
 int					mouse_move(int x, int y);
 
 void				check_hooks(void);
+
+void 			item_button(t_button *button, float size);
 
 #endif

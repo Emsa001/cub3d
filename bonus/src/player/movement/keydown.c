@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 19:03:11 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/07 19:39:43 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,14 @@
 
 void player_keydown(int keycode){
     t_player *p = player();
-    const t_cube *c = cube();
+    t_cube *c = cube();
     
+    if (keycode == ESC)
+        c->paused = !c->paused;
+
+    if(c->paused)
+        return;
+
     if (keycode == W)
         p->btn_w = true;
     if (keycode == S)
@@ -65,4 +71,8 @@ void player_keydown(int keycode){
     if(keycode == F)
         p->catch = true;
 
+    if(keycode == G){
+        p->store->open = !p->store->open;
+        p->interact = !p->interact;
+    }
 }

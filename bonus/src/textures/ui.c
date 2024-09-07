@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:27:14 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 16:11:50 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/07 20:57:32 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,19 @@ void init_keys(t_textures *t){
         ft_free(path);
         ft_free(path2);
 	}
+}
+
+
+void init_banners(t_textures *t){
+	t_texture *banner1 = ft_malloc(sizeof(t_texture));
+	banner1->image = get_texture_file("assets/UI/banners/upgrade.xpm", &banner1->width, &banner1->height);
+	banner1->data = mlx_get_data_addr(banner1->image, &banner1->bpp, &banner1->size_line, &banner1->endian);
+	t->ui->banner[0] = banner1;
+
+	t_texture *banner2 = ft_malloc(sizeof(t_texture));
+	banner2->image = get_texture_file("assets/UI/banners/x100.xpm", &banner2->width, &banner2->height);
+	banner2->data = mlx_get_data_addr(banner2->image, &banner2->bpp, &banner2->size_line, &banner2->endian);
+	t->ui->banner[1] = banner2;
 }
 
 void init_ui(t_textures *t)
@@ -68,7 +81,12 @@ void init_ui(t_textures *t)
 	home->image = get_texture_file("assets/UI/png/Icon/Home.xpm", &home->width, &home->height);
 	home->data = mlx_get_data_addr(home->image, &home->bpp, &home->size_line, &home->endian);
 	t->ui->home = home;
-	
 
+	t_texture *panel = ft_malloc(sizeof(t_texture));
+	panel->image = get_texture_file("assets/UI/Window/Headless.xpm", &panel->width, &panel->height);
+	panel->data = mlx_get_data_addr(panel->image, &panel->bpp, &panel->size_line, &panel->endian);
+	t->ui->panel = panel;
+
+	init_banners(t);
 	init_keys(t);
 }

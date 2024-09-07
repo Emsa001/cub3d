@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:18:14 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 14:45:31 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/07 19:48:52 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ void hud_inventory()
 
     if(p->open_inventory)
         open_inventory();
-    else
-        p->mouse_hook = true;
 }
 
 void open_inventory() {

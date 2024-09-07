@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/08/25 14:37:11 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/07 19:51:29 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,8 @@ void write_string(char *str, int x, int y, int color, float size)
     const int char_height = 32; 
     const int chars_per_row = 16; 
 
-    // Create a buffer to hold the character pixel data
     int char_pixel_data[95][32 * 32];
 
-    // Load character pixel data from the font texture
     for (int index = 0; index < 95; ++index)
     {
         int row = index / chars_per_row;
@@ -43,24 +41,21 @@ void write_string(char *str, int x, int y, int color, float size)
         }
     }
 
-    // Iterate over each character in the string
     while (*str)
     {
         char ch = *str++;
-        if (ch < ' ' || ch > '~') continue; 
+        if (ch && ch < ' ' || ch > '~') continue; 
 
         int char_index = ch - ' ';
         int *pixels = char_pixel_data[char_index];
 
-        // Render each character at the specified location and size
         for (int i = 0; i < char_width; ++i)
         {
             for (int j = 0; j < char_height; ++j)
             {
                 int pixel_color = pixels[i + j * char_width];
-                if (pixel_color > 0)  // Assuming non-zero values are valid pixels
+                if (pixel_color > 0) 
                 {
-                    // Draw the pixel with scaling
                     for (int dx = 0; dx < size; ++dx)
                     {
                         for (int dy = 0; dy < size; ++dy)
@@ -72,7 +67,6 @@ void write_string(char *str, int x, int y, int color, float size)
             }
         }
 
-        // Move to the next character position
         x += char_width * size;
     }
 }

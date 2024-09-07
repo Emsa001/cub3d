@@ -3,10 +3,10 @@ const fs = require('fs');
 const path = require('path');
 
 // Configuration
-const INPUT_IMAGE = '../extras.png'; // Path to your input PNG image
-const OUTPUT_DIR = '../keys'; // Directory where the chunks will be saved
-const CHUNK_WIDTH = 32; // Size of each chunk (32x32)
-const CHUNK_HEIGHT =  16;
+const INPUT_IMAGE = '../UI/banners2/01.png'; // Path to your input PNG image
+const OUTPUT_DIR = '../UI/banners'; // Directory where the chunks will be saved
+const CHUNK_WIDTH = 48; // Size of each chunk (32x32)
+const CHUNK_HEIGHT =  32;
 
 // Create output directory if it doesn't exist
 if (!fs.existsSync(OUTPUT_DIR)) {

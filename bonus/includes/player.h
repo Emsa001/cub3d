@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 14:53:12 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/07 20:32:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,102 +24,113 @@
 
 typedef struct s_button
 {
-	int				x;
-	int				y;
-	int				width;
-	int				height;
+	int						x;
+	int						y;
+	int						width;
+	int						height;
 
-	void			(*function)(void *);
-	void			(*hover)(void *);
-	void			*arg;
-	int				itemId;
+	void					(*function)(void *);
+	void					(*hover)(void *);
+	void					*arg;
+	int						itemId;
 
-}					t_button;
+}							t_button;
 
 typedef struct s_button_node
 {
-	t_button button;
-	struct s_button_node *next;
-} t_button_node;
+	t_button				button;
+	struct s_button_node	*next;
+}							t_button_node;
+
+typedef struct s_store{
+	bool open;
+	int items[27];
+	int cases[3];
+	int generators[2];
+} t_store;
 
 typedef struct s_player
 {
-	float	x;
-	float	y;
-	float	z;
+	float					x;
+	float					y;
+	float					z;
 
-	float	x_px;
-	float	y_px;
+	float					x_px;
+	float					y_px;
 
-	float	x_dir;
-	float	y_dir;
-	float	z_dir;
+	float					x_dir;
+	float					y_dir;
+	float					z_dir;
 
-	float	angle;
-	double	direction;
+	float					angle;
+	double					direction;
 
-	bool	btn_w;
-	bool	btn_s;
-	bool	btn_a;
-	bool	btn_d;
+	bool					btn_w;
+	bool					btn_s;
+	bool					btn_a;
+	bool					btn_d;
 
-	bool	btn_up;
-	bool	btn_down;
-	bool	btn_left;
-	bool	btn_right;
-	bool	pause;
-	bool	interact;
-	bool	opened;
+	bool					btn_up;
+	bool					btn_down;
+	bool					btn_left;
+	bool					btn_right;
+	bool					pause;
+	bool					interact;
+	bool					opened;
 
-	bool	spawn;
-	bool	remove;
+	bool					spawn;
+	bool					remove;
 
-	bool	catch;
-	bool	catched;
+	bool					catch;
+	bool					catched;
 
-	float	jump_height;
+	float					jump_height;
 
-	int		fov;
+	int						fov;
 
-	int		speed;
-	bool	sprint;
+	int						speed;
+	bool					sprint;
 
-	float	plane_x;
-	float	plane_y;
+	float					plane_x;
+	float					plane_y;
 
-	int		health;
+	bool					mouse_hook;
+	bool					open_inventory;
 
-	bool	mouse_hook;
-	bool	open_inventory;
+	int						inventory[9];
+	int						equipped[8];
 
-	int		inventory[9];
-	int		equipped[8];
+	bool					vision;
+	int money;
 
-	bool	vision;
+	t_button				*hover;
+	t_item					*hand;
+	bool					swing;
+	t_store 				*store;
+}							t_player;
 
-	t_button *hover;
-	t_item	*hand;
-	bool	swing;
-}			t_player;
 
-t_player	*player_init(t_player *p);
-t_player	*player(void);
-void		move_player(void);
-void		jump_player(void);
-bool		touch(void);
-void		render_player(void);
-void		handle_mouse_rotate(int x, int y);
-void		handle_arrow_rotation(t_player *p);
-void		open_inventory(void);
+t_player					*player_init(t_player *p);
+t_player					*player(void);
+void						move_player(void);
+void						jump_player(void);
+bool						touch(void);
+void						render_player(void);
+void						handle_mouse_rotate(int x, int y);
+void						handle_arrow_rotation(t_player *p);
+void						open_inventory(void);
 
-int			view_lane_distance(float x1, float y1, float angle);
+int							view_lane_distance(float x1, float y1, float angle);
 
-void		player_keydown(int keycode);
-void		player_keyup(int keycode);
-void		player_mouseclick(int button);
-void		pause_game(void);
-void 		render_ui();
+void						player_keydown(int keycode);
+void						player_keyup(int keycode);
+void						player_mouseclick(int button);
+void						pause_game(void);
+void						render_ui(void);
 
-void 		tooltip(char *string, float size);
+void						tooltip(char *string, float size);
+void						hud_currency(void);
+t_store *init_store();
+void open_store();
 
 #endif

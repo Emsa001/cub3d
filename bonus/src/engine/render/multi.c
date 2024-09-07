@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 15:07:37 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/07 17:16:13 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int render_scene_multithread(t_cube *c)
 {
     t_render *r = render();
     create_image(r, WIDTH, HEIGHT);
-
 
     // Create threads
     render_view();
