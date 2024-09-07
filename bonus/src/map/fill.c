@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:52:35 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/07 12:45:36 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/07 13:17:14 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	fill(char **tab, t_point size, t_point begin, char to_fill[])
 		return ;
 	c = tab[begin.y][begin.x];
 	i = 0;
-	while (i < 7)
+	while (i < 6)
 	{
 		if (c == to_fill[i])
 		{
