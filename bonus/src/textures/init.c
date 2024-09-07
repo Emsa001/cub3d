@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 22:05:17 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 12:47:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/07 13:30:15 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ t_textures *init_textures(t_textures *t)
 	init_items_textures(t);
 	init_font(t);
 	init_tooltip(t);
+	init_ui(t);
 	
 	texture = t;
 	return (texture);

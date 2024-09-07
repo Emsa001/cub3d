@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 12:44:32 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/07 14:53:12 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,26 @@
 # define JUMP_HEIGHT 0.38
 
 # define FOV 60
+
+typedef struct s_button
+{
+	int				x;
+	int				y;
+	int				width;
+	int				height;
+
+	void			(*function)(void *);
+	void			(*hover)(void *);
+	void			*arg;
+	int				itemId;
+
+}					t_button;
+
+typedef struct s_button_node
+{
+	t_button button;
+	struct s_button_node *next;
+} t_button_node;
 
 typedef struct s_player
 {
@@ -72,14 +92,14 @@ typedef struct s_player
 	bool	mouse_hook;
 	bool	open_inventory;
 
-	int 	inventory[9];
-	int 	equipped[8];
+	int		inventory[9];
+	int		equipped[8];
 
-	bool 	vision;
+	bool	vision;
 
-	t_item 	*cursorItem;
-	t_item 	*hand;
-	bool 	swing;
+	t_button *hover;
+	t_item	*hand;
+	bool	swing;
 }			t_player;
 
 t_player	*player_init(t_player *p);
@@ -97,5 +117,9 @@ int			view_lane_distance(float x1, float y1, float angle);
 void		player_keydown(int keycode);
 void		player_keyup(int keycode);
 void		player_mouseclick(int button);
+void		pause_game(void);
+void 		render_ui();
+
+void 		tooltip(char *string, float size);
 
 #endif

@@ -3,9 +3,10 @@ const fs = require('fs');
 const path = require('path');
 
 // Configuration
-const INPUT_IMAGE = '../icons/transparent_shadow.png'; // Path to your input PNG image
-const OUTPUT_DIR = '../items'; // Directory where the chunks will be saved
-const CHUNK_SIZE = 32; // Size of each chunk (32x32)
+const INPUT_IMAGE = '../extras.png'; // Path to your input PNG image
+const OUTPUT_DIR = '../keys'; // Directory where the chunks will be saved
+const CHUNK_WIDTH = 32; // Size of each chunk (32x32)
+const CHUNK_HEIGHT =  16;
 
 // Create output directory if it doesn't exist
 if (!fs.existsSync(OUTPUT_DIR)) {
@@ -99,14 +100,14 @@ async function splitImage() {
         const { width, height } = image;
         console.log(`Image dimensions: ${width}x${height}`);
 
-        let chunkId = 1; // Initialize chunk counter
+        let chunkId = 0; // Initialize chunk counter
 
         // Process each chunk
-        for (let y = 0; y < height; y += CHUNK_SIZE) {
-            for (let x = 0; x < width; x += CHUNK_SIZE) {
+        for (let y = 0; y < height; y += CHUNK_HEIGHT) {
+            for (let x = 0; x < width; x += CHUNK_WIDTH) {
                 // Calculate the chunk dimensions and bounds
-                const chunkWidth = Math.min(CHUNK_SIZE, width - x);
-                const chunkHeight = Math.min(CHUNK_SIZE, height - y);
+                const chunkWidth = Math.min(CHUNK_WIDTH, width - x);
+                const chunkHeight = Math.min(CHUNK_HEIGHT, height - y);
 
                 // Skip if chunk dimensions are not valid
                 if (chunkWidth <= 0 || chunkHeight <= 0) {
@@ -124,7 +125,7 @@ async function splitImage() {
                 // Create output filename
                 const outputFilename = path.join(
                     OUTPUT_DIR,
-                    `item${chunkId}.xpm`
+                    `key${chunkId}.xpm`
                 );
 
                 // Convert chunk to PNG buffer
@@ -151,6 +152,7 @@ async function splitImage() {
         console.error('Error splitting image:', error);
     }
 }
+
 
 // Execute the function
 splitImage();

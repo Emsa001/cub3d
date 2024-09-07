@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 12:44:12 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/07 16:02:00 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,24 +62,6 @@
 # define M_PI 3.14159265358979323846
 # define NUM_THREADS 12
 
-typedef struct s_button
-{
-	int				x;
-	int				y;
-	int				width;
-	int				height;
-
-	void			(*function)(void *);
-	void			*arg;
-	int				itemId;
-
-}					t_button;
-
-typedef struct s_button_node
-{
-	t_button button;
-	struct s_button_node *next;
-} t_button_node;
 
 typedef struct s_cube
 {
@@ -91,6 +73,8 @@ typedef struct s_cube
 	t_item			items[256];
 
 	t_map			*map;
+
+	bool 			paused;
 } t_cube;
 
 
@@ -159,8 +143,6 @@ t_render			*init_render(t_render *r);
 t_render			*render(void);
 void				update_fps(void);
 void				render_view(void);
-void				render_hud(void);
-void				hud_tooltips(void);
 void				init_items(void);
 
 void				check_params(char **av);
@@ -176,7 +158,7 @@ int					render_scene(t_cube *p);
 bool				is_touching(float px, float py, const t_cube *c);
 bool				touch_block(t_block *blocks, float px, float py);
 void				button_click(int type, int x, int y);
-void				button_tooltip(int x, int y);
+void				button_hover(int x, int y);
 
 void				clean_image(t_render *r);
 void				create_image(t_render *r, int width, int height);
