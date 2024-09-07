@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 22:40:57 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/07 12:45:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,17 @@ int calculate_direction(float x, float y, float cosangle, float sinangle, t_cube
     {
         *tex_x = (int)y % BLOCK_SIZE;
         return 1;
+    } else if(touch_chest(c->map->chests, x - sx, y))
+    {
+        *tex_x = (int)x % BLOCK_SIZE;
+        return 7;
+    } else if(touch_chest(c->map->chests, x, y))
+    {
+        *tex_x = (int)y % BLOCK_SIZE;
+        return 7;
     }
     return 0;
 }
-
 
 static bool find_hitbox(float x, float y, t_cube *c)
 {
@@ -67,6 +74,26 @@ static bool find_hitbox(float x, float y, t_cube *c)
     return false;
 }
 
+t_draw init_draw(void)
+{
+    t_draw draw;
+
+    draw.x = player()->x_px;
+    draw.y = player()->y_px;
+    draw.first_x = 0;
+    draw.first_y = 0;
+    draw.last_x = 0;
+    draw.last_y = 0;
+    draw.height = 0;
+    draw.height_top = 0;
+    draw.start_x = 0;
+    draw.start_y = 0;
+    draw.side = 0;
+    draw.tex_x = 0;
+    draw.distance = view_lane_distance;
+    return draw;
+}
+
 void draw_line(float angle, int start_x, ThreadParams *params)
 {
     t_cube *c = params->cube;
@@ -74,30 +101,53 @@ void draw_line(float angle, int start_x, ThreadParams *params)
 
     float cosangle = cos(angle);
     float sinangle = sin(angle);
-
-    float x = p->x_px;
-    float y = p->y_px;
+    t_draw draw = init_draw();
+    draw.start_x = start_x;
+    
+    bool save = false;
+    bool save_last = false;
     int dist;
 
-    int local_tex_x;  // Thread-local variable for tex_x
-    int local_side;   // Thread-local variable for side
-
-    while (!find_hitbox(x, y, c))
+    while (!find_hitbox(draw.x, draw.y, c))
     {
-        x += cosangle;
-        y += sinangle;
+        if(touch_chest(c->map->chests, draw.x, draw.y))
+        {
+            if(!save)
+            {
+                save = true;
+                draw.first_x = draw.x;
+                draw.first_y = draw.y;
+            }
+            draw.x += cosangle;
+            draw.y += sinangle;
+            if(!save_last && !touch_chest(c->map->chests, draw.x, draw.y))
+            {
+                save_last = true;
+                draw.last_x = draw.x;
+                draw.last_y = draw.y;
+            }
+        }
+        else
+        {
+            draw.x += cosangle;
+            draw.y += sinangle;
+        }
     }
-    dist = view_lane_distance(x, y, angle);
 
-    local_side = calculate_direction(x, y, cosangle, sinangle, c, &local_tex_x);
-
-    int line_height = (BLOCK_SIZE * HEIGHT) / dist;
-
-    // Draw the floor
-    draw_floor(line_height, start_x, params, angle);
-
-    // Draw the wall using the thread-local variables
-    // pthread_mutex_lock(params->mutex);
-    draw_wall(line_height, start_x, params, dist, local_side, local_tex_x);
-    // pthread_mutex_unlock(params->mutex);
+    dist = draw.distance(draw.x, draw.y, angle);
+    draw.side = calculate_direction(draw.x, draw.y, cosangle, sinangle, c, &draw.tex_x);
+    draw.height = (BLOCK_SIZE * HEIGHT) / draw.distance(draw.x, draw.y, angle);
+    draw_wall(draw, params, dist);
+    draw_floor(draw.height, start_x, params, angle);
+    draw_sky(draw.height, start_x, params, angle);
+    {
+        draw.height = (BLOCK_SIZE * HEIGHT) / draw.distance(draw.last_x, draw.last_y, angle);
+        draw.height_top = (BLOCK_SIZE * HEIGHT) / draw.distance(draw.first_x, draw.first_y, angle);
+        draw.side = calculate_direction(draw.first_x, draw.first_y, cosangle, sinangle, c, &draw.tex_x);
+        if(draw.side == 7)
+        {   
+            draw_chest_top(draw, params, angle);
+            draw_chest(draw, params, draw.tex_x, angle);
+        }
+    }
 }

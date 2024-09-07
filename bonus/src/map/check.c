@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/08/23 19:05:43 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/07 12:45:31 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	get_zero_count(char **map)
+int	count_c(char **map, char c)
 {
 	int	i;
 	int	j;
@@ -26,7 +26,7 @@ int	get_zero_count(char **map)
 		j = 0;
 		while (map[i][j] != '\0')
 		{
-			if (map[i][j] == '0')
+			if (map[i][j] == c)
 				zero++;
 			j++;
 		}
@@ -41,10 +41,10 @@ void	check_valid(char **map, t_map *map_info)
 	t_point	*begin_points;
 	char	to_fill[6];
 
-	begin_points = ft_malloc(sizeof(t_point) * (get_zero_count(map) + 1));
+	begin_points = ft_malloc(sizeof(t_point) * (count_c(map, '0') + 1));
 	begin_points = get_begin_points(map, begin_points);
-	begin_points[get_zero_count(map)].x = -1;
-	begin_points[get_zero_count(map)].y = -1;
+	begin_points[count_c(map, '0')].x = -1;
+	begin_points[count_c(map, '0')].y = -1;
 	to_fill[0] = '0';
 	to_fill[1] = 'N';
 	to_fill[2] = 'S';
@@ -169,6 +169,39 @@ t_block *init_line(t_map *map_info , char **map)
 	return (lines);
 }
 
+
+t_block *init_chests(t_map *map_info, char **map)
+{
+	t_block	*chests;
+	int		i = 0;
+	int		j = 0;
+	int		k = 0;
+	
+	map_info->chests = NULL;
+	int chest_count = count_c(map, 'H');
+	chests = ft_malloc(sizeof(t_block) * (chest_count + 1));
+
+	while(map[i] != NULL)
+	{
+		j = 0;
+		while(map[i][j] != '\0')
+		{
+			if (map[i][j] == 'H')
+			{
+				chests[k].x = j + 0.5;
+				chests[k].y = i	+ 0.5;
+				k++;
+			}
+			j++;
+		}
+		i++;
+	}
+	chests[k].x = -1;
+	chests[k].y = -1;
+	return (chests);
+}
+
+
 t_map	*check_map(char **map, int size)
 {
 	t_map	*map_info;
@@ -190,5 +223,6 @@ t_map	*check_map(char **map, int size)
 	map_info->doors = init_block(map_info, 'D');
 	map_info->blocks = init_block(map_info, '2');
 	map_info->lines = init_line(map_info, map);
+	map_info->chests = init_chests(map_info, map);
 	return (map_info);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:59:54 by btvildia          #+#    #+#             */
-/*   Updated: 2024/08/23 15:26:46 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/07 12:46:51 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	ft_check_line(char *line)
 		return (0);
 	while (line[i] != '\0')
 	{
-		if (line[i] != '1' && line[i] != 'D' && line[i] != '0' && line[i] != 'N' && line[i] != 'S'
+		if (line[i] != '1' && line[i] != 'D' && line[i] != 'H' && line[i] != '0' && line[i] != 'N' && line[i] != 'S'
 			&& line[i] != 'W' && line[i] != 'E' && ft_isspace(line[i]) == 0)
 			return (0);
 		i++;
