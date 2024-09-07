@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 22:05:17 by escura            #+#    #+#             */
-/*   Updated: 2024/09/06 19:02:32 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/07 20:49:59 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,24 @@ void init_tooltip(t_textures *t){
 	t->tooltip_bg = tooltip_bg;
 }
 
+void init_torch(t_textures *t)
+{
+	// 9 steands for 9 frames of the torch animation
+	t_texture *torch[9];
+	int i = 0;
+
+	while (i < 9)
+	{
+		torch[i] = ft_malloc(sizeof(t_texture));
+		char *path = ft_strjoin("assets/torch/", ft_itoa(i));
+		path = ft_strjoin(path, ".xpm");
+		torch[i]->image = get_texture_file(path, &torch[i]->width, &torch[i]->height);
+		torch[i]->data = mlx_get_data_addr(torch[i]->image, &torch[i]->bpp, &torch[i]->size_line, &torch[i]->endian);
+		t->torch[i] = torch[i];
+		i++;
+	}
+}
+
 t_textures *init_textures(t_textures *t)
 {
 	static t_textures	*texture;
@@ -130,7 +148,7 @@ t_textures *init_textures(t_textures *t)
 	chest_top->data = mlx_get_data_addr(chest_top->image, &chest_top->bpp, &chest_top->size_line, &chest_top->endian);
 	t->chest_top = chest_top;
 
-
+	init_torch(t);
 	init_hudtextures(t);
 	init_items_textures(t);
 	init_font(t);
