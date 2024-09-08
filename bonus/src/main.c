@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 12:44:45 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/08 20:45:01 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int argc, char **argv)
 	ft_alloc_init();
 
 	init_game(argv[1]);
+
 	start_game();
 	
 	ft_destructor();

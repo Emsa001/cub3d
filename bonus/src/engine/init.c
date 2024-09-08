@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:10:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/08 18:30:06 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/08 21:05:46 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_cube	*cube_init(t_cube *c)
 	c->buttons = NULL;
 	c->paused = false;
 	c->async_id = 0;
+	c->add_money = 0;
 
 	ft_memset(c->items, 0, sizeof(c->items));
 	pthread_mutex_init(&c->pause_mutex, NULL);

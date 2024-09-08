@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/08 18:29:39 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/08 21:04:23 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ typedef struct s_cube
 	t_item					items[256];
 
 	t_map					*map;
+
+	int add_money;
 
 	bool					paused;
 	int 					async_id;
@@ -166,7 +168,7 @@ typedef struct s_async
     
     void (*start)(struct s_async *);
     void (*process)(struct s_async *);
-    void (*end)(void *);
+    void (*end)(struct s_async *);
     void *arg;
     
     int time;
