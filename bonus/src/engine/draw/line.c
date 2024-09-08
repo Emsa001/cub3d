@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/08 18:58:23 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/08 19:50:30 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,13 @@ int torch_direction(t_draw *draw, float cosangle, float sinangle, t_cube *c)
         sy = 1;
     else
         sy = -1;
-    if(touch_torch(c->map->torches, draw->x - sx, draw->y))
+    if(touch_torch(c->map->torches, draw->torch_x - sx, draw->torch_y))
     {
-        draw->tex_x = (int)draw->x % BLOCK_SIZE;
+        draw->tex_x = (int)draw->torch_x % BLOCK_SIZE;
         return 9;
-    } else if(touch_torch(c->map->torches, draw->x, draw->y))
+    } else if(touch_torch(c->map->torches, draw->torch_x, draw->torch_y))
     {
-        draw->tex_x = (int)draw->y % BLOCK_SIZE;
+        draw->tex_x = (int)draw->torch_y % BLOCK_SIZE;
         return 9;
     }
     return 0;
@@ -144,12 +144,12 @@ void draw_torch_frame(t_draw draw, ThreadParams *params)
 {
     int color = params->color;
     float tex_y = 0;
-    float step = (float)T_SIZE / draw.wall_height;
+    float step = (float)T_SIZE / draw.torch_height;
     const t_player *p = params->player;
     const t_render *r = params->render;
 
-    int start_y = (p->z - 1) * draw.wall_height + vert_offset(p);
-    int end_y = start_y + draw.wall_height;
+    int start_y = (p->z - 1) * draw.torch_height + vert_offset(p);
+    int end_y = start_y + draw.torch_height;
 
     if(end_y > HEIGHT)
         end_y = HEIGHT;
@@ -164,20 +164,6 @@ void draw_torch_frame(t_draw draw, ThreadParams *params)
         start_y++;
     }
 }
-
-void torch_distance(t_draw *draw)
-{
-    float x2 = player()->x_px;
-    float y2 = player()->y_px;
-    
-    float player_angle = player()->angle;
-    
-    float raw_distance = distance(draw->torch_x, draw->torch_y, x2, y2);
-    float adjusted_distance = raw_distance * cos(player_angle - draw->angle);
-    draw->torch_dist = adjusted_distance;
-    draw->torch_height = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
-}
-
 
 void draw_line(t_draw draw, ThreadParams *params)
 {
@@ -196,7 +182,6 @@ void draw_line(t_draw draw, ThreadParams *params)
         {
             draw.torch_x = draw.x;
             draw.torch_y = draw.y;
-            break;
         }
         if(touch_chest(c->map->chests, draw.x, draw.y))
         {
@@ -225,9 +210,8 @@ void draw_line(t_draw draw, ThreadParams *params)
     draw.side = direction(draw.x, draw.y, cosangle, sinangle, c, &draw.tex_x);
     lane_distance(&draw);
     draw_wall(draw, params);
-    draw_floor(draw.height, draw.start_x, params, draw.angle);
-    draw_sky(draw.height_top, draw.start_x, params, draw.angle);
-    torch_distance(&draw);
+    draw_floor(draw.wall_height, draw.start_x, params, draw.angle);
+    draw_sky(draw.wall_height, draw.start_x, params, draw.angle);
     if(torch_direction(&draw, cosangle, sinangle, c) == 9)
         draw_torch_frame(draw, params);
     if(chest_direction(&draw, cosangle, sinangle, c) == 7)
