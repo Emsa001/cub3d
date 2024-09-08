@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   async.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:38:54 by escura            #+#    #+#             */
-/*   Updated: 2024/09/08 18:39:56 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/08 19:05:30 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@ static void* run_process_and_function(void* arg) {
 	t_async* current = (t_async*)arg;
 	current->start(current);
 
-	int sleep_time = current->time;
 	int sleep_interval = 10;
 	current->time_elapsed = 0;
 
-	while (current->time_elapsed < sleep_time) {
+	while (current->time_elapsed < current->time) {
 		pthread_mutex_lock(&current->cube->pause_mutex);
 		bool paused = current->cube->paused;
 		pthread_mutex_unlock(&current->cube->pause_mutex);

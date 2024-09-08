@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vision.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 18:25:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/08 18:43:06 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/08 19:03:51 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void vision_process(t_async *current){
 
 void vision_end(t_async *current)
 {
-    current->player->vision = true;
+    current->player->vision = false;
 }
 
 void vision(t_itemprops props)
