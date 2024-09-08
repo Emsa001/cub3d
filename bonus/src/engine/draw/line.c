@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/08 19:50:30 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/08 19:53:27 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ void draw_torch_frame(t_draw draw, ThreadParams *params)
     float step = (float)T_SIZE / draw.torch_height;
     const t_player *p = params->player;
     const t_render *r = params->render;
+    int dist = draw.torch_dist;
 
     int start_y = (p->z - 1) * draw.torch_height + vert_offset(p);
     int end_y = start_y + draw.torch_height;
@@ -156,8 +157,12 @@ void draw_torch_frame(t_draw draw, ThreadParams *params)
 
     while (start_y < end_y)
     {
+        if(!p->vision && dist > 450)
+            break;
         color = get_pixel_from_image(params->textures->torch[0], draw.tex_x , tex_y);
-        if(color > 0)
+        if(!p->vision)
+            color = darken_color(color, (float)dist / 450);
+        if(color != 0)
             put_pixel(draw.start_x, start_y, color, r);
 
         tex_y += step;
