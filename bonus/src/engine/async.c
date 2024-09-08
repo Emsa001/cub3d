@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:38:54 by escura            #+#    #+#             */
-/*   Updated: 2024/09/08 19:05:30 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/08 19:07:26 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static void* run_process_and_function(void* arg) {
 	t_async* current = (t_async*)arg;
-	current->start(current);
+	if(current->start)
+		current->start(current);
 
 	int sleep_interval = 10;
 	current->time_elapsed = 0;
@@ -29,12 +30,14 @@ static void* run_process_and_function(void* arg) {
 			continue;
 		}
 
-		current->process(current);
+		if(current->process)
+			current->process(current);
 		current->time_elapsed += sleep_interval;
 		usleep(sleep_interval * 1000);
 	}
 
-	current->end(current);
+	if(current->end)
+		current->end(current);
 	current->cube->async_id--;
 	ft_free(current); 
 	return NULL;
