@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 17:20:25 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/08 18:43:20 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void draw_floor(int height, int start_x, ThreadParams *params, float angle)
     while (start_y > HEIGHT / 2 + (p->z * height) )
     {
         current_dist = view_current_distance(p, start_y, angle, 0);
-           
+        // VISION CAUSES DATA RACE
         if(!p->vision && current_dist > 7)
             break;
         
@@ -118,7 +118,7 @@ void draw_sky(int height, int start_x, ThreadParams *params, float angle)
     while (start_y < ((p->z * height) + HEIGHT / 2) - height)
     {
         current_dist = view_current_distance(p, start_y, angle, 1);
-
+        // VISION CAUSES DATA RACE
         if(!p->vision && current_dist > 7)  
             break;
             
@@ -160,6 +160,7 @@ void draw_wall(t_draw draw, ThreadParams *params, int dist)
 
     while (start_y < end_y)
     {
+        // VISION CAUSES DATA RACE
         if(!p->vision && dist > 450)
             break;
         if (catched)

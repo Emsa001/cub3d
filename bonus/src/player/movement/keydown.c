@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 19:39:43 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/08 18:31:41 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@ void player_keydown(int keycode){
     t_player *p = player();
     t_cube *c = cube();
     
-    if (keycode == ESC)
+    if (keycode == ESC){
+        pthread_mutex_lock(&c->pause_mutex);
         c->paused = !c->paused;
+        pthread_mutex_unlock(&c->pause_mutex);
+    }
 
     if(c->paused)
         return;
@@ -56,9 +59,6 @@ void player_keydown(int keycode){
     // if(keycode == PLUS)
     //     if(p->fov < 120)
     //         p->fov += 5;
-    
-    if(keycode == P)
-        p->pause = !p->pause;
     
     if(keycode == E){
         p->open_inventory = !p->open_inventory;

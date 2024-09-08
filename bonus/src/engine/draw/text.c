@@ -6,11 +6,63 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 19:51:29 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/08 17:52:29 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void remove_string_queue(t_string_queue **q)
+{
+    t_string_queue *tmp = (*q)->next;
+    ft_free((*q)->str);
+    ft_free(*q);
+    *q = tmp;
+}
+
+void add_string_queue(char *str, int x, int y, int color, float size) {
+    t_render *r = render();
+    t_string_queue *new = ft_malloc(sizeof(t_string_queue));
+    new->str = ft_strdup(str);
+    new->x = x;
+    new->y = y;
+    new->color = color;
+    new->size = size;
+    new->next = NULL;
+
+    pthread_mutex_lock(&r->string_queue_mutex);  // Lock the mutex before accessing the queue
+
+    if (r->string_queue == NULL) {
+        r->string_queue = new;
+    } else {
+        t_string_queue *q = r->string_queue;
+        while (q->next != NULL)
+            q = q->next;
+        q->next = new;
+    }
+
+    pthread_mutex_unlock(&r->string_queue_mutex);  // Unlock the mutex after modifying the queue
+}
+
+
+void write_string_queue() {
+    t_render *r = render();
+    pthread_mutex_lock(&r->string_queue_mutex);  // Lock the mutex before accessing the queue
+
+    t_string_queue *q = r->string_queue;
+    while (q != NULL) {
+        write_string(q->str, q->x, q->y, q->color, q->size);
+
+        t_string_queue *tmp = q->next;
+        remove_string_queue(&q);
+        q = tmp;
+    }
+
+    r->string_queue = NULL;
+
+    pthread_mutex_unlock(&r->string_queue_mutex);  // Unlock the mutex after modifying the queue
+}
+
 
 // https://stmn.itch.io/font2bitmap
 void write_string(char *str, int x, int y, int color, float size)

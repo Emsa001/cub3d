@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:30:48 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 16:13:36 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/08 18:31:00 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void resume_game(){
     t_player *p = player();
 
     p->mouse_hook = true;
+    pthread_mutex_lock(&c->pause_mutex);
     c->paused = false;
+    pthread_mutex_unlock(&c->pause_mutex);
 }
 
 void pause_hover(void)
