@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 19:18:02 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/08 18:41:36 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,16 +121,19 @@ typedef struct s_draw
 	float				first_y;
 	float 				last_x;
 	float 				last_y;
-	int 				wall_height;
+	float				torch_x;
+	float				torch_y;
+	int 				torch_height;
 	int 				height;
 	int 				height_top;
+	float				wall_height;
 	int 				start_x;
 	int 				start_y;
 	int 				side;
 	int 				tex_x;
 	int 				dist;
 	int 				chest_dist;
-	int (*distance)(float, float, float);
+	int 				torch_dist;
 }					t_draw;
 
 
@@ -179,6 +182,9 @@ int					render_scene_singlethread(t_cube *c);
 int					render_scene(t_cube *p);
 bool				is_touching(float px, float py, const t_cube *c);
 bool				touch_block(t_block *blocks, float px, float py);
+int touch_torch(t_block *torches, float px, float py);
+int touch_line(t_block *lines, float px, float py);
+bool touch_chest(t_block *lines, float px, float py);
 void				button_click(int type, int x, int y);
 void				button_tooltip(int x, int y);
 
@@ -197,6 +203,7 @@ void				draw_sky(int height, int start_x, ThreadParams *params,
 // Chest
 void				draw_chest_top(t_draw draw, ThreadParams *params, float angle);
 void				draw_chest(t_draw draw, ThreadParams *params, int tex_x, float angle);
+void draw_torch_frame(t_draw draw, ThreadParams *params);
 
 // String
 void				write_string(char *str, int x, int y, int color,

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/08/30 19:12:36 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/08 17:56:23 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	check_valid(char **map, t_map *map_info)
 {
 	t_point	size;
 	t_point	*begin_points;
-	char	to_fill[6];
+	char	to_fill[8];
 
 	begin_points = ft_malloc(sizeof(t_point) * (count_c(map, '0') + 1));
 	begin_points = get_begin_points(map, begin_points);
@@ -51,6 +51,8 @@ void	check_valid(char **map, t_map *map_info)
 	to_fill[3] = 'W';
 	to_fill[4] = 'E';
 	to_fill[5] = 'D';
+	to_fill[6] = 'H';
+	to_fill[7] = 'G';
 	size.x = map_info->width + 1;
 	size.y = map_info->height;
 	fill_loop(to_fill, begin_points, map_info, size);
@@ -169,6 +171,37 @@ t_block *init_line(t_map *map_info , char **map)
 	return (lines);
 }
 
+static t_block *init_torch(t_map *map_info , char **map)
+{
+	t_block	*torches;
+	int		i = 0;
+	int		j = 0;
+	int		k = 0;
+	
+	map_info->torches = NULL;
+	int torch_count = count_c(map, 'G');
+	torches = ft_malloc(sizeof(t_block) * (torch_count + 1));
+
+	while(map[i] != NULL)
+	{
+		j = 0;
+		while(map[i][j] != '\0')
+		{
+			if (map[i][j] == 'G')
+			{
+				torches[k].x = j;
+				torches[k].y = i;
+				k++;
+			}
+			j++;
+		}
+		i++;
+	}
+	torches[k].x = -1;
+	torches[k].y = -1;
+	return (torches);
+}
+
 
 t_block *init_chests(t_map *map_info, char **map)
 {
@@ -221,8 +254,9 @@ t_map	*check_map(char **map, int size)
 	get_map_sizes(map_info, map_info->map);
 	check_valid(map_info->map, map_info);
 	map_info->doors = init_block(map_info, 'D');
-	map_info->blocks = init_block(map_info, '2');
 	map_info->lines = init_line(map_info, map);
+	map_info->blocks = init_block(map_info, '2');
+	map_info->torches = init_torch(map_info, map);
 	map_info->chests = init_chests(map_info, map);
 	return (map_info);
 }

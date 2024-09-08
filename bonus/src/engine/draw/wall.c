@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 20:52:29 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/08 17:44:05 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void draw_sky(int height, int start_x, ThreadParams *params, float angle)
         start_y++;
     }
 }
+
 
 void draw_wall(t_draw draw, ThreadParams *params)
 {

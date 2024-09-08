@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 15:43:01 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/08 17:54:32 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int touch_line(t_block *lines, float px, float py)
 	float x, y;
 
 	if (!lines)
-		return 0;
+		return false;
 	
 	while (lines[i].x != -1)
 	{
@@ -77,6 +77,30 @@ int touch_line(t_block *lines, float px, float py)
 	}
 	
 	return 0;
+}
+
+int touch_torch(t_block *torches, float px, float py)
+{
+
+	int i = 0;
+	float x, y;
+	
+	if (!torches)
+		return false;
+
+	while (torches[i].x != -1)
+	{
+		x = torches[i].x * BLOCK_SIZE;
+		y = torches[i].y * BLOCK_SIZE;
+
+		if (px >= x && px <= x + BLOCK_SIZE && py >= y && py <= y + 1)
+			return 1;
+
+		i++;
+	}
+
+	return false;
+
 }
 
 

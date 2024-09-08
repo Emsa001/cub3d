@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 22:05:17 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 20:49:59 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/08 16:44:12 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void init_tooltip(t_textures *t){
 	t->tooltip_bg = tooltip_bg;
 }
 
-void init_torch(t_textures *t)
+static void init_torch(t_textures *t)
 {
 	// 9 steands for 9 frames of the torch animation
 	t_texture *torch[9];

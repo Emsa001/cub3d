@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:47:24 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/07 19:15:19 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/08 18:41:53 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,10 @@ void draw_chest(t_draw draw, ThreadParams *params, int tex_x, float angle)
 {
     int color = params->color;
     float tex_y = 0;
-    int dist = draw.chest_dist;
+    // int dist = draw.chest_dist;
     float step = (float)(T_SIZE * 2) / draw.height_top;
     const t_player *p = params->player;
     const t_render *r = params->render;
-
-    t_texture *wall_side = get_wall_side(7, params->textures);
-    
 
     int start_y = (p->z - 0.4) * draw.height_top + vert_offset(p);
     int end_y = start_y + draw.height_top * 0.4;
@@ -33,11 +30,11 @@ void draw_chest(t_draw draw, ThreadParams *params, int tex_x, float angle)
 
     while (start_y < end_y)
     {
-        if(!p->vision && dist > 450)
-            break;
+        // if(!p->vision && dist > 450)
+        //     break;
         color = get_pixel_from_image(params->textures->chest, tex_x * 2, tex_y);
-        if(!p->vision)
-            color = darken_color(color, (float)dist / 450);
+        // if(!p->vision)
+        //     color = darken_color(color, (float)dist / 450);
 
         put_pixel(draw.start_x, start_y, color, r);
 

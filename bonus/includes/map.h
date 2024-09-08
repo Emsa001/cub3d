@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 17:34:31 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/08 17:16:48 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_map
 	t_block	*blocks;
 	t_block *lines;
 	t_block *chests;
+	t_block *torches;
 
 	t_minimap *minimap;
 }			t_map;
@@ -96,9 +97,6 @@ int			ft_check_line(char *line);
 t_block		*init_block(t_map *map_info, char c);
 void		print_block_info(t_block *doors);
 void		get_player_position(char **map);
-int touch_line(t_block *lines, float px, float py);
-void check_touch_lines();
-bool touch_chest(t_block *lines, float px, float py);
 t_map		*check_map(char **map, int size);
 char		*ft_remove_substr(char *str, char *sub);
 char		*get_next_string(char *line, char *str);
