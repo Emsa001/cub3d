@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/10 20:28:41 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/10 20:34:05 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,6 +292,9 @@ void init_sprite(t_map *map_info, t_sprite sprite)
 	ft_free(tmp);
 }
 
+
+// it takes the path of the sprite exaple "assets/torch/"
+// the number of frames and the position x and y where sprite will be placed
 void add_sprite(char *path_file, int frames, float x, float y)
 {
 	t_texture **sprite_texture = ft_malloc(sizeof(t_texture) * frames);
