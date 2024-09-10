@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:44 by escura            #+#    #+#             */
-/*   Updated: 2024/09/08 19:48:03 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/10 18:30:42 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void lane_distance(t_draw *draw)
     draw->dist = adjusted_distance;
     draw->wall_height = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
 
-    raw_distance = distance(draw->torch_x, draw->torch_y, x2, y2);
+    raw_distance = distance(draw->sprite_x, draw->sprite_y, x2, y2);
     adjusted_distance = raw_distance * cos(player_angle - draw->angle);
-    draw->torch_dist = adjusted_distance;
-    draw->torch_height = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
+    draw->sprite_dist = adjusted_distance;
+    draw->sprite_height = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
 }

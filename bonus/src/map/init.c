@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:19:15 by escura            #+#    #+#             */
-/*   Updated: 2024/08/30 19:06:50 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/10 18:21:08 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	map_init(char *av)
 	ft_arrdel((void **)map);
 	cube()->map = map_info;
 }
+
 
 t_map *get_map()
 {

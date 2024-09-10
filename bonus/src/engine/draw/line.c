@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/10 15:32:10 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/10 18:30:13 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int chest_direction(t_draw *draw, float cosangle, float sinangle, t_cube *c)
     return 0;
 }
 
-int torch_direction(t_draw *draw, float cosangle, float sinangle, t_cube *c)
+int sprite_direction(t_draw *draw, float cosangle, float sinangle, t_cube *c)
 {
     int sx = 0;
     int sy = 0;
@@ -89,13 +89,13 @@ int torch_direction(t_draw *draw, float cosangle, float sinangle, t_cube *c)
         sy = 1;
     else
         sy = -1;
-    if(touch_torch(c->map->sprite, draw->torch_x - sx, draw->torch_y))
+    if(touch_sprite(c->map->sprites, draw->sprite_x - sx, draw->sprite_y))
     {
-        draw->tex_x = (int)draw->torch_x % BLOCK_SIZE;
+        draw->tex_x = (int)draw->sprite_x % BLOCK_SIZE;
         return 9;
-    } else if(touch_torch(c->map->sprite, draw->torch_x, draw->torch_y))
+    } else if(touch_sprite(c->map->sprites, draw->sprite_x, draw->sprite_y))
     {
-        draw->tex_x = (int)draw->torch_y % BLOCK_SIZE;
+        draw->tex_x = (int)draw->sprite_y % BLOCK_SIZE;
         return 9;
     }
     return 0;
@@ -134,9 +134,9 @@ t_draw init_draw(void)
     draw.angle = 0;
     draw.dist = 0;
     draw.chest_dist = 0;
-    draw.torch_x = 0;
-    draw.torch_y = 0;
-    draw.torch_height = 0;
+    draw.sprite_x = 0;
+    draw.sprite_y = 0;
+    draw.sprite_height = 0;
     return draw;
 }
 
@@ -149,19 +149,21 @@ long current_frame(int frames)
     return curr_frame;
 }
 
-void draw_torch_frame(t_draw draw, ThreadParams *params)
+
+void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
 {
     int color = params->color;
     float tex_y = 0;
-    float step = (float)T_SIZE / draw.torch_height;
+    float step = (float)T_SIZE / draw.sprite_height;
     const t_player *p = params->player;
     const t_render *r = params->render;
-    int dist = draw.torch_dist;
+    int dist = draw.sprite_dist;
+    const t_textures *texs = params->textures;
 
-    int start_y = (p->z - 1) * draw.torch_height + vert_offset(p);
-    int end_y = start_y + draw.torch_height;
+    int start_y = (p->z - 1) * draw.sprite_height + vert_offset(p);
+    int end_y = start_y + draw.sprite_height;
 
-    t_texture *torch = params->textures->torch[current_frame(9)];
+    t_texture *sprite_tex = sprite.sprite_tex[current_frame(sprite.frames)];
 
     if(end_y > HEIGHT)
         end_y = HEIGHT;
@@ -170,7 +172,7 @@ void draw_torch_frame(t_draw draw, ThreadParams *params)
     {
         if(!p->vision && dist > 450)
             break;
-        color = get_pixel_from_image(torch, draw.tex_x , tex_y);
+        color = get_pixel_from_image(sprite_tex, draw.tex_x , tex_y);
         if(!p->vision)
             color = darken_color(color, (float)dist / 450);
         if(color != 0)
@@ -194,10 +196,10 @@ void draw_line(t_draw draw, ThreadParams *params)
 
     while (!find_hitbox(draw.x, draw.y, c))
     {
-        if(touch_torch(c->map->sprite, draw.x, draw.y))
+        if(touch_sprite(c->map->sprites, draw.x, draw.y))
         {
-            draw.torch_x = draw.x;
-            draw.torch_y = draw.y;
+            draw.sprite_x = draw.x;
+            draw.sprite_y = draw.y;
         }
         if(touch_chest(c->map->chests, draw.x, draw.y))
         {
@@ -228,8 +230,11 @@ void draw_line(t_draw draw, ThreadParams *params)
     draw_wall(draw, params);
     draw_floor(draw.wall_height, draw.start_x, params, draw.angle);
     draw_sky(draw.wall_height, draw.start_x, params, draw.angle);
-    if(torch_direction(&draw, cosangle, sinangle, c) == 9)
-        draw_torch_frame(draw, params);
+
+    if(sprite_direction(&draw, cosangle, sinangle, c) == 9)
+    {
+        sprite_frame(draw, params, c->map->sprites[0]);
+    }
     if(chest_direction(&draw, cosangle, sinangle, c) == 7)
     {   
         draw_chest_top(draw, params, draw.angle);

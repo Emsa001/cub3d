@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/10 16:01:00 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/10 17:24:01 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ typedef struct t_sprite
 	float x;
 	float y;
 	int frames;
-	t_texture	**sprite_tex;
 	
+	t_texture	**sprite_tex;
 } t_sprite;
 
 
@@ -94,9 +94,9 @@ typedef struct s_map
 	t_block	*blocks;
 	t_block *lines;
 	t_block *chests;
-	t_block *sprite;
+	
 	t_sprite *sprites;
-
+	
 	t_minimap *minimap;
 }			t_map;
 
