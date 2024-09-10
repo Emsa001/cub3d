@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/10 18:30:13 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/10 19:33:51 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,8 +183,10 @@ void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
     }
 }
 
+
+
 void draw_line(t_draw draw, ThreadParams *params)
-{
+{   
     t_cube *c = params->cube;
     const t_player *p = params->player;
 
@@ -193,10 +195,11 @@ void draw_line(t_draw draw, ThreadParams *params)
     
     bool save = false;
     bool save_last = false;
+    int i = 0;
 
     while (!find_hitbox(draw.x, draw.y, c))
     {
-        if(touch_sprite(c->map->sprites, draw.x, draw.y))
+        if((i = touch_sprite(c->map->sprites, draw.x, draw.y)))
         {
             draw.sprite_x = draw.x;
             draw.sprite_y = draw.y;
@@ -233,7 +236,7 @@ void draw_line(t_draw draw, ThreadParams *params)
 
     if(sprite_direction(&draw, cosangle, sinangle, c) == 9)
     {
-        sprite_frame(draw, params, c->map->sprites[0]);
+        sprite_frame(draw, params, c->map->sprites[i]);
     }
     if(chest_direction(&draw, cosangle, sinangle, c) == 7)
     {   

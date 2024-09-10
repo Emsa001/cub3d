@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/10 18:32:27 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/10 19:29:49 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -343,7 +343,7 @@ t_map	*check_map(char **map, int size)
 	map_info->sprites = init_map_sprite(map_info);
 	
 	t_sprite torch = init_sprite("assets/torch/", 9, 5, 5);
-	t_sprite fire = init_sprite("assets/torch/", 9, 3, 4);
+	t_sprite fire = init_sprite("assets/fire/", 13, 3, 4);
 
 	add_sprite(map_info, torch);
 	add_sprite(map_info, fire);

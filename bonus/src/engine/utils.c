@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/10 17:18:08 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/10 19:13:52 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int touch_sprite(t_block *sprites, float px, float py)
 		y = sprites[i].y * BLOCK_SIZE;
 
 		if (px >= x && px <= x + BLOCK_SIZE && py >= y && py <= y + 1)
-			return 1;
+			return i + 1;
 
 		i++;
 	}
