@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/08/30 19:05:15 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/10 20:31:16 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void start_game(void)
     t_cube *c = cube();
     init_hooks();
     init_async_queue();
+    add_sprite("assets/torch/", 9, 5, 5);
     // start the game
 
     // mlx_loop_hook(r->mlx, render_scene_singlethread, (void *)c);

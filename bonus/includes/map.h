@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/10 19:29:10 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/10 20:26:57 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,8 @@ void		get_2d_map(t_map *map_info, char **map, int size);
 t_point		*get_begin_points(char **map, t_point *begin_points);
 void		fill_loop(char to_fill[], t_point *begin_points, t_map *map_info,
 				t_point size);
+
+void add_sprite(char *path_file, int frames, float x, float y);
 
 t_minimap *minimap();
 

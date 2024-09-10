@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/10 18:23:29 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/10 20:30:54 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void init_game(char *map)
 	cube_init(ft_malloc(sizeof(t_cube)));
 	init_render(ft_malloc(sizeof(t_render)));
 	map_init(map);
-
+	
 	player_init(ft_malloc(sizeof(t_player)));
 	init_textures(ft_malloc(sizeof(t_textures)));
 	init_items();

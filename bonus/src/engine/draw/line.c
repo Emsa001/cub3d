@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/10 19:33:51 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/10 19:43:23 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,7 @@ void draw_line(t_draw draw, ThreadParams *params)
     bool save = false;
     bool save_last = false;
     int i = 0;
+    int j = 1;
 
     while (!find_hitbox(draw.x, draw.y, c))
     {
@@ -203,6 +204,8 @@ void draw_line(t_draw draw, ThreadParams *params)
         {
             draw.sprite_x = draw.x;
             draw.sprite_y = draw.y;
+            if(i > 1)
+                j = i;
         }
         if(touch_chest(c->map->chests, draw.x, draw.y))
         {
@@ -235,9 +238,7 @@ void draw_line(t_draw draw, ThreadParams *params)
     draw_sky(draw.wall_height, draw.start_x, params, draw.angle);
 
     if(sprite_direction(&draw, cosangle, sinangle, c) == 9)
-    {
-        sprite_frame(draw, params, c->map->sprites[i]);
-    }
+        sprite_frame(draw, params, c->map->sprites[j - 1]);
     if(chest_direction(&draw, cosangle, sinangle, c) == 7)
     {   
         draw_chest_top(draw, params, draw.angle);
