@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/08 19:53:27 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/10 15:32:10 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,11 +89,11 @@ int torch_direction(t_draw *draw, float cosangle, float sinangle, t_cube *c)
         sy = 1;
     else
         sy = -1;
-    if(touch_torch(c->map->torches, draw->torch_x - sx, draw->torch_y))
+    if(touch_torch(c->map->sprite, draw->torch_x - sx, draw->torch_y))
     {
         draw->tex_x = (int)draw->torch_x % BLOCK_SIZE;
         return 9;
-    } else if(touch_torch(c->map->torches, draw->torch_x, draw->torch_y))
+    } else if(touch_torch(c->map->sprite, draw->torch_x, draw->torch_y))
     {
         draw->tex_x = (int)draw->torch_y % BLOCK_SIZE;
         return 9;
@@ -140,6 +140,15 @@ t_draw init_draw(void)
     return draw;
 }
 
+long current_frame(int frames)
+{
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    long curr_time =  (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+    int curr_frame = (curr_time / 100) % frames;
+    return curr_frame;
+}
+
 void draw_torch_frame(t_draw draw, ThreadParams *params)
 {
     int color = params->color;
@@ -152,6 +161,8 @@ void draw_torch_frame(t_draw draw, ThreadParams *params)
     int start_y = (p->z - 1) * draw.torch_height + vert_offset(p);
     int end_y = start_y + draw.torch_height;
 
+    t_texture *torch = params->textures->torch[current_frame(9)];
+
     if(end_y > HEIGHT)
         end_y = HEIGHT;
 
@@ -159,7 +170,7 @@ void draw_torch_frame(t_draw draw, ThreadParams *params)
     {
         if(!p->vision && dist > 450)
             break;
-        color = get_pixel_from_image(params->textures->torch[0], draw.tex_x , tex_y);
+        color = get_pixel_from_image(torch, draw.tex_x , tex_y);
         if(!p->vision)
             color = darken_color(color, (float)dist / 450);
         if(color != 0)
@@ -183,7 +194,7 @@ void draw_line(t_draw draw, ThreadParams *params)
 
     while (!find_hitbox(draw.x, draw.y, c))
     {
-        if(touch_torch(c->map->torches, draw.x, draw.y))
+        if(touch_torch(c->map->sprite, draw.x, draw.y))
         {
             draw.torch_x = draw.x;
             draw.torch_y = draw.y;

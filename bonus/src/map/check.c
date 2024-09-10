@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/08 17:56:23 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/10 16:00:58 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ static t_block *init_torch(t_map *map_info , char **map)
 	int		j = 0;
 	int		k = 0;
 	
-	map_info->torches = NULL;
+	map_info->sprite = NULL;
 	int torch_count = count_c(map, 'G');
 	torches = ft_malloc(sizeof(t_block) * (torch_count + 1));
 
@@ -234,6 +234,28 @@ t_block *init_chests(t_map *map_info, char **map)
 	return (chests);
 }
 
+t_sprite init_sprite(char *path_file, int frames, float x, float y)
+{
+	t_texture *sprite_texture[frames];
+	t_sprite sprite;
+	int i = 0;
+
+	while (i < frames)
+	{
+		sprite_texture[i] = ft_malloc(sizeof(t_texture));
+		char *path = ft_strjoin(path_file, ft_itoa(i));
+		path = ft_strjoin(path, ".xpm");
+		sprite_texture[i]->image = get_texture_file(path, &sprite_texture[i]->width, &sprite_texture[i]->height);
+		sprite_texture[i]->data = mlx_get_data_addr(sprite_texture[i]->image, &sprite_texture[i]->bpp, &sprite_texture[i]->size_line, &sprite_texture[i]->endian);
+		i++;
+	}
+	sprite.x = x;
+	sprite.y = y;
+	sprite.frames = frames;
+	sprite.sprite_tex = sprite_texture;
+	return (sprite);
+}
+
 
 t_map	*check_map(char **map, int size)
 {
@@ -256,7 +278,8 @@ t_map	*check_map(char **map, int size)
 	map_info->doors = init_block(map_info, 'D');
 	map_info->lines = init_line(map_info, map);
 	map_info->blocks = init_block(map_info, '2');
-	map_info->torches = init_torch(map_info, map);
 	map_info->chests = init_chests(map_info, map);
+	map_info->sprite = init_torch(map_info, map);
+	// t_sprite torch = init_torch(map_info, map);
 	return (map_info);
 }
