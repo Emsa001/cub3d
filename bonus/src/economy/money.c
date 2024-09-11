@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 21:09:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 17:59:33 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 18:49:59 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ void	hud_currency(void)
     str.x = 80;
     str.y = 37;
 
-    write_string(&str);
+    render_string(&str);
     ft_free(money);
 }

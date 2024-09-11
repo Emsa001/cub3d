@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:22:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 18:37:06 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 18:58:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void store_window(int x, int y){
     str.x = CENTER_WIDTH - 140;
     str.y = CENTER_HEIGHT - 320;
 
-    write_string(&str);    
+    render_string(&str);    
 }
 
 void shop_item_hover(){
@@ -123,7 +123,7 @@ void openCase(int value){
     str.y = CENTER_HEIGHT - 100;
     str.time = 5000;
     
-    write_string_seconds(str);
+    render_string_async(&str);
 
     ft_free(money);
 }
@@ -240,7 +240,7 @@ void shopkeeper(){
         str.x = CENTER_WIDTH - 210;
         str.y = HEIGHT -100;
 
-        write_string(&str);
-        // write_string("Press G to open the shop", CENTER_WIDTH - 210, HEIGHT -100, 0x00FF00, 0.7);
+        render_string(&str);
+        // render_string("Press G to open the shop", CENTER_WIDTH - 210, HEIGHT -100, 0x00FF00, 0.7);
     }
 }

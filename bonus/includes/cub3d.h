@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 18:33:49 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 18:58:38 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,7 @@ void						draw_chest(t_draw draw, ThreadParams *params,
 								int tex_x, float angle);
 
 // String
-void						write_string(t_string *str);
+void						render_string(t_string *str);
 t_texture					*get_wall_side(int side, t_textures *texs);
 int							vert_offset(t_player *p);
 int							darken_color(int color, float ratio);
@@ -252,8 +252,7 @@ void						draw_circle(int center_x, int center_y, int radius,
 int							get_pixel_from_image(t_texture *t, int x, int y);
 void						minimap_init(void);
 void						destroy_buttons(void);
-
-void write_string_seconds(t_string str);
+void render_string_async(t_string *str);
 /* MLX */
 
 void						*load_image(char *path);
@@ -296,7 +295,7 @@ void						remove_image_queue(t_image_queue **q);
 void						put_image_queue(t_render *r);
 
 void						remove_string_queue(t_string **q);
-void						write_string_queue(void);
+void						process_string_queue(void);
 void						button_hover(int x, int y);
 
 #endif

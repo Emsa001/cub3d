@@ -6,13 +6,13 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 18:34:44 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 18:58:32 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void remove_string_queue(t_string **q)
+void dequeue_string(t_string **q)
 {
     t_string *tmp = (*q)->next;
     ft_free((*q)->str);
@@ -20,13 +20,13 @@ void remove_string_queue(t_string **q)
     *q = tmp;
 }
 
-void write_string_end(t_async *async){
+void free_string_arg(t_async *async){
     t_string *str = (t_string *)async->arg;
     ft_free(str->str);
     ft_free(str);
 }
 
-void add_string_queue(t_async *async) {
+void enqueue_string(t_async *async) {
     t_string *text = (t_string *)async->arg;
     t_render *r = render();
     t_string *new = ft_malloc(sizeof(t_string));
@@ -51,29 +51,29 @@ void add_string_queue(t_async *async) {
     pthread_mutex_unlock(&r->string_queue_mutex);  // Unlock the mutex after modifying the queue
 }
 
-void write_string_seconds(t_string str)
+void render_string_async(t_string *str)
 {
     t_string *copy = ft_calloc(sizeof(t_string), 1);
-    ft_memcpy(copy, &str, sizeof(t_string));
+    ft_memcpy(copy, str, sizeof(t_string));
 
     t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
-    async->process = &add_string_queue;
+    async->process = &enqueue_string;
     async->arg = copy;
     async->process_time = 10;
-    async->time = str.time;
+    async->time = str->time;
     add_async(async);
 }
 
-void write_string_queue() {
+void process_string_queue() {
     t_render *r = render();
     pthread_mutex_lock(&r->string_queue_mutex);  // Lock the mutex before accessing the queue
 
     t_string *q = r->string_queue;
     while (q != NULL) {
-        write_string(q);
+        render_string(q);
 
         t_string *tmp = q->next;
-        remove_string_queue(&q);
+        dequeue_string(&q);
         q = tmp;
     }
 
@@ -83,7 +83,7 @@ void write_string_queue() {
 
 
 // https://stmn.itch.io/font2bitmap
-void write_string(t_string *string)
+void render_string(t_string *string)
 {
     t_texture *font = textures()->font;
     t_render *r = render();

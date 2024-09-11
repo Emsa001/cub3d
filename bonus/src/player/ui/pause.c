@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:30:48 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 18:39:24 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 18:49:59 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ static void put_window()
 
     put_image(t->window, x, y, 1);
 
-    // write_string("PAUSED", CENTER_WIDTH - 140, CENTER_HEIGHT - 190, 0x00FF00, 1.5);
-    // write_string("Press    to resume", CENTER_WIDTH - 280, CENTER_HEIGHT + 160, 0x00FF00, 0.5);
+    // render_string("PAUSED", CENTER_WIDTH - 140, CENTER_HEIGHT - 190, 0x00FF00, 1.5);
+    // render_string("Press    to resume", CENTER_WIDTH - 280, CENTER_HEIGHT + 160, 0x00FF00, 0.5);
 
     t_string str;
     str.str = "PAUSED";
@@ -88,7 +88,7 @@ static void put_window()
     str.x = CENTER_WIDTH - 140;
     str.y = CENTER_HEIGHT - 190;
     
-    write_string(&str);
+    render_string(&str);
 
     str.str = "Press    to resume";
     str.color = 0x00FF00;
@@ -97,7 +97,7 @@ static void put_window()
     str.y = CENTER_HEIGHT + 160;
     
     put_image(t->keys[1], CENTER_WIDTH - 210, CENTER_HEIGHT + 150, 2.5);
-    write_string(&str);
+    render_string(&str);
     exit_button();
 }
 
