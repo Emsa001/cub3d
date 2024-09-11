@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 16:24:55 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 16:44:20 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,8 +144,9 @@ long current_frame(int frames)
 {
     struct timeval tv;
     gettimeofday(&tv, NULL);
+    int time_delay = 1000 / frames;
     long curr_time =  (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-    int curr_frame = (curr_time / 100) % frames;
+    int curr_frame = (curr_time / time_delay) % frames;
     return curr_frame;
 }
 
@@ -154,7 +155,7 @@ void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
 {
     int color = params->color;
     float tex_y = 0;
-    float step = (float)T_SIZE / draw.sprite_height;
+    float step = ((float)T_SIZE) / draw.sprite_height;
     const t_player *p = params->player;
     const t_render *r = params->render;
     int dist = draw.sprite_dist;
@@ -164,15 +165,22 @@ void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
     int end_y = start_y + draw.sprite_height;
 
     t_texture *sprite_tex = sprite.sprite_tex[current_frame(sprite.frames)];
+    if(!sprite_tex)
+        return;
 
     if(end_y > HEIGHT)
         end_y = HEIGHT;
+    if(start_y < 0)
+    {
+        tex_y = -start_y * step;
+        start_y = 0;
+    }
 
     while (start_y < end_y)
     {
         if(!p->vision && dist > 450)
             break;
-        color = get_pixel_from_image(sprite_tex, draw.tex_x , tex_y);
+        color = get_pixel_from_image(sprite_tex, (draw.tex_x) , tex_y);
         if(!p->vision)
             color = darken_color(color, (float)dist / 450);
         if(color != 0)
@@ -195,7 +203,7 @@ void draw_line(t_draw draw, ThreadParams *params)
     
     bool save = false;
     bool save_last = false;
-    bool save_sprite = false;
+    bool sprite_save = false;
     int i = 0;
     int j = 1;
 
@@ -203,15 +211,14 @@ void draw_line(t_draw draw, ThreadParams *params)
     {
         if((i = touch_sprite(c->map->sprites, draw.x, draw.y)))
         {
-            if(!save_sprite)
+            if(!sprite_save)
             {
                 draw.sprite_x = draw.x;
                 draw.sprite_y = draw.y;
-                save_sprite = true;
+                if(i > 1)
+                    j = i;
             }
-
-            if(i > 1)
-                j = i;
+            sprite_save = true;
         }
         if(touch_chest(c->map->chests, draw.x, draw.y))
         {

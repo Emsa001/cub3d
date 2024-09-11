@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 16:23:00 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 16:44:12 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,13 @@ void start_game(void)
     t_render *r = render();
     t_cube *c = cube();
     init_hooks();
-    init_economy();
+    init_async_queue();
+    add_sprite("assets/torch/", 9, 3, 4);
+    // add_sprite("assets/fire/", 13, 4, 3);
+    // add_sprite("assets/portal/", 17, 5, 5);
+
+    
+    // start the game
 
     t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
     async->end = &end;
