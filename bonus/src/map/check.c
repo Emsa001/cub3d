@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/11 19:50:36 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/11 20:22:35 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,13 +219,57 @@ t_block    *init_map_block(t_map *map_info)
     return (blocks);
 }
 
-t_sprite *init_map_sprite(t_map *map_info)
+t_sprite  get_portal(char **map)
+{
+	t_texture **sprite_texture = ft_malloc(sizeof(t_texture) * 5);
+	t_sprite sprite;
+	int i = 0;
+	
+	while (i < 5)
+	{
+		sprite_texture[i] = ft_malloc(sizeof(t_texture));
+		char *path = ft_strjoin("assets/portal_closed/", ft_itoa(i));
+		path = ft_strjoin(path, ".xpm");
+		
+		sprite_texture[i]->image = get_texture_file(path, &sprite_texture[i]->width, &sprite_texture[i]->height);
+		sprite_texture[i]->data = mlx_get_data_addr(sprite_texture[i]->image, &sprite_texture[i]->bpp, &sprite_texture[i]->size_line, &sprite_texture[i]->endian);
+		ft_free(path);
+		i++;
+	}
+	i = 0;
+	int j = 0;
+	while(map[i] != NULL)
+	{
+		j = 0;
+		while(map[i][j] != '\0')
+		{
+			if (map[i][j] == 'P')
+			{
+				sprite.x = j;
+				sprite.y = i;
+				break;
+			}
+			j++;
+		}
+		i++;
+	}
+	sprite.frames = 5;
+	sprite.sprite_tex = sprite_texture;
+	sprite.width = sprite_texture[0]->width;
+	sprite.height = sprite_texture[0]->height;
+	return (sprite);
+}
+
+void init_sprite(t_map *map_info, t_sprite sprite);
+
+t_sprite *init_map_sprite(t_map *map_info, char **map)
 {
 	t_sprite	*sprites;
 	int			k;
 	
 	map_info->sprites = NULL;
 	sprites = ft_malloc(sizeof(t_sprite));
+	
 	k = 0;
 	sprites[k].x = -1;
 	sprites[k].y = -1;
@@ -233,6 +277,7 @@ t_sprite *init_map_sprite(t_map *map_info)
 	sprites[k].sprite_tex = NULL;
 	sprites[k].width = -1;
 	sprites[k].height = -1;
+
 	return (sprites);
 }
 
@@ -311,6 +356,9 @@ t_map	*check_map(char **map, int size)
 	map_info->lines = init_line(map_info, map);
 	map_info->blocks = init_map_block(map_info);
 	map_info->chests = init_chests(map_info, map);
-	map_info->sprites = init_map_sprite(map_info);
+	map_info->sprites = init_map_sprite(map_info, map);
+
+	t_sprite portal = get_portal(map);
+	init_sprite(map_info, portal);
 	return (map_info);
 }
