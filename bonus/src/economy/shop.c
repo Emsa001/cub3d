@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:22:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 15:30:48 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 16:43:24 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ void shopkeeper(){
 
     float dist = distance(p->x_px / BLOCK_SIZE, p->y_px / BLOCK_SIZE, p->store->x, p->store->y);
 
-    if(dist < 1)
+    if(dist < 1.5)
         p->store->can_open = true;
     else{
         p->store->open = false;
