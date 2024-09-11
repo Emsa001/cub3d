@@ -6,16 +6,15 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 18:06:25 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/11 19:52:33 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <X11/Xlib.h>
 #include "cub3d.h"
 
 void end(){
-    add_sprite("assets/torch/", 9, 5, 5);
-    add_sprite("assets/fire/", 13, 3, 4);
-    // add_sprite("assets/portal/", 17, 4, 3);
+    add_sprite("assets/fire/", 13, 7, 7);
     printf("placed\n");;
 }
 
@@ -26,14 +25,22 @@ void start_game(void)
     init_hooks();
     init_economy();
 
-    t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
-    async->end = &end;
-    async->time = 2000;
-    add_async(async);
+    // t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
+    // async->start = &end;
+    // add_async(async);
 
     // add_sprite("assets/torch/", 9, 5, 5);
     // add_sprite("assets/fire/", 13, 3, 4);
     // add_sprite("assets/portal/", 17, 4, 3);
+
+    // t_string str;
+    // str.str = "Hello World!";
+    // str.size = 2;
+    // str.x =CENTER_WIDTH;
+    // str.y = CENTER_HEIGHT;
+    // str.color = 0x00FF00;
+    // str.time = 3000;
+    // write_string_seconds(&str);
 
     // mlx_loop_hook(r->mlx, render_scene_singlethread, (void *)c);
     mlx_loop_hook(r->mlx, render_scene_multithread, (void *)c);

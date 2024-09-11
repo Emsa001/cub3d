@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 17:59:45 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/11 19:53:05 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,8 @@ long current_frame(int frames)
     struct timeval tv;
     gettimeofday(&tv, NULL);
     int time_delay = 1000 / frames;
+    if(frames == 5)
+        time_delay = 60;
     long curr_time =  (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
     int curr_frame = (curr_time / time_delay) % frames;
     return curr_frame;
@@ -180,7 +182,7 @@ void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
     {
         if(!p->vision && dist > 450)
             break;
-        color = get_pixel_from_image(sprite_tex, (draw.tex_x) , tex_y);
+        color = get_pixel_from_image(sprite_tex, (draw.tex_x ) , tex_y);
         if(!p->vision)
             color = darken_color(color, (float)dist / 450);
         if(color != 0)
@@ -218,8 +220,7 @@ void draw_line(t_draw draw, ThreadParams *params)
             if(i > 1)
                 j = i;
             }
-
-                save_sprite = true;
+            save_sprite = true;
         }
         if(touch_chest(c->map->chests, draw.x, draw.y))
         {

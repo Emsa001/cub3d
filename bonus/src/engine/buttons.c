@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:16:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 14:50:48 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 17:31:35 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void button_click(int type, int x, int y)
     }
 }
 
-void button_hover(int x, int y){
+void button_hover(int x, int y)
+{
     t_cube *c = cube();
     t_button_node *current = c->buttons;
 
@@ -71,12 +72,11 @@ void destroy_buttons()
     c->buttons = NULL;
 }
 
-void add_button(t_button button)
+void add_button(t_button *button)
 {
     t_cube *c = cube();
     t_button_node *new_node = ft_malloc(sizeof(t_button_node));
-    new_node->button = button;
+    ft_memcpy(&new_node->button, button, sizeof(t_button));
     new_node->next = c->buttons;
     c->buttons = new_node;
-
 }

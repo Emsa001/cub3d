@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:18:14 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 19:48:52 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 18:01:00 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ void hud_inventory()
         {
             put_image(t->items[p->equipped[i]], x + 25 + (i % 4) * 70, y + 25 + (i / 4) * 70, 1.5);
 
-            t_button button;
-            button.x = x + 25 + (i % 4) * 70;
-            button.y = y + 25 + (i / 4) * 70;
-            button.width = 64;
-            button.height = 64;
-            button.function = &unequip;
-            button.arg = (void *)i;
-            button.hover = &item_tooltip;
-            button.itemId = p->equipped[i];
+            t_button *button = (t_button *)ft_calloc(sizeof(t_button), 1);
+            button->x = x + 25 + (i % 4) * 70;
+            button->y = y + 25 + (i / 4) * 70;
+            button->width = 64;
+            button->height = 64;
+            button->function = &unequip;
+            button->arg = (void *)i;
+            button->hover = &item_tooltip;
+            button->itemId = p->equipped[i];
 
             add_button(button);
         }
@@ -54,7 +54,15 @@ void open_inventory() {
     const int y = (HEIGHT / 2 - t->inventoryGui->height / 2);
 
     p->mouse_hook = false;
-    write_string("Inventory", x, y - 25, 0xFFFFFF, 0.6);
+
+    t_string str;
+    str.str = "Inventory";
+    str.color = 0xFFFFFF;
+    str.size = 0.6;
+    str.x = x;
+    str.y = y - 25;
+
+    write_string(&str);
     put_image(t->inventoryGui, x, y, 1);
 
     int i = 0;
@@ -64,15 +72,15 @@ void open_inventory() {
         {
             put_image(t->items[p->inventory[i]], x + 25 + (i % 3) * 70, y + 25 + (i / 3) * 70, 1.5);
 
-            t_button button;
-            button.x = x + 25 + (i % 3) * 70;
-            button.y = y + 25 + (i / 3) * 70;
-            button.width = 64;
-            button.height = 64;
-            button.function = &useItem;
-            button.hover = &item_tooltip;
-            button.arg = (void *)i;
-            button.itemId = p->inventory[i];
+            t_button *button = (t_button *)ft_calloc(sizeof(t_button), 1);
+            button->x = x + 25 + (i % 3) * 70;
+            button->y = y + 25 + (i / 3) * 70;
+            button->width = 64;
+            button->height = 64;
+            button->function = &useItem;
+            button->hover = &item_tooltip;
+            button->arg = (void *)i;
+            button->itemId = p->inventory[i];
             
             add_button(button);
         }

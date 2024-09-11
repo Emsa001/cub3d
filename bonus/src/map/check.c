@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/11 17:48:34 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/11 19:50:36 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	check_valid(char **map, t_map *map_info)
 	to_fill[3] = 'W';
 	to_fill[4] = 'E';
 	to_fill[5] = 'D';
-	to_fill[6] = 'H';
-	to_fill[7] = 'G';
+	to_fill[6] = 'G';
+	to_fill[7] = 'P';
 	size.x = map_info->width + 1;
 	size.y = map_info->height;
 	fill_loop(to_fill, begin_points, map_info, size);
@@ -179,7 +179,7 @@ t_block *init_chests(t_map *map_info, char **map)
 	int		k = 0;
 	
 	map_info->chests = NULL;
-	int chest_count = count_c(map, 'H');
+	int chest_count = count_c(map, 'G');
 	chests = ft_malloc(sizeof(t_block) * (chest_count + 1));
 
 	while(map[i] != NULL)
@@ -187,7 +187,7 @@ t_block *init_chests(t_map *map_info, char **map)
 		j = 0;
 		while(map[i][j] != '\0')
 		{
-			if (map[i][j] == 'H')
+			if (map[i][j] == 'G')
 			{
 				chests[k].x = j + 0.5;
 				chests[k].y = i	+ 0.5;
@@ -231,6 +231,8 @@ t_sprite *init_map_sprite(t_map *map_info)
 	sprites[k].y = -1;
 	sprites[k].frames = -1;
 	sprites[k].sprite_tex = NULL;
+	sprites[k].width = -1;
+	sprites[k].height = -1;
 	return (sprites);
 }
 
@@ -254,8 +256,13 @@ void init_sprite(t_map *map_info, t_sprite sprite)
 	new_sprites[i] = sprite;
 	new_sprites[i + 1].x = -1;
 	new_sprites[i + 1].y = -1;
+	new_sprites[i + 1].frames = -1;
+	new_sprites[i + 1].sprite_tex = NULL;
+	new_sprites[i + 1].width = -1;
+	new_sprites[i + 1].height = -1;
 	tmp = map_info->sprites;
 	map_info->sprites = new_sprites;
+	
 	
 	ft_free(tmp);
 }
@@ -284,6 +291,8 @@ void add_sprite(char *path_file, int frames, float x, float y)
 	sprite.y = y;
 	sprite.frames = frames;
 	sprite.sprite_tex = sprite_texture;
+	sprite.width = sprite_texture[0]->width;
+	sprite.height = sprite_texture[0]->height;
 	init_sprite(cube()->map, sprite);
 }
 
@@ -294,14 +303,7 @@ t_map	*check_map(char **map, int size)
 	map_info = ft_malloc(sizeof(t_map));
 	map_info->width = 0;
 	map_info->height = 0;
-	map_info->no = NULL;
-	map_info->so = NULL;
-	map_info->we = NULL;
-	map_info->ea = NULL;
 	map_info->map = NULL;
-	get_no_so_we_ea(map_info, map);
-	map_info->f = get_color(map_info, map, 'F');
-	map_info->c = get_color(map_info, map, 'C');
 	get_2d_map(map_info, map, size);
 	get_map_sizes(map_info, map_info->map);
 	check_valid(map_info->map, map_info);

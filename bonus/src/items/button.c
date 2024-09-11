@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 20:09:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 20:27:10 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 17:33:18 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void item_button(t_button *button, float size)
         put_image(t->ui->button_hover, button->x, button->y, size);
     else
         put_image(t->ui->button, button->x, button->y, size);
+
+    // put_image(button->texture, button->x, button->y, size);
 
     // Calculate the position to center the item inside the button
     t_texture *item_texture = t->items[button->itemId];

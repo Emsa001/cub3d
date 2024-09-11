@@ -6,7 +6,7 @@
 #    By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/09/11 17:47:41 by btvildia         ###   ########.fr        #
+#    Updated: 2024/09/11 18:07:05 by btvildia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = cub3d
 NAME_BONUS = cub3d_bonus
 
 all: 
-	make mlx -C mandatory
+#	make mlx -C mandatory
 	make -j$(nproc) -C mandatory
 
 run: all

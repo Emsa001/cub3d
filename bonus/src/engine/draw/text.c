@@ -3,31 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   text.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/09/08 17:52:29 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 18:16:32 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void remove_string_queue(t_string_queue **q)
+void remove_string_queue(t_string **q)
 {
-    t_string_queue *tmp = (*q)->next;
+    t_string *tmp = (*q)->next;
     ft_free((*q)->str);
     ft_free(*q);
     *q = tmp;
 }
 
-void add_string_queue(char *str, int x, int y, int color, float size) {
+void write_string_new(){
+    t_string str;
+    str.str = "You won ";
+    str.color = 0x00FF00;
+    str.size = 0.7;
+    str.x = CENTER_WIDTH - 100; 
+    str.y = CENTER_HEIGHT - 100;
+    str.time = 5;
+
+    add_string_queue(&str);
+}
+
+void write_string_seconds(t_string *str)
+{
+    t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
+    async->process = &write_string_new;
+    async->process_time = 10;
+    async->time = str->time;
+    add_async(async);
+}
+
+void add_string_queue(t_string *text) {
     t_render *r = render();
-    t_string_queue *new = ft_malloc(sizeof(t_string_queue));
-    new->str = ft_strdup(str);
-    new->x = x;
-    new->y = y;
-    new->color = color;
-    new->size = size;
+    t_string *new = ft_malloc(sizeof(t_string));
+    new->str = ft_strdup(text->str);
+    new->x = text->x;
+    new->y = text->y;
+    new->color = text->color;
+    new->size = text->size;
     new->next = NULL;
 
     pthread_mutex_lock(&r->string_queue_mutex);  // Lock the mutex before accessing the queue
@@ -35,7 +56,7 @@ void add_string_queue(char *str, int x, int y, int color, float size) {
     if (r->string_queue == NULL) {
         r->string_queue = new;
     } else {
-        t_string_queue *q = r->string_queue;
+        t_string *q = r->string_queue;
         while (q->next != NULL)
             q = q->next;
         q->next = new;
@@ -44,28 +65,26 @@ void add_string_queue(char *str, int x, int y, int color, float size) {
     pthread_mutex_unlock(&r->string_queue_mutex);  // Unlock the mutex after modifying the queue
 }
 
-
 void write_string_queue() {
     t_render *r = render();
     pthread_mutex_lock(&r->string_queue_mutex);  // Lock the mutex before accessing the queue
 
-    t_string_queue *q = r->string_queue;
+    t_string *q = r->string_queue;
     while (q != NULL) {
-        write_string(q->str, q->x, q->y, q->color, q->size);
+        write_string(q);
 
-        t_string_queue *tmp = q->next;
+        t_string *tmp = q->next;
         remove_string_queue(&q);
         q = tmp;
     }
 
     r->string_queue = NULL;
-
     pthread_mutex_unlock(&r->string_queue_mutex);  // Unlock the mutex after modifying the queue
 }
 
 
 // https://stmn.itch.io/font2bitmap
-void write_string(char *str, int x, int y, int color, float size)
+void write_string(t_string *string)
 {
     t_texture *font = textures()->font;
     t_render *r = render();
@@ -92,6 +111,12 @@ void write_string(char *str, int x, int y, int color, float size)
             }
         }
     }
+
+    char *str = string->str;
+    int x = string->x;
+    int y = string->y;
+    int color = string->color;
+    float size = string->size;
 
     while (*str)
     {

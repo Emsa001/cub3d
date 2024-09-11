@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 21:09:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 19:10:37 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 17:59:33 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,14 @@ void	hud_currency(void)
 
 	put_image(t->items[158], 10, 12, 2);
     char *money = ft_itoa(p->money);
-    write_string(money, 80, 37, 0xffbf00, 0.5);
+
+    t_string str;
+    str.str = money;
+    str.color = 0xffbf00;
+    str.size = 0.5;
+    str.x = 80;
+    str.y = 37;
+
+    write_string(&str);
     ft_free(money);
 }

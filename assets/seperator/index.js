@@ -3,10 +3,15 @@ const fs = require('fs');
 const path = require('path');
 
 // Configuration
-const INPUT_IMAGE = '../UI/banners2/01.png'; // Path to your input PNG image
-const OUTPUT_DIR = '../UI/banners'; // Directory where the chunks will be saved
-const CHUNK_WIDTH = 48; // Size of each chunk (32x32)
-const CHUNK_HEIGHT =  32;
+const INPUT_IMAGE = './torch.png'; // Path to your input PNG image
+const OUTPUT_DIR = './out'; // Directory where the chunks will be saved
+const FILE_NAME = "{id}.xpm";
+
+const CHUNK_WIDTH = 32; 
+const CHUNK_HEIGHT =  64;
+
+const OUTPUT_WIDTH = 32;
+const OUTPUT_HEIGHT = 64;
 
 // Create output directory if it doesn't exist
 if (!fs.existsSync(OUTPUT_DIR)) {
@@ -92,6 +97,8 @@ async function convertPngToXpm(pngBuffer, width, height) {
         }).catch(reject);
     });
 }
+
+
 // Function to split image into chunks
 async function splitImage() {
     try {
@@ -125,13 +132,23 @@ async function splitImage() {
                 // Create output filename
                 const outputFilename = path.join(
                     OUTPUT_DIR,
-                    `key${chunkId}.xpm`
+                    FILE_NAME.replace('{id}', chunkId)
                 );
 
-                // Convert chunk to PNG buffer
-                const pngBuffer = canvas.toBuffer('image/png');
-                // Convert PNG buffer to XPM format
-                const xpmData = await convertPngToXpm(pngBuffer, chunkWidth, chunkHeight);
+                const resizedCanvas = createCanvas(OUTPUT_WIDTH, OUTPUT_HEIGHT);
+                const resizedCtx = resizedCanvas.getContext('2d');
+                
+                // Disable image smoothing to preserve the pixel art sharpness
+                resizedCtx.imageSmoothingEnabled = false;
+                
+                // Draw the original image onto the new canvas, scaling it to fit
+                resizedCtx.drawImage(canvas, 0, 0, CHUNK_WIDTH, CHUNK_HEIGHT, 0, 0, OUTPUT_WIDTH, OUTPUT_HEIGHT);
+                
+                // Convert the new canvas to a buffer
+                const pngBuffer = resizedCanvas.toBuffer('image/png');
+                // fs.writeFileSync(`./resized/${chunkId}.png`, pngBuffer);
+
+                const xpmData = await convertPngToXpm(pngBuffer, OUTPUT_WIDTH, OUTPUT_HEIGHT);
 
                 // Skip saving if XPM data is null (empty chunk)
                 if (xpmData === null) {

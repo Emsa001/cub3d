@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:41:37 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 15:55:20 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 18:03:06 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,14 @@ void tooltip(char *string, float size)
     const t_render *r = render();
 
     put_image(tooltip_bg, r->mouse_x - 10, r->mouse_y - 40, 3);
-    write_string(string, r->mouse_x + size * 20, r->mouse_y - (size) * 50, 0xFFFFFF, size);
+
+    t_string str;
+    str.str = string;
+    str.color = 0xFFFFFF;
+    str.size = size;
+    str.x = r->mouse_x + size * 20;
+    str.y = r->mouse_y - (size) * 50;
+    
+    write_string(&str);
+    // write_string(string, r->mouse_x + size * 20, r->mouse_y - (size) * 50, 0xFFFFFF, size);
 }

@@ -6,44 +6,11 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:59:54 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/11 17:52:55 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/11 18:53:38 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	print_map_info(void)
-{
-	const t_map	*map = cube()->map;
-	int			i;
-
-	i = 0;
-	printf(GREEN "width: " BLUE "%d\n", map->width);
-	printf(GREEN "height: " BLUE "%d\n", map->height);
-	printf(GREEN "NO: " BLUE "%s" RESET, map->no);
-	printf(GREEN "SO: " BLUE "%s" RESET, map->so);
-	printf(GREEN "WE: " BLUE "%s" RESET, map->we);
-	printf(GREEN "EA: " BLUE "%s" RESET, map->ea);
-	printf(GREEN "\nF: " BLUE " %d, %d, %d\n" RESET, map->f[0], map->f[1],
-		map->f[2]);
-	printf(GREEN "C: " BLUE " %d, %d, %d\n" RESET, map->c[0], map->c[1],
-		map->c[2]);
-	printf(GREEN "player_x: " BLUE "%f (%fpx)\n" RESET, player()->x, player()->x_px);
-	printf(GREEN "player_y: " BLUE "%f (%fpx)\n" RESET, player()->y, player()->y_px);
-	printf(GREEN "player_a: " BLUE "%f\n" RESET, player()->angle);
-	printf(GREEN "player_speed: " BLUE "%d\n" RESET, player()->speed);
-	printf(GREEN "player_fov: " BLUE "%d\n" RESET, player()->fov);
-	while (i < map->height)
-	{
-		if (ft_strchr(map->map[i], 'N') || ft_strchr(map->map[i], 'S')
-			|| ft_strchr(map->map[i], 'W') || ft_strchr(map->map[i], 'E'))
-			printf(GREEN "%s" RESET, map->map[i]);
-		else
-			printf("%s", map->map[i]);
-		i++;
-	}
-	printf("\n");
-}
 
 void	print_map(char **map)
 {
@@ -123,7 +90,7 @@ int	ft_check_line(char *line)
 		return (0);
 	while (line[i] != '\0')
 	{
-		if (line[i] != '1' && line[i] != 'D' && line[i] != 'H' && line[i] != '0' && line[i] != 'N' && line[i] != 'S'
+		if (line[i] != '1' && line[i] != 'D' && line[i] != 'G' && line[i] != 'P' && line[i] != '0' && line[i] != 'N' && line[i] != 'S'
 			&& line[i] != 'W' && line[i] != 'E' && ft_isspace(line[i]) == 0)
 			return (0);
 		i++;

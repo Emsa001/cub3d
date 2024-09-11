@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 14:46:16 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 19:52:35 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int touch_line(t_block *lines, float px, float py)
 	return 0;
 }
 
-int touch_sprite(t_block *sprites, float px, float py)
+int touch_sprite(t_sprite *sprites, float px, float py)
 {
 
 	int i = 0;
@@ -93,7 +93,7 @@ int touch_sprite(t_block *sprites, float px, float py)
 		x = sprites[i].x * BLOCK_SIZE;
 		y = sprites[i].y * BLOCK_SIZE;
 
-		if (px >= x && px <= x + BLOCK_SIZE && py >= y && py <= y + 1)
+		if (px >= x && px <= x + sprites[i].width && py >= y && py <= y + 1)
 			return i + 1;
 
 		i++;

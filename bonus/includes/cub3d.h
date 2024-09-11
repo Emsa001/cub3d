@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 15:19:16 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 19:49:11 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # include <sys/time.h>
 # include <time.h>
 # include <unistd.h>
-#include "economy.h"
+# include "economy.h"
 
 # define YELLOW "\033[1;33m"
 # define GREEN "\033[1;32m"
@@ -73,12 +73,12 @@ typedef struct s_cube
 
 	t_map					*map;
 
-	int add_money;
+	int						add_money;
 
 	bool					paused;
-	int 					async_id;
+	int						async_id;
 
-    pthread_mutex_t pause_mutex;
+	pthread_mutex_t			pause_mutex;
 }							t_cube;
 
 typedef struct s_image_queue
@@ -90,15 +90,16 @@ typedef struct s_image_queue
 	struct s_image_queue	*next;
 }							t_image_queue;
 
-typedef struct s_string_queue
+typedef struct s_string
 {
 	char					*str;
 	int						x;
 	int						y;
 	int						color;
 	float					size;
-	struct s_string_queue	*next;
-}							t_string_queue;
+	int						time;
+	struct s_string			*next;
+}							t_string;
 
 typedef struct s_render
 {
@@ -117,35 +118,34 @@ typedef struct s_render
 	int						mouse_y;
 
 	t_image_queue			*image_queue;
-	t_string_queue			*string_queue;
-    pthread_mutex_t string_queue_mutex;
-    pthread_mutex_t image_queue_mutex;
+	t_string			*string_queue;
+	pthread_mutex_t			string_queue_mutex;
+	pthread_mutex_t			image_queue_mutex;
 }							t_render;
 
 typedef struct s_draw
 {
-	float  			    angle;
-	float				x;
-	float				y;
-	float				first_x;
-	float				first_y;
-	float 				last_x;
-	float 				last_y;
-	float				sprite_x;
-	float				sprite_y;
-	int 				sprite_height;
-	int 				height;
-	int 				height_top;
-	float				wall_height;
-	int 				start_x;
-	int 				start_y;
-	int 				side;
-	int 				tex_x;
-	int 				dist;
-	int 				chest_dist;
-	int 				sprite_dist;
-}					t_draw;
-
+	float					angle;
+	float					x;
+	float					y;
+	float					first_x;
+	float					first_y;
+	float					last_x;
+	float					last_y;
+	float					sprite_x;
+	float					sprite_y;
+	int						sprite_height;
+	int						height;
+	int						height_top;
+	float					wall_height;
+	int						start_x;
+	int						start_y;
+	int						side;
+	int						tex_x;
+	int						dist;
+	int						chest_dist;
+	int						sprite_dist;
+}							t_draw;
 
 typedef struct
 {
@@ -173,26 +173,25 @@ typedef struct s_state
 
 typedef struct s_async
 {
-    int id;
-    
-    void (*start)(struct s_async *);
-    void (*process)(struct s_async *);
-    void (*end)(struct s_async *);
-    void *arg;
-    
-    int time;
-    int time_elapsed;
-	int process_time;
+	int						id;
 
-    t_cube *cube;
-    t_player *player;
-    t_render *render;
+	void					(*start)(struct s_async *);
+	void					(*process)(struct s_async *);
+	void					(*end)(struct s_async *);
+	void					*arg;
 
-    struct s_async *next;
-} t_async;
+	int						time;
+	int						time_elapsed;
+	int						process_time;
 
+	t_cube					*cube;
+	t_player				*player;
+	t_render				*render;
 
-void  add_async(t_async *async);
+	struct s_async			*next;
+}							t_async;
+
+void						add_async(t_async *async);
 
 /* ENGINE */
 t_render					*init_render(t_render *r);
@@ -210,27 +209,27 @@ void						init_hooks(void);
 int							render_scene_multithread(t_cube *c);
 int							render_scene_singlethread(t_cube *c);
 
-int					render_scene(t_cube *p);
-bool				is_touching(float px, float py, const t_cube *c);
-bool				touch_block(t_block *blocks, float px, float py);
-int touch_sprite(t_block *sprites, float px, float py);
-int touch_line(t_block *lines, float px, float py);
-bool touch_chest(t_block *lines, float px, float py);
-void				button_click(int type, int x, int y);
-void				button_tooltip(int x, int y);
+int							render_scene(t_cube *p);
+bool						is_touching(float px, float py, const t_cube *c);
+bool						touch_block(t_block *blocks, float px, float py);
+int							touch_sprite(t_sprite *sprites, float px, float py);
+int							touch_line(t_block *lines, float px, float py);
+bool						touch_chest(t_block *lines, float px, float py);
+void						button_click(int type, int x, int y);
+void						button_tooltip(int x, int y);
 
 void						clean_image(t_render *r);
 void						create_image(t_render *r, int width, int height);
 void						show_image(t_render *r, int x, int y);
-void						add_button(t_button button);
+void						add_button(t_button *button);
 
 /* DRAW */
-void				draw_line(t_draw draw, ThreadParams *params);
-void				draw_wall(t_draw draw,ThreadParams *params);
-void				draw_floor(int height, int start_x, ThreadParams *params,
-						float angle);
-void				draw_sky(int height, int start_x, ThreadParams *params,
-						float angle);
+void						draw_line(t_draw draw, ThreadParams *params);
+void						draw_wall(t_draw draw, ThreadParams *params);
+void						draw_floor(int height, int start_x,
+								ThreadParams *params, float angle);
+void						draw_sky(int height, int start_x,
+								ThreadParams *params, float angle);
 // Chest
 void						draw_chest_top(t_draw draw, ThreadParams *params,
 								float angle);
@@ -238,13 +237,13 @@ void						draw_chest(t_draw draw, ThreadParams *params,
 								int tex_x, float angle);
 
 // String
-void				write_string(char *str, int x, int y, int color,
-						float size);
-						t_texture *get_wall_side(int side, t_textures *texs);
-int vert_offset(t_player *p);
-int darken_color(int color, float ratio);
-float view_current_distance(t_player *p, int start_y, float angle, float z);
-t_draw init_draw(void);
+void						write_string(t_string *str);
+t_texture					*get_wall_side(int side, t_textures *texs);
+int							vert_offset(t_player *p);
+int							darken_color(int color, float ratio);
+float						view_current_distance(t_player *p, int start_y,
+								float angle, float z);
+t_draw						init_draw(void);
 
 // updating
 int							get_scene_pixel(int x, int y);
@@ -254,6 +253,7 @@ int							get_pixel_from_image(t_texture *t, int x, int y);
 void						minimap_init(void);
 void						destroy_buttons(void);
 
+void write_string_seconds(t_string *str);
 /* MLX */
 
 void						*load_image(char *path);
@@ -295,10 +295,9 @@ void						add_image_queue(t_texture *img, int x, int y,
 void						remove_image_queue(t_image_queue **q);
 void						put_image_queue(t_render *r);
 
-void						remove_string_queue(t_string_queue **q);
-void						add_string_queue(char *str, int x, int y, int color,
-								float size);
+void						remove_string_queue(t_string **q);
+void						add_string_queue(t_string *str);
 void						write_string_queue(void);
+void						button_hover(int x, int y);
 
 #endif
-
