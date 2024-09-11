@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 14:23:49 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/11 16:26:57 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
 {
     int color = params->color;
     float tex_y = 0;
-    float step = (float)T_SIZE / draw.sprite_height;
+    float step = ((float)T_SIZE) / draw.sprite_height;
     const t_player *p = params->player;
     const t_render *r = params->render;
     int dist = draw.sprite_dist;
@@ -180,7 +180,7 @@ void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
     {
         if(!p->vision && dist > 450)
             break;
-        color = get_pixel_from_image(sprite_tex, draw.tex_x , tex_y);
+        color = get_pixel_from_image(sprite_tex, (draw.tex_x) , tex_y);
         if(!p->vision)
             color = darken_color(color, (float)dist / 450);
         if(color != 0)
