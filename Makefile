@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+         #
+#    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/09/06 21:36:03 by btvildia         ###   ########.fr        #
+#    Updated: 2024/09/11 14:23:25 by escura           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME = cub3d
 NAME_BONUS = cub3d_bonus
 
 all: 
+	make mlx -C mandatory
 	make -j$(nproc) -C mandatory
 
 run: all

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:16:47 by escura            #+#    #+#             */
-/*   Updated: 2024/08/25 19:10:43 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 14:50:48 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ void button_click(int type, int x, int y)
     }
 }
 
-void button_tooltip(int x, int y)
-{
+void button_hover(int x, int y){
     t_cube *c = cube();
     t_button_node *current = c->buttons;
 
@@ -42,7 +41,11 @@ void button_tooltip(int x, int y)
         if(x >= current->button.x && x <= current->button.x + current->button.width &&
            y >= current->button.y && y <= current->button.y + current->button.height)
         {
-            player()->cursorItem = &c->items[current->button.itemId];
+            if (current->button.hover != NULL)
+            {
+                player()->hover = ft_malloc(sizeof(t_button));
+                ft_memcpy(player()->hover, &current->button, sizeof(t_button));
+            }
         }
         current = current->next;
     }

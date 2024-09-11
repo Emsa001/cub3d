@@ -6,11 +6,63 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/08/25 14:37:11 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/08 17:52:29 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void remove_string_queue(t_string_queue **q)
+{
+    t_string_queue *tmp = (*q)->next;
+    ft_free((*q)->str);
+    ft_free(*q);
+    *q = tmp;
+}
+
+void add_string_queue(char *str, int x, int y, int color, float size) {
+    t_render *r = render();
+    t_string_queue *new = ft_malloc(sizeof(t_string_queue));
+    new->str = ft_strdup(str);
+    new->x = x;
+    new->y = y;
+    new->color = color;
+    new->size = size;
+    new->next = NULL;
+
+    pthread_mutex_lock(&r->string_queue_mutex);  // Lock the mutex before accessing the queue
+
+    if (r->string_queue == NULL) {
+        r->string_queue = new;
+    } else {
+        t_string_queue *q = r->string_queue;
+        while (q->next != NULL)
+            q = q->next;
+        q->next = new;
+    }
+
+    pthread_mutex_unlock(&r->string_queue_mutex);  // Unlock the mutex after modifying the queue
+}
+
+
+void write_string_queue() {
+    t_render *r = render();
+    pthread_mutex_lock(&r->string_queue_mutex);  // Lock the mutex before accessing the queue
+
+    t_string_queue *q = r->string_queue;
+    while (q != NULL) {
+        write_string(q->str, q->x, q->y, q->color, q->size);
+
+        t_string_queue *tmp = q->next;
+        remove_string_queue(&q);
+        q = tmp;
+    }
+
+    r->string_queue = NULL;
+
+    pthread_mutex_unlock(&r->string_queue_mutex);  // Unlock the mutex after modifying the queue
+}
+
 
 // https://stmn.itch.io/font2bitmap
 void write_string(char *str, int x, int y, int color, float size)
@@ -22,10 +74,8 @@ void write_string(char *str, int x, int y, int color, float size)
     const int char_height = 32; 
     const int chars_per_row = 16; 
 
-    // Create a buffer to hold the character pixel data
     int char_pixel_data[95][32 * 32];
 
-    // Load character pixel data from the font texture
     for (int index = 0; index < 95; ++index)
     {
         int row = index / chars_per_row;
@@ -43,24 +93,21 @@ void write_string(char *str, int x, int y, int color, float size)
         }
     }
 
-    // Iterate over each character in the string
     while (*str)
     {
         char ch = *str++;
-        if (ch < ' ' || ch > '~') continue; 
+        if (ch && ch < ' ' || ch > '~') continue; 
 
         int char_index = ch - ' ';
         int *pixels = char_pixel_data[char_index];
 
-        // Render each character at the specified location and size
         for (int i = 0; i < char_width; ++i)
         {
             for (int j = 0; j < char_height; ++j)
             {
                 int pixel_color = pixels[i + j * char_width];
-                if (pixel_color > 0)  // Assuming non-zero values are valid pixels
+                if (pixel_color > 0) 
                 {
-                    // Draw the pixel with scaling
                     for (int dx = 0; dx < size; ++dx)
                     {
                         for (int dy = 0; dy < size; ++dy)
@@ -72,7 +119,6 @@ void write_string(char *str, int x, int y, int color, float size)
             }
         }
 
-        // Move to the next character position
         x += char_width * size;
     }
 }

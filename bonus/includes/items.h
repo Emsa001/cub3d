@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 18:19:57 by escura            #+#    #+#             */
-/*   Updated: 2024/08/25 19:08:17 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/07 20:11:14 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,7 @@ void			equip(t_itemprops props);
 void			unequip(void *props);
 
 void			useItem(void *arg);
+void 			item_tooltip();
+
 
 #endif

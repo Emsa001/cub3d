@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multi.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/08/30 19:04:31 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/11 15:09:36 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,19 @@ int render_scene_multithread(t_cube *c)
     t_render *r = render();
     create_image(r, WIDTH, HEIGHT);
 
-
     // Create threads
     render_view();
     // render_background_thread(c);
     render_player();
-    move_player();
+    shopkeeper();
+    
+    if(!c->paused)
+        move_player();
+    
+    put_image_queue(r);
+    write_string_queue();
 
-    run_async_queue();
     clean_image(r);
-
     check_hooks();
     update_fps();
     return 0;

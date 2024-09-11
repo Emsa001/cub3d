@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:08:59 by escura            #+#    #+#             */
-/*   Updated: 2024/08/26 09:42:00 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/07 16:13:11 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void render_hand_item()
 {
 	static int x = 0;
 	t_player *p = player();
+	const t_cube *c = cube();
 	t_item *item = p->hand;
 	
 	if(item == NULL)
@@ -44,13 +45,15 @@ void render_hand_item()
 
 	if(p->swing){
 		rotated_hand = rotate_texture(hand, sin(x * 0.1) * -40, HORIZONTAL_MIRROR);
-		xpos = 650;
-		ypos = 650;
-		if(x > 20){
-			p->swing = false;
-			x = 0;
+		if(!c->paused){
+			xpos = 650;
+			ypos = 650;
+			if(x > 20){
+				p->swing = false;
+				x = 0;
+			}
+			x++;
 		}
-		x++;
 	}else{
 		rotated_hand = rotate_texture(hand, 0, HORIZONTAL_MIRROR);
 	}
@@ -63,6 +66,6 @@ void render_hand_item()
 void render_player(){
     // draw_cross_in_centre(render());
 	destroy_buttons();
-	render_hud();
+	render_ui();
 	render_hand_item();
 }

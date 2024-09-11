@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/08/26 09:42:44 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/08 20:58:24 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,11 @@ t_player	*player_init(t_player *p)
 	player->pause = false;
 	player->fov = FOV;
 
-	player->health = 100;
-
 	player->mouse_hook = true;
 	player->open_inventory = false;
 
 	for(int i = 0; i < 9; i++)
 		player->equipped[i] = -1;
-
 
 	player->inventory[0] = 37;
 	player->inventory[1] = 112;
@@ -75,9 +72,13 @@ t_player	*player_init(t_player *p)
 	
 
 	player->vision = false;
-	player->cursorItem = NULL;
 	player->hand = NULL;
 	player->swing = false;
+
+	// player->tooltip = NULL;
+	player->hover = NULL;
+	player->money = 0;
+	player->store = init_store();
 	
 	return (player);
 }
