@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 14:23:50 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 15:19:16 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # include <sys/time.h>
 # include <time.h>
 # include <unistd.h>
+#include "economy.h"
 
 # define YELLOW "\033[1;33m"
 # define GREEN "\033[1;32m"
@@ -181,6 +182,7 @@ typedef struct s_async
     
     int time;
     int time_elapsed;
+	int process_time;
 
     t_cube *cube;
     t_player *player;

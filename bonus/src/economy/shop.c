@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   store.c                                            :+:      :+:    :+:   */
+/*   shop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:22:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 21:05:59 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 15:30:48 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_store *init_store()
 {
     t_store *store = malloc(sizeof(t_store));
     store->open = false;
+    store->can_open = false;
 
     int i = 0;
     while(i < 27)
@@ -37,6 +38,11 @@ t_store *init_store()
         store->generators[i] = 147;
         i++;
     }
+
+    store->x = 7;
+    store->y = 1;
+    add_sprite("assets/torch/", 9, store->x, store->y);
+
     return store;
 }
 
@@ -140,6 +146,9 @@ void open_store()
     const t_textures *t = textures();
     const t_player *p = player();
 
+    if(p->store->can_open == false)
+        return;
+
     const int x = CENTER_WIDTH - t->ui->window->width*1.8 /2 ;
     const int y = CENTER_HEIGHT - t->ui->window->height*1.8 /2;
 
@@ -168,5 +177,23 @@ void open_store()
             item_button(&button,0.8);
         }
         i++;
+    }
+}
+
+void shopkeeper(){
+    const t_player *p = player();
+
+    float dist = distance(p->x_px / BLOCK_SIZE, p->y_px / BLOCK_SIZE, p->store->x, p->store->y);
+
+    if(dist < 1)
+        p->store->can_open = true;
+    else{
+        p->store->open = false;
+        p->store->can_open = false;
+    }
+
+    
+    if(p->store->can_open){
+        write_string("Press G to open the shop", CENTER_WIDTH - 210, HEIGHT -100, 0x00FF00, 0.7);
     }
 }

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 14:24:03 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 15:21:14 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PLAYER_H
 
 # include "cub3d.h"
+#include "economy.h"
 typedef struct s_draw t_draw;
 
 # define WALKSPEED 2
@@ -44,13 +45,6 @@ typedef struct s_button_node
 	t_button				button;
 	struct s_button_node	*next;
 }							t_button_node;
-
-typedef struct s_store{
-	bool open;
-	int items[27];
-	int cases[3];
-	int generators[2];
-} t_store;
 
 typedef struct s_player
 {
@@ -135,5 +129,6 @@ void						tooltip(char *string, float size);
 void						hud_currency(void);
 t_store *init_store();
 void open_store();
+float distance(float x1, float y1, float x2, float y2);
 
 #endif

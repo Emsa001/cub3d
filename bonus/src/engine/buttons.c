@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:16:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 14:48:13 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 14:50:48 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,8 @@ void button_hover(int x, int y){
         {
             if (current->button.hover != NULL)
             {
-                // ((void (*)(void*))current->button.hover)(&current->button);
                 player()->hover = ft_malloc(sizeof(t_button));
-                memcpy(player()->hover, &current->button, sizeof(t_button));
+                ft_memcpy(player()->hover, &current->button, sizeof(t_button));
             }
         }
         current = current->next;

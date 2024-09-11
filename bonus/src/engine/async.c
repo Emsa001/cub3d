@@ -3,54 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   async.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:38:54 by escura            #+#    #+#             */
-/*   Updated: 2024/09/08 19:07:26 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:57:11 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void* run_process_and_function(void* arg) {
-	t_async* current = (t_async*)arg;
-	if(current->start)
-		current->start(current);
+static void	run_async_oop(t_async *current)
+{
+	bool		paused;
 
-	int sleep_interval = 10;
-	current->time_elapsed = 0;
-
-	while (current->time_elapsed < current->time) {
+	while ((current->time_elapsed <= current->time) || current->time == -1)
+	{
 		pthread_mutex_lock(&current->cube->pause_mutex);
-		bool paused = current->cube->paused;
+		paused = current->cube->paused;
 		pthread_mutex_unlock(&current->cube->pause_mutex);
-
-		if (paused) {
+		if (paused)
+		{
 			usleep(10 * 1000);
-			continue;
+			continue ;
 		}
-
-		if(current->process)
+		if (current->process)
 			current->process(current);
-		current->time_elapsed += sleep_interval;
-		usleep(sleep_interval * 1000);
+		current->time_elapsed += current->process_time;
+		usleep(current->process_time * 1000);
 	}
-
-	if(current->end)
-		current->end(current);
-	current->cube->async_id--;
-	ft_free(current); 
-	return NULL;
 }
 
-void add_async(t_async* async)
+static void	*run_async(void *arg)
 {
-	pthread_t thread_id;
+	t_async	*current;
+
+	current = (t_async *)arg;
+	if (current->start)
+		current->start(current);
+	current->time_elapsed = 0;
+	run_async_oop(current);
+	if (current->end)
+		current->end(current);
+	current->cube->async_id--;
+	ft_free(current);
+	return (NULL);
+}
+
+void	add_async(t_async *async)
+{
+	pthread_t	thread_id;
+
 	async->id = cube()->async_id++;
 	async->cube = cube();
 	async->player = player();
 	async->render = render();
-
-	pthread_create(&thread_id, NULL, run_process_and_function, async);
+	if(!async->process_time)
+		async->process_time = 10;
+	pthread_create(&thread_id, NULL, run_async, async);
 	pthread_detach(thread_id);
 }
