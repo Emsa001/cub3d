@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:38:54 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 21:54:31 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 22:57:17 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,14 @@ static void	*run_async(void *arg)
 	run_async_loop(current);
 	if (current->end)
 		current->end(current);
-	current->cube->async_id--;
 	ft_free(current);
 	return (NULL);
 }
 
-int	add_async(t_async *async)
+void	add_async(t_async *async)
 {
 	pthread_t	thread_id;
 	
-	async->id = cube()->async_id++;
 	async->cube = cube();
 	async->player = player();
 	async->render = render();

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 21:19:55 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 22:53:13 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,9 @@ void render_string_async(t_string *str)
     async->arg = copy;
     async->process_time = 10;
     async->time = str->time;
+    async->cube = cube();
+    async->player = player();
+    async->render = render();
     add_async(async);
 }
 
@@ -87,6 +90,16 @@ void process_string_queue() {
     pthread_mutex_unlock(&r->string_queue_mutex);  // Unlock the mutex after modifying the queue
 }
 
+void put_string(char *str, int x, int y, int color, float size)
+{
+    t_string string;
+    string.str = str;
+    string.x = x;
+    string.y = y;
+    string.color = color;
+    string.size = size;
+    render_string(&string);
+}
 
 // https://stmn.itch.io/font2bitmap
 void render_string(t_string *string)

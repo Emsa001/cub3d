@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 21:00:49 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 22:58:42 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ typedef struct s_cube
 	t_map					*map;
 
 	int						add_money;
+	pthread_mutex_t		add_money_mutex;
+	bool 					is_special;
 
 	bool					paused;
 	int						async_id;
@@ -186,8 +188,6 @@ typedef struct s_state
 
 typedef struct s_async
 {
-	int						id;
-
 	void					(*start)(struct s_async *);
 	void					(*process)(struct s_async *);
 	void					(*end)(struct s_async *);
@@ -289,6 +289,7 @@ void						add_block(float angle);
 void						remove_block(float angle);
 void						open_door(float angle, int id);
 void						close_door(float angle, int id);
+void put_string(char *str, int x, int y, int color, float size);
 
 /* KeyBoard */
 

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 17:45:03 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 22:36:42 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ t_player	*player_init(t_player *p)
 	player->hover = NULL;
 	player->money = 1000000;
 	player->store = init_store();
+
+	pthread_mutex_init(&player->money_mutex, NULL);
 	
 	return (player);
 }
