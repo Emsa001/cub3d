@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 22:05:17 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 19:16:38 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 14:46:56 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,6 @@ t_textures *init_textures(t_textures *t)
 	chest_top->image = get_texture_file("assets/chest_top.xpm", &chest_top->width, &chest_top->height);
 	chest_top->data = mlx_get_data_addr(chest_top->image, &chest_top->bpp, &chest_top->size_line, &chest_top->endian);
 	t->chest_top = chest_top;
-
-
 	init_hudtextures(t);
 	init_items_textures(t);
 	init_font(t);

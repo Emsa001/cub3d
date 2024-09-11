@@ -6,12 +6,15 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 20:32:30 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 14:24:03 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PLAYER_H
 # define PLAYER_H
+
+# include "cub3d.h"
+typedef struct s_draw t_draw;
 
 # define WALKSPEED 2
 # define SPRINTBONUS 5
@@ -120,7 +123,7 @@ void						handle_mouse_rotate(int x, int y);
 void						handle_arrow_rotation(t_player *p);
 void						open_inventory(void);
 
-int							view_lane_distance(float x1, float y1, float angle);
+void lane_distance(t_draw *draw);
 
 void						player_keydown(int keycode);
 void						player_keyup(int keycode);

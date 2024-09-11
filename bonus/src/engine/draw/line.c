@@ -6,13 +6,13 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 12:45:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 14:46:22 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int calculate_direction(float x, float y, float cosangle, float sinangle, t_cube *c, int *tex_x)
+int direction(float x, float y, float cosangle, float sinangle, t_cube *c, int *tex_x)
 {
     int sx = cosangle > 0 ? 1 : -1; 
     int sy = sinangle > 0 ? 1 : -1;
@@ -49,14 +49,54 @@ int calculate_direction(float x, float y, float cosangle, float sinangle, t_cube
     {
         *tex_x = (int)y % BLOCK_SIZE;
         return 1;
-    } else if(touch_chest(c->map->chests, x - sx, y))
+    }
+    return 0;
+}
+
+int chest_direction(t_draw *draw, float cosangle, float sinangle, t_cube *c)
+{
+    int sx = 0;
+    int sy = 0;
+    if (cosangle > 0)
+        sx = 1;
+    else
+        sx = -1;
+    if (sinangle > 0)
+        sy = 1;
+    else
+        sy = -1;
+    if(touch_chest(c->map->chests, draw->first_x - sx, draw->first_y))
     {
-        *tex_x = (int)x % BLOCK_SIZE;
+        draw->tex_x = (int)draw->first_x % BLOCK_SIZE;
         return 7;
-    } else if(touch_chest(c->map->chests, x, y))
+    } else if(touch_chest(c->map->chests, draw->first_x, draw->first_y))
     {
-        *tex_x = (int)y % BLOCK_SIZE;
+        draw->tex_x = (int)draw->first_y % BLOCK_SIZE;
         return 7;
+    }
+    return 0;
+}
+
+int sprite_direction(t_draw *draw, float cosangle, float sinangle, t_cube *c)
+{
+    int sx = 0;
+    int sy = 0;
+    if (cosangle > 0)
+        sx = 1;
+    else
+        sx = -1;
+    if (sinangle > 0)
+        sy = 1;
+    else
+        sy = -1;
+    if(touch_sprite(c->map->sprites, draw->sprite_x - sx, draw->sprite_y))
+    {
+        draw->tex_x = (int)draw->sprite_x % BLOCK_SIZE;
+        return 9;
+    } else if(touch_sprite(c->map->sprites, draw->sprite_x, draw->sprite_y))
+    {
+        draw->tex_x = (int)draw->sprite_y % BLOCK_SIZE;
+        return 9;
     }
     return 0;
 }
@@ -84,32 +124,89 @@ t_draw init_draw(void)
     draw.first_y = 0;
     draw.last_x = 0;
     draw.last_y = 0;
+    draw.wall_height = 0;
     draw.height = 0;
     draw.height_top = 0;
     draw.start_x = 0;
     draw.start_y = 0;
     draw.side = 0;
     draw.tex_x = 0;
-    draw.distance = view_lane_distance;
+    draw.angle = 0;
+    draw.dist = 0;
+    draw.chest_dist = 0;
+    draw.sprite_x = 0;
+    draw.sprite_y = 0;
+    draw.sprite_height = 0;
     return draw;
 }
 
-void draw_line(float angle, int start_x, ThreadParams *params)
+long current_frame(int frames)
 {
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    long curr_time =  (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+    int curr_frame = (curr_time / 100) % frames;
+    return curr_frame;
+}
+
+
+void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
+{
+    int color = params->color;
+    float tex_y = 0;
+    float step = (float)T_SIZE / draw.sprite_height;
+    const t_player *p = params->player;
+    const t_render *r = params->render;
+    int dist = draw.sprite_dist;
+    const t_textures *texs = params->textures;
+
+    int start_y = (p->z - 1) * draw.sprite_height + vert_offset(p);
+    int end_y = start_y + draw.sprite_height;
+
+    t_texture *sprite_tex = sprite.sprite_tex[current_frame(sprite.frames)];
+
+    if(end_y > HEIGHT)
+        end_y = HEIGHT;
+
+    while (start_y < end_y)
+    {
+        if(!p->vision && dist > 450)
+            break;
+        color = get_pixel_from_image(sprite_tex, draw.tex_x , tex_y);
+        if(!p->vision)
+            color = darken_color(color, (float)dist / 450);
+        if(color != 0)
+            put_pixel(draw.start_x, start_y, color, r);
+
+        tex_y += step;
+        start_y++;
+    }
+}
+
+
+
+void draw_line(t_draw draw, ThreadParams *params)
+{   
     t_cube *c = params->cube;
     const t_player *p = params->player;
 
-    float cosangle = cos(angle);
-    float sinangle = sin(angle);
-    t_draw draw = init_draw();
-    draw.start_x = start_x;
+    float cosangle = cos(draw.angle);
+    float sinangle = sin(draw.angle);
     
     bool save = false;
     bool save_last = false;
-    int dist;
+    int i = 0;
+    int j = 1;
 
     while (!find_hitbox(draw.x, draw.y, c))
     {
+        if((i = touch_sprite(c->map->sprites, draw.x, draw.y)))
+        {
+            draw.sprite_x = draw.x;
+            draw.sprite_y = draw.y;
+            if(i > 1)
+                j = i;
+        }
         if(touch_chest(c->map->chests, draw.x, draw.y))
         {
             if(!save)
@@ -134,20 +231,17 @@ void draw_line(float angle, int start_x, ThreadParams *params)
         }
     }
 
-    dist = draw.distance(draw.x, draw.y, angle);
-    draw.side = calculate_direction(draw.x, draw.y, cosangle, sinangle, c, &draw.tex_x);
-    draw.height = (BLOCK_SIZE * HEIGHT) / draw.distance(draw.x, draw.y, angle);
-    draw_wall(draw, params, dist);
-    draw_floor(draw.height, start_x, params, angle);
-    draw_sky(draw.height, start_x, params, angle);
-    {
-        draw.height = (BLOCK_SIZE * HEIGHT) / draw.distance(draw.last_x, draw.last_y, angle);
-        draw.height_top = (BLOCK_SIZE * HEIGHT) / draw.distance(draw.first_x, draw.first_y, angle);
-        draw.side = calculate_direction(draw.first_x, draw.first_y, cosangle, sinangle, c, &draw.tex_x);
-        if(draw.side == 7)
-        {   
-            draw_chest_top(draw, params, angle);
-            draw_chest(draw, params, draw.tex_x, angle);
-        }
+    draw.side = direction(draw.x, draw.y, cosangle, sinangle, c, &draw.tex_x);
+    lane_distance(&draw);
+    draw_wall(draw, params);
+    draw_floor(draw.wall_height, draw.start_x, params, draw.angle);
+    draw_sky(draw.wall_height, draw.start_x, params, draw.angle);
+
+    if(sprite_direction(&draw, cosangle, sinangle, c) == 9)
+        sprite_frame(draw, params, c->map->sprites[j - 1]);
+    if(chest_direction(&draw, cosangle, sinangle, c) == 7)
+    {   
+        draw_chest_top(draw, params, draw.angle);
+        draw_chest(draw, params, draw.tex_x, draw.angle);
     }
 }

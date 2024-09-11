@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/09/08 18:43:20 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 14:46:32 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,11 +136,12 @@ void draw_sky(int height, int start_x, ThreadParams *params, float angle)
     }
 }
 
-void draw_wall(t_draw draw, ThreadParams *params, int dist)
+
+void draw_wall(t_draw draw, ThreadParams *params)
 {
     int color = params->color;
     float tex_y = 0;
-    float step = (float)T_SIZE / draw.height;
+    float step = (float)T_SIZE / draw.wall_height;
     const t_cube *c = params->cube;
     const t_player *p = params->player;
     const t_render *r = params->render;
@@ -152,16 +153,15 @@ void draw_wall(t_draw draw, ThreadParams *params, int dist)
     if (!wall_side || draw.side == 7)
         return;
 
-    int start_y = (p->z - 1) * draw.height + vert_offset(p);
-    int end_y = start_y + draw.height;
+    int start_y = (p->z - 1) * draw.wall_height + vert_offset(p);
+    int end_y = start_y + draw.wall_height;
 
     if (end_y > HEIGHT)
         end_y = HEIGHT; 
 
     while (start_y < end_y)
     {
-        // VISION CAUSES DATA RACE
-        if(!p->vision && dist > 450)
+        if(!p->vision && draw.dist > 450)
             break;
         if (catched)
             color = 255;
@@ -169,7 +169,7 @@ void draw_wall(t_draw draw, ThreadParams *params, int dist)
         {
             color = get_pixel_from_image(wall_side, draw.tex_x, tex_y);
             if(!p->vision)
-                color = darken_color(color, (float)dist / 450);
+                color = darken_color(color, (float)draw.dist / 450);
         }
 
         put_pixel(draw.start_x, start_y, color, r);
@@ -178,5 +178,3 @@ void draw_wall(t_draw draw, ThreadParams *params, int dist)
         start_y++;
     }
 }
-
-

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/08 21:04:23 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 14:23:50 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,20 +123,28 @@ typedef struct s_render
 
 typedef struct s_draw
 {
-	float					x;
-	float					y;
-	float					first_x;
-	float					first_y;
-	float					last_x;
-	float					last_y;
-	int						height;
-	int						height_top;
-	int						start_x;
-	int						start_y;
-	int						side;
-	int						tex_x;
-	int						(*distance)(float, float, float);
-}							t_draw;
+	float  			    angle;
+	float				x;
+	float				y;
+	float				first_x;
+	float				first_y;
+	float 				last_x;
+	float 				last_y;
+	float				sprite_x;
+	float				sprite_y;
+	int 				sprite_height;
+	int 				height;
+	int 				height_top;
+	float				wall_height;
+	int 				start_x;
+	int 				start_y;
+	int 				side;
+	int 				tex_x;
+	int 				dist;
+	int 				chest_dist;
+	int 				sprite_dist;
+}					t_draw;
+
 
 typedef struct
 {
@@ -200,11 +208,14 @@ void						init_hooks(void);
 int							render_scene_multithread(t_cube *c);
 int							render_scene_singlethread(t_cube *c);
 
-int							render_scene(t_cube *p);
-bool						is_touching(float px, float py, const t_cube *c);
-bool						touch_block(t_block *blocks, float px, float py);
-void						button_click(int type, int x, int y);
-void						button_hover(int x, int y);
+int					render_scene(t_cube *p);
+bool				is_touching(float px, float py, const t_cube *c);
+bool				touch_block(t_block *blocks, float px, float py);
+int touch_sprite(t_block *sprites, float px, float py);
+int touch_line(t_block *lines, float px, float py);
+bool touch_chest(t_block *lines, float px, float py);
+void				button_click(int type, int x, int y);
+void				button_tooltip(int x, int y);
 
 void						clean_image(t_render *r);
 void						create_image(t_render *r, int width, int height);
@@ -212,14 +223,12 @@ void						show_image(t_render *r, int x, int y);
 void						add_button(t_button button);
 
 /* DRAW */
-void						draw_line(float angle, int start_x,
-								ThreadParams *params);
-void						draw_wall(t_draw draw, ThreadParams *params,
-								int dist);
-void						draw_floor(int height, int start_x,
-								ThreadParams *params, float angle);
-void						draw_sky(int height, int start_x,
-								ThreadParams *params, float angle);
+void				draw_line(t_draw draw, ThreadParams *params);
+void				draw_wall(t_draw draw,ThreadParams *params);
+void				draw_floor(int height, int start_x, ThreadParams *params,
+						float angle);
+void				draw_sky(int height, int start_x, ThreadParams *params,
+						float angle);
 // Chest
 void						draw_chest_top(t_draw draw, ThreadParams *params,
 								float angle);
@@ -227,13 +236,13 @@ void						draw_chest(t_draw draw, ThreadParams *params,
 								int tex_x, float angle);
 
 // String
-void						write_string(char *str, int x, int y, int color,
-								float size);
-t_texture					*get_wall_side(int side, t_textures *texs);
-int							vert_offset(t_player *p);
-int							darken_color(int color, float ratio);
-float						view_current_distance(t_player *p, int start_y,
-								float angle, float z);
+void				write_string(char *str, int x, int y, int color,
+						float size);
+						t_texture *get_wall_side(int side, t_textures *texs);
+int vert_offset(t_player *p);
+int darken_color(int color, float ratio);
+float view_current_distance(t_player *p, int start_y, float angle, float z);
+t_draw init_draw(void);
 
 // updating
 int							get_scene_pixel(int x, int y);
@@ -290,3 +299,4 @@ void						add_string_queue(char *str, int x, int y, int color,
 void						write_string_queue(void);
 
 #endif
+

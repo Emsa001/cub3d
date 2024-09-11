@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:52:35 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/07 19:12:40 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 14:46:40 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	neighbor_check(char **tab, t_point size, t_point begin, char to_fill[])
 			neighbor = tab[d[i].y][d[i].x];
 			if ((neighbor != '1' && neighbor != 'D' && neighbor != 'X' && neighbor != 'N'
 					&& neighbor != '0' && neighbor != 'S' && neighbor != 'H' && neighbor != 'W'
-					&& neighbor != 'E'))
+					&& neighbor != 'E' && neighbor != 'G'))
 				ft_error("Map is not closed");
 		}
 		i++;
@@ -47,7 +47,7 @@ void	fill(char **tab, t_point size, t_point begin, char to_fill[])
 		return ;
 	c = tab[begin.y][begin.x];
 	i = 0;
-	while (i < 6)
+	while (i < 8)
 	{
 		if (c == to_fill[i])
 		{
