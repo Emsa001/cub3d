@@ -6,13 +6,13 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:38:54 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 16:17:30 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 21:54:31 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	run_async_oop(t_async *current)
+static void	run_async_loop(t_async *current)
 {
 	bool		paused;
 
@@ -41,7 +41,7 @@ static void	*run_async(void *arg)
 	if (current->start)
 		current->start(current);
 	current->time_elapsed = 0;
-	run_async_oop(current);
+	run_async_loop(current);
 	if (current->end)
 		current->end(current);
 	current->cube->async_id--;
@@ -49,7 +49,7 @@ static void	*run_async(void *arg)
 	return (NULL);
 }
 
-void	add_async(t_async *async)
+int	add_async(t_async *async)
 {
 	pthread_t	thread_id;
 	
