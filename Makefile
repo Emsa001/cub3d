@@ -6,7 +6,7 @@
 #    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/09/11 14:23:25 by escura           ###   ########.fr        #
+#    Updated: 2024/09/11 18:04:36 by escura           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = cub3d
 NAME_BONUS = cub3d_bonus
 
 all: 
-	make mlx -C mandatory
+#	make mlx -C mandatory
 	make -j$(nproc) -C mandatory
 
 run: all

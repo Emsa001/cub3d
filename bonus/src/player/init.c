@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/08 20:58:24 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 17:45:03 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_player	*player_init(t_player *p)
 
 	// player->tooltip = NULL;
 	player->hover = NULL;
-	player->money = 0;
+	player->money = 1000000;
 	player->store = init_store();
 	
 	return (player);
