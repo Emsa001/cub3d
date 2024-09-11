@@ -6,16 +6,24 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 19:58:02 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/11 20:43:54 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <X11/Xlib.h>
 #include "cub3d.h"
 
-void end(){
+
+void start(){
     add_sprite("assets/fire/", 13, 7, 7);
-    printf("placed\n");;
+    printf("placed\n");
+}
+
+void end(){
+    remove_sprite(7, 7);
+    usleep(3000000);
+    remove_sprite(4, 1);
+    printf("removed\n");
 }
 
 void start_game(void)
@@ -25,9 +33,11 @@ void start_game(void)
     init_hooks();
     init_economy();
 
-    // t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
-    // async->start = &end;
-    // add_async(async);
+    t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
+    async->start = &start;
+    async->end = &end;
+    async->time = 3000;
+    add_async(async);
 
     // add_sprite("assets/torch/", 9, 5, 5);
     // add_sprite("assets/fire/", 13, 3, 4);

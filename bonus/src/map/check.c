@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/11 20:22:35 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/11 20:38:46 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,6 +253,7 @@ t_sprite  get_portal(char **map)
 		}
 		i++;
 	}
+	printf("portal x: %f y: %f\n", sprite.x, sprite.y);
 	sprite.frames = 5;
 	sprite.sprite_tex = sprite_texture;
 	sprite.width = sprite_texture[0]->width;
@@ -341,6 +342,38 @@ void add_sprite(char *path_file, int frames, float x, float y)
 	init_sprite(cube()->map, sprite);
 }
 
+void remove_sprite(int x, int y)
+{
+	t_sprite *sprites = cube()->map->sprites;
+	t_sprite *new_sprites;
+	t_sprite *tmp;
+	int i = 0;
+	int j = 0;
+	
+	while (sprites[i].x != -1)
+		i++;
+	new_sprites = ft_malloc(sizeof(t_sprite) * i);
+	i = 0;
+	while (sprites[i].x != -1)
+	{
+		if (sprites[i].x != x && sprites[i].y != y)
+		{
+			new_sprites[j] = sprites[i];
+			j++;
+		}
+		i++;
+	}
+	new_sprites[j].x = -1;
+	new_sprites[j].y = -1;
+	new_sprites[j].frames = -1;
+	new_sprites[j].sprite_tex = NULL;
+	new_sprites[j].width = -1;
+	new_sprites[j].height = -1;
+	tmp = cube()->map->sprites;
+	cube()->map->sprites = new_sprites;
+	ft_free(tmp);
+}
+
 t_map	*check_map(char **map, int size)
 {
 	t_map	*map_info;
@@ -348,6 +381,7 @@ t_map	*check_map(char **map, int size)
 	map_info = ft_malloc(sizeof(t_map));
 	map_info->width = 0;
 	map_info->height = 0;
+	map_info->portal = false;
 	map_info->map = NULL;
 	get_2d_map(map_info, map, size);
 	get_map_sizes(map_info, map_info->map);
