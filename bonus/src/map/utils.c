@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:59:54 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/11 14:46:48 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 17:52:55 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ char	*get_next_string(char *line, char *str)
 	check_split = ft_split(line, ' ');
 	if (ft_arrlen(check_split) != 2)
 	{
-		// ft_arrdel((void **)check_split);
-		// ft_error("Invalid map info");
+		ft_arrdel((void **)check_split);
+		ft_error("Invalid map info");
 	}
 	ft_arrdel((void **)check_split);
 	if (!line || !str)
@@ -124,7 +124,7 @@ int	ft_check_line(char *line)
 	while (line[i] != '\0')
 	{
 		if (line[i] != '1' && line[i] != 'D' && line[i] != 'H' && line[i] != '0' && line[i] != 'N' && line[i] != 'S'
-			&& line[i] != 'W' && line[i] != 'E' && line[i] != 'G' && ft_isspace(line[i]) == 0)
+			&& line[i] != 'W' && line[i] != 'E' && ft_isspace(line[i]) == 0)
 			return (0);
 		i++;
 	}

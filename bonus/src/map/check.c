@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/11 14:46:35 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 17:48:34 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,38 +170,6 @@ t_block *init_line(t_map *map_info , char **map)
 	lines[k].y = -1;
 	return (lines);
 }
-
-// static t_block *init_torch(t_map *map_info , char **map)
-// {
-// 	t_block	*torches;
-// 	int		i = 0;
-// 	int		j = 0;
-// 	int		k = 0;
-	
-// 	map_info->sprite = NULL;
-// 	int torch_count = count_c(map, 'G');
-// 	torches = ft_malloc(sizeof(t_block) * (torch_count + 1));
-
-// 	while(map[i] != NULL)
-// 	{
-// 		j = 0;
-// 		while(map[i][j] != '\0')
-// 		{
-// 			if (map[i][j] == 'G')
-// 			{
-// 				torches[k].x = j;
-// 				torches[k].y = i;
-// 				k++;
-// 			}
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	torches[k].x = -1;
-// 	torches[k].y = -1;
-// 	return (torches);
-// }
-
 
 t_block *init_chests(t_map *map_info, char **map)
 {
