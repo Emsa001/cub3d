@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/09/08 17:44:05 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:25:14 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,11 @@ void draw_wall(t_draw draw, ThreadParams *params)
 
     if (end_y > HEIGHT)
         end_y = HEIGHT; 
+    if(start_y < 0)
+    {
+        tex_y = -start_y * step;
+        start_y = 0;
+    }
 
     while (start_y < end_y)
     {
