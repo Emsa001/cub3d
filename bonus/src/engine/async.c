@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 15:38:54 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 14:57:11 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 16:17:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	*run_async(void *arg)
 void	add_async(t_async *async)
 {
 	pthread_t	thread_id;
-
+	
 	async->id = cube()->async_id++;
 	async->cube = cube();
 	async->player = player();

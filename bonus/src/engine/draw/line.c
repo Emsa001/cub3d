@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 14:46:22 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 16:24:55 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,7 @@ void draw_line(t_draw draw, ThreadParams *params)
     
     bool save = false;
     bool save_last = false;
+    bool save_sprite = false;
     int i = 0;
     int j = 1;
 
@@ -202,8 +203,13 @@ void draw_line(t_draw draw, ThreadParams *params)
     {
         if((i = touch_sprite(c->map->sprites, draw.x, draw.y)))
         {
-            draw.sprite_x = draw.x;
-            draw.sprite_y = draw.y;
+            if(!save_sprite)
+            {
+                draw.sprite_x = draw.x;
+                draw.sprite_y = draw.y;
+                save_sprite = true;
+            }
+
             if(i > 1)
                 j = i;
         }
