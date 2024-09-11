@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 18:02:29 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 18:34:44 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,14 @@ void remove_string_queue(t_string **q)
     *q = tmp;
 }
 
-void write_string_new(){
-    t_string str;
-    str.str = "You won ";
-    str.color = 0x00FF00;
-    str.size = 0.7;
-    str.x = CENTER_WIDTH - 100; 
-    str.y = CENTER_HEIGHT - 100;
-    str.time = 5;
-
-    add_string_queue(&str);
+void write_string_end(t_async *async){
+    t_string *str = (t_string *)async->arg;
+    ft_free(str->str);
+    ft_free(str);
 }
 
-void write_string_seconds(t_string *str)
-{
-    t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
-    async->process = &write_string_new;
-    async->process_time = 10;
-    async->time = str->time;
-    add_async(async);
-}
-
-void add_string_queue(t_string *text) {
+void add_string_queue(t_async *async) {
+    t_string *text = (t_string *)async->arg;
     t_render *r = render();
     t_string *new = ft_malloc(sizeof(t_string));
     new->str = ft_strdup(text->str);
@@ -63,6 +49,19 @@ void add_string_queue(t_string *text) {
     }
 
     pthread_mutex_unlock(&r->string_queue_mutex);  // Unlock the mutex after modifying the queue
+}
+
+void write_string_seconds(t_string str)
+{
+    t_string *copy = ft_calloc(sizeof(t_string), 1);
+    ft_memcpy(copy, &str, sizeof(t_string));
+
+    t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
+    async->process = &add_string_queue;
+    async->arg = copy;
+    async->process_time = 10;
+    async->time = str.time;
+    add_async(async);
 }
 
 void write_string_queue() {

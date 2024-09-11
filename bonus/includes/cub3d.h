@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 17:58:55 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 18:33:49 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,7 +253,7 @@ int							get_pixel_from_image(t_texture *t, int x, int y);
 void						minimap_init(void);
 void						destroy_buttons(void);
 
-void write_string_seconds(t_string *str);
+void write_string_seconds(t_string str);
 /* MLX */
 
 void						*load_image(char *path);
@@ -296,7 +296,6 @@ void						remove_image_queue(t_image_queue **q);
 void						put_image_queue(t_render *r);
 
 void						remove_string_queue(t_string **q);
-void						add_string_queue(t_string *str);
 void						write_string_queue(void);
 void						button_hover(int x, int y);
 

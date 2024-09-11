@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:30:48 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 18:12:54 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 18:39:24 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,15 @@ static void exit_button()
     change_image_color(t->home, 0xFFFFFF);
     put_image(t->home, CENTER_WIDTH + 220, CENTER_HEIGHT + 120, 1);
     
-    t_button *button = (t_button *)ft_calloc(sizeof(t_button), 1);
-    button->x = x;
-    button->y = y;
-    button->width = t->button->width;
-    button->height = t->button->height;
-    button->function = &exit_game;
-    button->hover = &exit_hover;
-    button->arg = 1;
-    add_button(button);
+    t_button button;
+    button.x = x;
+    button.y = y;
+    button.width = t->button->width;
+    button.height = t->button->height;
+    button.function = &exit_game;
+    button.hover = &exit_hover;
+    button.arg = 1;
+    add_button(&button);
 }
 
 static void put_window()
@@ -117,13 +117,13 @@ void pause_game()
     p->mouse_hook = false;
     put_image(t->play, x, y, 1);
 
-    t_button *button = (t_button *)ft_calloc(sizeof(t_button), 1);
-    button->x = x;
-    button->y = y;
-    button->width = t->play->width;
-    button->height = t->play->height;
-    button->function = &resume_game;
-    button->hover = &pause_hover; 
-    button->arg = NULL;
-    add_button(button);
+    t_button button;
+    button.x = x;
+    button.y = y;
+    button.width = t->play->width;
+    button.height = t->play->height;
+    button.function = &resume_game;
+    button.hover = &pause_hover; 
+    button.arg = NULL;
+    add_button(&button);
 }

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/11 14:46:35 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 18:40:22 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,10 +305,11 @@ void add_sprite(char *path_file, int frames, float x, float y)
 	{
 		sprite_texture[i] = ft_malloc(sizeof(t_texture));
 		char *path = ft_strjoin(path_file, ft_itoa(i));
-		path = ft_strjoin(path, ".xpm");
+		char *temp = ft_strjoin(path, ".xpm");
 		
-		sprite_texture[i]->image = get_texture_file(path, &sprite_texture[i]->width, &sprite_texture[i]->height);
+		sprite_texture[i]->image = get_texture_file(temp, &sprite_texture[i]->width, &sprite_texture[i]->height);
 		sprite_texture[i]->data = mlx_get_data_addr(sprite_texture[i]->image, &sprite_texture[i]->bpp, &sprite_texture[i]->size_line, &sprite_texture[i]->endian);
+		ft_free(temp);
 		ft_free(path);
 		i++;
 	}

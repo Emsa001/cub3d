@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:22:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 18:00:25 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 18:37:06 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void openCase(int value){
     str.y = CENTER_HEIGHT - 100;
     str.time = 5000;
     
-    write_string_seconds(&str);
+    write_string_seconds(str);
 
     ft_free(money);
 }
@@ -201,18 +201,18 @@ void open_store()
         if (p->store->items[i] != -1)
         {
 
-            t_button *button = (t_button *)ft_calloc(sizeof(t_button), 1);
-            button->x = x + 10 + (i % 3) * 70;
-            button->y = y + 160 + (i / 3) * 70;
-            button->width = 64;
-            button->height = 64;
-            button->function = &useItem;
-            button->hover = &shop_item_hover;
-            button->arg = (void *)i;
-            button->itemId = p->store->items[i];
+            t_button button;
+            button.x = x + 10 + (i % 3) * 70;
+            button.y = y + 160 + (i / 3) * 70;
+            button.width = 64;
+            button.height = 64;
+            button.function = &useItem;
+            button.hover = &shop_item_hover;
+            button.arg = (void *)i;
+            button.itemId = p->store->items[i];
             
-            add_button(button);
-            item_button(button, 0.8);
+            add_button(&button);
+            item_button(&button, 0.8);
         }
         i++;
     }
