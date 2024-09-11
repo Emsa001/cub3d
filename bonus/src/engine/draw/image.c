@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:35:54 by escura            #+#    #+#             */
-/*   Updated: 2024/09/08 18:38:14 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 21:00:42 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,43 @@ void put_image_queue(t_render *r)
     r->image_queue = NULL;
 
     pthread_mutex_unlock(&r->image_queue_mutex);  // Unlock the mutex after modifying the queue
+}
+
+void enqueue_image(t_async *async) {
+    t_image *img = (t_image *)async->arg;
+    t_render *r = render();
+    t_image *new = ft_malloc(sizeof(t_image));
+    ft_memcpy(new, img, sizeof(t_image));
+    new->next = NULL;
+
+    pthread_mutex_lock(&r->image_queue_mutex);  // Lock the mutex before accessing the queue
+
+    if (r->image_queue == NULL)
+        r->image_queue = new;
+    else
+    {
+        t_image_queue *q = r->image_queue;
+        while (q->next != NULL)
+            q = q->next;
+        q->next = new;
+    }
+
+    pthread_mutex_unlock(&r->image_queue_mutex);  // Unlock the mutex after modifying the queue
+}
+
+void render_image_async(t_image *img)
+{
+    t_image *copy = ft_calloc(sizeof(t_image), 1);
+    ft_memcpy(copy, img, sizeof(t_image));
+
+    t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
+    async->process = &enqueue_image;
+    async->end = NULL;
+    async->arg = copy;
+    async->process_time = 10;
+    async->time = img->time;
+    add_async(async);
+
 }
 
 void put_image(t_texture *img, int x, int y, float size)

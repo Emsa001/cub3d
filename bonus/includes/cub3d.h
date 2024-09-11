@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 18:58:38 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 21:00:49 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,21 @@ typedef struct s_string
 	int						color;
 	float					size;
 	int						time;
+
+	void 					*clean;
 	struct s_string			*next;
 }							t_string;
+
+typedef struct s_image
+{
+	void					*img;
+	int						x;
+	int						y;
+	float					size;
+
+	int time;
+	struct s_image			*next;
+}							t_image;
 
 typedef struct s_render
 {
@@ -199,6 +212,7 @@ t_render					*render(void);
 void						update_fps(void);
 void						render_view(void);
 void						init_items(void);
+void render_image_async(t_image *img);
 
 void						check_params(char **av);
 t_cube						*cube_init(t_cube *c);
@@ -297,5 +311,8 @@ void						put_image_queue(t_render *r);
 void						remove_string_queue(t_string **q);
 void						process_string_queue(void);
 void						button_hover(int x, int y);
+
+int random_int(int min, int max);
+float random_float(float min, float max);
 
 #endif

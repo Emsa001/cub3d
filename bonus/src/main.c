@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 17:32:08 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 21:41:32 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void init_game(char *map)
 	init_items();
 	minimap_init();
 }
-
 
 int	main(int argc, char **argv)
 {

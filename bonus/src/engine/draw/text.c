@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 18:58:32 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 21:19:55 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,11 @@ void enqueue_string(t_async *async) {
     pthread_mutex_unlock(&r->string_queue_mutex);  // Unlock the mutex after modifying the queue
 }
 
+void end_string_async(t_async *async) {
+    char *str = (char *)async->arg;
+    ft_free(str);
+}
+
 void render_string_async(t_string *str)
 {
     t_string *copy = ft_calloc(sizeof(t_string), 1);
@@ -58,6 +63,7 @@ void render_string_async(t_string *str)
 
     t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
     async->process = &enqueue_string;
+    async->end = &end_string_async;
     async->arg = copy;
     async->process_time = 10;
     async->time = str->time;

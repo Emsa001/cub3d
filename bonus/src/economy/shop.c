@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:22:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 18:58:30 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 21:30:02 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,12 @@ void shop_item_hover(){
 
     if(price > p->money)
         tooltip("Not enough money", 0.4);
+    else{
+        char *money = ft_itoa(price);
+        char *temp = ft_strjoin("Buy for ", money);
+        tooltip(temp, 0.4);
+        ft_free(money);
+    }
 }
 
 void special_offer(int x, int y){
@@ -100,32 +106,85 @@ void special_offer(int x, int y){
     }
 }
 
-void openCase(int value){
+void openCase(int value) {
     t_player *p = player();
-    t_store *s = p->store;
+    t_store *store = p->store;
+    const t_textures *t = textures();
 
-    if(p->money < value)
+    if (p->money < value)
         return;
-    
-    p->money -= value;
-    s->open = false;
 
-    int prize = rand() % 100;
+    p->money -= value;
+    store->open = false;
+    int prize = random_int(0, value * 1.5);
+    
+    char *tmp = ft_itoa(prize - value);
+    char *removeMoneyStr = tmp;
+    if(prize - value > 0)
+    {
+        removeMoneyStr = ft_strjoin("+", ft_itoa(prize - value));
+        ft_free(tmp);
+    }
+
+    char *displayText = ft_strjoin(removeMoneyStr, "$");
+
+    t_string removeMoneyString;
+    removeMoneyString.str = displayText;
+    removeMoneyString.color = 0xFFFFFF;
+    removeMoneyString.size =  0.4;
+    removeMoneyString.x = 80;
+    removeMoneyString.y = 60;
+    removeMoneyString.time = 1000;
+
+    render_string_async(&removeMoneyString);
+
     p->money += prize;
 
-    char *money = ft_itoa(prize);
+    // Display the winning message
+    t_string winMessage;
+    winMessage.str = "You won";
+    winMessage.color = 0xFFFFFF;
+    winMessage.size = 1;
+    winMessage.x = CENTER_WIDTH - ft_strlen(winMessage.str) * 8;
+    winMessage.y = CENTER_HEIGHT - 100;
+    winMessage.time = removeMoneyString.time;
 
-    t_string str;
-    str.str = "You won ";
-    str.color = 0x00FF00;
-    str.size = 0.7;
-    str.x = CENTER_WIDTH - 100; 
-    str.y = CENTER_HEIGHT - 100;
-    str.time = 5000;
-    
-    render_string_async(&str);
+    render_string_async(&winMessage);
 
-    ft_free(money);
+
+    t_string prizeMessage;
+    ft_memcpy(&prizeMessage, &winMessage, sizeof(t_string));
+    prizeMessage.str = displayText;
+    prizeMessage.color = 0xF5F5F4;
+    prizeMessage.size = 2;
+    prizeMessage.x = CENTER_WIDTH - ft_strlen(displayText) * 20;
+    prizeMessage.y = CENTER_HEIGHT - 50;
+    prizeMessage.clean = displayText;
+
+    render_string_async(&prizeMessage);
+
+    // Determine prize texture based on prize amount
+    t_texture *prizeTexture = t->items[158];
+
+    if (prize > 70000) {
+        prizeTexture = t->items[162];
+    } else if (prize > 50000) {
+        prizeTexture = t->items[161];
+    } else if (prize > 20000) {
+        prizeTexture = t->items[160];
+    } else if (prize > 5000) {
+        prizeTexture = t->items[159];
+    }
+
+    // Render the prize image
+    t_image prizeImage;
+    prizeImage.img = prizeTexture;
+    prizeImage.x = CENTER_WIDTH - 100;
+    prizeImage.y = CENTER_HEIGHT - 200;
+    prizeImage.size = 10;
+    prizeImage.time = winMessage.time - 100;
+
+    render_image_async(&prizeImage);
 }
 
 void cases(int x, int y){
