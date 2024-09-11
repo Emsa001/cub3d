@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/11 20:38:46 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/11 22:56:18 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -356,13 +356,17 @@ void remove_sprite(int x, int y)
 	i = 0;
 	while (sprites[i].x != -1)
 	{
-		if (sprites[i].x != x && sprites[i].y != y)
+		// if sprite on the position x and y is found it will not be added to the new_sprites array
+		if (sprites[i].x == x && sprites[i].y == y)
 		{
-			new_sprites[j] = sprites[i];
-			j++;
+			i++;
+			continue;
 		}
+		new_sprites[j] = sprites[i];
 		i++;
+		j++;
 	}
+
 	new_sprites[j].x = -1;
 	new_sprites[j].y = -1;
 	new_sprites[j].frames = -1;
@@ -371,7 +375,7 @@ void remove_sprite(int x, int y)
 	new_sprites[j].height = -1;
 	tmp = cube()->map->sprites;
 	cube()->map->sprites = new_sprites;
-	ft_free(tmp);
+	ft_free(tmp);		
 }
 
 t_map	*check_map(char **map, int size)
