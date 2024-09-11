@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 22:55:53 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/11 22:58:02 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void end(){
     remove_sprite(7, 7);
     usleep(2000000);
     remove_sprite(4, 1);
+    add_sprite("assets/portal_opened/", 17, 4, 1);
     printf("removed\n");
 }
 
@@ -33,11 +34,11 @@ void start_game(void)
     init_hooks();
     init_economy();
 
-    // t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
-    // async->start = &start;
-    // async->end = &end;
-    // async->time = 3000;
-    // add_async(async);
+    t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
+    async->start = &start;
+    async->end = &end;
+    async->time = 3000;
+    add_async(async);
 
     // add_sprite("assets/torch/", 9, 5, 5);
     // add_sprite("assets/fire/", 13, 3, 4);
