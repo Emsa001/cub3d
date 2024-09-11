@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/10 20:36:18 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/11 12:42:07 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ void start_game(void)
     t_cube *c = cube();
     init_hooks();
     init_async_queue();
-    add_sprite("assets/torch/", 9, 5, 5);
+    add_sprite("assets/torch/", 9, 3, 4);
+    add_sprite("assets/fire/", 13, 4, 3);
+    add_sprite("assets/portal/", 17, 5, 5);
+
+    
     // start the game
 
     // mlx_loop_hook(r->mlx, render_scene_singlethread, (void *)c);

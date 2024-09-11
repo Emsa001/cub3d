@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/10 20:34:08 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/11 14:22:47 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,8 +144,9 @@ long current_frame(int frames)
 {
     struct timeval tv;
     gettimeofday(&tv, NULL);
+    int time_delay = 1000 / frames;
     long curr_time =  (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
-    int curr_frame = (curr_time / 100) % frames;
+    int curr_frame = (curr_time / time_delay) % frames;
     return curr_frame;
 }
 
@@ -164,9 +165,16 @@ void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
     int end_y = start_y + draw.sprite_height;
 
     t_texture *sprite_tex = sprite.sprite_tex[current_frame(sprite.frames)];
+    if(!sprite_tex)
+        return;
 
     if(end_y > HEIGHT)
         end_y = HEIGHT;
+    if(start_y < 0)
+    {
+        tex_y = -start_y * step;
+        start_y = 0;
+    }
 
     while (start_y < end_y)
     {
@@ -195,6 +203,7 @@ void draw_line(t_draw draw, ThreadParams *params)
     
     bool save = false;
     bool save_last = false;
+    bool sprite_save = false;
     int i = 0;
     int j = 1;
 
@@ -202,10 +211,14 @@ void draw_line(t_draw draw, ThreadParams *params)
     {
         if((i = touch_sprite(c->map->sprites, draw.x, draw.y)))
         {
-            draw.sprite_x = draw.x;
-            draw.sprite_y = draw.y;
-            if(i > 1)
-                j = i;
+            if(!sprite_save)
+            {
+                draw.sprite_x = draw.x;
+                draw.sprite_y = draw.y;
+                if(i > 1)
+                    j = i;
+            }
+            sprite_save = true;
         }
         if(touch_chest(c->map->chests, draw.x, draw.y))
         {
