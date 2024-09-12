@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 14:46:16 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 14:26:42 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int touch_line(t_block *lines, float px, float py)
 	return 0;
 }
 
-int touch_sprite(t_block *sprites, float px, float py)
+int touch_sprite(t_sprite *sprites, float px, float py)
 {
 
 	int i = 0;

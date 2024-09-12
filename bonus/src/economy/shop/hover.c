@@ -6,18 +6,18 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:04:55 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 22:44:25 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 14:31:51 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void shop_item_hover()
+void shop_item_hover(void *arg)
 {
     t_player *p = player();
 
     pthread_mutex_lock(&p->money_mutex);
-    int price = p->hover->arg;
+    int price = (int)(intptr_t)p->hover->arg;
 
     if(price > p->money)
         tooltip("Not enough money", 0.4);

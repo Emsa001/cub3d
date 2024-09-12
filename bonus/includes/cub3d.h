@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 22:58:42 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 14:37:50 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@
 # include <time.h>
 # include <unistd.h>
 # include "economy.h"
+#include <stdint.h>
+#include <X11/Xlib.h>
+
 
 # define YELLOW "\033[1;33m"
 # define GREEN "\033[1;32m"
@@ -83,15 +86,6 @@ typedef struct s_cube
 	pthread_mutex_t			pause_mutex;
 }							t_cube;
 
-typedef struct s_image_queue
-{
-	void					*img;
-	int						x;
-	int						y;
-	float					size;
-	struct s_image_queue	*next;
-}							t_image_queue;
-
 typedef struct s_string
 {
 	char					*str;
@@ -132,7 +126,7 @@ typedef struct s_render
 	int						mouse_x;
 	int						mouse_y;
 
-	t_image_queue			*image_queue;
+	t_image			*image_queue;
 	t_string			*string_queue;
 	pthread_mutex_t			string_queue_mutex;
 	pthread_mutex_t			image_queue_mutex;
@@ -226,7 +220,7 @@ int							render_scene_singlethread(t_cube *c);
 int							render_scene(t_cube *p);
 bool						is_touching(float px, float py, const t_cube *c);
 bool						touch_block(t_block *blocks, float px, float py);
-int							touch_sprite(t_block *sprites, float px, float py);
+int							touch_sprite(t_sprite *sprites, float px, float py);
 int							touch_line(t_block *lines, float px, float py);
 bool						touch_chest(t_block *lines, float px, float py);
 void						button_click(int type, int x, int y);
@@ -252,10 +246,9 @@ void						draw_chest(t_draw draw, ThreadParams *params,
 
 // String
 void						render_string(t_string *str);
-t_texture					*get_wall_side(int side, t_textures *texs);
-int							vert_offset(t_player *p);
+int							vert_offset(const t_player *p);
 int							darken_color(int color, float ratio);
-float						view_current_distance(t_player *p, int start_y,
+float						view_current_distance(const t_player *p, int start_y,
 								float angle, float z);
 t_draw						init_draw(void);
 
@@ -306,14 +299,14 @@ void						item_button(t_button *button, float size);
 
 void						add_image_queue(t_texture *img, int x, int y,
 								float size, t_render *r);
-void						remove_image_queue(t_image_queue **q);
+void						remove_image_queue(t_image **q);
 void						put_image_queue(t_render *r);
 
 void						remove_string_queue(t_string **q);
 void						process_string_queue(void);
 void						button_hover(int x, int y);
 
+void init_economy();
 int random_int(int min, int max);
-float random_float(float min, float max);
 
 #endif

@@ -6,24 +6,20 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:06:59 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 22:46:57 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 14:31:28 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 void activate_special(void *arg){
-    int price = (int)arg;
+    int price = (int)(intptr_t)arg;
 }
 
 void special_offer(int x, int y)
 {
     const t_textures *t = textures();
     const t_player *p = player();
-
-    int *prices = {
-        10000, 200000
-    };
 
     int i = 0;
     while(i < 2)

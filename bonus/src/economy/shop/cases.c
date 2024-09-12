@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:04:42 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:12:08 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 14:32:54 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,12 @@ void renderPrizeImage(t_texture *prizeTexture, int time)
     render_image_async(&prizeImage);
 }
 
-void openCase(int value)
+void openCase(void *arg)
 {
     t_player *p = player();
     t_store *store = p->store;
     const t_textures *t = textures();
+    const int value = (int)(intptr_t)arg;
 
     pthread_mutex_lock(&p->money_mutex);
     if (p->money < value)
@@ -137,7 +138,7 @@ void cases(int x, int y)
             button.height = 128;
             button.function = &openCase;
             button.hover = &shop_item_hover;
-            button.arg = (void *)values[i];
+            button.arg = (void *)(intptr_t)values[i];
             button.itemId = p->store->cases[i];
 
             add_button(&button);

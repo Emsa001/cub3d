@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:30:48 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 20:07:29 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 14:16:58 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void resume_game(){
     pthread_mutex_unlock(&c->pause_mutex);
 }
 
-void pause_hover(void)
+void pause_hover(void *arg)
 {
     const t_uitextures *t = textures()->ui;
     
@@ -34,7 +34,7 @@ void pause_hover(void)
     put_image(t->play_hover, new_x, new_y, 1.1);
 }
 
-void exit_hover(void)
+void exit_hover(void *arg)
 {
     const t_uitextures *t = textures()->ui;
     
@@ -46,7 +46,11 @@ void exit_hover(void)
     put_image(t->button_hover, new_x, new_y, 1.1);
     change_image_color(t->home, 0xE52554);
     put_image(t->home, CENTER_WIDTH + 218, CENTER_HEIGHT + 118, 1.1);
-    // tooltip("Exit", 0.5);
+    tooltip("Exit :(", 0.5);
+}
+
+void exit_game_f(void *arg){
+    exit_game(0);
 }
 
 static void exit_button()
@@ -64,9 +68,9 @@ static void exit_button()
     button.y = y;
     button.width = t->button->width;
     button.height = t->button->height;
-    button.function = &exit_game;
+    button.function = &exit_game_f;
     button.hover = &exit_hover;
-    button.arg = 1;
+    button.arg = (void *)1;
     add_button(&button);
 }
 
@@ -77,9 +81,6 @@ static void put_window()
     const int y = CENTER_HEIGHT - t->window->height / 2;
 
     put_image(t->window, x, y, 1);
-
-    // render_string("PAUSED", CENTER_WIDTH - 140, CENTER_HEIGHT - 190, 0x00FF00, 1.5);
-    // render_string("Press    to resume", CENTER_WIDTH - 280, CENTER_HEIGHT + 160, 0x00FF00, 0.5);
 
     t_string str;
     str.str = "PAUSED";

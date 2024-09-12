@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 18:16:29 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:00:41 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 14:35:54 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void init_items()
 
 void useItem(void *arg)
 {
-    int index = (int)arg;
+    int index = (int)(intptr_t)arg;
     int id =  player()->inventory[index];
     
     t_item i = cube()->items[id];
@@ -33,7 +33,7 @@ void useItem(void *arg)
         i.use(i.props);
 }
 
-void item_tooltip()
+void item_tooltip(void *arg)
 {
     t_player *p = player();
     int index = p->hover->itemId;

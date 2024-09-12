@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 21:09:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 22:39:39 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 14:36:47 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void process(t_async *current){
     pthread_mutex_unlock(&current->cube->add_money_mutex);
 }
 
-void init_economy(){
+void init_economy()
+{
     t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
     async->process = &process;
     async->process_time = 1000; // 1 second
@@ -35,9 +36,9 @@ void init_economy(){
 
 void	hud_currency(void)
 {
-    const t_cube *c = cube();
+    t_cube *c = cube();
+    t_player *p = player();
     const t_textures *t = textures();
-    const t_player *p = player();
     const t_render *r = render();
     
     int i = 0;

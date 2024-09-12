@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 16:44:20 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 14:27:25 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
     float tex_y = 0;
     float step = ((float)T_SIZE) / draw.sprite_height;
     const t_player *p = params->player;
-    const t_render *r = params->render;
+    t_render *r = params->render;
     int dist = draw.sprite_dist;
     const t_textures *texs = params->textures;
 

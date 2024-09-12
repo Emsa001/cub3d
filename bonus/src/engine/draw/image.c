@@ -6,22 +6,22 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:35:54 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 21:00:42 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 14:28:50 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void remove_image_queue(t_image_queue **q)
+void remove_image_queue(t_image **q)
 {
-    t_image_queue *tmp = (*q)->next;
+    t_image *tmp = (*q)->next;
     ft_free(*q);
     *q = tmp;
 }
 
 void add_image_queue(t_texture *img, int x, int y, float size, t_render *r)
 {
-    t_image_queue *new = ft_malloc(sizeof(t_image_queue));
+    t_image *new = ft_malloc(sizeof(t_image));
 
     new->img = img;
     new->x = x;
@@ -37,7 +37,7 @@ void add_image_queue(t_texture *img, int x, int y, float size, t_render *r)
     }
     else
     {
-        t_image_queue *q = r->image_queue;
+        t_image *q = r->image_queue;
         while (q->next != NULL)
             q = q->next;
         q->next = new;
@@ -51,12 +51,12 @@ void put_image_queue(t_render *r)
 {
     pthread_mutex_lock(&r->image_queue_mutex);  // Lock the mutex before accessing the queue
 
-    t_image_queue *q = r->image_queue;
+    t_image *q = r->image_queue;
     while (q != NULL)
     {
         put_image(q->img, q->x, q->y, q->size);
         
-        t_image_queue *tmp = q->next;
+        t_image *tmp = q->next;
         remove_image_queue(&q);
         q = tmp;
     }
@@ -79,7 +79,7 @@ void enqueue_image(t_async *async) {
         r->image_queue = new;
     else
     {
-        t_image_queue *q = r->image_queue;
+        t_image *q = r->image_queue;
         while (q->next != NULL)
             q = q->next;
         q->next = new;

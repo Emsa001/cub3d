@@ -6,18 +6,18 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 16:44:23 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 14:24:22 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int vert_offset(t_player *p)
+int vert_offset(const t_player *p)
 {
     return (p->z_dir) * HEIGHT;
 }
 
-t_texture *get_wall_side(int side, t_textures *texs)
+t_texture *get_wall_side(int side, const t_textures *texs)
 {
     t_texture *t = NULL;
     
@@ -55,7 +55,7 @@ int darken_color(int color, float ratio)
     return (r << 16) | (g << 8) | b;
 }
 
-float view_current_distance(t_player *p, int start_y, float angle, float z)
+float view_current_distance(const t_player *p, int start_y, float angle, float z)
 {
     float current_dist = (p->z - z) * HEIGHT / (start_y - HEIGHT / 2);
     return current_dist / cos(angle - p->angle);
@@ -144,7 +144,7 @@ void draw_wall(t_draw draw, ThreadParams *params)
     float step = (float)T_SIZE / draw.wall_height;
     const t_cube *c = params->cube;
     const t_player *p = params->player;
-    const t_render *r = params->render;
+    t_render *r = params->render;
     const t_textures *texs = params->textures;
 
     bool catched = p->catch && draw.side == 6;  // Use side instead of r->side

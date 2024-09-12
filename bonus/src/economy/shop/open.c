@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:22:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 22:47:21 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 14:33:14 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void open_store()
             button.height = 64;
             button.function = NULL;
             button.hover = &shop_item_hover;
-            button.arg = (void *)(i * 1000);
+            button.arg = (void *)(intptr_t)(i * 1000);
             button.itemId = p->store->items[i];
             
             add_button(&button);
