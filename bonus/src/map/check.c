@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/12 14:51:52 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:42:52 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,7 +289,6 @@ void init_sprite(t_map *map_info, t_sprite sprite)
 	t_sprite *sprites = map_info->sprites;
 	
 	int i = 0;
-
 	while (sprites[i].x != -1)
 		i++;
 	new_sprites = ft_malloc(sizeof(t_sprite) * (i + 2));
@@ -308,7 +307,6 @@ void init_sprite(t_map *map_info, t_sprite sprite)
 	new_sprites[i + 1].height = -1;
 	tmp = map_info->sprites;
 	map_info->sprites = new_sprites;
-	
 	
 	ft_free(tmp);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:49:15 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 21:40:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,21 @@ static void init_game(char *map)
 	minimap_init();
 }
 
+void ssss(){
+	printf("start\n");
+}
+
+void eeeend(){
+	printf("end\n");
+}
+
 int	main(int argc, char **argv)
 {
 	check_params(argv);
 	ft_alloc_init();
-
-	init_game(argv[1]);
+	init_game(argv[1]);	
 
 	start_game();
 	
-	ft_destructor();
 	return (0);
 }

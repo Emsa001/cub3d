@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 21:09:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:36:47 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 21:32:51 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,16 @@ void	hud_currency(void)
     
     int i = 0;
 
-    while(i <= 3){
-        put_image(t->ui->button, (i * (t->ui->button->width - 15)), 5, 1);
-        i++;
+    if (t->ui && t->ui->button) {
+        while(i <= 3){
+            put_image(t->ui->button, (i * (t->ui->button->width - 15)), 5, 1);
+            i++;
+        }
     }
 
-    put_image(t->items[158], 10, 12, 2);
+    if (t->items && t->items[158]) {
+        put_image(t->items[158], 10, 12, 2);
+    }
 
     pthread_mutex_lock(&c->add_money_mutex);
     pthread_mutex_lock(&p->money_mutex);

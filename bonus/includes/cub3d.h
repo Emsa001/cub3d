@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:49:08 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 21:02:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # include "economy.h"
 #include <stdint.h>
 #include <X11/Xlib.h>
+#include "async.h"
 
 
 # define YELLOW "\033[1;33m"
@@ -180,25 +181,6 @@ typedef struct s_state
 	bool					door;
 }							t_state;
 
-typedef struct s_async
-{
-	void					(*start)(struct s_async *);
-	void					(*process)(struct s_async *);
-	void					(*end)(struct s_async *);
-	void					*arg;
-
-	int						time;
-	int						time_elapsed;
-	int						process_time;
-
-	t_cube					*cube;
-	t_player				*player;
-	t_render				*render;
-
-	struct s_async			*next;
-}							t_async;
-
-void						add_async(t_async *async);
 
 /* ENGINE */
 t_render					*init_render(t_render *r);

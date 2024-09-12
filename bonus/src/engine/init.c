@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:10:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 13:44:26 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 20:00:56 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,38 @@ t_cube	*cube(void)
 
 t_render *init_render(t_render *r)
 {
-	static t_render	*render;
+    static t_render *render = NULL;
 
-	if (r == NULL)
-		return (render);
+    if (r == NULL)
+        return (render);
 
-	r->mlx = mlx_init();
-	r->win = mlx_new_window(r->mlx, WIDTH, HEIGHT, "Cub3D");
-	r->side = 6;
+    // Initialize members of the t_render structure
+    r->mlx = mlx_init();
+    if (r->mlx == NULL) {
+        return NULL;
+    }
 
-    r->string_queue = NULL;
-    r->image_queue = NULL;
+    r->win = mlx_new_window(r->mlx, WIDTH, HEIGHT, "Cub3D");
+    if (r->win == NULL) {
+        return NULL;
+    }
+
+    // Initialize additional members
+    r->side = 6;
+
+    r->string_queue = NULL;  // Make sure this is properly initialized
+    r->image_queue = NULL;   // Make sure this is properly initialized
+
+    // Initialize mutexes
     pthread_mutex_init(&r->string_queue_mutex, NULL);
     pthread_mutex_init(&r->image_queue_mutex, NULL);
-	
-	render = r;
-	
-	return (render);
+
+    // Assign the static variable
+    render = r;
+    
+    return (render);
 }
+
 
 t_render *render(void)
 {

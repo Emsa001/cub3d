@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:57:40 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 19:41:29 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,11 +183,11 @@ void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
     {
         if(!p->vision && dist > 450)
             break;
-        color = get_pixel_from_image(sprite_tex, (draw.tex_x ) , tex_y);
+        color = get_pixel_from_image(sprite_tex, (draw.tex_x) , tex_y);
         if(!p->vision)
             color = darken_color(color, (float)dist / 450);
-        if(color != 0)
-            put_pixel(draw.start_x, start_y, color, r);
+        // if(color != 0)
+        put_pixel(draw.start_x, start_y, color, r);
 
         tex_y += step;
         start_y++;
@@ -260,4 +260,5 @@ void draw_line(t_draw draw, ThreadParams *params)
         draw_generator_top(draw, params, draw.angle);
         draw_generator(draw, params, draw.tex_x, draw.angle);
     }
+
 }

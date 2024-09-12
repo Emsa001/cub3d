@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+         #
+#    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/09/12 14:48:57 by btvildia         ###   ########.fr        #
+#    Updated: 2024/09/12 21:37:40 by escura           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,8 @@ INCLUDES = $(wildcard $(INCLUDES_DIR)/*.h) $(wildcard $(INCLUDES_DIR)/*/*.h)
 CC = cc
 
 CFLAGS = -g -O3
+# CFLAGS += -fsanitize=address
+CFLAGS += -fsanitize=thread -pthread
 # CFLAGS = -Wall -Wextra -Werror
 
 CFLAGS += -I$(LIBFT_DIR) -I$(INCLUDES_DIR)
@@ -68,7 +70,7 @@ re: fclean
 
 # ===== Utils =====
 v: $(NAME)
-	valgrind --leak-check=full ./$(NAME) map.cub
+	valgrind --leak-check=full $(NAME) ../map.cub
 
 mlx:
 	@if [ ! -d "$(INCLUDES_DIR)/mlx" ]; then \

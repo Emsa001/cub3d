@@ -3,42 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:53:30 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 21:53:02 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <X11/Xlib.h>
 #include "cub3d.h"
 
-
-void start(){
-    add_sprite("assets/torch/", 9, 5,5);
-    printf("placed\n");
-}
-
-void end(){
-    remove_sprite(7, 7);
-    usleep(2000000);
-    remove_sprite(4, 1);
-    add_sprite("assets/portal_opened/", 17, 4, 1);
-    printf("removed\n");
+void test(){
+    printf("tasdasdest\n");
 }
 
 void start_game(void)
 {
     t_render *r = render();
     t_cube *c = cube();
+    // init_economy();
     init_hooks();
-    init_economy();
 
     t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
-    async->start = &start;
-    // async->end = &end;
-    // async->time = 3000;
+    async->end = &test;
+    async->time = 100000000;
     add_async(async);
+
+    // t_async *async2 = (t_async *)ft_calloc(sizeof(t_async), 1);
+    // async2->end = &test;
+    // async2->time = 10000000;
+    // add_async(async2);
+
+    // t_async *async3 = (t_async *)ft_calloc(sizeof(t_async), 1);
+    // async3->end = &test;
+    // async3->time = 10000000;
+    // add_async(async3);
+
+    exit_game(0);
 
     // add_sprite("assets/torch/", 9, 5, 5);
     // add_sprite("assets/fire/", 13, 3, 4);

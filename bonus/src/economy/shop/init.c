@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:07:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 22:08:03 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 18:55:27 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_store *init_store()
 {
-    t_store *store = malloc(sizeof(t_store));
+    t_store *store = ft_malloc(sizeof(t_store));
     store->open = false;
     store->can_open = false;
 
@@ -41,7 +41,7 @@ t_store *init_store()
 
     store->x = 7;
     store->y = 1;
-    add_sprite("assets/torch/", 9, store->x, store->y);
+    // add_sprite("assets/torch/", 9, store->x, store->y);
 
     return store;
 }

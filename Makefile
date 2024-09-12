@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+         #
+#    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/09/11 18:07:05 by btvildia         ###   ########.fr        #
+#    Updated: 2024/09/12 18:13:58 by escura           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,9 @@ fclean:
 	@make -C mandatory fclean > /dev/null
 	@make -C bonus fclean > /dev/null
 	@echo "FCleaning up..."
+
+v:
+	@make -C bonus v
 
 re: fclean all
 

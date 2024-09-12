@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 13:05:25 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:46:23 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,7 @@ void				init_items_textures(t_textures *t);
 void				init_ui(t_textures *t);
 t_textures			*textures(void);
 void change_image_color(t_texture *img, int color);
+void destroy_textures();
+void destroy_texture(t_texture *texture);
 
 #endif

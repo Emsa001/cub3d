@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   items.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 17:02:34 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 13:20:19 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:51:12 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void init_items_textures(t_textures *t){
         i++;
     }
 
-    t_texture *netherite_sword = ft_malloc(sizeof(t_texture));
-    netherite_sword->image = get_texture_file("assets/netherite_sword.xpm", &netherite_sword->width, &netherite_sword->height);
-    netherite_sword->data = mlx_get_data_addr(netherite_sword->image, &netherite_sword->bpp, &netherite_sword->size_line, &netherite_sword->endian);
-    t->items[255] = netherite_sword;
+    // t_texture *netherite_sword = ft_malloc(sizeof(t_texture));
+    // netherite_sword->image = get_texture_file("assets/netherite_sword.xpm", &netherite_sword->width, &netherite_sword->height);
+    // netherite_sword->data = mlx_get_data_addr(netherite_sword->image, &netherite_sword->bpp, &netherite_sword->size_line, &netherite_sword->endian);
+    // t->items[255] = netherite_sword;
 }
