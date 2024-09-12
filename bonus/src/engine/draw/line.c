@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 17:28:55 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 21:56:03 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,8 @@ long current_frame(int frames)
     struct timeval tv;
     gettimeofday(&tv, NULL);
     int time_delay = 1000 / frames;
+    if(frames == 28)
+        time_delay = 90;
     if(frames == 5)
         time_delay = 60;
     if(frames == 2)

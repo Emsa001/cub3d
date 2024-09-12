@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:07:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 20:23:26 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 21:49:24 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_store *init_store()
 
     store->x = 7;
     store->y = 18;
-    add_sprite("assets/torch/", 9, store->x, store->y);
+    add_sprite("assets/shop/", 28, store->x, store->y);
 
     return store;
 }
