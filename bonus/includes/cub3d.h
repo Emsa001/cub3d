@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:31:04 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:49:08 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@
 # include <time.h>
 # include <unistd.h>
 # include "economy.h"
+#include <stdint.h>
+#include <X11/Xlib.h>
+
 
 # define YELLOW "\033[1;33m"
 # define GREEN "\033[1;32m"
@@ -74,21 +77,14 @@ typedef struct s_cube
 	t_map					*map;
 
 	int						add_money;
+	pthread_mutex_t		add_money_mutex;
+	bool 					is_special;
 
 	bool					paused;
 	int						async_id;
 
 	pthread_mutex_t			pause_mutex;
 }							t_cube;
-
-typedef struct s_image_queue
-{
-	void					*img;
-	int						x;
-	int						y;
-	float					size;
-	struct s_image_queue	*next;
-}							t_image_queue;
 
 typedef struct s_string
 {
@@ -98,8 +94,21 @@ typedef struct s_string
 	int						color;
 	float					size;
 	int						time;
+
+	void 					*clean;
 	struct s_string			*next;
 }							t_string;
+
+typedef struct s_image
+{
+	void					*img;
+	int						x;
+	int						y;
+	float					size;
+
+	int time;
+	struct s_image			*next;
+}							t_image;
 
 typedef struct s_render
 {
@@ -117,7 +126,7 @@ typedef struct s_render
 	int						mouse_x;
 	int						mouse_y;
 
-	t_image_queue			*image_queue;
+	t_image			*image_queue;
 	t_string			*string_queue;
 	pthread_mutex_t			string_queue_mutex;
 	pthread_mutex_t			image_queue_mutex;
@@ -173,8 +182,6 @@ typedef struct s_state
 
 typedef struct s_async
 {
-	int						id;
-
 	void					(*start)(struct s_async *);
 	void					(*process)(struct s_async *);
 	void					(*end)(struct s_async *);
@@ -199,6 +206,7 @@ t_render					*render(void);
 void						update_fps(void);
 void						render_view(void);
 void						init_items(void);
+void render_image_async(t_image *img);
 
 void						check_params(char **av);
 t_cube						*cube_init(t_cube *c);
@@ -238,11 +246,10 @@ void						draw_generator(t_draw draw, ThreadParams *params,
 long current_frame(int frames);
 
 // String
-void						write_string(t_string *str);
-t_texture					*get_wall_side(int side, t_textures *texs);
-int							vert_offset(t_player *p);
+void						render_string(t_string *str);
+int							vert_offset(const t_player *p);
 int							darken_color(int color, float ratio);
-float						view_current_distance(t_player *p, int start_y,
+float						view_current_distance(const t_player *p, int start_y,
 								float angle, float z);
 t_draw						init_draw(void);
 
@@ -253,8 +260,7 @@ void						draw_circle(int center_x, int center_y, int radius,
 int							get_pixel_from_image(t_texture *t, int x, int y);
 void						minimap_init(void);
 void						destroy_buttons(void);
-
-void write_string_seconds(t_string *str);
+void render_string_async(t_string *str);
 /* MLX */
 
 void						*load_image(char *path);
@@ -277,6 +283,7 @@ void						add_block(float angle);
 void						remove_block(float angle);
 void						open_door(float angle, int id);
 void						close_door(float angle, int id);
+void put_string(char *str, int x, int y, int color, float size);
 
 /* KeyBoard */
 
@@ -293,12 +300,14 @@ void						item_button(t_button *button, float size);
 
 void						add_image_queue(t_texture *img, int x, int y,
 								float size, t_render *r);
-void						remove_image_queue(t_image_queue **q);
+void						remove_image_queue(t_image **q);
 void						put_image_queue(t_render *r);
 
 void						remove_string_queue(t_string **q);
-void						add_string_queue(t_string *str);
-void						write_string_queue(void);
+void						process_string_queue(void);
 void						button_hover(int x, int y);
+
+void init_economy();
+int random_int(int min, int max);
 
 #endif

@@ -5,39 +5,43 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/24 18:16:29 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:35:54 by escura           ###   ########.fr       */
+/*   Created: 2024/09/11 22:07:56 by escura            #+#    #+#             */
+/*   Updated: 2024/09/11 22:08:03 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include "items.h"
 
-void init_items()
+t_store *init_store()
 {
-    t_cube *c = cube();
+    t_store *store = malloc(sizeof(t_store));
+    store->open = false;
+    store->can_open = false;
 
-    init_armor(c);
-    init_potions(c);
-    init_weapons(c);
-}
+    int i = 0;
+    while(i < 27)
+    {
+        store->items[i] = 1;
+        i++;
+    }
 
-void useItem(void *arg)
-{
-    int index = (int)(intptr_t)arg;
-    int id =  player()->inventory[index];
-    
-    t_item i = cube()->items[id];
-    i.props.playerslot = index;
-    if(i.use != NULL)
-        i.use(i.props);
-}
+    i = 0;
+    while(i < 3)
+    {
+        store->cases[i] = 146;
+        i++;
+    }
 
-void item_tooltip(void *arg)
-{
-    t_player *p = player();
-    int index = p->hover->itemId;
-    t_item *item = &cube()->items[index];
+    i = 0;
+    while(i < 2)
+    {
+        store->generators[i] = 147;
+        i++;
+    }
 
-    tooltip(item->name, item->fontSize);
+    store->x = 7;
+    store->y = 1;
+    add_sprite("assets/torch/", 9, store->x, store->y);
+
+    return store;
 }

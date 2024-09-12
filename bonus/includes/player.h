@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 17:28:20 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 14:20:34 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ typedef struct s_player
 
 	bool					vision;
 	int						money;
+	pthread_mutex_t			money_mutex;
 
 	t_button				*hover;
 	t_item					*hand;
@@ -129,5 +130,6 @@ void						hud_currency(void);
 t_store						*init_store(void);
 void						open_store(void);
 float						distance(float x1, float y1, float x2, float y2);
+void	hud_inventory(void);
 
 #endif

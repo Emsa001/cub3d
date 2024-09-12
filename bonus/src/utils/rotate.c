@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 16:44:46 by escura            #+#    #+#             */
-/*   Updated: 2024/08/25 17:30:11 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 14:34:15 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,8 @@ t_texture *rotate_texture(t_texture *texture, double angle, int mirror_mode)
 	double rad_angle = DEG_TO_RAD(angle);
 
 	// Calculate the bounding box for the rotated image
-	int new_width = abs(texture->width * cos(rad_angle)) + abs(texture->height * sin(rad_angle));
-	int new_height = abs(texture->width * sin(rad_angle)) + abs(texture->height * cos(rad_angle));
-
+	double new_width = fabs(texture->width * cos(rad_angle)) + fabs(texture->height * sin(rad_angle));
+	double new_height = fabs(texture->width * sin(rad_angle)) + fabs(texture->height * cos(rad_angle));
 	t_texture *rotated_texture = ft_malloc(sizeof(t_texture));
 
 	// Create a new image for the rotated texture

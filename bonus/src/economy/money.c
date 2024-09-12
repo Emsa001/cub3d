@@ -6,17 +6,41 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 21:09:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 17:59:33 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 14:36:47 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+void process(t_async *current){
+    // Always lock in the same order
+    pthread_mutex_lock(&current->cube->add_money_mutex);
+    pthread_mutex_lock(&current->player->money_mutex);
+
+    int time_left = (current->time - current->time_elapsed);
+    current->player->money += current->cube->add_money;
+
+    // Always unlock in the reverse order of locking
+    pthread_mutex_unlock(&current->player->money_mutex);
+    pthread_mutex_unlock(&current->cube->add_money_mutex);
+}
+
+void init_economy()
+{
+    t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
+    async->process = &process;
+    async->process_time = 1000; // 1 second
+    async->time = -1;
+    add_async(async);
+}
+
 void	hud_currency(void)
 {
-	const t_textures *t = textures();
-	const t_player *p = player();
-	const t_render *r = render();
+    t_cube *c = cube();
+    t_player *p = player();
+    const t_textures *t = textures();
+    const t_render *r = render();
+    
     int i = 0;
 
     while(i <= 3){
@@ -24,16 +48,21 @@ void	hud_currency(void)
         i++;
     }
 
-	put_image(t->items[158], 10, 12, 2);
+    put_image(t->items[158], 10, 12, 2);
+
+    pthread_mutex_lock(&c->add_money_mutex);
+    pthread_mutex_lock(&p->money_mutex);
+
     char *money = ft_itoa(p->money);
+    char *add = ft_itoa(c->add_money);
 
-    t_string str;
-    str.str = money;
-    str.color = 0xffbf00;
-    str.size = 0.5;
-    str.x = 80;
-    str.y = 37;
+    pthread_mutex_unlock(&p->money_mutex);
+    pthread_mutex_unlock(&c->add_money_mutex);
 
-    write_string(&str);
+    put_string("+", 80, 15, 0xFFFFFF, 0.4);
+    put_string(add, 95, 15, 0xFFFFFF, 0.4);
+    put_string(money, 80, 37, 0xffbf00, 0.5);
+
     ft_free(money);
+    ft_free(add);
 }

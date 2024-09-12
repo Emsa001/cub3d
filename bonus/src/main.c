@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 18:08:57 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:49:15 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void init_game(char *map)
 	init_items();
 	minimap_init();
 }
-
 
 int	main(int argc, char **argv)
 {

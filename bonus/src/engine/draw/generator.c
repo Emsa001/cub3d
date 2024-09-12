@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   generator.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/06 13:47:24 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/12 12:58:39 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:29:54 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void draw_generator(t_draw draw, ThreadParams *params, int tex_x, float angle)
     int dist = draw.generator_dist;
     float step = (float)(T_SIZE * 1.5) / draw.height_top;
     const t_player *p = params->player;
-    const t_render *r = params->render;
+    t_render *r = params->render;
 
     int start_y = (p->z - 0.6) * draw.height_top + vert_offset(p);
     int end_y = start_y + draw.height_top * 0.6;

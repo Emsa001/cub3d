@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:52:56 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 22:22:07 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 14:19:11 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static t_texture	dst_texture(void)
 static void	draw_block(int i, int j, int screen_x, int screen_y)
 {
 	t_render	*r = render();
-	const t_texture	texture = dst_texture();
+	t_texture	texture = dst_texture();
 	const float		pixel_x = screen_x + i;
 	const float		pixel_y = screen_y + j;
 	const float		dx = pixel_x - minimap_center_x();

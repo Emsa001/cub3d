@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:41:37 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 18:03:06 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 18:49:59 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ void tooltip(char *string, float size)
     str.x = r->mouse_x + size * 20;
     str.y = r->mouse_y - (size) * 50;
     
-    write_string(&str);
-    // write_string(string, r->mouse_x + size * 20, r->mouse_y - (size) * 50, 0xFFFFFF, size);
+    render_string(&str);
+    // render_string(string, r->mouse_x + size * 20, r->mouse_y - (size) * 50, 0xFFFFFF, size);
 }

@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   potions.c                                          :+:      :+:    :+:   */
+/*   place.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/25 19:04:28 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 13:59:51 by escura           ###   ########.fr       */
+/*   Created: 2024/09/12 13:51:19 by escura            #+#    #+#             */
+/*   Updated: 2024/09/12 14:52:46 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
 #include "items.h"
+#include "cub3d.h"
 
-void init_potions(t_cube *c)
+void place(t_item *item)
 {
-    t_item *item;
+    t_player *p = player();
+    
+    printf("You placed a %s\n", item->name);
 
-    item = (t_item *)ft_calloc(sizeof(t_item),1);
-    item->name = "Vision";
-    item->fontSize = 0.5;
-    item->props.id = 112;
-    item->props.effect = 3000;
-    c->items[112] = *item;
+    int x = p->x_px / BLOCK_SIZE;
+    int y = p->y_px / BLOCK_SIZE;   
+    
+    add_sprite("assets/torch/", 9, x,y);
 }

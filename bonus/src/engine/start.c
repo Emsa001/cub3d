@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 22:58:02 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:53:30 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 
 void start(){
-    add_sprite("assets/fire/", 13, 7, 7);
+    add_sprite("assets/torch/", 9, 5,5);
     printf("placed\n");
 }
 
@@ -36,8 +36,8 @@ void start_game(void)
 
     t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
     async->start = &start;
-    async->end = &end;
-    async->time = 3000;
+    // async->end = &end;
+    // async->time = 3000;
     add_async(async);
 
     // add_sprite("assets/torch/", 9, 5, 5);

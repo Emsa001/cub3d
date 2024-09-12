@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/08 21:06:07 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 22:32:47 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@ void player_keydown(int keycode){
     if(c->paused)
         return;
 
-    if(keycode == Q)
+    if(keycode == Q){
+        pthread_mutex_lock(&c->add_money_mutex);
         c->add_money += 100;
+        pthread_mutex_unlock(&c->add_money_mutex);
+    }
 
     if (keycode == W)
         p->btn_w = true;
