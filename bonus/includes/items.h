@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 18:19:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 17:02:12 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 13:53:25 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define WEAPON 4
 
 typedef struct s_cube	t_cube;
+typedef struct s_item	t_item;
 
 typedef struct s_itemprops
 {
@@ -31,6 +32,7 @@ typedef struct s_item
 	char				*name;
 	float				fontSize;
 	void				(*use)(t_itemprops props);
+	void				(*right_click)(t_item *item);
 
 	t_itemprops			props;
 }						t_item;
@@ -48,5 +50,6 @@ void					unequip(void *props);
 
 void					useItem(void *arg);
 void					item_tooltip(void);
+void					place(t_item *item);
 
 #endif

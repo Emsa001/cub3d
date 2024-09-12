@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:04:42 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 22:56:52 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 14:12:08 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,12 @@ void displayPrizeMessage(int prize, int value)
 
     render_string_async(&removeMoneyString);
 
-    // Display the winning message
     t_string winMessage;
-    winMessage.str = "You won";
+    winMessage.str = "You got";
     winMessage.color = 0xFFFFFF;
     winMessage.size = 1;
     winMessage.x = CENTER_WIDTH - ft_strlen(winMessage.str) * 8;
-    winMessage.y = CENTER_HEIGHT - 100;
+    winMessage.y = CENTER_HEIGHT - 200;
     winMessage.time = removeMoneyString.time;
 
     render_string_async(&winMessage);
@@ -58,7 +57,7 @@ void displayPrizeMessage(int prize, int value)
     prizeMessage.color = 0xF5F5F4;
     prizeMessage.size = 2;
     prizeMessage.x = CENTER_WIDTH - ft_strlen(displayText) * 20;
-    prizeMessage.y = CENTER_HEIGHT - 50;
+    prizeMessage.y = CENTER_HEIGHT + 100;
     prizeMessage.clean = displayText;
 
     render_string_async(&prizeMessage);
@@ -110,7 +109,7 @@ void openCase(int value)
 
     updatePlayerMoney(p, -value);
     store->open = false;
-    int prize = random_int(0, value * 1.5);
+    int prize = random_int(0, value * 2);
 
     displayPrizeMessage(prize, value);
     updatePlayerMoney(p, prize);
