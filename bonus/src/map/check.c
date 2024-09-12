@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/11 22:56:18 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 13:02:40 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,16 +171,16 @@ t_block *init_line(t_map *map_info , char **map)
 	return (lines);
 }
 
-t_block *init_chests(t_map *map_info, char **map)
+t_block *init_generators(t_map *map_info, char **map)
 {
-	t_block	*chests;
+	t_block	*generators;
 	int		i = 0;
 	int		j = 0;
 	int		k = 0;
 	
-	map_info->chests = NULL;
-	int chest_count = count_c(map, 'G');
-	chests = ft_malloc(sizeof(t_block) * (chest_count + 1));
+	map_info->generators = NULL;
+	int generator_count = count_c(map, 'G');
+	generators = ft_malloc(sizeof(t_block) * (generator_count + 1));
 
 	while(map[i] != NULL)
 	{
@@ -189,17 +189,17 @@ t_block *init_chests(t_map *map_info, char **map)
 		{
 			if (map[i][j] == 'G')
 			{
-				chests[k].x = j + 0.5;
-				chests[k].y = i	+ 0.5;
+				generators[k].x = j + 0.5;
+				generators[k].y = i	+ 0.5;
 				k++;
 			}
 			j++;
 		}
 		i++;
 	}
-	chests[k].x = -1;
-	chests[k].y = -1;
-	return (chests);
+	generators[k].x = -1;
+	generators[k].y = -1;
+	return (generators);
 }
 
 t_block    *init_map_block(t_map *map_info)
@@ -393,7 +393,7 @@ t_map	*check_map(char **map, int size)
 	map_info->doors = init_block(map_info, 'D');
 	map_info->lines = init_line(map_info, map);
 	map_info->blocks = init_map_block(map_info);
-	map_info->chests = init_chests(map_info, map);
+	map_info->generators = init_generators(map_info, map);
 	map_info->sprites = init_map_sprite(map_info, map);
 
 	t_sprite portal = get_portal(map);

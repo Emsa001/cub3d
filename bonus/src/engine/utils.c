@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 20:11:42 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 13:02:06 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int touch_sprite(t_sprite *sprites, float px, float py)
 }
 
 
-bool touch_chest(t_block *lines, float px, float py)
+bool touch_generator(t_block *lines, float px, float py)
 {
 	int i = 0;
 	float x, y;

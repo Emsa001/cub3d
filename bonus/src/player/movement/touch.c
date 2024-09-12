@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   touch.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:49:03 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 14:46:52 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 13:03:01 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool touch()
             if (is_touching(x, y, c) || 
                 touch_block(c->map->blocks, x, y) || 
                 touch_block(c->map->doors, x, y) ||
-                touch_chest(c->map->chests, x, y) ||
+                touch_generator(c->map->generators, x, y) ||
                 touch_line(c->map->lines, x, y))
                 return true;
             y++;

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 20:37:54 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 13:01:19 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ typedef struct s_map
 	t_block	*doors;
 	t_block	*blocks;
 	t_block *lines;
-	t_block *chests;
+	t_block *generators;
 	t_sprite *sprites;
 	
 	t_minimap *minimap;

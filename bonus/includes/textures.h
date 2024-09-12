@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 14:46:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 13:05:25 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,9 @@ typedef struct s_textures
 
 	t_texture		*player;
 
-	t_texture		*chest;
-	t_texture		*chest_top;
+	t_texture		*generator;
+	t_texture		*generator1;
+	t_texture		*generator_top;
 
 	t_texture		*inventoryPlayer;
 	t_texture		*inventoryGui;

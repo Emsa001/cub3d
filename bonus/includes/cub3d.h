@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 19:49:11 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:31:04 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ typedef struct s_draw
 	int						side;
 	int						tex_x;
 	int						dist;
-	int						chest_dist;
+	int						generator_dist;
 	int						sprite_dist;
 }							t_draw;
 
@@ -214,7 +214,7 @@ bool						is_touching(float px, float py, const t_cube *c);
 bool						touch_block(t_block *blocks, float px, float py);
 int							touch_sprite(t_sprite *sprites, float px, float py);
 int							touch_line(t_block *lines, float px, float py);
-bool						touch_chest(t_block *lines, float px, float py);
+bool						touch_generator(t_block *lines, float px, float py);
 void						button_click(int type, int x, int y);
 void						button_tooltip(int x, int y);
 
@@ -230,11 +230,12 @@ void						draw_floor(int height, int start_x,
 								ThreadParams *params, float angle);
 void						draw_sky(int height, int start_x,
 								ThreadParams *params, float angle);
-// Chest
-void						draw_chest_top(t_draw draw, ThreadParams *params,
+// generator
+void						draw_generator_top(t_draw draw, ThreadParams *params,
 								float angle);
-void						draw_chest(t_draw draw, ThreadParams *params,
+void						draw_generator(t_draw draw, ThreadParams *params,
 								int tex_x, float angle);
+long current_frame(int frames);
 
 // String
 void						write_string(t_string *str);

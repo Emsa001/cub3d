@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 19:57:53 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 14:39:24 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int direction(float x, float y, float cosangle, float sinangle, t_cube *c, int *
     return 0;
 }
 
-int chest_direction(t_draw *draw, float cosangle, float sinangle, t_cube *c)
+int generator_direction(t_draw *draw, float cosangle, float sinangle, t_cube *c)
 {
     int sx = 0;
     int sy = 0;
@@ -65,11 +65,11 @@ int chest_direction(t_draw *draw, float cosangle, float sinangle, t_cube *c)
         sy = 1;
     else
         sy = -1;
-    if(touch_chest(c->map->chests, draw->first_x - sx, draw->first_y))
+    if(touch_generator(c->map->generators, draw->first_x - sx, draw->first_y))
     {
         draw->tex_x = (int)draw->first_x % BLOCK_SIZE;
         return 7;
-    } else if(touch_chest(c->map->chests, draw->first_x, draw->first_y))
+    } else if(touch_generator(c->map->generators, draw->first_x, draw->first_y))
     {
         draw->tex_x = (int)draw->first_y % BLOCK_SIZE;
         return 7;
@@ -133,7 +133,7 @@ t_draw init_draw(void)
     draw.tex_x = 0;
     draw.angle = 0;
     draw.dist = 0;
-    draw.chest_dist = 0;
+    draw.generator_dist = 0;
     draw.sprite_x = 0;
     draw.sprite_y = 0;
     draw.sprite_height = 0;
@@ -147,11 +147,12 @@ long current_frame(int frames)
     int time_delay = 1000 / frames;
     if(frames == 5)
         time_delay = 60;
+    if(frames == 2)
+        time_delay = 150;
     long curr_time =  (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
     int curr_frame = (curr_time / time_delay) % frames;
     return curr_frame;
 }
-
 
 void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
 {
@@ -222,7 +223,7 @@ void draw_line(t_draw draw, ThreadParams *params)
             }
             save_sprite = true;
         }
-        if(touch_chest(c->map->chests, draw.x, draw.y))
+        if(touch_generator(c->map->generators, draw.x, draw.y))
         {
             if(!save)
             {
@@ -232,7 +233,7 @@ void draw_line(t_draw draw, ThreadParams *params)
             }
             draw.x += cosangle;
             draw.y += sinangle;
-            if(!save_last && !touch_chest(c->map->chests, draw.x, draw.y))
+            if(!save_last && !touch_generator(c->map->generators, draw.x, draw.y))
             {
                 save_last = true;
                 draw.last_x = draw.x;
@@ -254,9 +255,9 @@ void draw_line(t_draw draw, ThreadParams *params)
 
     if(sprite_direction(&draw, cosangle, sinangle, c) == 9)
         sprite_frame(draw, params, c->map->sprites[j - 1]);
-    if(chest_direction(&draw, cosangle, sinangle, c) == 7)
+    if(generator_direction(&draw, cosangle, sinangle, c) == 7)
     {   
-        draw_chest_top(draw, params, draw.angle);
-        draw_chest(draw, params, draw.tex_x, draw.angle);
+        draw_generator_top(draw, params, draw.angle);
+        draw_generator(draw, params, draw.tex_x, draw.angle);
     }
 }

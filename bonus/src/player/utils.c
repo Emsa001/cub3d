@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:44 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 15:16:50 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 13:02:52 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void lane_distance(t_draw *draw)
     
     float raw_distance = distance(draw->first_x, draw->first_y, x2, y2);
     float adjusted_distance = raw_distance * cos(player_angle - draw->angle);
-    draw->chest_dist = adjusted_distance;
+    draw->generator_dist = adjusted_distance;
     draw->height_top = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
 
     raw_distance = distance(draw->last_x, draw->last_y, x2, y2);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 22:05:17 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 14:46:56 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 14:32:40 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,9 @@ t_textures *init_textures(t_textures *t)
 	t_texture *wall_south = ft_malloc(sizeof(t_texture));
 	t_texture *wall_east = ft_malloc(sizeof(t_texture));
 	t_texture *wall_west = ft_malloc(sizeof(t_texture));
-	t_texture *chest = ft_malloc(sizeof(t_texture));
-	t_texture *chest_top = ft_malloc(sizeof(t_texture));
+	t_texture *generator = ft_malloc(sizeof(t_texture));
+	t_texture *generator1 = ft_malloc(sizeof(t_texture));
+	t_texture *generator_top = ft_malloc(sizeof(t_texture));
 
 	wall_north->image = get_texture_file("assets/north.xpm", &wall_north->width, &wall_north->height);
 	wall_north->data = mlx_get_data_addr(wall_north->image, &wall_north->bpp, &wall_north->size_line, &wall_north->endian);
@@ -92,13 +93,17 @@ t_textures *init_textures(t_textures *t)
 	door->data = mlx_get_data_addr(door->image, &door->bpp, &door->size_line, &door->endian);
 	t->door = door;
 
-	chest->image = get_texture_file("assets/chest.xpm", &chest->width, &chest->height);
-	chest->data = mlx_get_data_addr(chest->image, &chest->bpp, &chest->size_line, &chest->endian);
-	t->chest = chest;
+	generator->image = get_texture_file("assets/generator0.xpm", &generator->width, &generator->height);
+	generator->data = mlx_get_data_addr(generator->image, &generator->bpp, &generator->size_line, &generator->endian);
+	t->generator = generator;
+	
+	generator1->image = get_texture_file("assets/generator1.xpm", &generator1->width, &generator1->height);
+	generator1->data = mlx_get_data_addr(generator1->image, &generator1->bpp, &generator1->size_line, &generator1->endian);
+	t->generator1 = generator1;
 
-	chest_top->image = get_texture_file("assets/chest_top.xpm", &chest_top->width, &chest_top->height);
-	chest_top->data = mlx_get_data_addr(chest_top->image, &chest_top->bpp, &chest_top->size_line, &chest_top->endian);
-	t->chest_top = chest_top;
+	generator_top->image = get_texture_file("assets/back.xpm", &generator_top->width, &generator_top->height);
+	generator_top->data = mlx_get_data_addr(generator_top->image, &generator_top->bpp, &generator_top->size_line, &generator_top->endian);
+	t->generator_top = generator_top;
 	init_hudtextures(t);
 	init_items_textures(t);
 	init_font(t);
