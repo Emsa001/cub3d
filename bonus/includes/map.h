@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 13:01:19 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:21:08 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ typedef struct t_sprite
 	int width;
 	int height;
 	
+	char type;
+
 	t_texture	**sprite_tex;
 } t_sprite;
 
@@ -121,6 +123,7 @@ void		fill_loop(char to_fill[], t_point *begin_points, t_map *map_info,
 
 void add_sprite(char *path_file, int frames, float x, float y);
 void remove_sprite(int x, int y);
+void init_sprite(t_map *map_info, t_sprite sprite);
 
 t_minimap *minimap();
 

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:57:40 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:28:55 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,8 +193,6 @@ void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
         start_y++;
     }
 }
-
-
 
 void draw_line(t_draw draw, ThreadParams *params)
 {   

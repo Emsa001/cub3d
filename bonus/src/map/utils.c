@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:59:54 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/11 18:53:38 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:21:25 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ char	*get_next_string(char *line, char *str)
 	check_split = ft_split(line, ' ');
 	if (ft_arrlen(check_split) != 2)
 	{
-		ft_arrdel((void **)check_split);
-		ft_error("Invalid map info");
+		// ft_arrdel((void **)check_split);
+		// ft_error("Invalid map info");
 	}
 	ft_arrdel((void **)check_split);
 	if (!line || !str)
