@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/12 17:42:36 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 20:27:44 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,8 +224,7 @@ t_sprite *get_portals(char **map)
 	int k = 0;
 	t_texture **sprite_texture = ft_malloc(sizeof(t_texture) * 5);
 	int count = count_c(map, 'P');
-	printf("count = %d\n", count);
-	t_sprite *sprite = ft_malloc(sizeof(t_sprite) * count_c(map, 'P') + 1);
+	t_sprite *sprite = ft_malloc(sizeof(t_sprite) * (count + 1));
 	int i = 0;
 	
 	while (i < 5)
@@ -270,6 +269,28 @@ t_sprite *get_portals(char **map)
 	sprite[k].height = -1;
 	sprite[k].type = '\0';
 	return (sprite);
+}
+
+
+t_sprite *init_map_sprites(t_map *map_info, char **map)
+{
+	t_sprite	*sprites;
+	int			i;
+	int			j;
+	int			k;
+	
+	map_info->sprites = NULL;
+	sprites = ft_malloc(sizeof(t_sprite));
+	k = 0;
+
+	sprites[k].x = -1;
+	sprites[k].y = -1;
+	sprites[k].frames = -1;
+	sprites[k].sprite_tex = NULL;
+	sprites[k].width = -1;
+	sprites[k].height = -1;
+	sprites[k].type = '\0';
+	return (sprites);
 }
 
 t_map	*check_map(char **map, int size)
