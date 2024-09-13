@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 14:24:38 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:30:23 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ t_player	*player_init(t_player *p)
 
 	for(int i = 0; i < 9; i++)
 		player->equipped[i] = -1;
+
+	player->level = 1;
 
 	player->inventory[0] = 37;
 	player->inventory[1] = 112;

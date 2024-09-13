@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 13:05:25 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:27:25 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@ typedef struct s_textures
 	t_texture		*wall_south;
 	t_texture		*wall_east;
 	t_texture		*wall_west;
+	
+	t_texture		*wall_north_a;
+	t_texture		*wall_south_a;
+	t_texture		*wall_east_a;
+	t_texture		*wall_west_a;
 
 	t_texture		*door;
 

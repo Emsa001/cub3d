@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 11:04:47 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:38:46 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ bool is_touching(float px, float py, const t_cube *c)
 {
 	int x = px / BLOCK_SIZE;
 	int y = py / BLOCK_SIZE;
+	t_player *p = player();
 
 	if (x < 0 || y < 0 || x >= c->map->width || y >= c->map->height)
 		return (true);

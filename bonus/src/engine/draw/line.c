@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 11:01:43 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/13 18:33:33 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,8 @@ void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
     }
 }
 
+
+
 void draw_line(t_draw draw, ThreadParams *params)
 {   
     t_cube *c = params->cube;
@@ -249,10 +251,9 @@ void draw_line(t_draw draw, ThreadParams *params)
 
     draw.side = direction(draw.x, draw.y, cosangle, sinangle, c, &draw.tex_x);
     lane_distance(&draw);
-    draw_wall(draw, params);
-    draw_floor(draw.wall_height, draw.start_x, params, draw.angle);
-    draw_sky(draw.wall_height, draw.start_x, params, draw.angle);
+    draw_floor_and_sky(draw.wall_height, draw.start_x, params, draw.angle);
 
+    draw_wall(draw, params);
     if(sprite_direction(&draw, cosangle, sinangle, c) == 9)
         sprite_frame(draw, params, c->map->sprites[j - 1]);
     if(generator_direction(&draw, cosangle, sinangle, c) == 7)

@@ -12,6 +12,12 @@
 
 #include "cub3d.h"
 
+float view_current_distance_gen(const t_player *p, int start_y, float angle, float z)
+{
+    float current_dist = (p->z - z) * HEIGHT / (start_y - HEIGHT / 2);
+    return current_dist / cos(angle - p->angle);
+}
+
 void draw_generator(t_draw draw, ThreadParams *params, int tex_x, float angle)
 {
     int color = params->color;
@@ -72,7 +78,7 @@ void draw_generator_top(t_draw draw, ThreadParams *params, float angle)
 
     while(start_y < end_y)
     {
-        current_dist = view_current_distance(p, start_y, angle, tallness);
+        current_dist = view_current_distance_gen(p, start_y, angle, tallness);
         if(!p->vision && current_dist > 7)
             break;
         
