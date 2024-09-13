@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 13:11:38 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/13 21:08:31 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 
 
 void start(){
-    add_sprite("assets/torch/", 9, 5,5);
-    printf("placed\n");
+    printf("Start\n");
+    remove_sprite(4, 19);
+    add_sprite("assets/portal_opened/", 17, 4, 19);
 }
 
 void end(){
-    remove_sprite(4, 19);
-    add_sprite("assets/portal_opened/", 17, 4, 19);
+    remove_sprite(4, 8);
+    add_sprite("assets/portal_opened/", 17, 4, 8);
     cube()->map->portal = true;
 }
 
@@ -36,8 +37,10 @@ void start_game(void)
     t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
     async->start = &start;
     async->end = &end;
-    async->time = 3000;
+    async->time = 7000;
     add_async(async);
+
+    
 
     // add_sprite("assets/torch/", 9, 5, 5);
     // add_sprite("assets/fire/", 13, 3, 4);

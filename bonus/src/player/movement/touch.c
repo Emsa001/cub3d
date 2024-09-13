@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:49:03 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 18:48:04 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/13 21:09:43 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ bool touch_closed_portal(t_sprite *sprites, float px, float py)
                 return true;
             else if((px >= x && px <= x + sprites[i].width && py >= y && py <= y + 1) && sprites[i].frames == 17)
 				{
-                    if(player()->level == 1)
-                        player()->level = 2;
+                    if(player()->level == 0)
+                        player()->level = 1;
                 }
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 18:41:40 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/13 21:04:50 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,45 +20,24 @@ int vert_offset(const t_player *p)
 t_texture *get_wall_side(int side, const t_textures *texs, int n)
 {
     t_texture *t = NULL;
-    if(n == 1)
-    {
-        if (side == 1)
-            t = texs->wall_north;
-        else if (side == 2)
-            t = texs->wall_south;
-        else if (side == 3)
-            t = texs->wall_east;
-        else if (side == 4)
-            t = texs->wall_west;
-        else if (side == 5)
-            t = texs->door;
-        else if (side == 6)
-            t = texs->wall_west;
-        else if (side == 7)
-            t = texs->wall_south;
-        else
-            return NULL;  
-    }
-    else
-    {
-        if (side == 1)
-            t = texs->wall_north_a;
-        else if (side == 2)
-            t = texs->wall_south_a;
-        else if (side == 3)
-            t = texs->wall_east_a;
-        else if (side == 4)
-            t = texs->wall_west_a;
-        else if (side == 5)
-            t = texs->door;
-        else if (side == 6)
-            t = texs->wall_west_a;
-        else if (side == 7)
-            t = texs->wall_south_a;
-        else
-            return NULL;  
-    }
 
+    
+    if (side == 1)
+        t = texs->wall_north[n];
+    else if (side == 2)
+        t = texs->wall_south[n];
+    else if (side == 3)
+        t = texs->wall_east[n];
+    else if (side == 4)
+        t = texs->wall_west[n];
+    else if (side == 5)
+        t = texs->door;
+    else if (side == 6)
+        t = texs->wall_west[n];
+    else if (side == 7)
+        t = texs->wall_south[n];
+    else
+        return NULL;
     return t;
 }
 
@@ -91,15 +70,11 @@ t_texture* get_texture(int start_y, int height, const t_player *p, const t_textu
 {
     if (start_y > HEIGHT / 2 + (p->z * height))
     {
-        if(p->level == 2)
-            return texs->wall_north_a;
-        return texs->floor;
+        return texs->floor[player()->level];
     }
     else if (start_y < ((p->z * height) + HEIGHT / 2) - height)
     {
-        if(p->level == 2)
-            return texs->wall_south_a;
-        return texs->sky;
+        return texs->ceiling[player()->level];
     }
     return NULL;
 }
@@ -112,13 +87,13 @@ int get_texture_color(t_texture *tex, float dist, float cosangle, float sinangle
     return darken_color(color, dist / 7);
 }
 
-void draw_floor_and_sky(int height, int start_x, ThreadParams *params, float angle)
+void draw_floor_and_ceiling(int height, int start_x, ThreadParams *params, float angle)
 {
     const t_player *p = params->player;
     const t_textures *texs = params->textures;
     float cosangle = cos(angle);
     float sinangle = sin(angle);
-    int start_y = HEIGHT, is_sky = 0;
+    int start_y = HEIGHT;
     int color = 0;
     
     while (start_y > 0)
@@ -146,11 +121,9 @@ void draw_wall(t_draw draw, ThreadParams *params)
     t_render *r = params->render;
     const t_textures *texs = params->textures;
     
-
     bool catched = p->catch && draw.side == 6;  // Use side instead of r->side
     
     t_texture *wall_side = get_wall_side(draw.side, texs, p->level);  // Use side instead of r->side
-    
     if (!wall_side || draw.side == 7)
         return;
 

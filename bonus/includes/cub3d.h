@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 17:37:09 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/13 20:46:06 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,11 +234,7 @@ void						add_button(t_button *button);
 /* DRAW */
 void						draw_line(t_draw draw, ThreadParams *params);
 void						draw_wall(t_draw draw, ThreadParams *params);
-void draw_floor_and_sky(int height, int start_x, ThreadParams *params, float angle);
-void						draw_floor(int height, int start_x,
-								ThreadParams *params, float angle);
-void						draw_sky(int height, int start_x,
-								ThreadParams *params, float angle);
+void draw_floor_and_ceiling(int height, int start_x, ThreadParams *params, float angle);
 // generator
 void						draw_generator_top(t_draw draw, ThreadParams *params,
 								float angle);

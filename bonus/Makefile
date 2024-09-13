@@ -6,7 +6,7 @@
 #    By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/09/12 14:48:57 by btvildia         ###   ########.fr        #
+#    Updated: 2024/09/13 19:56:45 by btvildia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ INCLUDES = $(wildcard $(INCLUDES_DIR)/*.h) $(wildcard $(INCLUDES_DIR)/*/*.h)
 # Compiler and Flags
 CC = cc
 
-CFLAGS = -g -O3
+CFLAGS = -g -O3 
 # CFLAGS = -Wall -Wextra -Werror
 
 CFLAGS += -I$(LIBFT_DIR) -I$(INCLUDES_DIR)

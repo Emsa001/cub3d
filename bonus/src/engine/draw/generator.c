@@ -71,7 +71,7 @@ void draw_generator_top(t_draw draw, ThreadParams *params, float angle)
 
     float current_dist = 0;
 
-    t_texture *head = texs->wall_south;
+    t_texture *head = texs->wall_south[p->level];
 
     if(end_y > HEIGHT)
         end_y = HEIGHT;
