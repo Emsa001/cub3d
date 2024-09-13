@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:46:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/08 14:18:35 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/13 14:51:40 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,43 +113,46 @@ void handle_interactions(t_player *p) {
         catch_block(p->angle);
 }
 
-void handle_step_animation(t_player *p, bool is_moving) {
+void handle_step_animation(t_player *p, bool is_moving) 
+{
     static float step_progress = 0;
-    const float step_amplitude = 0.03;
-    const float step_frequency = 0.18;
+    const float step_amplitude = 0.04;
+    float step_frequency = 0.2;
+    if(p->sprint)
+        step_frequency = 0.4;
     const float base_z = 0.55;
 
-    if (is_moving && p->jump_height == 0) {
+    if (is_moving && p->jump_speed == 0) 
+    {
         step_progress += step_frequency;
         p->z = base_z + step_amplitude * sin(step_progress);
-    } else if (p->jump_height == 0) { // Reset to base z position when not moving and not jumping
+    } 
+    else if (p->jump_speed == 0)
         p->z = base_z;
-    }
 }
 
-void handle_jumping(t_player *p) {
-    const double delta_time = cube()->delta_time;
+
+void handle_jumping(t_player *p) 
+{
     const float base_z = 0.55;
 
-    if (p->jump_height > 0) { // Player is in the jumping phase
-        p->z += JUMP_SPEED * delta_time; // Ascend
-        p->jump_height -= JUMP_SPEED * delta_time; // Decrease the remaining jump height
-
-        // Switch to descending phase when the peak is reached
-        if (p->jump_height <= 0) {
-            p->jump_height = -JUMP_SPEED * delta_time; // Initiate descent
-        }
-    } else if (p->jump_height < 0) { // Player is in the descending phase
-        p->z -= JUMP_SPEED * delta_time; // Descend
-
-        // Stop descent when reaching the ground
-        if (p->z <= base_z) {
+    if (p->jump_speed > 0) 
+    {
+        p->z += p->jump_speed;
+        p->jump_speed -= GRAVITY;
+    }
+    else if (p->jump_speed < 0)
+    {
+        p->fall_speed += GRAVITY;
+        p->z -= p->fall_speed;
+        if(p->z <= base_z)
+        {
             p->z = base_z;
-            p->jump_height = 0; // End jumping
+            p->jump_speed = 0;
+            p->fall_speed = 0;
         }
     }
 }
-
 
 void update_player_position(t_player *p) {
     p->x = p->x_px / BLOCK_SIZE;
@@ -167,6 +170,11 @@ void update_player_direction(t_player *p) {
 
 void move_player(void) {
     t_player *p = player();
+    if(p->jumping == true && p->z <= 0.6)
+    {
+        p->jump_speed = JUMP_SPEED;
+        p->fall_speed = 0;
+    }
 
     handle_movement(p);
     handle_arrow_rotation(p);
@@ -175,5 +183,4 @@ void move_player(void) {
     handle_jumping(p);
     update_player_position(p);
     update_player_direction(p);
-
 }

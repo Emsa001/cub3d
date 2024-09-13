@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 17:24:40 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:11:07 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ void draw_sky(int height, int start_x, ThreadParams *params, float angle)
     float current_dist = 0;
 
     t_texture *sky = texs->sky;
+    // if(player()->z > 1)
+    //     return;
 
     while (start_y < ((p->z * height) + HEIGHT / 2) - height)
     {

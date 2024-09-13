@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keydown.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 22:32:47 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 14:37:36 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void player_keydown(int keycode){
     if(keycode == SHIFT)
         p->sprint = true;
         
-    if(keycode == SPACE && p->z <= 0.6)
-        p->jump_height = JUMP_HEIGHT;
+    if(keycode == SPACE)
+        p->jumping = true;
 
     // if(keycode == MINUS){
     //     if(p->fov > 30)

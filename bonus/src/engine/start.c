@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 21:54:45 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/13 13:11:38 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void start_game(void)
     t_cube *c = cube();
     init_hooks();
     init_economy();
+    // add_sprite("assets/fire/", 13,7,21);
     
     t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
     async->start = &start;

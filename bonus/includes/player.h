@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 20:12:23 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/13 14:49:05 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 # include "economy.h"
 typedef struct s_draw		t_draw;
 
-# define WALKSPEED 2
+# define WALKSPEED 3
 # define SPRINTBONUS 5
 # define MOUSE_SENSITIVITY 0.003
 
-# define JUMP_SPEED 0.08
-# define JUMP_HEIGHT 0.38
+# define JUMP_SPEED 0.06
+# define GRAVITY 0.005
 
 # define FOV 60
 
@@ -81,7 +81,10 @@ typedef struct s_player
 	bool					catch;
 	bool					catched;
 
-	float					jump_height;
+	bool					jumping;
+
+	float					jump_speed;
+	float					fall_speed;
 
 	int						fov;
 

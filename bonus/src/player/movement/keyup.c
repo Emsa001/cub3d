@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 19:16:27 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 14:50:47 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@ void player_keyup(int keycode){
         p->btn_up = false;
     if(keycode == DOWN)
         p->btn_down = false;
+    
+    if(keycode == SPACE)
+        p->jumping = false;
 
     if(keycode == E)
         p->interact = false;
