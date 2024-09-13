@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:35:54 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:28:50 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 20:24:36 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,13 @@ void render_image_async(t_image *img)
     t_image *copy = ft_calloc(sizeof(t_image), 1);
     ft_memcpy(copy, img, sizeof(t_image));
 
-    t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
+    t_async *async = new_async();
     async->process = &enqueue_image;
     async->end = NULL;
     async->arg = copy;
     async->process_time = 10;
     async->time = img->time;
-    add_async(async);
+    start_async(async);
 
 }
 
@@ -121,7 +121,7 @@ void put_image(t_texture *img, int x, int y, float size)
         {
             color = get_pixel_from_image(img, i, j);
 
-            if (color >= 0)
+            if (color && color > 0)
             {
                 for (int dx = 0; dx < size; ++dx)
                 {

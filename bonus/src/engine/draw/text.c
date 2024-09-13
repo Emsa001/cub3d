@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   text.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:50:28 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/13 19:21:14 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,16 @@ void render_string_async(t_string *str)
     t_string *copy = ft_calloc(sizeof(t_string), 1);
     ft_memcpy(copy, str, sizeof(t_string));
 
-    t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
+    t_async *async = new_async();
     async->process = &enqueue_string;
     async->end = &end_string_async;
     async->arg = copy;
     async->process_time = 10;
     async->time = str->time;
-    async->cube = cube();
-    async->player = player();
-    async->render = render();
-    add_async(async);
+    // async->cube = cube();
+    // async->player = player();
+    // async->render = render();
+    start_async(async);
 }
 
 void process_string_queue() {

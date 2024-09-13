@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 18:46:23 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 20:30:45 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_textures
 
 	t_texture		*inventoryPlayer;
 	t_texture		*inventoryGui;
-	t_texture		*items[256];
+	t_texture		items[328];
 	t_texture		*tooltip_bg;
 
 	t_uitextures	*ui;

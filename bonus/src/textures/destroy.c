@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 18:36:08 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 20:31:38 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 20:38:53 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void destroy_textures()
     destroy_texture(t->floor);
     destroy_texture(t->player);
     
-    for (int i = 1; i <= 255; i++) {
-        destroy_texture(t->items[i]);
+    for (int i = 0; i <= 327; i++) {
+        destroy_texture(&t->items[i]);
     }
 
     int i = 0;

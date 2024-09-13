@@ -6,13 +6,14 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 21:02:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 19:45:52 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+#include "./ft_async/includes/ft_async.h"
 # include "fcntl.h"
 # include "ft_destructor/ft_alloc.h"
 # include "items.h"
@@ -36,7 +37,6 @@
 # include "economy.h"
 #include <stdint.h>
 #include <X11/Xlib.h>
-#include "async.h"
 
 
 # define YELLOW "\033[1;33m"
@@ -66,6 +66,8 @@
 # define M_PI 3.14159265358979323846
 # define NUM_THREADS 10
 
+typedef struct s_render t_render;
+
 typedef struct s_cube
 {
 	char					*some_value;
@@ -85,6 +87,10 @@ typedef struct s_cube
 	int						async_id;
 
 	pthread_mutex_t			pause_mutex;
+
+	t_render 				*render;
+	t_player				*player;
+	t_textures				*textures;
 }							t_cube;
 
 typedef struct s_string
@@ -186,7 +192,6 @@ typedef struct s_state
 t_render					*init_render(t_render *r);
 t_render					*render(void);
 void						update_fps(void);
-void						render_view(void);
 void						init_items(void);
 void render_image_async(t_image *img);
 
@@ -196,7 +201,7 @@ t_cube						*cube(void);
 void						start_game(void);
 void						init_hooks(void);
 
-int							render_scene_multithread(t_cube *c);
+int render_scene_multithread(void);
 int							render_scene_singlethread(t_cube *c);
 
 int							render_scene(t_cube *p);
@@ -291,5 +296,8 @@ void						button_hover(int x, int y);
 
 void init_economy();
 int random_int(int min, int max);
+
+
+void render_view(t_cube *c);
 
 #endif

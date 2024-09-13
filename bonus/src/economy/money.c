@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 21:09:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 21:32:51 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 20:39:20 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,14 @@ void process(t_async *current){
 
 void init_economy()
 {
-    t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
+    t_async *async = new_async();
     async->process = &process;
     async->process_time = 1000; // 1 second
     async->time = -1;
-    add_async(async);
+    async->cube = cube();
+    async->player = player();
+
+    start_async(async);
 }
 
 void	hud_currency(void)
@@ -50,23 +53,22 @@ void	hud_currency(void)
         }
     }
 
-    if (t->items && t->items[158]) {
-        put_image(t->items[158], 10, 12, 2);
-    }
+    t_texture money = t->items[65];
+    put_image(&money, 10, 12, 2);
 
-    pthread_mutex_lock(&c->add_money_mutex);
-    pthread_mutex_lock(&p->money_mutex);
+    // pthread_mutex_lock(&c->add_money_mutex);
+    // pthread_mutex_lock(&p->money_mutex);
 
-    char *money = ft_itoa(p->money);
-    char *add = ft_itoa(c->add_money);
+    // char *money = ft_itoa(p->money);
+    // char *add = ft_itoa(c->add_money);
 
-    pthread_mutex_unlock(&p->money_mutex);
-    pthread_mutex_unlock(&c->add_money_mutex);
+    // pthread_mutex_unlock(&p->money_mutex);
+    // pthread_mutex_unlock(&c->add_money_mutex);
 
-    put_string("+", 80, 15, 0xFFFFFF, 0.4);
-    put_string(add, 95, 15, 0xFFFFFF, 0.4);
-    put_string(money, 80, 37, 0xffbf00, 0.5);
+    // put_string("+", 80, 15, 0xFFFFFF, 0.4);
+    // put_string(add, 95, 15, 0xFFFFFF, 0.4);
+    // put_string(money, 80, 37, 0xffbf00, 0.5);
 
-    ft_free(money);
-    ft_free(add);
+    // ft_free(money);
+    // ft_free(add);
 }

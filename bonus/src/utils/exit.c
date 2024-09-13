@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:52:35 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 21:59:27 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 19:32:03 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,20 +31,21 @@ void destroy_sprite_image(t_sprite sprite)
 
 void destroy_render(){
 	t_render *r = render();
+    clean_image(r);
 	mlx_destroy_window(r->mlx, r->win);
+    mlx_destroy_display(r->mlx);
 	free(r->mlx);
+
+    pthread_mutex_destroy(&r->image_queue_mutex);
+    pthread_mutex_destroy(&r->string_queue_mutex);
 }
 
 void	exit_game(int code)
 {
+    destroy_manager();
     t_textures	*t = textures();
     t_render *r = render();
     t_cube *c = cube();
-
-    stop_all_async_tasks();
-    sleep(1);
-
-    destroy_textures();
 
 	t_sprite *sprites = c->map->sprites;
 	int i = 0;
@@ -53,7 +54,8 @@ void	exit_game(int code)
 		i++;
     }
 
+    destroy_textures();
     destroy_render();
-    // ft_destructor();
-    exit (1);
+    ft_destructor();
+    exit (code);
 }

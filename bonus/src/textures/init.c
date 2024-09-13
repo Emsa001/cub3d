@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 22:05:17 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:32:40 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/13 20:16:16 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ t_textures *init_textures(t_textures *t)
 	generator_top->data = mlx_get_data_addr(generator_top->image, &generator_top->bpp, &generator_top->size_line, &generator_top->endian);
 	t->generator_top = generator_top;
 	init_hudtextures(t);
+
 	init_items_textures(t);
 	init_font(t);
 	init_tooltip(t);

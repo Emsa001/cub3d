@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 19:41:29 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 19:39:17 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,13 @@ void draw_line(t_draw draw, ThreadParams *params)
 {   
     t_cube *c = params->cube;
     const t_player *p = params->player;
+
+    if(c == NULL || p == NULL)
+    {
+        printf("Error: draw_line: c or p is NULL\n");
+        return;
+    };
+
 
     float cosangle = cos(draw.angle);
     float sinangle = sin(draw.angle);

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:04:42 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:32:54 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 20:19:25 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ void displayPrizeMessage(int prize, int value)
     render_string_async(&prizeMessage);
 }
 
-t_texture* determinePrizeTexture(const t_textures *t, int prize)
+t_texture determinePrizeTexture(const t_textures *t, int prize)
 {
-    t_texture *prizeTexture = t->items[158];
+    t_texture prizeTexture = t->items[158];
 
     if (prize > 70000) {
         prizeTexture = t->items[162];
@@ -115,8 +115,8 @@ void openCase(void *arg)
     displayPrizeMessage(prize, value);
     updatePlayerMoney(p, prize);
 
-    t_texture *prizeTexture = determinePrizeTexture(t, prize);
-    renderPrizeImage(prizeTexture, 1000);
+    t_texture prizeTexture = determinePrizeTexture(t, prize);
+    renderPrizeImage(&prizeTexture, 1000);
 }
 
 void cases(int x, int y)

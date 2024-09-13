@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:18:14 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:18:48 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 20:20:04 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ void	hud_inventory(void)
 	{
 		if (p->equipped[i] != -1)
 		{
-			put_image(t->items[p->equipped[i]], x + 25 + (i % 4) * 70, y + 25
+			t_texture item = t->items[p->equipped[i]];
+			put_image(&item, x + 25 + (i % 4) * 70, y + 25
 				+ (i / 4) * 70, 1.5);
 			button.x = x + 25 + (i % 4) * 70;
 			button.y = y + 25 + (i / 4) * 70;
@@ -72,7 +73,8 @@ void	open_inventory(void)
 	{
 		if (p->inventory[i] != -1)
 		{
-			put_image(t->items[p->inventory[i]], x + 25 + (i % 3) * 70, y + 25
+			t_texture item = t->items[p->inventory[i]];
+			put_image(&item, x + 25 + (i % 3) * 70, y + 25
 				+ (i / 3) * 70, 1.5);
 
 			t_button button;

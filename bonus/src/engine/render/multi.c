@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 18:52:26 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 19:53:31 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void create_image(t_render *r, int width, int height)
 
 void clean_image(t_render *r)
 {
-    show_image(r, 0, 0);
     mlx_destroy_image(r->mlx, r->img_ptr);
     r->img_ptr = NULL;
 }
@@ -30,25 +29,24 @@ void show_image(t_render *r, int x, int y)
     mlx_put_image_to_window(r->mlx, r->win, r->img_ptr, x, y);
 }
 
-int render_scene_multithread(t_cube *c)
+
+int render_scene_multithread(void)
 {
     t_render *r = render();
-    create_image(r, WIDTH, HEIGHT);
+    t_cube *c = cube();
 
-    // Create threads
-    render_view();
-    // render_background_thread(c);
+    render_view(c);
     render_player();
     shopkeeper();
     
-    if(!c->paused)
-        move_player();
+    // if(!c->paused)
+    //     move_player();
     
-    put_image_queue(r);
-    process_string_queue();
+    // put_image_queue(r);
+    // process_string_queue();
 
-    clean_image(r);
-    check_hooks();
-    update_fps();
+    show_image(r, 0, 0);
+    // check_hooks();
+    // update_fps();
     return 0;
 }
