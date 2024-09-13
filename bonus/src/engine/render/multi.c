@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 19:53:31 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 21:51:55 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,18 +35,18 @@ int render_scene_multithread(void)
     t_render *r = render();
     t_cube *c = cube();
 
-    render_view(c);
+    // render_view(c);
     render_player();
-    shopkeeper();
+    // shopkeeper();
     
     // if(!c->paused)
     //     move_player();
     
-    // put_image_queue(r);
-    // process_string_queue();
+    put_image_queue(r);
+    process_string_queue();
 
-    show_image(r, 0, 0);
-    // check_hooks();
     // update_fps();
+    // check_hooks();
+    show_image(r, 0, 0);
     return 0;
 }

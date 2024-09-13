@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:22:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:33:14 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 21:47:15 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 void store_window(int x, int y){
     const t_uitextures *t = textures()->ui;
-    t_player *p = player();
 
-    p->mouse_hook = false;
 
     put_image(t->window, x, y, 1.8);
     
@@ -33,11 +31,13 @@ void store_window(int x, int y){
 void open_store()
 {
     const t_textures *t = textures();
-    const t_player *p = player();
+    t_player *p = player();
 
     // if(p->store->can_open == false)
     //     return;
 
+    p->mouse_hook = false;
+     
     const int x = CENTER_WIDTH - t->ui->window->width*1.8 /2 ;
     const int y = CENTER_HEIGHT - t->ui->window->height*1.8 /2;
 

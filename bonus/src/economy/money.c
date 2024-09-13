@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 21:09:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 20:39:20 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 20:56:41 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,22 @@ void	hud_currency(void)
         }
     }
 
-    t_texture money = t->items[65];
-    put_image(&money, 10, 12, 2);
+    // money texture
+    put_image(&t->items[65], 10, 12, 2);
 
-    // pthread_mutex_lock(&c->add_money_mutex);
-    // pthread_mutex_lock(&p->money_mutex);
+    pthread_mutex_lock(&c->add_money_mutex);
+    pthread_mutex_lock(&p->money_mutex);
 
-    // char *money = ft_itoa(p->money);
-    // char *add = ft_itoa(c->add_money);
+    char *money = ft_itoa(p->money);
+    char *add = ft_itoa(c->add_money);
 
-    // pthread_mutex_unlock(&p->money_mutex);
-    // pthread_mutex_unlock(&c->add_money_mutex);
+    pthread_mutex_unlock(&p->money_mutex);
+    pthread_mutex_unlock(&c->add_money_mutex);
 
-    // put_string("+", 80, 15, 0xFFFFFF, 0.4);
-    // put_string(add, 95, 15, 0xFFFFFF, 0.4);
-    // put_string(money, 80, 37, 0xffbf00, 0.5);
+    put_string("+", 80, 15, 0xFFFFFF, 0.4);
+    put_string(add, 95, 15, 0xFFFFFF, 0.4);
+    put_string(money, 80, 37, 0xffbf00, 0.5);
 
-    // ft_free(money);
-    // ft_free(add);
+    ft_free(money);
+    ft_free(add);
 }

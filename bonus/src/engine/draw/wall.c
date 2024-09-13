@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:50:33 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/13 21:25:58 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ void draw_floor(int height, int start_x, ThreadParams *params, float angle)
     {
         current_dist = view_current_distance(p, start_y, angle, 0);
         // VISION CAUSES DATA RACE
-        if(!p->vision && current_dist > 7)
-            break;
+        // if(!p->vision && current_dist > 10)
+        //     break;
         
         floor_x = (p->x) + current_dist * cosangle;
         floor_y = (p->y) + current_dist * sinangle;
@@ -91,6 +91,8 @@ void draw_floor(int height, int start_x, ThreadParams *params, float angle)
         color = get_pixel_from_image(floor, floor_x * T_SIZE, floor_y * T_SIZE);
         if(!p->vision)
             color = darken_color(color, (float)current_dist / 7);
+        if (color < 0)
+                color = 0;
 
         put_pixel(start_x, start_y, color, params->render);
 
@@ -119,8 +121,8 @@ void draw_sky(int height, int start_x, ThreadParams *params, float angle)
     {
         current_dist = view_current_distance(p, start_y, angle, 1);
         // VISION CAUSES DATA RACE
-        if(!p->vision && current_dist > 7)  
-            break;
+        // if(!p->vision && current_dist > 10)  
+        //     break;
             
         sky_x = (p->x) + current_dist * cosangle;
         sky_y = (p->y) + current_dist * sinangle;
@@ -129,6 +131,8 @@ void draw_sky(int height, int start_x, ThreadParams *params, float angle)
 
         if(!p->vision)
             color = darken_color(color, (float)current_dist / 7);
+            if (color < 0)
+                color = 0;
 
         put_pixel(start_x, start_y, color, params->render);
 
@@ -166,8 +170,8 @@ void draw_wall(t_draw draw, ThreadParams *params)
 
     while (start_y < end_y)
     {
-        if(!p->vision && draw.dist > 450)
-            break;
+        // if(!p->vision && draw.dist > 600)
+        //     break;
         if (catched)
             color = 255;
         else
@@ -175,6 +179,8 @@ void draw_wall(t_draw draw, ThreadParams *params)
             color = get_pixel_from_image(wall_side, draw.tex_x, tex_y);
             if(!p->vision)
                 color = darken_color(color, (float)draw.dist / 450);
+            if (color < 0)
+                color = 0;
         }
 
         put_pixel(draw.start_x, start_y, color, r);

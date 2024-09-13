@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:24:07 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 14:05:04 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 21:11:17 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,16 @@ void update_fps(void)
     }
     
     char *fps_str = ft_itoa((int)fps);
-    mlx_string_put(r->mlx, r->win, WIDTH - 50, 30, 0xFFFFFF, fps_str);
+    // mlx_string_put(r->mlx, r->win, WIDTH - 50, 30, 0xFFFFFF, fps_str);
+
+    t_string str;
+    str.str = fps_str;
+    str.color = 0xFFFFFF;
+    str.size = 0.5;
+    str.x = WIDTH - 50;
+    str.y = 30;
+
+    render_string(&str);
+
     ft_free(fps_str);
 }

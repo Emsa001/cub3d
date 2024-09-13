@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 17:23:28 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 20:27:11 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 21:31:59 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int get_scene_pixel(int x, int y)
 int get_pixel_from_image(t_texture *t, int x, int y)
 {
     if (t == NULL || t->data == NULL) {
-        // Handle error
         return 0;
     }
 

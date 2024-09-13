@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 20:23:16 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 21:00:11 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@ void player_keydown(int keycode){
     t_cube *c = cube();
     
     if (keycode == ESC){
+
+        exit_game(0);
+        return ;
+
         pthread_mutex_lock(&c->pause_mutex);
         c->paused = !c->paused;
         pthread_mutex_unlock(&c->pause_mutex);

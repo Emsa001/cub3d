@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:08:59 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 20:19:01 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 20:59:01 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,5 @@ void render_player(){
     // draw_cross_in_centre(render());
 	destroy_buttons();
 	render_ui();
-	// render_hand_item();
+	render_hand_item();
 }

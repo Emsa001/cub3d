@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 19:39:17 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 21:37:07 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,11 +183,13 @@ void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
     {
         if(!p->vision && dist > 450)
             break;
+
         color = get_pixel_from_image(sprite_tex, (draw.tex_x) , tex_y);
         if(!p->vision)
             color = darken_color(color, (float)dist / 450);
-        // if(color != 0)
-        put_pixel(draw.start_x, start_y, color, r);
+
+        if(color && color > 0)
+            put_pixel(draw.start_x, start_y, color, r);
 
         tex_y += step;
         start_y++;
