@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <strings.h>
+#include "cub3d.h"
 
 typedef struct s_async_manager t_async_manager;
 
@@ -25,6 +26,8 @@ typedef struct s_async
     void (*process)(struct s_async *);
     void (*end)(struct s_async *);
     void *arg;
+
+    void (*end_mt)(void *);
 
     int time;
     int time_elapsed;

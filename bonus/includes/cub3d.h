@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 17:33:19 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 19:03:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ typedef struct s_cube
 	t_map					*map;
 
 	int						add_money;
-	pthread_mutex_t		add_money_mutex;
+	pthread_mutex_t			add_money_mutex;
 	bool 					is_special;
 
 	bool					paused;
@@ -119,6 +119,12 @@ typedef struct s_image
 	struct s_image			*next;
 }							t_image;
 
+typedef struct s_functions
+{
+    void (*func)(void *);
+    struct s_functions *next;
+} t_functions;
+
 typedef struct s_render
 {
 	void					*mlx;
@@ -135,10 +141,14 @@ typedef struct s_render
 	int						mouse_x;
 	int						mouse_y;
 
-	t_image			*image_queue;
-	t_string			*string_queue;
+	t_image					*image_queue;
+	t_string				*string_queue;
+	t_functions				*functions_queue;
+
+
 	pthread_mutex_t			string_queue_mutex;
 	pthread_mutex_t			image_queue_mutex;
+	pthread_mutex_t 		functions_queue_mutex;
 	pthread_mutex_t 		put_pixel_mutex;
 }							t_render;
 
@@ -299,5 +309,7 @@ int random_int(int min, int max);
 void render_view(t_cube *c);
 void clear_image_queue(t_render *r);
 void clear_string_queue(t_render *r);
+void add_to_functions_queue(void (*func)(void *), t_render *r);
+void execute_functions_queue(t_render *r);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 17:34:24 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 19:03:48 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void show_image(t_render *r, int x, int y)
     mlx_put_image_to_window(r->mlx, r->win, r->img_ptr, x, y);
 }
 
-
 int render_scene_multithread(void)
 {
     t_render *r = render();
@@ -50,6 +49,7 @@ int render_scene_multithread(void)
     
     put_image_queue(r);
     put_string_queue(r);
+    execute_functions_queue(r);
 
     update_fps();
     // check_hooks();

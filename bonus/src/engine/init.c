@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:10:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 13:38:18 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 19:10:43 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_cube	*cube_init(t_cube *c)
 
 	ft_memset(c->items, 0, sizeof(c->items));
 	pthread_mutex_init(&c->pause_mutex, NULL);
-	pthread_mutex_init(&c->add_money_mutex, NULL);
+	pthread_mutex_init(&c->add_money_mutex, NULL);    
 	cube = c;
 	return (cube);
 }
@@ -64,11 +64,14 @@ t_render *init_render(t_render *r)
 
     r->string_queue = NULL;  // Make sure this is properly initialized
     r->image_queue = NULL;   // Make sure this is properly initialized
+    r->functions_queue = NULL; // Make sure this is properly initialized
 
     // Initialize mutexes
     pthread_mutex_init(&r->string_queue_mutex, NULL);
     pthread_mutex_init(&r->image_queue_mutex, NULL);
     pthread_mutex_init(&r->put_pixel_mutex, NULL);
+    pthread_mutex_init(&r->functions_queue_mutex, NULL);
+
 
     // Assign the static variable
     render = r;
