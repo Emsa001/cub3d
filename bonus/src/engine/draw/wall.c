@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 21:25:58 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 13:38:53 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,7 @@ void draw_wall(t_draw draw, ThreadParams *params)
             if (color < 0)
                 color = 0;
         }
-
+        
         put_pixel(draw.start_x, start_y, color, r);
 
         tex_y += step;

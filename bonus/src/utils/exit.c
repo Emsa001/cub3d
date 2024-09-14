@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:52:35 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 19:32:03 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 15:10:23 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void destroy_sprite_image(t_sprite sprite)
         i++;
     }
 }
+
 
 void destroy_render(){
 	t_render *r = render();
@@ -54,8 +55,12 @@ void	exit_game(int code)
 		i++;
     }
 
+    clear_image_queue(r);
+    clear_string_queue(r);
+    
     destroy_textures();
     destroy_render();
+
     ft_destructor();
     exit (code);
 }

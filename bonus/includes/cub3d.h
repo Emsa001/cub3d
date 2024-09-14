@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 19:45:52 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 15:10:16 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ typedef struct s_render
 	t_string			*string_queue;
 	pthread_mutex_t			string_queue_mutex;
 	pthread_mutex_t			image_queue_mutex;
+	pthread_mutex_t 		put_pixel_mutex;
 }							t_render;
 
 typedef struct s_draw
@@ -285,13 +286,11 @@ void						check_hooks(void);
 
 void						item_button(t_button *button, float size);
 
-void						add_image_queue(t_texture *img, int x, int y,
-								float size, t_render *r);
 void						remove_image_queue(t_image **q);
 void						put_image_queue(t_render *r);
 
-void						remove_string_queue(t_string **q);
-void						process_string_queue(void);
+void put_string_queue(t_render *r);
+
 void						button_hover(int x, int y);
 
 void init_economy();
@@ -299,5 +298,7 @@ int random_int(int min, int max);
 
 
 void render_view(t_cube *c);
+void clear_image_queue(t_render *r);
+void clear_string_queue(t_render *r);
 
 #endif

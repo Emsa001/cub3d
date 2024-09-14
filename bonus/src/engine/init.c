@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:10:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 19:51:56 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 13:38:18 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ t_render *init_render(t_render *r)
     // Initialize mutexes
     pthread_mutex_init(&r->string_queue_mutex, NULL);
     pthread_mutex_init(&r->image_queue_mutex, NULL);
+    pthread_mutex_init(&r->put_pixel_mutex, NULL);
 
     // Assign the static variable
     render = r;

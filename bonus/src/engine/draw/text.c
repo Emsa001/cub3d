@@ -6,88 +6,126 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 19:21:14 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 15:57:22 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void dequeue_string(t_string **q)
+void remove_string_queue(t_string **q)
 {
-    t_string *tmp = (*q)->next;
-    ft_free((*q)->str);
-    ft_free(*q);
-    *q = tmp;
+    if (*q)
+    {
+        if ((*q)->str){
+            // free((*q)->str);
+            (*q)->str = NULL;
+        }
+        free(*q);
+        *q = NULL;
+    }
 }
 
-void free_string_arg(t_async *async){
-    t_string *str = (t_string *)async->arg;
-    ft_free(str->str);
-    ft_free(str);
-}
 
-void enqueue_string(t_async *async) {
-    t_string *text = (t_string *)async->arg;
-    t_render *r = render();
-    t_string *new = ft_malloc(sizeof(t_string));
-    new->str = ft_strdup(text->str);
-    new->x = text->x;
-    new->y = text->y;
-    new->color = text->color;
-    new->size = text->size;
-    new->next = NULL;
+void clear_string_queue(t_render *r)
+{
+    printf("Clearing string queue\n");
+    pthread_mutex_lock(&r->string_queue_mutex);
 
-    pthread_mutex_lock(&r->string_queue_mutex);  // Lock the mutex before accessing the queue
+    t_string *current = r->string_queue;
+    t_string *next = NULL;
 
-    if (r->string_queue == NULL) {
-        r->string_queue = new;
-    } else {
-        t_string *q = r->string_queue;
-        while (q->next != NULL)
-            q = q->next;
-        q->next = new;
+    while (current != NULL)
+    {
+        next = current->next;    // Save the next pointer
+        remove_string_queue(&current);  // Free the current image
+        current = next;          // Move to the next image
     }
 
-    pthread_mutex_unlock(&r->string_queue_mutex);  // Unlock the mutex after modifying the queue
+    r->string_queue = NULL;  // Set the queue to NULL
+
+    pthread_mutex_unlock(&r->string_queue_mutex);
 }
 
-void end_string_async(t_async *async) {
-    char *str = (char *)async->arg;
-    ft_free(str);
-}
 
-void render_string_async(t_string *str)
+void put_string_queue(t_render *r)
 {
-    t_string *copy = ft_calloc(sizeof(t_string), 1);
-    ft_memcpy(copy, str, sizeof(t_string));
-
-    t_async *async = new_async();
-    async->process = &enqueue_string;
-    async->end = &end_string_async;
-    async->arg = copy;
-    async->process_time = 10;
-    async->time = str->time;
-    // async->cube = cube();
-    // async->player = player();
-    // async->render = render();
-    start_async(async);
-}
-
-void process_string_queue() {
-    t_render *r = render();
-    pthread_mutex_lock(&r->string_queue_mutex);  // Lock the mutex before accessing the queue
+    pthread_mutex_lock(&r->string_queue_mutex);
 
     t_string *q = r->string_queue;
-    while (q != NULL) {
+    while (q != NULL)
+    {
         render_string(q);
 
         t_string *tmp = q->next;
-        dequeue_string(&q);
+        remove_string_queue(&q);  // Properly free the dequeued image
         q = tmp;
     }
 
     r->string_queue = NULL;
-    pthread_mutex_unlock(&r->string_queue_mutex);  // Unlock the mutex after modifying the queue
+
+    pthread_mutex_unlock(&r->string_queue_mutex);
+}
+
+void enqueue_string(t_async *async)
+{
+    t_string *str = (t_string *)async->arg;
+    t_render *r = render();
+    t_string *new = calloc(sizeof(t_string),1);
+    ft_memcpy(new, str, sizeof(t_string));
+    
+    new->next = NULL;
+
+    pthread_mutex_lock(&r->string_queue_mutex);
+
+    if (!r->string_queue)
+        r->string_queue = new;
+    else
+    {
+        t_string *q = r->string_queue;
+        while (q->next)
+            q = q->next;
+        q->next = new;
+    }
+
+    pthread_mutex_unlock(&r->string_queue_mutex);
+}
+
+void end_string(t_async *async)
+{
+    t_string *str = (t_string *)async->arg;
+    if (str)
+    {
+        if (str->str){
+            // ft_free(str);
+            str->str = NULL;
+        }
+        ft_free(str);
+    }
+}
+
+void render_string_async(t_string *str)
+{
+    t_async *async = new_async();
+    t_string *str_copy = ft_malloc(sizeof(t_string));
+
+    // Deep copy the image data
+    str_copy->str = ft_strdup(str->str);
+    str_copy->x = str->x;
+    str_copy->y = str->y;
+    str_copy->color = str->color;
+    str_copy->size = str->size;
+    str_copy->time = str->time;
+    str_copy->next = NULL;
+
+    ft_free(str->str);
+    
+
+    async->process = &enqueue_string;
+    async->end = end_string;
+    async->arg = str_copy;
+    async->process_time = 10;
+    async->time = str->time;
+    start_async(async);
 }
 
 void put_string(char *str, int x, int y, int color, float size)

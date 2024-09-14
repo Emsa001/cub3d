@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:04:42 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 21:57:38 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 15:56:33 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void updatePlayerMoney(t_player *p, int amount)
 void displayPrizeMessage(int prize, int value)
 {
     char *tmp = ft_itoa(prize - value);
-    char *removeMoneyStr = tmp;
+    char *removeMoneyStr = ft_strdup(tmp);
+
     if(prize - value > 0)
     {
         removeMoneyStr = ft_strjoin("+", ft_itoa(prize - value));
@@ -31,17 +32,16 @@ void displayPrizeMessage(int prize, int value)
 
     char *displayText = ft_strjoin(removeMoneyStr, "$");
 
-    t_string removeMoneyString;
-    removeMoneyString.str = displayText;
+    t_string removeMoneyString = { 0 };
+    removeMoneyString.str = ft_strdup(displayText);
     removeMoneyString.color = 0xFFFFFF;
     removeMoneyString.size =  0.4;
     removeMoneyString.x = 80;
     removeMoneyString.y = 60;
     removeMoneyString.time = 1000;
-
     render_string_async(&removeMoneyString);
 
-    t_string winMessage;
+    t_string winMessage = {0};
     winMessage.str = "You got";
     winMessage.color = 0xFFFFFF;
     winMessage.size = 1;
@@ -51,32 +51,31 @@ void displayPrizeMessage(int prize, int value)
 
     render_string_async(&winMessage);
 
-    t_string prizeMessage;
-    ft_memcpy(&prizeMessage, &winMessage, sizeof(t_string));
-    prizeMessage.str = displayText;
-    prizeMessage.color = 0xF5F5F4;
-    prizeMessage.size = 2;
-    prizeMessage.x = CENTER_WIDTH - ft_strlen(displayText) * 20;
-    prizeMessage.y = CENTER_HEIGHT + 100;
-    prizeMessage.clean = displayText;
-
-    render_string_async(&prizeMessage);
+    t_string winMessage2 = { 0 };
+    winMessage2.str = ft_strdup(displayText);
+    winMessage2.color = 0xFFFFFF;
+    winMessage2.size = 2;
+    winMessage2.x = CENTER_WIDTH - ft_strlen(winMessage2.str) * 20;
+    winMessage2.y =  CENTER_HEIGHT + 100;
+    winMessage2.time = 1000;
+    render_string_async(&winMessage2);
 
     ft_free(removeMoneyStr);
 }
 
-t_texture determinePrizeTexture(const t_textures *t, int prize)
+t_texture *determinePrizeTexture(int prize)
 {
-    t_texture prizeTexture = t->items[65];
+    t_textures *t = textures();
+    t_texture *prizeTexture = &(t->items[65]);
 
     if (prize > 70000) {
-        prizeTexture = t->items[70];
+        prizeTexture = &(t->items[70]);
     } else if (prize > 50000) {
-        prizeTexture = t->items[69];
+        prizeTexture = &(t->items[69]);
     } else if (prize > 20000) {
-        prizeTexture = t->items[68];
+        prizeTexture = &(t->items[68]);
     } else if (prize > 5000) {
-        prizeTexture = t->items[66];
+        prizeTexture = &(t->items[66]);
     }
 
     return prizeTexture;
@@ -85,22 +84,53 @@ t_texture determinePrizeTexture(const t_textures *t, int prize)
 void renderPrizeImage(t_texture *prizeTexture, int time)
 {
     // Render the prize image
-    t_image prizeImage;
+    t_image prizeImage = { 0 };
     prizeImage.img = prizeTexture;
     prizeImage.x = CENTER_WIDTH - 100;
     prizeImage.y = CENTER_HEIGHT - 200;
     prizeImage.size = 10;
-    prizeImage.time = time - 100;
+    prizeImage.time = time;
 
     render_image_async(&prizeImage);
+}
+
+void cooldown_end(t_async *async)
+{
+    t_store *store = player()->store;
+    pthread_mutex_lock(&store->case_mutex);
+    store->case_cooldown = false;
+    pthread_mutex_unlock(&store->case_mutex);
+}
+
+void start_cooldown(t_async *async)
+{
+    t_store *store = player()->store;
+    pthread_mutex_lock(&store->case_mutex);
+    store->case_cooldown = true;
+    pthread_mutex_unlock(&store->case_mutex);
 }
 
 void openCase(void *arg)
 {
     t_player *p = player();
     t_store *store = p->store;
-    const t_textures *t = textures();
     const int value = (int)(intptr_t)arg;
+
+    pthread_mutex_lock(&store->case_mutex);
+    if(store->case_cooldown){
+        pthread_mutex_unlock(&store->case_mutex);
+        tooltip("Cooldown",1);
+        return;
+    }
+    pthread_mutex_unlock(&store->case_mutex);
+   
+
+    t_async *async = new_async();
+    async->process = &start_cooldown;
+    async->end = &cooldown_end;
+    async->time = 1500;
+    start_async(async);
+
 
     pthread_mutex_lock(&p->money_mutex);
     if (p->money < value)
@@ -117,8 +147,8 @@ void openCase(void *arg)
     displayPrizeMessage(prize, value);
     updatePlayerMoney(p, prize);
 
-    t_texture prizeTexture = determinePrizeTexture(t, prize);
-    renderPrizeImage(&prizeTexture, 1000);
+    t_texture *prizeTexture = determinePrizeTexture(prize);
+    renderPrizeImage(prizeTexture, 1000);
 }
 
 void cases(int x, int y)
