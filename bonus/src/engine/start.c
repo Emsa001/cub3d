@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 15:01:00 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/14 15:31:19 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void start_game(void)
     t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
     async->start = &start;
     async->end = &end;
-    async->time = 1000;
+    async->time = 4000;
     add_async(async);
 
     
