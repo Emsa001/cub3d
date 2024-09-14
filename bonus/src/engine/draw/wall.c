@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/09/15 01:17:04 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/15 01:35:05 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,8 +111,8 @@ void draw_floor_and_ceiling(t_draw *draw, ThreadParams *params)
         color =  get_texture_color(tex, current_dist, cosangle, sinangle);
         if(color < 0)
             color = 0;
-        // put_pixel(start_x, start_y, color, params->render);
-        draw->colors[start_y] = color;
+        put_pixel(start_x, start_y, color, params->render);
+        // draw->colors[start_y] = color;
         start_y--;
     }
 }
@@ -162,8 +162,8 @@ void draw_wall(t_draw *draw, ThreadParams *params)
             if(color < 0)
                 color = 0;
         }
-        // put_pixel(draw->start_x, start_y, color, r);
-        draw->colors[start_y] = color;
+        put_pixel(draw->start_x, start_y, color, r);
+        // draw->colors[start_y] = color;
         tex_y += step;
         start_y++;
     }

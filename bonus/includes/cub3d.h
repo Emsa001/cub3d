@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/15 01:03:56 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/15 01:37:52 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,6 +235,10 @@ void						show_image(t_render *r, int x, int y);
 void						add_button(t_button *button);
 
 /* DRAW */
+t_texture *get_wall_side(int side, const t_textures *texs, int n);
+int get_texture_color(t_texture *tex, float dist, float cosangle, float sinangle);
+t_texture* get_texture(int start_y, int height, const t_player *p, const t_textures *texs);
+
 void						draw_line(t_draw draw, ThreadParams *params);
 void						draw_wall(t_draw *draw, ThreadParams *params);
 void draw_floor_and_ceiling(t_draw *draw, ThreadParams *params);

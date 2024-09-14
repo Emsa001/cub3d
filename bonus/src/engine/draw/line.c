@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/15 01:15:19 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/15 01:41:20 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,54 @@ void put_line(t_draw draw, ThreadParams *params)
     }
 }
 
+void draw_scene(t_draw *draw, ThreadParams *params)
+{
+    int height = draw->wall_height;
+    int start_x = draw->start_x;
+    const t_player *p = params->player;
+    const t_textures *texs = params->textures;
+    t_render *r = params->render;
+    
+    float cosangle = cos(draw->angle);
+    float sinangle = sin(draw->angle);
+    
+    t_texture *wall_side = get_wall_side(draw->side, texs, p->level);
+    float tex_y = 0;
+    float step = (float)T_SIZE / draw->wall_height;
+
+    int wall_start_y = (p->z - 1) * draw->wall_height + vert_offset(p);
+    int wall_end_y = wall_start_y + draw->wall_height;
+    
+    if (wall_end_y > HEIGHT)
+        wall_end_y = HEIGHT;
+    
+    int color = 0;
+    for (int y = 0; y < HEIGHT; y++)
+    {
+        if (y >= wall_end_y || y < wall_start_y)
+        {
+            t_texture *tex = get_texture(y, height, p, texs);
+            if (tex)
+            {
+                float current_dist = view_current_distance(p, y, draw->angle);
+                color = get_texture_color(tex, current_dist, cosangle, sinangle);
+                if (color < 0)
+                    color = 0;
+            }
+        }
+        else
+        {
+            color = get_pixel_from_image(wall_side, draw->tex_x, tex_y);
+            color = darken_color(color, (float)draw->dist / 450);
+            if (color < 0)
+                color = 0;
+            tex_y += step;
+        }
+        put_pixel(start_x, y, color, r);
+    }
+}
+
+
 void draw_line(t_draw draw, ThreadParams *params)
 {   
     t_cube *c = params->cube;
@@ -269,6 +317,7 @@ void draw_line(t_draw draw, ThreadParams *params)
     lane_distance(&draw);
     draw_floor_and_ceiling(&draw, params);
     draw_wall(&draw, params);
+    // draw_scene(&draw, params);
     // if(sprite_direction(&draw, cosangle, sinangle, c) == 9)
     //     sprite_frame(draw, params, c->map->sprites[j - 1]);
     // if(generator_direction(&draw, cosangle, sinangle, c) == 7)
@@ -276,10 +325,10 @@ void draw_line(t_draw draw, ThreadParams *params)
     //     draw_generator_top(draw, params, draw.angle);
     //     draw_generator(draw, params, draw.tex_x, draw.angle);
     // }
-    int scale = draw.start_x + WIDTH_SCALE;
-    while(draw.start_x < scale)
-    {
-        put_line(draw, params);
-        draw.start_x++;
-    }
+    // int scale = draw.start_x + WIDTH_SCALE;
+    // while(draw.start_x < scale)
+    // {
+    //     put_line(draw, params);
+    //     draw.start_x++;
+    // }
 }
