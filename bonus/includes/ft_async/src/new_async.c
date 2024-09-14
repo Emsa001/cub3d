@@ -36,6 +36,7 @@ void add_to_list(t_async *async)
 t_async *new_async()
 {
     t_async_manager *manager = get_manager();
+    t_render *r = render();
 
     t_async *async = (t_async *)malloc(sizeof(t_async));
     bzero(async, sizeof(t_async));
@@ -46,6 +47,7 @@ t_async *new_async()
     async->start = NULL;
     async->process = NULL;
     async->end = NULL;
+    async->end_mt = NULL;
 
     async->arg = NULL;
 
@@ -56,7 +58,7 @@ t_async *new_async()
 
     async->cube = NULL;
     async->player = NULL;
-    async->render = NULL;
+    async->render = r;
 
     return async;
 }

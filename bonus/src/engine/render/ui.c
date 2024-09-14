@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 21:04:58 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 16:02:40 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 19:45:46 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,5 @@ void render_ui()
 
     if(cube()->paused)
         pause_game();
-
-    if(p->hover != NULL){
-        t_button *button = p->hover;
-        if(button->hover != NULL)
-            ((void (*)(void*))button->hover)(NULL);
-    } 
 
 }

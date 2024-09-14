@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 17:17:32 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/14 19:34:53 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ typedef struct s_map
 	char	**map;
 	bool	portal;
 
+	bool editor_mode;
+
 	t_block	*doors;
 	t_block	*blocks;
 	t_block *lines;
@@ -136,5 +138,8 @@ void minimap_block(int x, int y, int screen_x, int screen_y);
 
 float minimap_center_x(void);
 float minimap_center_y(void);
+
+void map_editor_hover();
+void map_editor_enter();
 
 #endif

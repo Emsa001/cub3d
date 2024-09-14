@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keydown.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 16:15:13 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 19:38:28 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ void player_keydown(int keycode){
 
         // exit_game(0);
         // return ;
+
+        if(c->map->editor_mode){
+            c->map->editor_mode = false;
+        }
 
         pthread_mutex_lock(&c->pause_mutex);
         c->paused = !c->paused;

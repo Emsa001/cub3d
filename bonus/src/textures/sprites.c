@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:39:55 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/14 18:39:58 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/14 19:23:21 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ void add_sprite(char *path_file, int frames, float x, float y)
 		
 		sprite_texture[i]->image = get_texture_file(temp, &sprite_texture[i]->width, &sprite_texture[i]->height);
 		sprite_texture[i]->data = mlx_get_data_addr(sprite_texture[i]->image, &sprite_texture[i]->bpp, &sprite_texture[i]->size_line, &sprite_texture[i]->endian);
-		ft_free(temp);
-		ft_free(path);
+		// ft_free(temp);
+		// ft_free(path);
 		i++;
 	}
 	sprite.x = x;

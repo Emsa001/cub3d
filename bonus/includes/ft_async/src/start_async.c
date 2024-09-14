@@ -1,4 +1,5 @@
 #include "../includes/ft_async.h"
+#include "../../cub3d.h"
 
 // Function to run async process function
 static void run_async_loop(t_async *current, t_async_manager *manager)
@@ -29,18 +30,21 @@ static void run_async_loop(t_async *current, t_async_manager *manager)
 static void *run_async(void *arg)
 {
     t_async *current = (t_async *)arg;
+    t_render *r = current->render;
+
     if (current->start)
         current->start(current);
 
     run_async_loop(current, current->manager);
 
+    if(current->end_mt && r != NULL)
+        add_to_functions_queue(current->end_mt,r);
     if (current->end)
         current->end(current);
 
     remove_from_list(current);
     return NULL;
 }
-
 // Add async task to the list
 void start_async(t_async *async)
 {

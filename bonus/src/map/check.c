@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/14 16:57:54 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 19:35:27 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -354,5 +354,6 @@ t_map	*check_map(char **map, int size)
 	map_info->generators = init_generators(map_info, map);
 	map_info->sprites = get_portals(map);
 	map_info->portals = get_portals_points(map);
+	map_info->editor_mode = false;
 	return (map_info);
 }

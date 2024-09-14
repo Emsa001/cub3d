@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 19:00:58 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/14 19:24:42 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,12 +259,7 @@ void draw_line(t_draw draw, ThreadParams *params)
     draw_floor_and_ceiling(draw.wall_height, draw.start_x, params, draw.angle);
     draw_wall(draw, params);
     if(sprite_direction(&draw, cosangle, sinangle, c) == 9)
-    {
-        if(c->map->sprites[j - 1].frames == -1)
-            printf("Error: draw_line: sprite frames is -1\n");
-        else
-            sprite_frame(draw, params, c->map->sprites[j - 1]);
-    }
+        sprite_frame(draw, params, c->map->sprites[j - 1]);
     if(generator_direction(&draw, cosangle, sinangle, c) == 7)
     {   
         draw_generator_top(draw, params, draw.angle);
