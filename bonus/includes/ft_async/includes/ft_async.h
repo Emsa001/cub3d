@@ -64,4 +64,6 @@ void stop_all_async_tasks(void);
 void add_to_list(t_async *async);
 void remove_from_list(t_async *async);
 
+void start_async_process(t_async *async);
+
 #endif

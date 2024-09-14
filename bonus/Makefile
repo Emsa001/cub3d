@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+         #
+#    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/09/14 19:22:32 by btvildia         ###   ########.fr        #
+#    Updated: 2024/09/14 21:49:56 by escura           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ INCLUDES = $(wildcard $(INCLUDES_DIR)/*.h) $(wildcard $(INCLUDES_DIR)/*/*.h)
 FT_ASYNC = $(INCLUDES_DIR)/ft_async/src
 
 SRC_DIR = src
-SRC = $(filter-out $(wildcard $(SRC_DIR)/_*), $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/*/*.c) $(wildcard $(SRC_DIR)/*/*/*.c)) $(FT_ASYNC)/manager.c $(FT_ASYNC)/new_async.c $(FT_ASYNC)/start_async.c $(FT_ASYNC)/stop_async.c
+SRC = $(filter-out $(wildcard $(SRC_DIR)/_*), $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/*/*.c) $(wildcard $(SRC_DIR)/*/*/*.c)) $(FT_ASYNC)/manager.c $(FT_ASYNC)/new_async.c $(FT_ASYNC)/start_async.c $(FT_ASYNC)/stop_async.c $(FT_ASYNC)/start_async_process.c
 
 
 # Compiler and Flags
