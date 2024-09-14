@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 12:13:57 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/14 14:58:01 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_map
 	t_block *lines;
 	t_block *generators;
 	t_sprite *sprites;
+	t_point *portals;
 	
 	t_minimap *minimap;
 }			t_map;
@@ -102,6 +103,7 @@ typedef struct s_map
 
 void		map_init(char *av);
 t_map 		*get_map();
+void open_portal(int i);
 void		print_map_info(void);
 void		print_map(char **map);
 int			ft_strlen_space(char *s);

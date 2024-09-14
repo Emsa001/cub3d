@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/12 21:54:33 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/14 14:57:47 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,6 +271,48 @@ t_sprite *get_portals(char **map)
 	return (sprite);
 }
 
+t_point *get_portals_points(char **map)
+{
+	int k = 0;
+	int count = count_c(map, 'P');
+	t_point *portals = ft_malloc(sizeof(t_point) * (count + 1));
+	int i = 0;
+	int j = 0;
+	
+	while(map[i] != NULL)
+	{
+		j = 0;
+		while(map[i][j] != '\0')
+		{
+			if (map[i][j] == 'P')
+			{
+				printf("x: %d, y: %d\n", j, i);
+				portals[k].x = j;
+				portals[k].y = i;
+				k = k + 1;
+			}
+			j++;
+		}
+		i++;
+	}
+
+	portals[k].x = -1;
+	portals[k].y = -1;
+	return (portals);
+}
+
+void open_portal(int i)
+{
+    int x = 0;
+    int y = 0;
+
+    x = cube()->map->portals[i].x;
+    y = cube()->map->portals[i].y;
+    
+    remove_sprite(x, y);
+    add_sprite("assets/portal_opened/", 17, x, y);
+}
+
 
 t_sprite *init_map_sprites(t_map *map_info, char **map)
 {
@@ -311,5 +353,6 @@ t_map	*check_map(char **map, int size)
 	map_info->blocks = init_map_block(map_info);
 	map_info->generators = init_generators(map_info, map);
 	map_info->sprites = get_portals(map);
+	map_info->portals = get_portals_points(map);
 	return (map_info);
 }

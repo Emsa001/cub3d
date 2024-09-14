@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 22:05:17 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 21:01:14 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/14 12:59:39 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ t_textures *init_textures(t_textures *t)
 	player->data = mlx_get_data_addr(player->image, &player->bpp, &player->size_line, &player->endian);
 	t->player = player;
 
-	int level_num = 2;
+	int level_num = 3;
 
 	t->ceiling = init_textures_array("ceiling", mlx, level_num);
 	t->floor = init_textures_array("floor", mlx, level_num);

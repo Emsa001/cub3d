@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 21:04:50 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/14 14:29:47 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,14 @@ void draw_wall(t_draw draw, ThreadParams *params)
         if(draw.dist > 450)
             break;
         if (catched)
-            color = 255;
+        {
+            if(p->level == 0)
+                color = 225;
+            if(p->level == 1)
+                color = 0x00FF00;
+            if(p->level == 2)
+                color = 0xFF0000;
+        }
         else
         {
             color = get_pixel_from_image(wall_side, draw.tex_x, tex_y);

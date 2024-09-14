@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:49:03 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 21:54:32 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/14 14:41:46 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,36 @@ bool touch_closed_portal(t_sprite *sprites, float px, float py)
             if(is_portal(sprites, i))
                 return true;
         }
-        else if(sprites[i].frames == 17)
-        {
-            if(py < sprites[i].y * BLOCK_SIZE + 10)
-                player()->level = 1;
-            else
-                player()->level = 0;
-        }
 		i++;
 	}
 
 	return false;
+}
+
+void check_level(t_point *portals, int px, int py)
+{
+    int i = 0;
+    float x = 0;
+    float y = 0;
+
+    if(!portals)
+        return;
+
+    while (portals[i].x != -1)
+    {
+        x = portals[i].x * BLOCK_SIZE;
+        y = portals[i].y * BLOCK_SIZE;
+        {
+            if(py < portals[i].y * BLOCK_SIZE + 10)
+            {
+                player()->level = 2 - i;
+                break;
+            }
+            else
+                player()->level = 0;
+        }
+        i++;
+    }
 }
 
 bool touch()
@@ -59,11 +78,13 @@ bool touch()
     int x = player()->x_px - 10;
     int y = player()->y_px - 10;
 
+
     while (x <= player()->x_px + 10)
     {
         y = player()->y_px - 10;
         while (y <= player()->y_px + 10)
         {
+            check_level(c->map->portals, x, y);
             if (is_touching(x, y, c) || 
                 touch_block(c->map->blocks, x, y) || 
                 touch_block(c->map->doors, x, y) ||

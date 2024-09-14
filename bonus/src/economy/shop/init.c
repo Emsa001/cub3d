@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:07:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 11:03:37 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/14 14:06:44 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_store *init_store()
     }
 
     store->x = 7;
-    store->y = 18;
+    store->y = 35;
     add_sprite("assets/shop/", 28, store->x, store->y);
 
     return store;
