@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 17:33:53 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 17:39:27 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ void start_game(void)
     init_economy();
     // add_sprite("assets/fire/", 13,7,21);
     
-    // t_async *async = new_async();
-    // async->start = &start;
-    // async->end = &end;
-    // async->time = 4000;
-    // start_async(async);
+    t_async *async = new_async();
+    async->start = &start;
+    async->end = &end;
+    async->time = 2000;
+    start_async(async);
 
     
 
