@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 21:27:42 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/14 16:26:00 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+#include "./ft_async/includes/ft_async.h"
 # include "fcntl.h"
 # include "ft_destructor/ft_alloc.h"
 # include "items.h"
@@ -65,6 +66,8 @@
 # define M_PI 3.14159265358979323846
 # define NUM_THREADS 10
 
+typedef struct s_render t_render;
+
 typedef struct s_cube
 {
 	char					*some_value;
@@ -84,6 +87,12 @@ typedef struct s_cube
 	int						async_id;
 
 	pthread_mutex_t			pause_mutex;
+
+	t_render 				*render;
+	t_player				*player;
+	t_textures				*textures;
+
+	int levels;
 }							t_cube;
 
 typedef struct s_string
@@ -130,6 +139,7 @@ typedef struct s_render
 	t_string			*string_queue;
 	pthread_mutex_t			string_queue_mutex;
 	pthread_mutex_t			image_queue_mutex;
+	pthread_mutex_t 		put_pixel_mutex;
 }							t_render;
 
 typedef struct s_draw
@@ -180,31 +190,11 @@ typedef struct s_state
 	bool					door;
 }							t_state;
 
-typedef struct s_async
-{
-	void					(*start)(struct s_async *);
-	void					(*process)(struct s_async *);
-	void					(*end)(struct s_async *);
-	void					*arg;
-
-	int						time;
-	int						time_elapsed;
-	int						process_time;
-
-	t_cube					*cube;
-	t_player				*player;
-	t_render				*render;
-
-	struct s_async			*next;
-}							t_async;
-
-void						add_async(t_async *async);
 
 /* ENGINE */
 t_render					*init_render(t_render *r);
 t_render					*render(void);
 void						update_fps(void);
-void						render_view(void);
 void						init_items(void);
 void render_image_async(t_image *img);
 
@@ -214,7 +204,7 @@ t_cube						*cube(void);
 void						start_game(void);
 void						init_hooks(void);
 
-int							render_scene_multithread(t_cube *c);
+int render_scene_multithread(void);
 int							render_scene_singlethread(t_cube *c);
 
 int							render_scene(t_cube *p);
@@ -295,16 +285,19 @@ void						check_hooks(void);
 
 void						item_button(t_button *button, float size);
 
-void						add_image_queue(t_texture *img, int x, int y,
-								float size, t_render *r);
 void						remove_image_queue(t_image **q);
 void						put_image_queue(t_render *r);
 
-void						remove_string_queue(t_string **q);
-void						process_string_queue(void);
+void put_string_queue(t_render *r);
+
 void						button_hover(int x, int y);
 
 void init_economy();
 int random_int(int min, int max);
+
+
+void render_view(t_cube *c);
+void clear_image_queue(t_render *r);
+void clear_string_queue(t_render *r);
 
 #endif

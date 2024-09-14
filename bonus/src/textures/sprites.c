@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:39:55 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/14 13:30:56 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/14 16:57:52 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void add_sprite(char *path_file, int frames, float x, float y)
 	sprite.sprite_tex = sprite_texture;
 	sprite.width = sprite_texture[0]->width;
 	sprite.height = sprite_texture[0]->height;
-	sprite.type = '\0';
+	sprite.type = 'S';
 	init_sprite(cube()->map, sprite);
 }
 

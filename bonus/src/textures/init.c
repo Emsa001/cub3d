@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 22:05:17 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 12:59:39 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/14 16:28:48 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ void init_tooltip(t_textures *t){
 	t->tooltip_bg = tooltip_bg;
 }
 
-t_texture **init_textures_array(char *path, void *mlx, int level_num)
+t_texture **init_textures_array(char *path, void *mlx)
 {
-	t_texture **textures = ft_malloc(sizeof(t_texture *) * 2);
+	t_texture **textures = ft_malloc(sizeof(t_texture *) * cube()->levels); 
 
 	char *tmp;
 	char *tmp2;
 	int i = 0;
-	while (i < level_num)
+	while (i < cube()->levels)
 	{
 		tmp = ft_strjoin("assets/level", ft_itoa(i));
 		tmp2 = ft_strjoin(tmp, "/");
@@ -77,9 +77,10 @@ t_texture *init_textures_level(char *path, void *mlx, int level_num)
 	tmp = ft_strjoin(tmp2, path);
 	ft_free(tmp2);
 	tmp2 = ft_strjoin(tmp, ".xpm");
-	textures = ft_malloc(sizeof(t_texture));
+	
 	textures->image = get_texture_file(tmp2, &textures->width, &textures->height);
 	textures->data = mlx_get_data_addr(textures->image, &textures->bpp, &textures->size_line, &textures->endian);
+
 	ft_free(tmp);
 	ft_free(tmp2);
 	return (textures);
@@ -98,14 +99,14 @@ t_textures *init_textures(t_textures *t)
 	player->data = mlx_get_data_addr(player->image, &player->bpp, &player->size_line, &player->endian);
 	t->player = player;
 
-	int level_num = 3;
+	cube()->levels = 3;
 
-	t->ceiling = init_textures_array("ceiling", mlx, level_num);
-	t->floor = init_textures_array("floor", mlx, level_num);
-	t->wall_north = init_textures_array("north", mlx, level_num);
-	t->wall_south = init_textures_array("south", mlx, level_num);
-	t->wall_east = init_textures_array("east", mlx, level_num);
-	t->wall_west = init_textures_array("west", mlx, level_num);
+	t->ceiling = init_textures_array("ceiling", mlx);
+	t->floor = init_textures_array("floor", mlx);
+	t->wall_north = init_textures_array("north", mlx);
+	t->wall_south = init_textures_array("south", mlx);
+	t->wall_east = init_textures_array("east", mlx);
+	t->wall_west = init_textures_array("west", mlx);
 	
 	t_texture *door = ft_malloc(sizeof(t_texture));
 	t_texture *generator = ft_malloc(sizeof(t_texture));
@@ -129,6 +130,7 @@ t_textures *init_textures(t_textures *t)
 	
 	
 	init_hudtextures(t);
+
 	init_items_textures(t);
 	init_font(t);
 	init_tooltip(t);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   view.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:32:21 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 20:29:39 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/14 16:13:34 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ void* draw_lines_thread(void* arg)
         float fraction = (float)i / WIDTH;
         draw.angle = params->angleOffset + fraction * params->fovInRadians;
         draw.start_x = i;
+
         draw_line(draw, params);
     }
     return NULL;
 }
 
-void render_view()
+void render_view(t_cube *c)
 {
-    t_cube *c = cube();
     t_render *r = render();
     t_player *p = player();
     t_textures *t = textures();

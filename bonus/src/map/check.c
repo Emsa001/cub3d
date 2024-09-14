@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/14 14:57:47 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/14 16:57:54 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,7 +254,7 @@ t_sprite *get_portals(char **map)
 				sprite[k].sprite_tex = sprite_texture;
 				sprite[k].width = sprite_texture[0]->width;
 				sprite[k].height = sprite_texture[0]->height;		
-				sprite[k].type = 'P';		
+				sprite[k].type = 'P';
 				k = k + 1;
 			}
 			j++;

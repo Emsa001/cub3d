@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 20:52:31 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/14 16:15:08 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_player	*player_init(t_player *p)
 	player->inventory[5] = 59;
 	player->inventory[6] = 50;
 	player->inventory[7] = 49;
-	player->inventory[8] = 255;
+	player->inventory[8] = 50;
 	
 
 	player->vision = false;

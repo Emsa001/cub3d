@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:06:08 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 19:00:20 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/12 18:23:42 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #  define DEBUG 0
 # endif
 
-# define FT_DESTRUCTOR 0
+# define FT_DESTRUCTOR 1
 
 # include <stdbool.h>
 # include <stdio.h>

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:16:56 by escura            #+#    #+#             */
-/*   Updated: 2024/08/03 17:11:00 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 16:26:50 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,17 @@ static void	set_block(int i, int j, t_minimap_utils *utils)
 	int				screen_x;
 	int				screen_y;
 
-	if (i >= 0 && i < c->map->height && j >= 0 && j < c->map->width)
+	if (c->map && i >= 0 && i < c->map->height && j >= 0 && j < c->map->width && c->map->map[i])
 	{
-		if (c->map->map[i][j] == '1')
-		{
-			screen_x = m->x + (int)((j - utils->start_x) * MINIMAP_BLOCK_SIZE);
-			screen_y = m->y + (int)((i - utils->start_y) * MINIMAP_BLOCK_SIZE);
-			screen_x -= MINIMAP_BLOCK_SIZE * 2.05;
-			screen_y -= MINIMAP_BLOCK_SIZE * 2.05;
-			minimap_block(j, i, screen_x, screen_y);
-		}
+		// printf("%c\n", c->map->map[i][j]);
+		// if (c->map->map[i][j] == '1')
+		// {
+		// 	screen_x = m->x + (int)((j - utils->start_x) * MINIMAP_BLOCK_SIZE);
+		// 	screen_y = m->y + (int)((i - utils->start_y) * MINIMAP_BLOCK_SIZE);
+		// 	screen_x -= MINIMAP_BLOCK_SIZE * 2.05;
+		// 	screen_y -= MINIMAP_BLOCK_SIZE * 2.05;
+		// 	minimap_block(j, i, screen_x, screen_y);
+		// }
 	}
 }
 

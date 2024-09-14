@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:07:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 14:06:44 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/14 16:12:06 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 t_store *init_store()
 {
-    t_store *store = malloc(sizeof(t_store));
+    t_store *store = ft_malloc(sizeof(t_store));
     store->open = false;
     store->can_open = false;
+    store->case_cooldown = false;
+    pthread_mutex_init(&store->case_mutex, NULL);
 
     int i = 0;
     while(i < 27)

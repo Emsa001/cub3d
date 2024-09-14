@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:35:04 by escura            #+#    #+#             */
-/*   Updated: 2024/08/25 14:39:27 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 13:39:29 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,15 @@ void draw_image(void *img, int x, int y)
 	mlx_put_image_to_window(r->mlx, r->win, img, x, y);
 }
 
+
 void destroy_image(void *img)
 {
     const t_render *r = render();
 
-    mlx_destroy_image(r->mlx, img);
+    if (r != NULL && r->mlx != NULL && img != NULL)
+    {
+        mlx_destroy_image(r->mlx, img);
+    }
 }
 
 void clean_window()

@@ -3,14 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 15:31:19 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/14 16:39:10 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <X11/Xlib.h>
 #include "cub3d.h"
 
 
@@ -29,15 +28,19 @@ void start_game(void)
 {
     t_render *r = render();
     t_cube *c = cube();
+    
+    create_image(r, WIDTH, HEIGHT);
+    // sleep(1);
+
     init_hooks();
     init_economy();
     // add_sprite("assets/fire/", 13,7,21);
     
-    t_async *async = (t_async *)ft_calloc(sizeof(t_async), 1);
-    async->start = &start;
-    async->end = &end;
-    async->time = 4000;
-    add_async(async);
+    // t_async *async = new_async();
+    // async->start = &start;
+    // async->end = &end;
+    // async->time = 4000;
+    // start_async(async);
 
     
 
