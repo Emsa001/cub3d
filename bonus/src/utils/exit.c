@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:52:35 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 17:12:11 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 17:22:58 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,15 @@ void	ft_error(char *str)
 	exit_game(1);
 }
 
-void destroy_sprite_image(t_sprite *sprite)
+void destroy_sprite_image(t_sprite sprite)
 {
     int i = 0;
-    while(i < sprite->frames){
-        printf("trying to destroy frame %d of sprite: %f,%f\n", i, sprite->x, sprite->y);
-        if(sprite->sprite_tex[i] == NULL){
-            printf("texture is null\n");
-            i++;
-            continue;
-        }
-        destroy_texture(sprite->sprite_tex[i]);
-        sprite->sprite_tex[i] = NULL;
+    while(i < sprite.frames)
+    {
+        destroy_texture(sprite.sprite_tex[i]);
+        sprite.sprite_tex[i] = NULL;
         i++;
     }
-
-    ft_free(sprite->sprite_tex);
-    sprite->sprite_tex = NULL;
 }
 
 
@@ -60,15 +52,10 @@ void	exit_game(int code)
 
 	t_sprite *sprites = c->map->sprites;
 	int i = 0;
-	while (sprites[i].x != -1){
-        printf("sprite position: %p\n", sprites[i]);
-        if(sprites[i].sprite_tex != NULL){
-            printf("Destroying sprite type: %c x:%f y:%f\n", sprites[i].type, sprites[i].x, sprites[i].y);
-            destroy_sprite_image(&sprites[i]);
-        
-            sprites[i].sprite_tex = NULL;
-        }
-        
+	while (sprites[i].x != -1)
+    {
+        if(sprites[i].sprite_tex != NULL)
+            destroy_sprite_image(sprites[i]);
 		i++;
     }
 
