@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 21:04:58 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 21:41:51 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 16:02:40 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void render_ui()
     if(p->store->open)
         open_store();
 
-    // if(cube()->paused)
-    //     pause_game();
+    if(cube()->paused)
+        pause_game();
 
-    // if(p->hover != NULL){
-    //     t_button *button = p->hover;
-    //     if(button->hover != NULL)
-    //         ((void (*)(void*))button->hover)(NULL);
-    // } 
+    if(p->hover != NULL){
+        t_button *button = p->hover;
+        if(button->hover != NULL)
+            ((void (*)(void*))button->hover)(NULL);
+    } 
 
 }

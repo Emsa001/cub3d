@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:07:27 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 20:58:16 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 16:01:55 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void shopkeeper()
     if(dist < 1.5)
         p->store->can_open = true;
     else{
-        // p->store->open = false;
+        p->store->open = false;
         p->store->can_open = false;
     }
 
