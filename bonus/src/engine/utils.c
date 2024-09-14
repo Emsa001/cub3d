@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:50:03 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/13 21:34:15 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,15 @@ int touch_sprite(t_sprite *sprites, float px, float py)
 	
 	if (!sprites)
 		return false;
+	
+	int height = 1;
 
 	while (sprites[i].x != -1)
 	{
 		x = sprites[i].x * BLOCK_SIZE;
 		y = sprites[i].y * BLOCK_SIZE;
 
-		if (px >= x && px <= x + sprites[i].width && py >= y && py <= y + 1)
+		if (px >= x && px <= x + sprites[i].width && py >= y && py <= y + height)
 			return i + 1;
 
 		i++;
@@ -127,6 +129,7 @@ bool is_touching(float px, float py, const t_cube *c)
 {
 	int x = px / BLOCK_SIZE;
 	int y = py / BLOCK_SIZE;
+	t_player *p = player();
 
 	if (x < 0 || y < 0 || x >= c->map->width || y >= c->map->height)
 		return (true);

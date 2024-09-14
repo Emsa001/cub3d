@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 13:38:53 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 17:34:19 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,25 @@ int vert_offset(const t_player *p)
     return (p->z_dir) * HEIGHT;
 }
 
-t_texture *get_wall_side(int side, const t_textures *texs)
+t_texture *get_wall_side(int side, const t_textures *texs, int n)
 {
     t_texture *t = NULL;
+
     
     if (side == 1)
-        t = texs->wall_north;
+        t = texs->wall_north[n];
     else if (side == 2)
-        t = texs->wall_south;
+        t = texs->wall_south[n];
     else if (side == 3)
-        t = texs->wall_east;
+        t = texs->wall_east[n];
     else if (side == 4)
-        t = texs->wall_west;
+        t = texs->wall_west[n];
     else if (side == 5)
         t = texs->door;
     else if (side == 6)
-        t = texs->wall_west;
+        t = texs->wall_west[n];
     else if (side == 7)
-        t = texs->wall_south;
+        t = texs->wall_south[n];
     else
         return NULL;
     return t;
@@ -55,91 +56,60 @@ int darken_color(int color, float ratio)
     return (r << 16) | (g << 8) | b;
 }
 
-float view_current_distance(const t_player *p, int start_y, float angle, float z)
+float view_current_distance(const t_player *p, int start_y, float angle)
 {
+    float z = 1;
+    if(start_y >= HEIGHT / 2)
+        z = 0;
+
     float current_dist = (p->z - z) * HEIGHT / (start_y - HEIGHT / 2);
     return current_dist / cos(angle - p->angle);
 }
 
-void draw_floor(int height, int start_x, ThreadParams *params, float angle)
+t_texture* get_texture(int start_y, int height, const t_player *p, const t_textures *texs)
 {
-    const t_cube *c = params->cube;
+    if (start_y > HEIGHT / 2 + (p->z * height))
+    {
+        return texs->floor[player()->level];
+    }
+    else if (start_y < ((p->z * height) + HEIGHT / 2) - height)
+    {
+        return texs->ceiling[player()->level];
+    }
+    return NULL;
+}
+
+int get_texture_color(t_texture *tex, float dist, float cosangle, float sinangle)
+{
+    float tex_x = player()->x + dist * cosangle;
+    float tex_y = player()->y + dist * sinangle;
+    int color = get_pixel_from_image(tex, tex_x * T_SIZE, tex_y * T_SIZE);
+    return darken_color(color, dist / 7);
+}
+
+void draw_floor_and_ceiling(int height, int start_x, ThreadParams *params, float angle)
+{
     const t_player *p = params->player;
     const t_textures *texs = params->textures;
-    int start_y = HEIGHT;
-    float floor_x = 0;
-    float floor_y = 0;
-    
     float cosangle = cos(angle);
     float sinangle = sin(angle);
+    int start_y = HEIGHT;
     int color = 0;
-
-    float current_dist = 0;
-
-    t_texture *floor = texs->floor;
-
-    while (start_y > HEIGHT / 2 + (p->z * height) )
+    
+    while (start_y > 0)
     {
-        current_dist = view_current_distance(p, start_y, angle, 0);
-        // VISION CAUSES DATA RACE
-        // if(!p->vision && current_dist > 10)
-        //     break;
-        
-        floor_x = (p->x) + current_dist * cosangle;
-        floor_y = (p->y) + current_dist * sinangle;
-
-        color = get_pixel_from_image(floor, floor_x * T_SIZE, floor_y * T_SIZE);
-        if(!p->vision)
-            color = darken_color(color, (float)current_dist / 7);
-        if (color < 0)
-                color = 0;
-
+        t_texture *tex = get_texture(start_y, height, p, texs);
+        float current_dist = view_current_distance(p, start_y, angle);
+        if (!tex || current_dist > 7)
+        {
+            start_y--;
+             continue;
+        }
+        color =  get_texture_color(tex, current_dist, cosangle, sinangle);
         put_pixel(start_x, start_y, color, params->render);
-
         start_y--;
     }
 }
-
-void draw_sky(int height, int start_x, ThreadParams *params, float angle)
-{
-    const t_cube *c = params->cube;
-    const t_player *p = params->player;
-    const t_textures *texs = params->textures;
-    int start_y = 0;
-    float sky_x = 0;
-    float sky_y = 0;
-    
-    float cosangle = cos(angle);
-    float sinangle = sin(angle);
-    int color = 0;
-
-    float current_dist = 0;
-
-    t_texture *sky = texs->sky;
-
-    while (start_y < ((p->z * height) + HEIGHT / 2) - height)
-    {
-        current_dist = view_current_distance(p, start_y, angle, 1);
-        // VISION CAUSES DATA RACE
-        // if(!p->vision && current_dist > 10)  
-        //     break;
-            
-        sky_x = (p->x) + current_dist * cosangle;
-        sky_y = (p->y) + current_dist * sinangle;
-
-        color = get_pixel_from_image(sky, sky_x * T_SIZE, sky_y * T_SIZE);
-
-        if(!p->vision)
-            color = darken_color(color, (float)current_dist / 7);
-            if (color < 0)
-                color = 0;
-
-        put_pixel(start_x, start_y, color, params->render);
-
-        start_y++;
-    }
-}
-
 
 void draw_wall(t_draw draw, ThreadParams *params)
 {
@@ -150,10 +120,10 @@ void draw_wall(t_draw draw, ThreadParams *params)
     const t_player *p = params->player;
     t_render *r = params->render;
     const t_textures *texs = params->textures;
-
-    bool catched = p->catch && draw.side == 6;  // Use side instead of r->side
-    t_texture *wall_side = get_wall_side(draw.side, texs);  // Use side instead of r->side
     
+    bool catched = p->catch && draw.side == 6;  // Use side instead of r->side
+    
+    t_texture *wall_side = get_wall_side(draw.side, texs, p->level);  // Use side instead of r->side
     if (!wall_side || draw.side == 7)
         return;
 
@@ -170,21 +140,23 @@ void draw_wall(t_draw draw, ThreadParams *params)
 
     while (start_y < end_y)
     {
-        // if(!p->vision && draw.dist > 600)
-        //     break;
+        if(draw.dist > 450)
+            break;
         if (catched)
-            color = 255;
+        {
+            if(p->level == 0)
+                color = 225;
+            if(p->level == 1)
+                color = 0x00FF00;
+            if(p->level == 2)
+                color = 0xFF0000;
+        }
         else
         {
             color = get_pixel_from_image(wall_side, draw.tex_x, tex_y);
-            if(!p->vision)
-                color = darken_color(color, (float)draw.dist / 450);
-            if (color < 0)
-                color = 0;
+            color = darken_color(color, (float)draw.dist / 450);
         }
-        
         put_pixel(draw.start_x, start_y, color, r);
-
         tex_y += step;
         start_y++;
     }

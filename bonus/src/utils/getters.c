@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:21:26 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/11 18:53:24 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/12 17:19:34 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ void	get_2d_map(t_map *map_info, char **map, int size)
 	{
 		if (ft_check_line(map[i]) == 0)
 		{
-			if (j > 0)
-				ft_error("Wrong map format");
+			// if (j > 0)
+			// 	ft_error("Wrong map format");
 			i++;
 		}
 		else

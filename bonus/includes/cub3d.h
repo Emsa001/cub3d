@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 15:10:16 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 17:33:19 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ typedef struct s_cube
 	t_render 				*render;
 	t_player				*player;
 	t_textures				*textures;
+
+	int levels;
 }							t_cube;
 
 typedef struct s_string
@@ -222,10 +224,7 @@ void						add_button(t_button *button);
 /* DRAW */
 void						draw_line(t_draw draw, ThreadParams *params);
 void						draw_wall(t_draw draw, ThreadParams *params);
-void						draw_floor(int height, int start_x,
-								ThreadParams *params, float angle);
-void						draw_sky(int height, int start_x,
-								ThreadParams *params, float angle);
+void draw_floor_and_ceiling(int height, int start_x, ThreadParams *params, float angle);
 // generator
 void						draw_generator_top(t_draw draw, ThreadParams *params,
 								float angle);
@@ -238,7 +237,7 @@ void						render_string(t_string *str);
 int							vert_offset(const t_player *p);
 int							darken_color(int color, float ratio);
 float						view_current_distance(const t_player *p, int start_y,
-								float angle, float z);
+								float angle);
 t_draw						init_draw(void);
 
 // updating

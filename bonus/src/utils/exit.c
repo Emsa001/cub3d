@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:52:35 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 15:10:23 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 17:35:10 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ void	ft_error(char *str)
 void destroy_sprite_image(t_sprite sprite)
 {
     int i = 0;
-    while(i < sprite.frames){
+    while(i < sprite.frames)
+    {
         destroy_texture(sprite.sprite_tex[i]);
+        sprite.sprite_tex[i] = NULL;
         i++;
     }
 }
@@ -50,8 +52,10 @@ void	exit_game(int code)
 
 	t_sprite *sprites = c->map->sprites;
 	int i = 0;
-	while (sprites[i].x != -1){
-        destroy_sprite_image(sprites[i]);
+	while (sprites[i].x != -1)
+    {
+        if(sprites[i].sprite_tex != NULL)
+            destroy_sprite_image(sprites[i]);
 		i++;
     }
 

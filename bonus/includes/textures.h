@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 20:30:45 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 17:33:28 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,13 @@ typedef struct s_textures
 {
 	t_texture		*font;
 
-	t_texture		*sky;
-	t_texture		*floor;
-
-	t_texture		*wall_north;
-	t_texture		*wall_south;
-	t_texture		*wall_east;
-	t_texture		*wall_west;
-
+	t_texture		**ceiling;
+	t_texture		**floor;
+	t_texture		**wall_north;
+	t_texture		**wall_south;
+	t_texture		**wall_east;
+	t_texture		**wall_west;
+	
 	t_texture		*door;
 
 	t_texture		*player;

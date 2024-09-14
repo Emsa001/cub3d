@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/12 19:42:52 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 17:34:39 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,21 +219,24 @@ t_block    *init_map_block(t_map *map_info)
     return (blocks);
 }
 
-t_sprite  get_portal(char **map)
+t_sprite *get_portals(char **map)
 {
+	int k = 0;
 	t_texture **sprite_texture = ft_malloc(sizeof(t_texture) * 5);
-	t_sprite sprite;
+	int count = count_c(map, 'P');
+	t_sprite *sprite = ft_malloc(sizeof(t_sprite) * (count + 1));
 	int i = 0;
 	
 	while (i < 5)
 	{
 		sprite_texture[i] = ft_malloc(sizeof(t_texture));
-		char *path = ft_strjoin("assets/portal_closed/", ft_itoa(i));
-		path = ft_strjoin(path, ".xpm");
+		char *path_file = ft_strjoin("assets/portal_closed/", ft_itoa(i));
+		char *temp = ft_strjoin(path_file, ".xpm");
 		
-		sprite_texture[i]->image = get_texture_file(path, &sprite_texture[i]->width, &sprite_texture[i]->height);
+		sprite_texture[i]->image = get_texture_file(temp, &sprite_texture[i]->width, &sprite_texture[i]->height);
 		sprite_texture[i]->data = mlx_get_data_addr(sprite_texture[i]->image, &sprite_texture[i]->bpp, &sprite_texture[i]->size_line, &sprite_texture[i]->endian);
-		ft_free(path);
+		ft_free(temp);
+		ft_free(path_file);
 		i++;
 	}
 	i = 0;
@@ -245,136 +248,91 @@ t_sprite  get_portal(char **map)
 		{
 			if (map[i][j] == 'P')
 			{
-				sprite.x = j;
-				sprite.y = i;
-				break;
+				sprite[k].x = j;
+				sprite[k].y = i;
+				sprite[k].frames = 5;
+				sprite[k].sprite_tex = sprite_texture;
+				sprite[k].width = sprite_texture[0]->width;
+				sprite[k].height = sprite_texture[0]->height;		
+				sprite[k].type = 'P';
+				k = k + 1;
 			}
 			j++;
 		}
 		i++;
 	}
-	printf("portal x: %f y: %f\n", sprite.x, sprite.y);
-	sprite.frames = 5;
-	sprite.sprite_tex = sprite_texture;
-	sprite.width = sprite_texture[0]->width;
-	sprite.height = sprite_texture[0]->height;
+	sprite[k].x = -1;
+	sprite[k].y = -1;
+	sprite[k].frames = -1;
+	sprite[k].sprite_tex = NULL;
+	sprite[k].width = -1;
+	sprite[k].height = -1;
+	sprite[k].type = '\0';
 	return (sprite);
 }
 
-void init_sprite(t_map *map_info, t_sprite sprite);
+t_point *get_portals_points(char **map)
+{
+	int k = 0;
+	int count = count_c(map, 'P');
+	t_point *portals = ft_malloc(sizeof(t_point) * (count + 1));
+	int i = 0;
+	int j = 0;
+	
+	while(map[i] != NULL)
+	{
+		j = 0;
+		while(map[i][j] != '\0')
+		{
+			if (map[i][j] == 'P')
+			{
+				printf("x: %d, y: %d\n", j, i);
+				portals[k].x = j;
+				portals[k].y = i;
+				k = k + 1;
+			}
+			j++;
+		}
+		i++;
+	}
 
-t_sprite *init_map_sprite(t_map *map_info, char **map)
+	portals[k].x = -1;
+	portals[k].y = -1;
+	return (portals);
+}
+
+void open_portal(int i)
+{
+    int x = 0;
+    int y = 0;
+
+    x = cube()->map->portals[i].x;
+    y = cube()->map->portals[i].y;
+    
+    remove_sprite(x, y);
+    add_sprite("assets/portal_opened/", 17, x, y);
+}
+
+
+t_sprite *init_map_sprites(t_map *map_info, char **map)
 {
 	t_sprite	*sprites;
+	int			i;
+	int			j;
 	int			k;
 	
 	map_info->sprites = NULL;
 	sprites = ft_malloc(sizeof(t_sprite));
-	
 	k = 0;
+
 	sprites[k].x = -1;
 	sprites[k].y = -1;
 	sprites[k].frames = -1;
 	sprites[k].sprite_tex = NULL;
 	sprites[k].width = -1;
 	sprites[k].height = -1;
-
+	sprites[k].type = '\0';
 	return (sprites);
-}
-
-void init_sprite(t_map *map_info, t_sprite sprite)
-{
-	t_sprite *new_sprites;
-	t_sprite *tmp;
-	t_sprite *sprites = map_info->sprites;
-	
-	int i = 0;
-	while (sprites[i].x != -1)
-		i++;
-	new_sprites = ft_malloc(sizeof(t_sprite) * (i + 2));
-	i = 0;
-	while (sprites[i].x != -1)
-	{
-		new_sprites[i] = sprites[i];
-		i++;
-	}
-	new_sprites[i] = sprite;
-	new_sprites[i + 1].x = -1;
-	new_sprites[i + 1].y = -1;
-	new_sprites[i + 1].frames = -1;
-	new_sprites[i + 1].sprite_tex = NULL;
-	new_sprites[i + 1].width = -1;
-	new_sprites[i + 1].height = -1;
-	tmp = map_info->sprites;
-	map_info->sprites = new_sprites;
-	
-	ft_free(tmp);
-}
-
-
-// it takes the path of the sprite exaple "assets/torch/"
-// the number of frames and the position x and y where sprite will be placed
-void add_sprite(char *path_file, int frames, float x, float y)
-{
-	t_texture **sprite_texture = ft_malloc(sizeof(t_texture) * frames);
-	t_sprite sprite;
-	int i = 0;
-	
-	while (i < frames)
-	{
-		sprite_texture[i] = ft_malloc(sizeof(t_texture));
-		char *path = ft_strjoin(path_file, ft_itoa(i));
-		char *temp = ft_strjoin(path, ".xpm");
-		
-		sprite_texture[i]->image = get_texture_file(temp, &sprite_texture[i]->width, &sprite_texture[i]->height);
-		sprite_texture[i]->data = mlx_get_data_addr(sprite_texture[i]->image, &sprite_texture[i]->bpp, &sprite_texture[i]->size_line, &sprite_texture[i]->endian);
-		ft_free(temp);
-		ft_free(path);
-		i++;
-	}
-	sprite.x = x;
-	sprite.y = y;
-	sprite.frames = frames;
-	sprite.sprite_tex = sprite_texture;
-	sprite.width = sprite_texture[0]->width;
-	sprite.height = sprite_texture[0]->height;
-	init_sprite(cube()->map, sprite);
-}
-
-void remove_sprite(int x, int y)
-{
-	t_sprite *sprites = cube()->map->sprites;
-	t_sprite *new_sprites;
-	t_sprite *tmp;
-	int i = 0;
-	int j = 0;
-	
-	while (sprites[i].x != -1)
-		i++;
-	new_sprites = ft_malloc(sizeof(t_sprite) * i);
-	i = 0;
-	while (sprites[i].x != -1)
-	{
-		// if sprite on the position x and y is found it will not be added to the new_sprites array
-		if (sprites[i].x == x && sprites[i].y == y)
-		{
-			i++;
-			continue;
-		}
-		new_sprites[j] = sprites[i];
-		i++;
-		j++;
-	}
-
-	new_sprites[j].x = -1;
-	new_sprites[j].y = -1;
-	new_sprites[j].frames = -1;
-	new_sprites[j].sprite_tex = NULL;
-	new_sprites[j].width = -1;
-	new_sprites[j].height = -1;
-	tmp = cube()->map->sprites;
-	cube()->map->sprites = new_sprites;
-	ft_free(tmp);		
 }
 
 t_map	*check_map(char **map, int size)
@@ -386,6 +344,7 @@ t_map	*check_map(char **map, int size)
 	map_info->height = 0;
 	map_info->portal = false;
 	map_info->map = NULL;
+	map_info->sprites = NULL;
 	get_2d_map(map_info, map, size);
 	get_map_sizes(map_info, map_info->map);
 	check_valid(map_info->map, map_info);
@@ -393,9 +352,7 @@ t_map	*check_map(char **map, int size)
 	map_info->lines = init_line(map_info, map);
 	map_info->blocks = init_map_block(map_info);
 	map_info->generators = init_generators(map_info, map);
-	map_info->sprites = init_map_sprite(map_info, map);
-
-	t_sprite portal = get_portal(map);
-	init_sprite(map_info, portal);
+	map_info->sprites = get_portals(map);
+	map_info->portals = get_portals_points(map);
 	return (map_info);
 }

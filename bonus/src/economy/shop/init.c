@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:07:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 13:52:26 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 17:33:43 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ t_store *init_store()
     }
 
     store->x = 7;
-    store->y = 1;
-    // add_sprite("assets/torch/", 9, store->x, store->y);
+    store->y = 35;
+    add_sprite("assets/shop/", 28, store->x, store->y);
 
     return store;
 }

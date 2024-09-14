@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 21:37:07 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 17:34:00 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,8 @@ long current_frame(int frames)
     struct timeval tv;
     gettimeofday(&tv, NULL);
     int time_delay = 1000 / frames;
+    if(frames == 28)
+        time_delay = 90;
     if(frames == 5)
         time_delay = 60;
     if(frames == 2)
@@ -183,7 +185,6 @@ void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
     {
         if(!p->vision && dist > 450)
             break;
-
         color = get_pixel_from_image(sprite_tex, (draw.tex_x) , tex_y);
         if(!p->vision)
             color = darken_color(color, (float)dist / 450);
@@ -258,10 +259,8 @@ void draw_line(t_draw draw, ThreadParams *params)
 
     draw.side = direction(draw.x, draw.y, cosangle, sinangle, c, &draw.tex_x);
     lane_distance(&draw);
+    draw_floor_and_ceiling(draw.wall_height, draw.start_x, params, draw.angle);
     draw_wall(draw, params);
-    draw_floor(draw.wall_height, draw.start_x, params, draw.angle);
-    draw_sky(draw.wall_height, draw.start_x, params, draw.angle);
-
     if(sprite_direction(&draw, cosangle, sinangle, c) == 9)
         sprite_frame(draw, params, c->map->sprites[j - 1]);
     if(generator_direction(&draw, cosangle, sinangle, c) == 7)

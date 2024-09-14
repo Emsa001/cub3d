@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 18:36:08 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 20:38:53 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 17:34:55 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void destroy_texture(t_texture *texture)
 
     // Free the texture object itself
     ft_free(texture);
+    texture = NULL;
 }
 
 void destroy_ui(){
@@ -40,15 +41,25 @@ void destroy_ui(){
     destroy_texture(t->ui->panel);
 }
 
+void destroy_texture_arr(t_texture **t){
+    int i = 0;
+    while(i < cube()->levels){
+        destroy_texture(t[i]);
+        i++;
+    }
+}
+
 void destroy_textures()
 {
     printf("Destroying textures\n");
     t_textures	*t = textures();
 
-    destroy_texture(t->wall_north);
-    destroy_texture(t->wall_south);
-    destroy_texture(t->wall_east);
-    destroy_texture(t->wall_west);
+    destroy_texture_arr(t->wall_north);
+    destroy_texture_arr(t->wall_south);
+    destroy_texture_arr(t->wall_east);
+    destroy_texture_arr(t->wall_west);
+    destroy_texture_arr(t->ceiling);
+    destroy_texture_arr(t->floor);
 
     destroy_texture(t->door);
     destroy_texture(t->generator);
@@ -61,8 +72,6 @@ void destroy_textures()
     
     destroy_ui();
 
-    destroy_texture(t->sky);
-    destroy_texture(t->floor);
     destroy_texture(t->player);
     
     for (int i = 0; i <= 327; i++) {

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 20:34:35 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 17:34:43 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ t_player	*player_init(t_player *p)
 	player->btn_up = false;
 	player->btn_down = false;
 
-	player->jump_height = JUMP_HEIGHT;
+	player->jumping = false;
+	player->jump_speed = 0;
+	player->fall_speed = 0;
 
 	player->interact = false;
 	player->opened = false;
@@ -59,6 +61,8 @@ t_player	*player_init(t_player *p)
 
 	for(int i = 0; i < 9; i++)
 		player->equipped[i] = -1;
+
+	player->level = 0;
 
 	player->inventory[0] = 37;
 	player->inventory[1] = 112;
