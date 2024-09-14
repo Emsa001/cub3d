@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 19:22:51 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/14 21:42:26 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void end(){
 void end_mt(){
     printf("End from main thread\n");
     open_portal(1);
-    // open_portal(1);
+    open_portal(0);
 }
 
 void start_game(void)
@@ -37,7 +37,7 @@ void start_game(void)
     t_async *async = new_async();
     async->end = &end;
     async->end_mt = &end_mt;
-    async->time = 5000;
+    async->time = 3000;
     start_async(async);
 
     // open_portal(0);

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 20:13:48 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/14 21:06:54 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ int render_scene_multithread(void)
     t_cube *c = cube();
 
     if(c->map->editor_mode){
-        clear_image(r);
+        // clear_image(r);
         destroy_buttons();
         map_editor_enter();
         render_queue(r);
         render_tooltip();
 
-        update_fps();
+        // update_fps();
         show_image(r, 0, 0);
         return 0;
     }

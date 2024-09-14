@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   text.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 15:57:22 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 21:28:30 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ void render_string_async(t_string *str)
     str_copy->next = NULL;
 
     ft_free(str->str);
-    
 
     async->process = &enqueue_string;
     async->end = end_string;
