@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 21:34:15 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/14 18:51:18 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ int touch_sprite(t_sprite *sprites, float px, float py)
 {
 
 	int i = 0;
-	float x, y;
+	float x = 0;
+	float y = 0;
 	
 	if (!sprites)
 		return false;
@@ -100,8 +101,7 @@ int touch_sprite(t_sprite *sprites, float px, float py)
 
 		i++;
 	}
-
-	return false;
+	return 0;
 }
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 16:12:54 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 19:00:58 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ long current_frame(int frames)
         time_delay = 150;
     long curr_time =  (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
     int curr_frame = (curr_time / time_delay) % frames;
+
     return curr_frame;
 }
 
@@ -169,9 +170,8 @@ void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
     int start_y = (p->z - 1) * draw.sprite_height + vert_offset(p);
     int end_y = start_y + draw.sprite_height;
 
+
     t_texture *sprite_tex = sprite.sprite_tex[current_frame(sprite.frames)];
-    if(!sprite_tex)
-        return;
 
     if(end_y > HEIGHT)
         end_y = HEIGHT;
@@ -183,11 +183,8 @@ void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
 
     while (start_y < end_y)
     {
-        if(!p->vision && dist > 450)
-            break;
         color = get_pixel_from_image(sprite_tex, (draw.tex_x) , tex_y);
-        if(!p->vision)
-            color = darken_color(color, (float)dist / 450);
+        color = darken_color(color, (float)dist / 450);
 
         if(color && color > 0)
             put_pixel(draw.start_x, start_y, color, r);
@@ -262,7 +259,12 @@ void draw_line(t_draw draw, ThreadParams *params)
     draw_floor_and_ceiling(draw.wall_height, draw.start_x, params, draw.angle);
     draw_wall(draw, params);
     if(sprite_direction(&draw, cosangle, sinangle, c) == 9)
-        sprite_frame(draw, params, c->map->sprites[j - 1]);
+    {
+        if(c->map->sprites[j - 1].frames == -1)
+            printf("Error: draw_line: sprite frames is -1\n");
+        else
+            sprite_frame(draw, params, c->map->sprites[j - 1]);
+    }
     if(generator_direction(&draw, cosangle, sinangle, c) == 7)
     {   
         draw_generator_top(draw, params, draw.angle);

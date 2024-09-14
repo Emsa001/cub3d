@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:46:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 20:52:59 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/14 19:21:36 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void handle_step_animation(t_player *p, bool is_moving)
 
 void handle_jumping(t_player *p) 
 {
-    const float base_z = 0.55;
+    const float base_z = 0.5;
 
     if (p->jump_speed > 0) 
     {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 16:11:54 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 17:36:23 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static void init_game(char *map)
 {
-    // if (!XInitThreads()) {
-    //     printf("Failed to initialize X11 threading support\n");
-    //     exit(1);
-    // }
+    if (!XInitThreads()) {
+        printf("Failed to initialize X11 threading support\n");
+        exit(1);
+    }
 
 	cube_init(ft_malloc(sizeof(t_cube)));
 	init_render(ft_malloc(sizeof(t_render)));

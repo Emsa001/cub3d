@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 16:13:20 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 17:34:24 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,14 @@ void draw_floor_and_ceiling(int height, int start_x, ThreadParams *params, float
     {
         t_texture *tex = get_texture(start_y, height, p, texs);
         float current_dist = view_current_distance(p, start_y, angle);
-        if (!tex || current_dist > 7)
+        if (!tex)
         {
             start_y--;
              continue;
         }
         color =  get_texture_color(tex, current_dist, cosangle, sinangle);
+        if(color < 0)
+            color = 0;
         put_pixel(start_x, start_y, color, params->render);
         start_y--;
     }
@@ -140,8 +142,6 @@ void draw_wall(t_draw draw, ThreadParams *params)
 
     while (start_y < end_y)
     {
-        if(draw.dist > 450)
-            break;
         if (catched)
         {
             if(p->level == 0)
@@ -155,6 +155,8 @@ void draw_wall(t_draw draw, ThreadParams *params)
         {
             color = get_pixel_from_image(wall_side, draw.tex_x, tex_y);
             color = darken_color(color, (float)draw.dist / 450);
+            if(color < 0)
+                color = 0;
         }
         put_pixel(draw.start_x, start_y, color, r);
         tex_y += step;
