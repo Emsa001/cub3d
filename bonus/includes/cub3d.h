@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 21:53:26 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/15 01:03:56 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@
 
 # define T_SIZE 64
 # define BLOCK_SIZE 64
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 1280
+# define HEIGHT 720
 # define CENTER_WIDTH WIDTH / 2
 # define CENTER_HEIGHT HEIGHT / 2
-# define WIDTH_SCALE 10
+# define WIDTH_SCALE 1
 
 # define WALL '1'
 # define DOOR 'D'
@@ -153,6 +153,7 @@ typedef struct s_render
 	pthread_mutex_t 		put_pixel_mutex;
 }							t_render;
 
+
 typedef struct s_draw
 {
 	float					angle;
@@ -175,6 +176,7 @@ typedef struct s_draw
 	int						dist;
 	int						generator_dist;
 	int						sprite_dist;
+	int 					colors[HEIGHT];
 }							t_draw;
 
 typedef struct
@@ -234,8 +236,8 @@ void						add_button(t_button *button);
 
 /* DRAW */
 void						draw_line(t_draw draw, ThreadParams *params);
-void						draw_wall(t_draw draw, ThreadParams *params);
-void draw_floor_and_ceiling(int height, int start_x, ThreadParams *params, float angle);
+void						draw_wall(t_draw *draw, ThreadParams *params);
+void draw_floor_and_ceiling(t_draw *draw, ThreadParams *params);
 // generator
 void						draw_generator_top(t_draw draw, ThreadParams *params,
 								float angle);

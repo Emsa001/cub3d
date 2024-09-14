@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 21:50:43 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/15 01:15:19 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,18 @@ void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
     }
 }
 
-
+void put_line(t_draw draw, ThreadParams *params)
+{
+    int start = 0;
+    int end = HEIGHT;
+    int i = 0;
+    while (start < end)
+    {
+        // if(draw.colors[start] && draw.colors[start] > 0)
+            put_pixel(draw.start_x, start, draw.colors[start], params->render);
+        start++;
+    }
+}
 
 void draw_line(t_draw draw, ThreadParams *params)
 {   
@@ -256,14 +267,19 @@ void draw_line(t_draw draw, ThreadParams *params)
 
     draw.side = direction(draw.x, draw.y, cosangle, sinangle, c, &draw.tex_x);
     lane_distance(&draw);
-    draw_wall(draw, params);
-    draw_floor_and_ceiling(draw.wall_height, draw.start_x, params, draw.angle);
-    if(sprite_direction(&draw, cosangle, sinangle, c) == 9)
-        sprite_frame(draw, params, c->map->sprites[j - 1]);
-    if(generator_direction(&draw, cosangle, sinangle, c) == 7)
-    {   
-        draw_generator_top(draw, params, draw.angle);
-        draw_generator(draw, params, draw.tex_x, draw.angle);
+    draw_floor_and_ceiling(&draw, params);
+    draw_wall(&draw, params);
+    // if(sprite_direction(&draw, cosangle, sinangle, c) == 9)
+    //     sprite_frame(draw, params, c->map->sprites[j - 1]);
+    // if(generator_direction(&draw, cosangle, sinangle, c) == 7)
+    // {   
+    //     draw_generator_top(draw, params, draw.angle);
+    //     draw_generator(draw, params, draw.tex_x, draw.angle);
+    // }
+    int scale = draw.start_x + WIDTH_SCALE;
+    while(draw.start_x < scale)
+    {
+        put_line(draw, params);
+        draw.start_x++;
     }
-
 }
