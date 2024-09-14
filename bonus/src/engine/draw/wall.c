@@ -6,18 +6,18 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 12:45:23 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 13:38:53 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int vert_offset(t_player *p)
+int vert_offset(const t_player *p)
 {
     return (p->z_dir) * HEIGHT;
 }
 
-t_texture *get_wall_side(int side, t_textures *texs)
+t_texture *get_wall_side(int side, const t_textures *texs)
 {
     t_texture *t = NULL;
     
@@ -55,7 +55,7 @@ int darken_color(int color, float ratio)
     return (r << 16) | (g << 8) | b;
 }
 
-float view_current_distance(t_player *p, int start_y, float angle, float z)
+float view_current_distance(const t_player *p, int start_y, float angle, float z)
 {
     float current_dist = (p->z - z) * HEIGHT / (start_y - HEIGHT / 2);
     return current_dist / cos(angle - p->angle);
@@ -81,9 +81,9 @@ void draw_floor(int height, int start_x, ThreadParams *params, float angle)
     while (start_y > HEIGHT / 2 + (p->z * height) )
     {
         current_dist = view_current_distance(p, start_y, angle, 0);
-           
-        if(!p->vision && current_dist > 7)
-            break;
+        // VISION CAUSES DATA RACE
+        // if(!p->vision && current_dist > 10)
+        //     break;
         
         floor_x = (p->x) + current_dist * cosangle;
         floor_y = (p->y) + current_dist * sinangle;
@@ -91,6 +91,8 @@ void draw_floor(int height, int start_x, ThreadParams *params, float angle)
         color = get_pixel_from_image(floor, floor_x * T_SIZE, floor_y * T_SIZE);
         if(!p->vision)
             color = darken_color(color, (float)current_dist / 7);
+        if (color < 0)
+                color = 0;
 
         put_pixel(start_x, start_y, color, params->render);
 
@@ -118,9 +120,9 @@ void draw_sky(int height, int start_x, ThreadParams *params, float angle)
     while (start_y < ((p->z * height) + HEIGHT / 2) - height)
     {
         current_dist = view_current_distance(p, start_y, angle, 1);
-
-        if(!p->vision && current_dist > 7)  
-            break;
+        // VISION CAUSES DATA RACE
+        // if(!p->vision && current_dist > 10)  
+        //     break;
             
         sky_x = (p->x) + current_dist * cosangle;
         sky_y = (p->y) + current_dist * sinangle;
@@ -129,6 +131,8 @@ void draw_sky(int height, int start_x, ThreadParams *params, float angle)
 
         if(!p->vision)
             color = darken_color(color, (float)current_dist / 7);
+            if (color < 0)
+                color = 0;
 
         put_pixel(start_x, start_y, color, params->render);
 
@@ -136,14 +140,15 @@ void draw_sky(int height, int start_x, ThreadParams *params, float angle)
     }
 }
 
-void draw_wall(t_draw draw, ThreadParams *params, int dist)
+
+void draw_wall(t_draw draw, ThreadParams *params)
 {
     int color = params->color;
     float tex_y = 0;
-    float step = (float)T_SIZE / draw.height;
+    float step = (float)T_SIZE / draw.wall_height;
     const t_cube *c = params->cube;
     const t_player *p = params->player;
-    const t_render *r = params->render;
+    t_render *r = params->render;
     const t_textures *texs = params->textures;
 
     bool catched = p->catch && draw.side == 6;  // Use side instead of r->side
@@ -152,30 +157,35 @@ void draw_wall(t_draw draw, ThreadParams *params, int dist)
     if (!wall_side || draw.side == 7)
         return;
 
-    int start_y = (p->z - 1) * draw.height + vert_offset(p);
-    int end_y = start_y + draw.height;
+    int start_y = (p->z - 1) * draw.wall_height + vert_offset(p);
+    int end_y = start_y + draw.wall_height;
 
     if (end_y > HEIGHT)
         end_y = HEIGHT; 
+    if(start_y < 0)
+    {
+        tex_y = -start_y * step;
+        start_y = 0;
+    }
 
     while (start_y < end_y)
     {
-        if(!p->vision && dist > 450)
-            break;
+        // if(!p->vision && draw.dist > 600)
+        //     break;
         if (catched)
             color = 255;
         else
         {
             color = get_pixel_from_image(wall_side, draw.tex_x, tex_y);
             if(!p->vision)
-                color = darken_color(color, (float)dist / 450);
+                color = darken_color(color, (float)draw.dist / 450);
+            if (color < 0)
+                color = 0;
         }
-
+        
         put_pixel(draw.start_x, start_y, color, r);
 
         tex_y += step;
         start_y++;
     }
 }
-
-

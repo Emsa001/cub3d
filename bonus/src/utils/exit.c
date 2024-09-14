@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:52:35 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 15:00:07 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/14 15:10:23 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,47 @@ void	ft_error(char *str)
 	exit_game(1);
 }
 
+void destroy_sprite_image(t_sprite sprite)
+{
+    int i = 0;
+    while(i < sprite.frames){
+        destroy_texture(sprite.sprite_tex[i]);
+        i++;
+    }
+}
+
+
+void destroy_render(){
+	t_render *r = render();
+    clean_image(r);
+	mlx_destroy_window(r->mlx, r->win);
+    mlx_destroy_display(r->mlx);
+	free(r->mlx);
+
+    pthread_mutex_destroy(&r->image_queue_mutex);
+    pthread_mutex_destroy(&r->string_queue_mutex);
+}
+
 void	exit_game(int code)
 {
-	t_textures	*t = textures();
-	t_render *r = render();
+    destroy_manager();
+    t_textures	*t = textures();
+    t_render *r = render();
+    t_cube *c = cube();
 
-	// mlx_destroy_image(cube()->mlx, t->wall_north->image);
-	// mlx_destroy_image(cube()->mlx, t->wall_south->image);
-	// mlx_destroy_image(cube()->mlx, t->wall_east->image);
-	// mlx_destroy_image(cube()->mlx, t->wall_west->image);
+	t_sprite *sprites = c->map->sprites;
+	int i = 0;
+	while (sprites[i].x != -1){
+        destroy_sprite_image(sprites[i]);
+		i++;
+    }
 
-	ft_destructor();
-	exit (1);
+    clear_image_queue(r);
+    clear_string_queue(r);
+    
+    destroy_textures();
+    destroy_render();
+
+    ft_destructor();
+    exit (code);
 }

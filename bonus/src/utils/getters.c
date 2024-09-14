@@ -3,83 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   getters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:21:26 by btvildia          #+#    #+#             */
-/*   Updated: 2024/08/23 18:57:33 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/11 18:53:24 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int	*check_get_color(int *colors, char **tmp)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	if (ft_arrlen(tmp) != 3)
-		ft_error("Invalid color");
-	while (tmp[i] != NULL)
-	{
-		colors[j] = ft_atoi(tmp[i]);
-		if (colors[j] < 0 || colors[j] > 255)
-			ft_error("Invalid color");
-		i++;
-		j++;
-	}
-	return (colors);
-}
-
-int	*get_color(t_map *map_info, char **map, char c)
-{
-	int		i;
-	char	*line;
-	char	**tmp;
-	int		*colors;
-
-	colors = ft_malloc(sizeof(int) * 3);
-	colors[0] = 0;
-	colors[1] = 0;
-	colors[2] = 0;
-	i = 0;
-	while (map[i] != NULL)
-	{
-		line = map[i];
-		if (ft_strchr(line, c) != NULL)
-		{
-			line = get_next_string(line, &c);
-			tmp = ft_split(line, ',');
-			colors = check_get_color(colors, tmp);
-			ft_arrdel((void **)tmp);
-			return (colors);
-		}
-		i++;
-	}
-	return (colors);
-}
-
-void	get_no_so_we_ea(t_map *map_info, char **map)
-{
-	int	i;
-
-	i = 0;
-	while (map[i] != NULL)
-	{
-		if (ft_strstr(map[i], "NO ") != NULL)
-			map_info->no = get_next_string(map[i], "NO ");
-		else if (ft_strstr(map[i], "SO ") != NULL)
-			map_info->so = get_next_string(map[i], "SO ");
-		else if (ft_strstr(map[i], "WE ") != NULL)
-			map_info->we = get_next_string(map[i], "WE ");
-		else if (ft_strstr(map[i], "EA ") != NULL)
-			map_info->ea = get_next_string(map[i], "EA ");
-		i++;
-	}
-}
-
-
 
 void	get_map_sizes(t_map *map_info, char **map)
 {
@@ -118,9 +49,8 @@ void	change_positions(char c, int i, int j)
 		p->angle = 0;
 	
 	p->direction = p->angle * (180 / PI);
-    while (p->direction >= 360) {
+    while (p->direction >= 360)
         p->direction -= 360;
-    }
 }
 
 void	get_player_position(char **map)
@@ -159,7 +89,7 @@ int	ft_check_correct(char *line)
 	while (line[i] != '\0')
 	{
 		if (line[i] != '1' && line[i] != '0' && line[i] != 'N' && line[i] != 'S'
-			&& line[i] != 'W' && line[i] != 'E' && ft_isspace(line[i]) == 0)
+			&& line[i] != 'W' && line[i] != 'E' && line[i] != 'D' && line[i] != 'G' && line[i] != 'P' && ft_isspace(line[i]) == 0)
 			return (0);
 		i++;
 	}
@@ -178,8 +108,8 @@ void	get_2d_map(t_map *map_info, char **map, int size)
 	{
 		if (ft_check_line(map[i]) == 0)
 		{
-			// if (j > 0)
-			// 	ft_error("Map should be at the end");
+			if (j > 0)
+				ft_error("Wrong map format");
 			i++;
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 22:05:17 by escura            #+#    #+#             */
-/*   Updated: 2024/09/07 12:47:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 20:16:16 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,36 +21,6 @@ static void init_font(t_textures *t){
 }
 
 static void init_hudtextures(t_textures *t){
-	t_texture *healthhud = ft_malloc(sizeof(t_texture));
-	healthhud->image = get_texture_file("assets/hud/Health_01.xpm", &healthhud->width, &healthhud->height);
-	healthhud->data = mlx_get_data_addr(healthhud->image, &healthhud->bpp, &healthhud->size_line, &healthhud->endian);
-	t->healthhud = healthhud;
-
-	t_texture *healthbar = ft_malloc(sizeof(t_texture));
-	healthbar->image = get_texture_file("assets/hud/Health_01_Bar01.xpm", &healthbar->width, &healthbar->height);
-	healthbar->data = mlx_get_data_addr(healthbar->image, &healthbar->bpp, &healthbar->size_line, &healthbar->endian);
-	t->healthbar = healthbar;
-
-	t_texture *healthIcon1 = ft_malloc(sizeof(t_texture));
-	healthIcon1->image = get_texture_file("assets/hud/Heart_Red_1.xpm", &healthIcon1->width, &healthIcon1->height);
-	healthIcon1->data = mlx_get_data_addr(healthIcon1->image, &healthIcon1->bpp, &healthIcon1->size_line, &healthIcon1->endian);
-	t->healthIcon[0] = healthIcon1;
-
-	t_texture *healthIcon2 = ft_malloc(sizeof(t_texture));
-	healthIcon2->image = get_texture_file("assets/hud/Heart_Red_2.xpm", &healthIcon2->width, &healthIcon2->height);
-	healthIcon2->data = mlx_get_data_addr(healthIcon2->image, &healthIcon2->bpp, &healthIcon2->size_line, &healthIcon2->endian);
-	t->healthIcon[1] = healthIcon2;
-
-	t_texture *healthIcon3 = ft_malloc(sizeof(t_texture));
-	healthIcon3->image = get_texture_file("assets/hud/Heart_Red_3.xpm", &healthIcon3->width, &healthIcon3->height);
-	healthIcon3->data = mlx_get_data_addr(healthIcon3->image, &healthIcon3->bpp, &healthIcon3->size_line, &healthIcon3->endian);
-	t->healthIcon[2] = healthIcon3;
-
-	t_texture *healthIcon4 = ft_malloc(sizeof(t_texture));
-	healthIcon4->image = get_texture_file("assets/hud/Heart_Red_4.xpm", &healthIcon4->width, &healthIcon4->height);
-	healthIcon4->data = mlx_get_data_addr(healthIcon4->image, &healthIcon4->bpp, &healthIcon4->size_line, &healthIcon4->endian);
-	t->healthIcon[3] = healthIcon4;
-
 
 	t_texture *inventoryPlayer = ft_malloc(sizeof(t_texture));
 	inventoryPlayer->image = get_texture_file("assets/hud/inventory.xpm", &inventoryPlayer->width, &inventoryPlayer->height);
@@ -99,8 +69,9 @@ t_textures *init_textures(t_textures *t)
 	t_texture *wall_south = ft_malloc(sizeof(t_texture));
 	t_texture *wall_east = ft_malloc(sizeof(t_texture));
 	t_texture *wall_west = ft_malloc(sizeof(t_texture));
-	t_texture *chest = ft_malloc(sizeof(t_texture));
-	t_texture *chest_top = ft_malloc(sizeof(t_texture));
+	t_texture *generator = ft_malloc(sizeof(t_texture));
+	t_texture *generator1 = ft_malloc(sizeof(t_texture));
+	t_texture *generator_top = ft_malloc(sizeof(t_texture));
 
 	wall_north->image = get_texture_file("assets/north.xpm", &wall_north->width, &wall_north->height);
 	wall_north->data = mlx_get_data_addr(wall_north->image, &wall_north->bpp, &wall_north->size_line, &wall_north->endian);
@@ -122,19 +93,23 @@ t_textures *init_textures(t_textures *t)
 	door->data = mlx_get_data_addr(door->image, &door->bpp, &door->size_line, &door->endian);
 	t->door = door;
 
-	chest->image = get_texture_file("assets/chest.xpm", &chest->width, &chest->height);
-	chest->data = mlx_get_data_addr(chest->image, &chest->bpp, &chest->size_line, &chest->endian);
-	t->chest = chest;
+	generator->image = get_texture_file("assets/generator0.xpm", &generator->width, &generator->height);
+	generator->data = mlx_get_data_addr(generator->image, &generator->bpp, &generator->size_line, &generator->endian);
+	t->generator = generator;
+	
+	generator1->image = get_texture_file("assets/generator1.xpm", &generator1->width, &generator1->height);
+	generator1->data = mlx_get_data_addr(generator1->image, &generator1->bpp, &generator1->size_line, &generator1->endian);
+	t->generator1 = generator1;
 
-	chest_top->image = get_texture_file("assets/chest_top.xpm", &chest_top->width, &chest_top->height);
-	chest_top->data = mlx_get_data_addr(chest_top->image, &chest_top->bpp, &chest_top->size_line, &chest_top->endian);
-	t->chest_top = chest_top;
-
-
+	generator_top->image = get_texture_file("assets/back.xpm", &generator_top->width, &generator_top->height);
+	generator_top->data = mlx_get_data_addr(generator_top->image, &generator_top->bpp, &generator_top->size_line, &generator_top->endian);
+	t->generator_top = generator_top;
 	init_hudtextures(t);
+
 	init_items_textures(t);
 	init_font(t);
 	init_tooltip(t);
+	init_ui(t);
 	
 	texture = t;
 	return (texture);

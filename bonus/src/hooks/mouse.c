@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 20:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/08/25 19:03:12 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/11 17:05:13 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,18 @@ int mouse_move(int x, int y)
 
     r->mouse_x = x;
     r->mouse_y = y;
-    player()->cursorItem = NULL;
+    
+    ft_free(player()->hover);
+    player()->hover = NULL;
 
     if(!player()->mouse_hook)
     {
-        button_tooltip(x, y);
+        button_hover(x, y);
         return 0;
     }
 
-    handle_mouse_rotate(x,y);
+    if(!cube()->paused)
+        handle_mouse_rotate(x,y);
     mlx_mouse_move(r->mlx, r->win, WIDTH / 2, HEIGHT / 2);
 	return (0);
 }

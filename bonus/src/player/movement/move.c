@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:46:56 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 19:04:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/08 14:18:35 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ void try_move(float x, float y) {
     p->y_px += y * delta_time;
 
     // Check for collision, revert position if necessary
-    if (touch()) {
+    if (touch()) 
+    {
         p->x_px = temp_x;
         p->y_px = temp_y;
     }
@@ -114,8 +115,8 @@ void handle_interactions(t_player *p) {
 
 void handle_step_animation(t_player *p, bool is_moving) {
     static float step_progress = 0;
-    const float step_amplitude = 0.05;
-    const float step_frequency = 0.1;
+    const float step_amplitude = 0.03;
+    const float step_frequency = 0.18;
     const float base_z = 0.55;
 
     if (is_moving && p->jump_height == 0) {

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:08:59 by escura            #+#    #+#             */
-/*   Updated: 2024/08/26 09:42:00 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 20:59:01 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,38 +31,42 @@ void render_hand_item()
 {
 	static int x = 0;
 	t_player *p = player();
+	const t_cube *c = cube();
+	const t_textures *t = textures();
 	t_item *item = p->hand;
 	
 	if(item == NULL)
 		return;
 	
-	t_texture *hand = textures()->items[item->props.id];
+	t_texture hand = t->items[item->props.id];
 	t_texture *rotated_hand;
 	
 	int xpos = 500;
 	int ypos = 600;
 
 	if(p->swing){
-		rotated_hand = rotate_texture(hand, sin(x * 0.1) * -40, HORIZONTAL_MIRROR);
-		xpos = 650;
-		ypos = 650;
-		if(x > 20){
-			p->swing = false;
-			x = 0;
+		rotated_hand = rotate_texture(&hand, sin(x * 0.1) * -40, HORIZONTAL_MIRROR);
+		if(!c->paused){
+			xpos = 650;
+			ypos = 650;
+			if(x > 20){
+				p->swing = false;
+				x = 0;
+			}
+			x++;
 		}
-		x++;
 	}else{
-		rotated_hand = rotate_texture(hand, 0, HORIZONTAL_MIRROR);
+		rotated_hand = rotate_texture(&hand, 0, HORIZONTAL_MIRROR);
 	}
 
 	put_image(rotated_hand, WIDTH - xpos, HEIGHT - ypos, 20);
-	destroy_image(rotated_hand->image);
+	destroy_texture(rotated_hand);
 	ft_free(rotated_hand);
 }
 
 void render_player(){
     // draw_cross_in_centre(render());
 	destroy_buttons();
-	render_hud();
+	render_ui();
 	render_hand_item();
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 17:23:28 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 14:42:15 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/13 21:31:59 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ int get_scene_pixel(int x, int y)
 
 int get_pixel_from_image(t_texture *t, int x, int y)
 {
+    if (t == NULL || t->data == NULL) {
+        return 0;
+    }
+
     x = x % t->width;
     y = y % t->height;
 

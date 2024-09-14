@@ -3,9 +3,15 @@ const fs = require('fs');
 const path = require('path');
 
 // Configuration
-const INPUT_IMAGE = '../icons/transparent_shadow.png'; // Path to your input PNG image
-const OUTPUT_DIR = '../items'; // Directory where the chunks will be saved
-const CHUNK_SIZE = 32; // Size of each chunk (32x32)
+const INPUT_IMAGE = './torch.png'; // Path to your input PNG image
+const OUTPUT_DIR = './out'; // Directory where the chunks will be saved
+const FILE_NAME = "{id}.xpm";
+
+const CHUNK_WIDTH = 32; 
+const CHUNK_HEIGHT =  64;
+
+const OUTPUT_WIDTH = 32;
+const OUTPUT_HEIGHT = 64;
 
 // Create output directory if it doesn't exist
 if (!fs.existsSync(OUTPUT_DIR)) {
@@ -91,6 +97,8 @@ async function convertPngToXpm(pngBuffer, width, height) {
         }).catch(reject);
     });
 }
+
+
 // Function to split image into chunks
 async function splitImage() {
     try {
@@ -99,14 +107,14 @@ async function splitImage() {
         const { width, height } = image;
         console.log(`Image dimensions: ${width}x${height}`);
 
-        let chunkId = 1; // Initialize chunk counter
+        let chunkId = 0; // Initialize chunk counter
 
         // Process each chunk
-        for (let y = 0; y < height; y += CHUNK_SIZE) {
-            for (let x = 0; x < width; x += CHUNK_SIZE) {
+        for (let y = 0; y < height; y += CHUNK_HEIGHT) {
+            for (let x = 0; x < width; x += CHUNK_WIDTH) {
                 // Calculate the chunk dimensions and bounds
-                const chunkWidth = Math.min(CHUNK_SIZE, width - x);
-                const chunkHeight = Math.min(CHUNK_SIZE, height - y);
+                const chunkWidth = Math.min(CHUNK_WIDTH, width - x);
+                const chunkHeight = Math.min(CHUNK_HEIGHT, height - y);
 
                 // Skip if chunk dimensions are not valid
                 if (chunkWidth <= 0 || chunkHeight <= 0) {
@@ -124,13 +132,23 @@ async function splitImage() {
                 // Create output filename
                 const outputFilename = path.join(
                     OUTPUT_DIR,
-                    `item${chunkId}.xpm`
+                    FILE_NAME.replace('{id}', chunkId)
                 );
 
-                // Convert chunk to PNG buffer
-                const pngBuffer = canvas.toBuffer('image/png');
-                // Convert PNG buffer to XPM format
-                const xpmData = await convertPngToXpm(pngBuffer, chunkWidth, chunkHeight);
+                const resizedCanvas = createCanvas(OUTPUT_WIDTH, OUTPUT_HEIGHT);
+                const resizedCtx = resizedCanvas.getContext('2d');
+                
+                // Disable image smoothing to preserve the pixel art sharpness
+                resizedCtx.imageSmoothingEnabled = false;
+                
+                // Draw the original image onto the new canvas, scaling it to fit
+                resizedCtx.drawImage(canvas, 0, 0, CHUNK_WIDTH, CHUNK_HEIGHT, 0, 0, OUTPUT_WIDTH, OUTPUT_HEIGHT);
+                
+                // Convert the new canvas to a buffer
+                const pngBuffer = resizedCanvas.toBuffer('image/png');
+                // fs.writeFileSync(`./resized/${chunkId}.png`, pngBuffer);
+
+                const xpmData = await convertPngToXpm(pngBuffer, OUTPUT_WIDTH, OUTPUT_HEIGHT);
 
                 // Skip saving if XPM data is null (empty chunk)
                 if (xpmData === null) {
@@ -151,6 +169,7 @@ async function splitImage() {
         console.error('Error splitting image:', error);
     }
 }
+
 
 // Execute the function
 splitImage();

@@ -6,7 +6,7 @@
 #    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/09/07 12:43:45 by escura           ###   ########.fr        #
+#    Updated: 2024/09/13 17:47:14 by escura           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = cub3d
 NAME_BONUS = cub3d_bonus
 
 all: 
-	make mlx -C mandatory
+#	make mlx -C mandatory
 	make -j$(nproc) -C mandatory
 
 run: all
@@ -37,6 +37,12 @@ fclean:
 	@make -C bonus fclean > /dev/null
 	@echo "FCleaning up..."
 
+v: bonus
+	valgrind --leak-check=full ./$(NAME_BONUS) map.cub
+
+vs: bonus
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME_BONUS) map.cub
+
 re: fclean all
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re bonus v vs

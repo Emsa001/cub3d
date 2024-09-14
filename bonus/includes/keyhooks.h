@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:49:37 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 14:42:58 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/08 21:06:15 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@
 # define I 105
 # define O 111
 # define F 102
+# define G 103
+# define Q 113
 
 #endif
