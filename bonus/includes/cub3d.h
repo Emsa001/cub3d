@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 19:03:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/15 14:39:31 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -309,7 +309,6 @@ int random_int(int min, int max);
 void render_view(t_cube *c);
 void clear_image_queue(t_render *r);
 void clear_string_queue(t_render *r);
-void add_to_functions_queue(void (*func)(void *), t_render *r);
-void execute_functions_queue(t_render *r);
+void render_tooltip();
 
 #endif
