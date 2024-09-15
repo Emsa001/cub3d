@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 19:08:37 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/15 15:57:31 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef struct s_draw		t_draw;
 
 # define WALKSPEED 3
 # define SPRINTBONUS 5
-# define MOUSE_SENSITIVITY 0.003
+# define MOUSE_SENSITIVITY 0.001
 
 # define JUMP_SPEED 0.06
 # define GRAVITY 0.006

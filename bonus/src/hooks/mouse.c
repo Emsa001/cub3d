@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 20:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 17:05:13 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/15 15:56:13 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ int mouse_move(int x, int y)
 
     if(!cube()->paused)
         handle_mouse_rotate(x,y);
-    mlx_mouse_move(r->mlx, r->win, WIDTH / 2, HEIGHT / 2);
+    // mlx_mouse_move(r->mlx, r->win, WIDTH / 2, HEIGHT / 2);
 	return (0);
 }

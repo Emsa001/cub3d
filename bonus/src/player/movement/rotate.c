@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 20:39:43 by escura            #+#    #+#             */
-/*   Updated: 2024/08/24 14:28:23 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/15 15:57:04 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	handle_mouse_rotate(int x, int y)
 	int dx = x - WIDTH / 2;
 	int dy = y - HEIGHT / 2;
 
-	p->angle += dx * MOUSE_SENSITIVITY;
+	p->angle += dx * MOUSE_SENSITIVITY * cube()->delta_time;
 	// p->z_dir -= dy * MOUSE_SENSITIVITY;
 	if (p->z_dir > 1)
 		p->z_dir = 1;

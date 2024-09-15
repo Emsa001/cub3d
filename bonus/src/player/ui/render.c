@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 21:04:58 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 19:45:46 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/15 15:25:53 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void render_ui()
 {
     t_player *p = player();
-    p->mouse_hook = true;
 
     render_minimap();
     hud_inventory();
