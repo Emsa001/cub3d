@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/15 03:07:00 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/15 13:11:19 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,18 @@
 
 # define T_SIZE 64
 # define BLOCK_SIZE 64
-# define WIDTH 1280
-# define HEIGHT 720
+# define WIDTH 1920
+# define HEIGHT 1080
 # define CENTER_WIDTH WIDTH / 2
 # define CENTER_HEIGHT HEIGHT / 2
-# define WIDTH_SCALE 3
+# define WIDTH_SCALE 5
 
 # define WALL '1'
 # define DOOR 'D'
 # define BLOCK '2'
 
 # define M_PI 3.14159265358979323846
-# define NUM_THREADS 1
+# define NUM_THREADS 10
 
 typedef struct s_render t_render;
 
