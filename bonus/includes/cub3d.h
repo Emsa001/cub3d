@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/15 02:18:35 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/15 03:07:00 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,19 @@
 # define P3 3 * PI / 2
 # define DR 0.0174533
 
+// 400
+// 800
+// 1280
+// 1920
+// 2560
+
 # define T_SIZE 64
 # define BLOCK_SIZE 64
 # define WIDTH 1280
 # define HEIGHT 720
 # define CENTER_WIDTH WIDTH / 2
 # define CENTER_HEIGHT HEIGHT / 2
-# define WIDTH_SCALE 1
+# define WIDTH_SCALE 3
 
 # define WALL '1'
 # define DOOR 'D'

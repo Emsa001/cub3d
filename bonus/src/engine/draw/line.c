@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/15 02:16:10 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/15 03:08:42 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -251,12 +251,10 @@ void draw_scene(t_draw *draw, ThreadParams *params)
             if(catched)
                 color = 255;
             else
-            {
                 color = get_pixel_from_image(wall_side, draw->tex_x, tex_y);
-                color = darken_color(color, (float)draw->dist / 450);
-                if (color < 0)
-                    color = 0;
-            }
+            color = darken_color(color, (float)draw->dist / 450);
+            if (color < 0)
+                color = 0;
             tex_y += step;
         }
         y++;
