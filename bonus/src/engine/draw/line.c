@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/15 01:41:20 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/15 02:08:04 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,15 +221,19 @@ void draw_scene(t_draw *draw, ThreadParams *params)
     t_texture *wall_side = get_wall_side(draw->side, texs, p->level);
     float tex_y = 0;
     float step = (float)T_SIZE / draw->wall_height;
-
+    
     int wall_start_y = (p->z - 1) * draw->wall_height + vert_offset(p);
     int wall_end_y = wall_start_y + draw->wall_height;
-    
+    if (wall_start_y < 0) {
+        tex_y = step * (-wall_start_y);
+        wall_start_y = 0;
+    }
     if (wall_end_y > HEIGHT)
         wall_end_y = HEIGHT;
     
     int color = 0;
-    for (int y = 0; y < HEIGHT; y++)
+    int y = 0;
+    while (y < HEIGHT)
     {
         if (y >= wall_end_y || y < wall_start_y)
         {
@@ -250,6 +254,7 @@ void draw_scene(t_draw *draw, ThreadParams *params)
                 color = 0;
             tex_y += step;
         }
+        y++;
         put_pixel(start_x, y, color, r);
     }
 }
@@ -315,9 +320,9 @@ void draw_line(t_draw draw, ThreadParams *params)
 
     draw.side = direction(draw.x, draw.y, cosangle, sinangle, c, &draw.tex_x);
     lane_distance(&draw);
-    draw_floor_and_ceiling(&draw, params);
-    draw_wall(&draw, params);
-    // draw_scene(&draw, params);
+    // draw_floor_and_ceiling(&draw, params);
+    // draw_wall(&draw, params);
+    draw_scene(&draw, params);
     // if(sprite_direction(&draw, cosangle, sinangle, c) == 9)
     //     sprite_frame(draw, params, c->map->sprites[j - 1]);
     // if(generator_direction(&draw, cosangle, sinangle, c) == 7)
