@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/15 13:11:19 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/15 14:55:03 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@
 # define HEIGHT 1080
 # define CENTER_WIDTH WIDTH / 2
 # define CENTER_HEIGHT HEIGHT / 2
-# define WIDTH_SCALE 5
+# define WIDTH_SCALE 1
 
 # define WALL '1'
 # define DOOR 'D'
@@ -244,6 +244,7 @@ void						add_button(t_button *button);
 t_texture *get_wall_side(int side, const t_textures *texs, int n);
 int get_texture_color(t_texture *tex, float dist, float cosangle, float sinangle);
 t_texture* get_texture(int start_y, int height, const t_player *p, const t_textures *texs);
+void draw_scene(t_draw *draw, ThreadParams *params);
 
 void						draw_line(t_draw draw, ThreadParams *params);
 void						draw_wall(t_draw *draw, ThreadParams *params);

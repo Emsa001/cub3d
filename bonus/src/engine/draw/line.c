@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/15 13:11:45 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/15 14:55:42 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,76 +206,10 @@ void put_line(t_draw draw, ThreadParams *params)
     }
 }
 
-void draw_scene(t_draw *draw, ThreadParams *params)
-{
-    int height = draw->wall_height;
-    int start_x = draw->start_x;
-    const t_player *p = params->player;
-    const t_textures *texs = params->textures;
-    t_render *r = params->render;
-    
-    float cosangle = cos(draw->angle);
-    float sinangle = sin(draw->angle);
-    bool catched = p->catch && draw->side == 6;
-    
-    t_texture *wall_side = get_wall_side(draw->side, texs, p->level);
-    float tex_y = 0;
-    float step = (float)T_SIZE / draw->wall_height;
-    
-    int wall_start_y = (p->z - 1) * draw->wall_height + vert_offset(p);
-    int wall_end_y = wall_start_y + draw->wall_height;
-    if (wall_start_y < 0) {
-        tex_y = step * (-wall_start_y);
-        wall_start_y = 0;
-    }
-    if (wall_end_y > HEIGHT)
-        wall_end_y = HEIGHT;
-    
-    int color = 0;
-    int y = 0;
-    while (y < HEIGHT)
-    {
-        if (y >= wall_end_y || y < wall_start_y)
-        {
-            t_texture *tex = get_texture(y, height, p, texs);
-            if (tex)
-            {
-                float current_dist = view_current_distance(p, y, draw->angle);
-                color = get_texture_color(tex, current_dist, cosangle, sinangle);
-                if (color < 0)
-                    color = 0;
-            }
-        }
-        else
-        {
-            if(catched)
-                color = 255;
-            else
-                color = get_pixel_from_image(wall_side, draw->tex_x, tex_y);
-            color = darken_color(color, (float)draw->dist / 450);
-            if (color < 0)
-                color = 0;
-            tex_y += step;
-        }
-        y++;
-        // put_pixel(start_x, y, color, r);
-        draw->colors[y] = color;
-    }
-}
-
-
 void draw_line(t_draw draw, ThreadParams *params)
 {   
     t_cube *c = params->cube;
-    const t_player *p = params->player;
-
-    if(c == NULL || p == NULL)
-    {
-        printf("Error: draw_line: c or p is NULL\n");
-        return;
-    };
-
-
+    const t_player *p = params->player; 
     float cosangle = cos(draw.angle);
     float sinangle = sin(draw.angle);
     
@@ -324,8 +258,6 @@ void draw_line(t_draw draw, ThreadParams *params)
 
     draw.side = direction(draw.x, draw.y, cosangle, sinangle, c, &draw.tex_x);
     lane_distance(&draw);
-    // draw_floor_and_ceiling(&draw, params);
-    // draw_wall(&draw, params);
     draw_scene(&draw, params);
     int scale = draw.start_x + WIDTH_SCALE;
     while(draw.start_x < scale)
