@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 18:51:18 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/15 18:16:37 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,30 +79,28 @@ int touch_line(t_block *lines, float px, float py)
 	return 0;
 }
 
-int touch_sprite(t_sprite *sprites, float px, float py)
-{
+// int touch_sprite(t_sprite *sprites, float px, float py)
+// {
 
-	int i = 0;
-	float x = 0;
-	float y = 0;
+// 	int i = 0;
+// 	float x = 0;
+// 	float y = 0;
 	
-	if (!sprites)
-		return false;
-	
-	int height = 1;
+// 	if (!sprites)
+// 		return false;
 
-	while (sprites[i].x != -1)
-	{
-		x = sprites[i].x * BLOCK_SIZE;
-		y = sprites[i].y * BLOCK_SIZE;
+// 	while (sprites[i].x != -1)
+// 	{
+// 		x = sprites[i].x * BLOCK_SIZE;
+// 		y = sprites[i].y * BLOCK_SIZE;
 
-		if (px >= x && px <= x + sprites[i].width && py >= y && py <= y + height)
-			return i + 1;
+// 		if (px >= x && px <= x + sprites[i].width && py >= y && py <= y + 1)
+// 			return i + 1;
 
-		i++;
-	}
-	return 0;
-}
+// 		i++;
+// 	}
+// 	return 0;
+// }
 
 
 bool touch_generator(t_block *lines, float px, float py)

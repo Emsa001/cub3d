@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/15 14:55:42 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/15 18:28:53 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,30 +77,6 @@ int generator_direction(t_draw *draw, float cosangle, float sinangle, t_cube *c)
     return 0;
 }
 
-int sprite_direction(t_draw *draw, float cosangle, float sinangle, t_cube *c)
-{
-    int sx = 0;
-    int sy = 0;
-    if (cosangle > 0)
-        sx = 1;
-    else
-        sx = -1;
-    if (sinangle > 0)
-        sy = 1;
-    else
-        sy = -1;
-    if(touch_sprite(c->map->sprites, draw->sprite_x - sx, draw->sprite_y))
-    {
-        draw->tex_x = (int)draw->sprite_x % BLOCK_SIZE;
-        return 9;
-    } else if(touch_sprite(c->map->sprites, draw->sprite_x, draw->sprite_y))
-    {
-        draw->tex_x = (int)draw->sprite_y % BLOCK_SIZE;
-        return 9;
-    }
-    return 0;
-}
-
 static bool find_hitbox(float x, float y, t_cube *c)
 {
     if (is_touching(x, y, c))
@@ -157,6 +133,66 @@ long current_frame(int frames)
     return curr_frame;
 }
 
+void put_line(t_draw draw, ThreadParams *params)
+{
+    int start = 0;
+    int end = HEIGHT;
+    int i = 0;
+    while (start < end)
+    {
+        put_pixel(draw.start_x, start, draw.colors[start], params->render);
+        start++;
+    }
+}
+
+
+
+int touch_sprite(t_sprite *sprites, float px, float py, const t_textures *texs)
+{
+    int i = 0;
+    float x = 0;
+    float y = 0;
+    
+    if (!sprites)
+        return 0;
+
+    while (sprites[i].x != -1)
+    {
+        x = sprites[i].x * BLOCK_SIZE;
+        y = sprites[i].y * BLOCK_SIZE;
+
+        if (px >= x && px <= x + sprites[i].width && py >= y && py <= y + 1)
+            return i + 1;
+        i++;
+    }
+
+    return 0;
+}
+
+int sprite_direction(t_draw *draw, float cosangle, float sinangle, t_cube *c, ThreadParams *params)
+{
+    int sx = 0;
+    int sy = 0;
+    if (cosangle > 0)
+        sx = 1;
+    else
+        sx = -1;
+    if (sinangle > 0)
+        sy = 1;
+    else
+        sy = -1;
+    if(touch_sprite(c->map->sprites, draw->sprite_x - sx, draw->sprite_y, params->textures))
+    {
+        draw->tex_x = (int)draw->sprite_x % BLOCK_SIZE;
+        return 9;
+    } else if(touch_sprite(c->map->sprites, draw->sprite_x, draw->sprite_y - sy, params->textures))
+    {
+        draw->tex_x = (int)draw->sprite_y % BLOCK_SIZE;
+        return 9;
+    }
+    return 0;
+}
+
 void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
 {
     int color = params->color;
@@ -194,16 +230,103 @@ void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
     }
 }
 
-void put_line(t_draw draw, ThreadParams *params)
+void draw_scene(t_draw *draw, ThreadParams *params)
 {
-    int start = 0;
-    int end = HEIGHT;
-    int i = 0;
-    while (start < end)
-    {
-        put_pixel(draw.start_x, start, draw.colors[start], params->render);
-        start++;
+    int height = draw->wall_height;
+    int start_x = draw->start_x;
+    const t_player *p = params->player;
+    const t_textures *texs = params->textures;
+    t_render *r = params->render;
+    
+    float cosangle = cos(draw->angle);
+    float sinangle = sin(draw->angle);
+    bool catched = p->catch && draw->side == 6;
+    
+    t_texture *wall_side = get_wall_side(draw->side, texs, p->level);
+    float tex_y = 0;
+    float step = (float)T_SIZE / draw->wall_height;
+    
+    int wall_start_y = (p->z - 1) * draw->wall_height + vert_offset(p);
+    int wall_end_y = wall_start_y + draw->wall_height;
+    if (wall_start_y < 0) {
+        tex_y = step * (-wall_start_y);
+        wall_start_y = 0;
     }
+    if (wall_end_y > HEIGHT)
+        wall_end_y = HEIGHT;
+    
+    int color = 0;
+    int y = 0;
+    while (y < HEIGHT)
+    {
+        if (y >= wall_end_y || y < wall_start_y)
+        {
+            t_texture *tex = get_texture(y, height, p, texs);
+            if (tex)
+            {
+                float current_dist = view_current_distance(p, y, draw->angle);
+                color = get_texture_color(tex, current_dist, cosangle, sinangle);
+                if (color < 0)
+                    color = 0;
+            }
+        }
+        else
+        {
+            if(catched)
+            {
+                color = 255;
+                color = darken_color(color, (float)draw->dist / 350);
+            }
+            else
+            {
+                color = get_pixel_from_image(wall_side, draw->tex_x, tex_y);
+                color = darken_color(color, (float)draw->dist / 450);
+            }
+            if (color < 0)
+                color = 0;
+            tex_y += step;
+        }
+        y++;
+        put_pixel(start_x, y, color, r);
+    }
+}
+
+
+bool check_if_point_is_on_sprite(t_block line, float px, float py)
+{
+	float x1 = line.s_x * BLOCK_SIZE;
+	float y1 = line.s_y * BLOCK_SIZE;
+	float x2 = line.x * BLOCK_SIZE;
+	float y2 = line.y * BLOCK_SIZE;
+	float dx = x2 - x1;
+	float dy = y2 - y1;
+	float d = sqrt(dx * dx + dy * dy);
+	float u = ((px - x1) * dx + (py - y1) * dy) / (d * d);
+
+	if (u < 0.0 || u > 1.0)
+		return false;
+
+	float x = x1 + u * dx;
+	float y = y1 + u * dy;
+	float dist = sqrt((x - px) * (x - px) + (y - py) * (y - py));
+	if (dist < (L_WIDTH / 2))
+		return true;
+	return false;
+}
+
+int touch_player_facing_sprite(float px, float py , float sprite_x, float sprite_y)
+{
+	int i = 0;
+	float x, y;
+	
+    x = sprite_x * BLOCK_SIZE - L_WIDTH;
+    y = sprite_y * BLOCK_SIZE - L_WIDTH;
+    if (px >= x && px <= x + (L_WIDTH * 2) && py >= y && py <= y + (L_WIDTH * 2))
+        return 2;
+    // if(check_if_point_is_on_sprite(lines[i], px, py))
+    //     return 1;
+	
+	return 0;
 }
 
 void draw_line(t_draw draw, ThreadParams *params)
@@ -216,19 +339,20 @@ void draw_line(t_draw draw, ThreadParams *params)
     bool save = false;
     bool save_last = false;
     bool save_sprite = false;
-    int i = 0;
-    int j = 1;
+    
+    // facing sprite
+    float sprite_x = 4;
+    float sprite_y = 4;
+    t_sprite facing_sprite = c->map->sprites[3];
 
     while (!find_hitbox(draw.x, draw.y, c))
     {
-        if((i = touch_sprite(c->map->sprites, draw.x, draw.y)))
+        if(touch_sprite(c->map->sprites, draw.x, draw.y, params->textures))
         {
             if(!save_sprite)
             {
                 draw.sprite_x = draw.x;
                 draw.sprite_y = draw.y;
-            if(i > 1)
-                j = i;
             }
             save_sprite = true;
         }
@@ -249,8 +373,11 @@ void draw_line(t_draw draw, ThreadParams *params)
                 draw.last_y = draw.y;
             }
         }
+        if(touch_player_facing_sprite(draw.x, draw.y, sprite_x, sprite_y))
+            break;
         else
         {
+            put_pixel(draw.x, draw.y, 255, params->render);
             draw.x += cosangle;
             draw.y += sinangle;
         }
@@ -258,18 +385,17 @@ void draw_line(t_draw draw, ThreadParams *params)
 
     draw.side = direction(draw.x, draw.y, cosangle, sinangle, c, &draw.tex_x);
     lane_distance(&draw);
-    draw_scene(&draw, params);
-    int scale = draw.start_x + WIDTH_SCALE;
-    while(draw.start_x < scale)
-    {
-        put_line(draw, params);
-        if(sprite_direction(&draw, cosangle, sinangle, c) == 9)
-            sprite_frame(draw, params, c->map->sprites[j - 1]);
-        if(generator_direction(&draw, cosangle, sinangle, c) == 7)
-        {   
-            draw_generator_top(draw, params, draw.angle);
-            draw_generator(draw, params, draw.tex_x, draw.angle);
-        }
-        draw.start_x++;
-    }
+    // draw_scene(&draw, params);
+    
+    
+    // draw_sprite_facing_player(&draw, params, c->map->sprites[3], sprite_x, sprite_y);
+
+
+    // if(sprite_direction(&draw, cosangle, sinangle, c, params) == 9)
+    //     sprite_frame(draw, params, c->map->sprites[3]);
+    // if(generator_direction(&draw, cosangle, sinangle, c) == 7)
+    // {   
+    //     draw_generator_top(draw, params, draw.angle);
+    //     draw_generator(draw, params, draw.tex_x, draw.angle);
+    // }
 }

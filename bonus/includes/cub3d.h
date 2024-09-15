@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/15 14:55:03 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/15 18:04:02 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@
 # define HEIGHT 1080
 # define CENTER_WIDTH WIDTH / 2
 # define CENTER_HEIGHT HEIGHT / 2
-# define WIDTH_SCALE 1
+# define WIDTH_SCALE 5
 
 # define WALL '1'
 # define DOOR 'D'
 # define BLOCK '2'
 
 # define M_PI 3.14159265358979323846
-# define NUM_THREADS 10
+# define NUM_THREADS 1
 
 typedef struct s_render t_render;
 
@@ -183,6 +183,8 @@ typedef struct s_draw
 	int						generator_dist;
 	int						sprite_dist;
 	int 					colors[HEIGHT];
+	float					z_buffer[WIDTH];
+
 }							t_draw;
 
 typedef struct
@@ -229,7 +231,7 @@ int							render_scene_singlethread(t_cube *c);
 int							render_scene(t_cube *p);
 bool						is_touching(float px, float py, const t_cube *c);
 bool						touch_block(t_block *blocks, float px, float py);
-int							touch_sprite(t_sprite *sprites, float px, float py);
+// int							touch_sprite(t_sprite *sprites, float px, float py);
 int							touch_line(t_block *lines, float px, float py);
 bool						touch_generator(t_block *lines, float px, float py);
 void						button_click(int type, int x, int y);

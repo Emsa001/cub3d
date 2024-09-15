@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 21:06:54 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/15 18:04:10 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int render_scene_multithread(void)
         return 0;
     }
 
-    // clear_image(r);
+    clear_image(r);
     render_view(c);
     render_player();
     shopkeeper();
@@ -68,7 +68,7 @@ int render_scene_multithread(void)
     render_queue(r);
 
     update_fps();
-    // check_hooks();
+    check_hooks();
     
     render_tooltip();
     show_image(r, 0, 0);

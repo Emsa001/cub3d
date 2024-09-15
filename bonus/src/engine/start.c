@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 21:42:26 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/15 17:42:45 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void start_game(void)
 
     init_hooks();
     init_economy();
-    // add_sprite("assets/fire/", 13,7,21);
+    // add_sprite("assets/fire/", 13,7,37);
     
-    t_async *async = new_async();
-    async->end = &end;
-    async->end_mt = &end_mt;
-    async->time = 3000;
-    start_async(async);
+    // t_async *async = new_async();
+    // async->end = &end;
+    // async->end_mt = &end_mt;
+    // async->time = 3000;
+    // start_async(async);
 
     // open_portal(0);
     // open_portal(1);
