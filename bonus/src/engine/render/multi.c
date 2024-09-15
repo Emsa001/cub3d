@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multi.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 20:13:48 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/15 14:39:45 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void show_image(t_render *r, int x, int y)
 void render_queue(t_render *r){
     put_image_queue(r);
     put_string_queue(r);
-    execute_functions_queue(r);
+    async_queue();
 }
 
 int render_scene_multithread(void)

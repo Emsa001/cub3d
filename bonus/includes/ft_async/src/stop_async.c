@@ -17,7 +17,7 @@ void remove_from_list(t_async *async)
                 manager->thread_list = node->next;
             else
                 prev_node->next = node->next;
-
+            
             free(node);
             break;
         }
