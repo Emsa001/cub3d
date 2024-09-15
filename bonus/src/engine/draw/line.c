@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/15 18:28:53 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/15 20:57:08 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,25 +292,20 @@ void draw_scene(t_draw *draw, ThreadParams *params)
 }
 
 
-bool check_if_point_is_on_sprite(t_block line, float px, float py)
+bool check_if_point_is_on_sprite(float px, float py , float sprite_x, float sprite_y)
 {
-	float x1 = line.s_x * BLOCK_SIZE;
-	float y1 = line.s_y * BLOCK_SIZE;
-	float x2 = line.x * BLOCK_SIZE;
-	float y2 = line.y * BLOCK_SIZE;
-	float dx = x2 - x1;
-	float dy = y2 - y1;
-	float d = sqrt(dx * dx + dy * dy);
-	float u = ((px - x1) * dx + (py - y1) * dy) / (d * d);
 
-	if (u < 0.0 || u > 1.0)
-		return false;
+        // it should stop when px and py are on the sprite
+    // and sprite should always face the player
+    // so instead of block it will be the line which is always facing the player
+	float x1 = sprite_x * BLOCK_SIZE;
+	float y1 = sprite_y * BLOCK_SIZE;
 
-	float x = x1 + u * dx;
-	float y = y1 + u * dy;
-	float dist = sqrt((x - px) * (x - px) + (y - py) * (y - py));
-	if (dist < (L_WIDTH / 2))
-		return true;
+	float x = x1 + (LINE_WIDTH / 2);
+    float y = y1 + (LINE_WIDTH / 2);
+	float dist = sqrt(pow(px - x, 2) + pow(py - y, 2));
+    if (dist <= LINE_WIDTH / 2)
+        return true;
 	return false;
 }
 
@@ -319,12 +314,12 @@ int touch_player_facing_sprite(float px, float py , float sprite_x, float sprite
 	int i = 0;
 	float x, y;
 	
-    x = sprite_x * BLOCK_SIZE - L_WIDTH;
-    y = sprite_y * BLOCK_SIZE - L_WIDTH;
-    if (px >= x && px <= x + (L_WIDTH * 2) && py >= y && py <= y + (L_WIDTH * 2))
-        return 2;
-    // if(check_if_point_is_on_sprite(lines[i], px, py))
-    //     return 1;
+    x = sprite_x * BLOCK_SIZE;
+    y = sprite_y * BLOCK_SIZE;
+    // if (px >= x && px <= x + (LINE_WIDTH) && py >= y && py <= y + (LINE_WIDTH))
+    //     return 2;
+    if(check_if_point_is_on_sprite(px, py, sprite_x, sprite_y))
+        return 1;
 	
 	return 0;
 }
