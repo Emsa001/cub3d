@@ -6,7 +6,7 @@
 /*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/15 02:08:04 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/15 02:16:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,8 +201,7 @@ void put_line(t_draw draw, ThreadParams *params)
     int i = 0;
     while (start < end)
     {
-        // if(draw.colors[start] && draw.colors[start] > 0)
-            put_pixel(draw.start_x, start, draw.colors[start], params->render);
+        put_pixel(draw.start_x, start, draw.colors[start], params->render);
         start++;
     }
 }
@@ -217,6 +216,7 @@ void draw_scene(t_draw *draw, ThreadParams *params)
     
     float cosangle = cos(draw->angle);
     float sinangle = sin(draw->angle);
+    bool catched = p->catch && draw->side == 6;
     
     t_texture *wall_side = get_wall_side(draw->side, texs, p->level);
     float tex_y = 0;
@@ -248,14 +248,20 @@ void draw_scene(t_draw *draw, ThreadParams *params)
         }
         else
         {
-            color = get_pixel_from_image(wall_side, draw->tex_x, tex_y);
-            color = darken_color(color, (float)draw->dist / 450);
-            if (color < 0)
-                color = 0;
+            if(catched)
+                color = 255;
+            else
+            {
+                color = get_pixel_from_image(wall_side, draw->tex_x, tex_y);
+                color = darken_color(color, (float)draw->dist / 450);
+                if (color < 0)
+                    color = 0;
+            }
             tex_y += step;
         }
         y++;
-        put_pixel(start_x, y, color, r);
+        // put_pixel(start_x, y, color, r);
+        draw->colors[y] = color;
     }
 }
 
@@ -323,17 +329,17 @@ void draw_line(t_draw draw, ThreadParams *params)
     // draw_floor_and_ceiling(&draw, params);
     // draw_wall(&draw, params);
     draw_scene(&draw, params);
-    // if(sprite_direction(&draw, cosangle, sinangle, c) == 9)
-    //     sprite_frame(draw, params, c->map->sprites[j - 1]);
-    // if(generator_direction(&draw, cosangle, sinangle, c) == 7)
-    // {   
-    //     draw_generator_top(draw, params, draw.angle);
-    //     draw_generator(draw, params, draw.tex_x, draw.angle);
-    // }
-    // int scale = draw.start_x + WIDTH_SCALE;
-    // while(draw.start_x < scale)
-    // {
-    //     put_line(draw, params);
-    //     draw.start_x++;
-    // }
+    int scale = draw.start_x + WIDTH_SCALE;
+    while(draw.start_x < scale)
+    {
+        put_line(draw, params);
+        if(sprite_direction(&draw, cosangle, sinangle, c) == 9)
+            sprite_frame(draw, params, c->map->sprites[j - 1]);
+        if(generator_direction(&draw, cosangle, sinangle, c) == 7)
+        {   
+            draw_generator_top(draw, params, draw.angle);
+            draw_generator(draw, params, draw.tex_x, draw.angle);
+        }
+        draw.start_x++;
+    }
 }
