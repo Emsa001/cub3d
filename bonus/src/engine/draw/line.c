@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/16 19:11:35 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/16 20:59:00 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,27 +191,28 @@ int sprite_direction(t_draw *draw, float cosangle, float sinangle, t_cube *c)
     return 0;
 }
 
-bool touch_facing_sprite(t_sprite *sprites, float px, float py);
+bool touch_facing_sprite(t_draw *draw, t_sprite *sprites, float px, float py);
 
-int facing_sprite_direction(t_draw *draw, float cosangle, float sinangle, t_cube *c)
-{
-    int sx = 0;
-    int sy = 0;
-    if (cosangle > 0)
-        sx = 1;
-    else
-        sx = -1;
-    if (sinangle > 0)
-        sy = 1;
-    else
-        sy = -1;
-    if(touch_facing_sprite(c->map->facing, draw->facing_sprite_x, draw->facing_sprite_y))
-    {
-        draw->tex_x = (int)draw->facing_sprite_x % BLOCK_SIZE;
-        return 10;
-    }
-    return 0;
-}
+// int facing_sprite_direction(t_draw *draw, float cosangle, float sinangle, t_cube *c)
+// {
+//     int sx = 0;
+//     int sy = 0;
+//     if (cosangle > 0)
+//         sx = 1;
+//     else
+//         sx = -1;
+//     if (sinangle > 0)
+//         sy = 1;
+//     else
+//         sy = -1;
+    
+//     if(touch_facing_sprite(c->map->facing, draw->facing_sprite_x, draw->facing_sprite_y))
+//     {
+//         draw->tex_x = (int)draw->facing_sprite_y % BLOCK_SIZE;
+//         return 10;
+//     }
+//     return 0;
+// }
 
 void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
 {
@@ -275,7 +276,7 @@ void facing_sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
 
     while (start_y < end_y)
     {
-        color = get_pixel_from_image(sprite_tex, (draw.tex_x + 400) , tex_y);
+        color = get_pixel_from_image(sprite_tex, (draw.tex_x) , tex_y);
         color = darken_color(color, (float)dist / 450);
 
         if(color && color > 0)
@@ -286,7 +287,7 @@ void facing_sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
     }
 }
 
-bool touch_facing(float px, float py , float sprite_x, float sprite_y, int width)
+bool touch_facing(t_draw *draw, float px, float py , float sprite_x, float sprite_y, int width)
 {
     float cosangle = cos(player()->angle);
     float sinangle = sin(player()->angle);
@@ -302,18 +303,17 @@ bool touch_facing(float px, float py , float sprite_x, float sprite_y, int width
     float u = ((px - x1) * dx + (py - y1) * dy) / (d * d);
     if (u < 0.0 || u > 1.0)
         return false;
-
-    float x = x1 + u * dx;
-    float y = y1 + u * dy;
     
-    float dist_ = sqrt((x - px) * (x - px) + (y - py) * (y - py));
-    if (dist_ < (width / 2))
+    float dist = distance(px, py, sprite_x, sprite_y);
+    draw->tex_x = (int)dist % BLOCK_SIZE;
+    
+    if (dist < width / 2)
         return true;
         
     return false;
 }
 
-bool touch_facing_sprite(t_sprite *sprites, float px, float py)
+bool touch_facing_sprite(t_draw *draw, t_sprite *sprites, float px, float py)
 {
     int i = 0;
     float x = 0;
@@ -327,7 +327,7 @@ bool touch_facing_sprite(t_sprite *sprites, float px, float py)
         x = sprites[i].x * BLOCK_SIZE;
         y = sprites[i].y * BLOCK_SIZE;
         int width = sprites[i].width;
-        if(touch_facing(px, py, x, y, width))
+        if(touch_facing(draw,px, py, x, y, width))
             return true;
         i++;
     }
@@ -359,7 +359,7 @@ void draw_line(t_draw draw, ThreadParams *params)
             }
             save_sprite = true;
         }
-        if(touch_facing_sprite(c->map->facing, draw.x, draw.y))
+        if(touch_facing_sprite(&draw,c->map->facing, draw.x, draw.y))
         {
             if(!save_facing_sprite)
             {
@@ -367,6 +367,7 @@ void draw_line(t_draw draw, ThreadParams *params)
                 draw.facing_sprite_y = draw.y;
             }
             save_facing_sprite = true;
+            break;
         }
         if(touch_generator(c->map->generators, draw.x, draw.y))
         {
@@ -402,7 +403,7 @@ void draw_line(t_draw draw, ThreadParams *params)
         put_line(draw, params);
         if(sprite_direction(&draw, cosangle, sinangle, c) == 9)
             sprite_frame(draw, params, c->map->sprites[0]);
-        if(facing_sprite_direction(&draw, cosangle, sinangle, c) == 10)
+        if(touch_facing_sprite(&draw,c->map->facing, draw.x, draw.y))
             facing_sprite_frame(draw, params, c->map->facing[0]);
         if(generator_direction(&draw, cosangle, sinangle, c) == 7)
         {   

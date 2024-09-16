@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:39:55 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/16 17:56:50 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/16 20:58:57 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,8 +147,8 @@ void add_facing_sprite(char *path_file, int frames, float x, float y)
 		ft_free(path);
 		i++;
 	}
-	sprite.x = x;
-	sprite.y = y;
+	sprite.x = x + 0.5;
+	sprite.y = y + 0.5;
 	sprite.frames = frames;
 	sprite.sprite_tex = sprite_texture;
 	sprite.width = sprite_texture[0]->width;
