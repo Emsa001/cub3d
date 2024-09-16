@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/15 20:57:08 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:57:35 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,41 +287,68 @@ void draw_scene(t_draw *draw, ThreadParams *params)
             tex_y += step;
         }
         y++;
-        put_pixel(start_x, y, color, r);
+        // put_pixel(start_x, y, color, r);
+        draw->colors[y] = color;
     }
 }
 
 
-bool check_if_point_is_on_sprite(float px, float py , float sprite_x, float sprite_y)
+bool touch_circle(float px, float py , float sprite_x, float sprite_y)
 {
+	int i = 0;
+	float x = 0;
+    float y = 0;
 
-        // it should stop when px and py are on the sprite
-    // and sprite should always face the player
-    // so instead of block it will be the line which is always facing the player
-	float x1 = sprite_x * BLOCK_SIZE;
-	float y1 = sprite_y * BLOCK_SIZE;
-
-	float x = x1 + (LINE_WIDTH / 2);
-    float y = y1 + (LINE_WIDTH / 2);
+    x = sprite_x * BLOCK_SIZE;
+    y = sprite_y * BLOCK_SIZE;
 	float dist = sqrt(pow(px - x, 2) + pow(py - y, 2));
-    if (dist <= LINE_WIDTH / 2)
+    if (dist <= LINE_WIDTH)
         return true;
 	return false;
 }
 
-int touch_player_facing_sprite(float px, float py , float sprite_x, float sprite_y)
+int touch_facing_sprite(float px, float py , float sprite_x, float sprite_y)
 {
 	int i = 0;
-	float x, y;
-	
+	float x = 0;
+    float y = 0;
+
     x = sprite_x * BLOCK_SIZE;
     y = sprite_y * BLOCK_SIZE;
-    // if (px >= x && px <= x + (LINE_WIDTH) && py >= y && py <= y + (LINE_WIDTH))
-    //     return 2;
-    if(check_if_point_is_on_sprite(px, py, sprite_x, sprite_y))
-        return 1;
-	
-	return 0;
+	float dist = sqrt(pow(px - x, 2) + pow(py - y, 2));
+    // here is the centre point of the sprite
+    t_player *p = player();
+    // player angle form 0 to 2PI
+    float angle = p->angle;
+    // so the line should face to player
+    // it willbe the 90 degree of the player angle
+
+    float cosangle = cos(angle);
+    float sinangle = sin(angle);
+    int line_length = LINE_WIDTH;
+
+    float x1 = x + cosangle * line_length;
+    float y1 = y + sinangle * line_length;
+    float x2 = x - cosangle * line_length;
+    float y2 = y - sinangle * line_length;
+    
+    float dx = x2 - x1;
+    float dy = y2 - y1;
+    float d = sqrt(dx * dx + dy * dy);
+    float u = ((px - x1) * dx + (py - y1) * dy) / (d * d);
+    
+    if (u < 0.0 || u > 1.0)
+        return false;
+
+    float x_ = x1 + u * dx;
+    float y_ = y1 + u * dy;
+    
+    float dist_ = sqrt((x_ - px) * (x_ - px) + (y_ - py) * (y_ - py));
+    if (dist_ < (LINE_WIDTH / 2))
+        return true;
+    
+    
+    return false;
 }
 
 void draw_line(t_draw draw, ThreadParams *params)
@@ -368,11 +395,11 @@ void draw_line(t_draw draw, ThreadParams *params)
                 draw.last_y = draw.y;
             }
         }
-        if(touch_player_facing_sprite(draw.x, draw.y, sprite_x, sprite_y))
+        if(touch_facing_sprite(draw.x, draw.y, sprite_x, sprite_y))
             break;
         else
         {
-            put_pixel(draw.x, draw.y, 255, params->render);
+            // put_pixel(draw.x, draw.y, 255, params->render);
             draw.x += cosangle;
             draw.y += sinangle;
         }
@@ -380,17 +407,21 @@ void draw_line(t_draw draw, ThreadParams *params)
 
     draw.side = direction(draw.x, draw.y, cosangle, sinangle, c, &draw.tex_x);
     lane_distance(&draw);
-    // draw_scene(&draw, params);
+    draw_scene(&draw, params);
     
-    
-    // draw_sprite_facing_player(&draw, params, c->map->sprites[3], sprite_x, sprite_y);
+    int i = 0;
+    while(i < WIDTH_SCALE)
+    {
+        if(sprite_direction(&draw, cosangle, sinangle, c, params) == 9)
+            sprite_frame(draw, params, c->map->sprites[3]);
+        if(generator_direction(&draw, cosangle, sinangle, c) == 7)
+        {   
+            draw_generator_top(draw, params, draw.angle);
+            draw_generator(draw, params, draw.tex_x, draw.angle);
+        }
+        put_line(draw, params);
+        draw.start_x++;
 
-
-    // if(sprite_direction(&draw, cosangle, sinangle, c, params) == 9)
-    //     sprite_frame(draw, params, c->map->sprites[3]);
-    // if(generator_direction(&draw, cosangle, sinangle, c) == 7)
-    // {   
-    //     draw_generator_top(draw, params, draw.angle);
-    //     draw_generator(draw, params, draw.tex_x, draw.angle);
-    // }
+        i++;
+    }
 }

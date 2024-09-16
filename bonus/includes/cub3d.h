@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/15 20:57:34 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/16 15:56:18 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,6 @@
 # define P3 3 * PI / 2
 # define DR 0.0174533
 
-// 400
-// 800
-// 1280
-// 1920
-// 2560
-
 # define T_SIZE 64
 # define BLOCK_SIZE 64
 # define WIDTH 1920
@@ -66,7 +60,7 @@
 # define CENTER_HEIGHT HEIGHT / 2
 # define WIDTH_SCALE 5
 
-# define LINE_WIDTH 50
+# define LINE_WIDTH 32
 
 # define WALL '1'
 # define DOOR 'D'
