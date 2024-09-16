@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/16 20:59:00 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/16 21:55:32 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,6 +289,7 @@ void facing_sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
 
 bool touch_facing(t_draw *draw, float px, float py , float sprite_x, float sprite_y, int width)
 {
+    // little bit hard coded
     float cosangle = cos(player()->angle);
     float sinangle = sin(player()->angle);
 
@@ -297,15 +298,14 @@ bool touch_facing(t_draw *draw, float px, float py , float sprite_x, float sprit
     float x2 = sprite_x - cosangle;
     float y2 = sprite_y - sinangle;
     
-    float dx = x2 - x1;
-    float dy = y2 - y1;
-    float d = sqrt(dx * dx + dy * dy);
-    float u = ((px - x1) * dx + (py - y1) * dy) / (d * d);
+    float d = distance(x1, y1, x2, y2);
+    float u = ((px - x1) * (x2 - x1) + (py - y1) * (y2 - y1)) / (d * d);
+
     if (u < 0.0 || u > 1.0)
         return false;
     
     float dist = distance(px, py, sprite_x, sprite_y);
-    draw->tex_x = (int)dist % BLOCK_SIZE;
+    draw->tex_x = (int)dist + 32 % BLOCK_SIZE;
     
     if (dist < width / 2)
         return true;
@@ -367,7 +367,7 @@ void draw_line(t_draw draw, ThreadParams *params)
                 draw.facing_sprite_y = draw.y;
             }
             save_facing_sprite = true;
-            break;
+            // break;
         }
         if(touch_generator(c->map->generators, draw.x, draw.y))
         {
@@ -403,7 +403,7 @@ void draw_line(t_draw draw, ThreadParams *params)
         put_line(draw, params);
         if(sprite_direction(&draw, cosangle, sinangle, c) == 9)
             sprite_frame(draw, params, c->map->sprites[0]);
-        if(touch_facing_sprite(&draw,c->map->facing, draw.x, draw.y))
+        if(touch_facing_sprite(&draw,c->map->facing, draw.facing_sprite_x, draw.facing_sprite_y))
             facing_sprite_frame(draw, params, c->map->facing[0]);
         if(generator_direction(&draw, cosangle, sinangle, c) == 7)
         {   
