@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/16 16:22:51 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:19:14 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,11 @@ typedef struct s_draw
 	float					sprite_x;
 	float					sprite_y;
 	int						sprite_height;
+	int						sprite_dist;
+	float					facing_sprite_x;
+	float					facing_sprite_y;
+	int						facing_sprite_height;
+	int						facing_sprite_dist;
 	int						height;
 	int						height_top;
 	float					wall_height;
@@ -175,9 +180,7 @@ typedef struct s_draw
 	int						tex_x;
 	int						dist;
 	int						generator_dist;
-	int						sprite_dist;
 	int 					colors[HEIGHT];
-	float					z_buffer[WIDTH];
 
 }							t_draw;
 
