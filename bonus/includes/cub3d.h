@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/16 15:56:18 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/16 16:22:51 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@
 # define CENTER_WIDTH WIDTH / 2
 # define CENTER_HEIGHT HEIGHT / 2
 # define WIDTH_SCALE 5
-
-# define LINE_WIDTH 32
 
 # define WALL '1'
 # define DOOR 'D'
