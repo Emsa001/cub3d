@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:07:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 19:22:41 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/17 15:49:49 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,6 @@ t_store *init_store()
     while(i < 27)
     {
         store->items[i] = 1;
-        i++;
-    }
-
-    i = 0;
-    while(i < 3)
-    {
-        store->cases[i] = 146;
         i++;
     }
 

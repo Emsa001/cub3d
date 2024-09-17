@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 20:33:44 by escura            #+#    #+#             */
-/*   Updated: 2024/09/15 18:26:19 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/17 17:06:37 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,22 @@ int key_down(int keycode)
         // exit_game(0);
         // return ;
 
-        if(c->map->editor_mode){
-            c->map->editor_mode = false;
+        if(p->open_inventory){
+            p->open_inventory = false;
+            p->interact = false;
         }
 
-        pthread_mutex_lock(&c->pause_mutex);
-        c->paused = !c->paused;
-        pthread_mutex_unlock(&c->pause_mutex);
+        else if(p->store->open){
+            p->store->open = false;
+            p->interact = false;
+        }
+        else if(c->map->editor_mode){
+            c->map->editor_mode = false;
+        }else{
+            pthread_mutex_lock(&c->pause_mutex);
+            c->paused = !c->paused;
+            pthread_mutex_unlock(&c->pause_mutex);
+        }
     }
 
     if(c->paused)

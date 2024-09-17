@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   start.c                                            :+:      :+:    :+:   */
+/*   general.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/17 16:59:11 by escura           ###   ########.fr       */
+/*   Created: 2024/09/17 16:01:37 by escura            #+#    #+#             */
+/*   Updated: 2024/09/17 16:35:42 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "items.h"
 
-void openPortals(){
-    open_portal(1);
-    // open_portal(1);
+void try_open_door(t_item *item)
+{
+    t_cube *c = cube();
+    t_player *p = player();
+
+    printf("Trying to open door with %s\n", item->name);
 }
 
-void start_game(void)
+void init_keys_items(t_cube *c)
 {
-    t_render *r = render();
-    t_cube *c = cube();
-    
-    create_image(r, WIDTH, HEIGHT);
+    t_item *item;
 
-    init_hooks();
-    init_economy();
-
-    // ft_wait(5000,openPortals);
-
-    mlx_loop_hook(r->mlx, render_scene_multithread, NULL);
-    mlx_loop(r->mlx);
+    item = (t_item *)ft_calloc(sizeof(t_item),1);
+    item->name = "Old Key";
+    item->fontSize = 0.5;
+    item->props.id = 50;
+    item->right_click = &try_open_door;
+    // item->props.effect = 3000;
+    c->items[50] = *item;
 }

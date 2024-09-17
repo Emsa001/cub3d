@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/15 14:39:31 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/17 16:29:59 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_cube
 
 	double					delta_time;
 	t_button_node			*buttons;
-	t_item					items[256];
+	t_item					items[328];
 
 	t_map					*map;
 

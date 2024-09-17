@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 21:09:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 20:56:41 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/17 15:51:04 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	hud_currency(void)
     }
 
     // money texture
-    put_image(&t->items[65], 10, 12, 2);
+    put_image(&t->items[66], 10, 12, 2);
 
     pthread_mutex_lock(&c->add_money_mutex);
     pthread_mutex_lock(&p->money_mutex);

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 22:05:17 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 17:35:00 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/17 16:38:25 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,6 @@ t_textures *init_textures(t_textures *t)
 	if (t == NULL)
 		return (texture);
 
-	t_texture *player = ft_malloc(sizeof(t_texture));
-	player->image = get_texture_file("assets/player.xpm", &player->width, &player->height);
-	player->data = mlx_get_data_addr(player->image, &player->bpp, &player->size_line, &player->endian);
-	t->player = player;
-
 	cube()->levels = 3;
 
 	t->ceiling = init_textures_array("ceiling", mlx);
@@ -127,7 +122,11 @@ t_textures *init_textures(t_textures *t)
 	generator_top->image = get_texture_file("assets/back.xpm", &generator_top->width, &generator_top->height);
 	generator_top->data = mlx_get_data_addr(generator_top->image, &generator_top->bpp, &generator_top->size_line, &generator_top->endian);
 	t->generator_top = generator_top;
-	
+
+	t_texture *open_portal = ft_calloc(1,sizeof(t_texture));
+	open_portal->image = get_texture_file("assets/banners/portal.xpm", &open_portal->width, &open_portal->height);
+	open_portal->data = mlx_get_data_addr(open_portal->image, &open_portal->bpp, &open_portal->size_line, &open_portal->endian);
+	t->open_portal = open_portal;
 	
 	init_hudtextures(t);
 
@@ -135,7 +134,7 @@ t_textures *init_textures(t_textures *t)
 	init_font(t);
 	init_tooltip(t);
 	init_ui(t);
-	
+
 	texture = t;
 	return (texture);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:44 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 13:02:52 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/17 16:58:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,22 @@ void lane_distance(t_draw *draw)
     adjusted_distance = raw_distance * cos(player_angle - draw->angle);
     draw->sprite_dist = adjusted_distance;
     draw->sprite_height = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
+}
+
+int money()
+{
+    t_player *p = player();
+    pthread_mutex_lock(&p->money_mutex);
+    int money = p->money;
+    pthread_mutex_unlock(&p->money_mutex);
+    return money;
+}
+
+void add_money(int amount)
+{
+    t_player *p = player();
+
+    pthread_mutex_lock(&p->money_mutex);
+    p->money += amount;
+    pthread_mutex_unlock(&p->money_mutex);
 }

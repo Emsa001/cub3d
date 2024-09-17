@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/15 15:57:31 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/17 16:58:09 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,5 +136,9 @@ t_store						*init_store(void);
 void						open_store(void);
 float						distance(float x1, float y1, float x2, float y2);
 void	hud_inventory(void);
+void add_money(int amount);
+int money();
+
+
 
 #endif

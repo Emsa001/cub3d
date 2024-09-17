@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:18:44 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 13:52:11 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/17 16:18:21 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ typedef struct s_store
 	bool	open;
 	bool	case_cooldown;
 	int		items[27];
-	int		cases[3];
 	int		generators[2];
 
 	pthread_mutex_t	case_mutex;
