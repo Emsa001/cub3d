@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/17 17:20:39 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:01:53 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,7 +258,7 @@ long current_frame(int frames);
 // String
 void						render_string(t_string *str);
 int							vert_offset(const t_player *p);
-int							darken_color(int color, float ratio);
+int							darken_color(int color, float dist);
 float						view_current_distance(const t_player *p, int start_y,
 								float angle);
 t_draw						init_draw(void);

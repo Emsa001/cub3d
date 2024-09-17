@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/17 17:56:56 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:02:17 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,7 +277,6 @@ void facing_sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
     while (start_y < end_y)
     {
         color = get_pixel_from_image(sprite_tex, (draw.tex_x) , tex_y);
-        color = darken_color(color, (float)dist / 450);
 
         if(color && color > 0)
             put_pixel(draw.start_x, start_y, color, r);

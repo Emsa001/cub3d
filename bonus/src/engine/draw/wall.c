@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/09/16 18:28:29 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/17 18:17:25 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ t_texture *get_wall_side(int side, const t_textures *texs, int n)
     return t;
 }
 
-int darken_color(int color, float ratio)
+int darken_color(int color, float dist)
 {
     int r = (color >> 16) & 0xFF;
     int g = (color >> 8) & 0xFF;
     int b = color & 0xFF;
 
-    int factor = (int)((1.0f - ratio) * 255);
+    int factor = (int)((1.0f - dist) * 255);
 
     r = (r * factor) >> 8;
     g = (g * factor) >> 8;
@@ -84,7 +84,26 @@ int get_texture_color(t_texture *tex, float dist, float cosangle, float sinangle
     float tex_x = player()->x + dist * cosangle;
     float tex_y = player()->y + dist * sinangle;
     int color = get_pixel_from_image(tex, tex_x * T_SIZE, tex_y * T_SIZE);
-    return darken_color(color, dist / 7);
+
+    t_sprite *sprites = cube()->map->facing;
+        
+    float dist_to_facing_sprite = 0;
+    float sprite_x = 0;
+    float sprite_y = 0;
+    int i = 0;
+    if(sprites[0].x == -1)
+        return color = darken_color(color, dist / 7);
+    while(sprites[i].x != -1)
+    {
+        sprite_x = sprites[i].x;
+        sprite_y = sprites[i].y;
+        dist_to_facing_sprite = distance(tex_x, tex_y, sprite_x, sprite_y);
+        color = darken_color(color, dist_to_facing_sprite / 3);
+        i++;
+    }
+    if(color < 0)
+        color = 0;
+    return color;
 }
 
 void draw_scene(t_draw *draw, ThreadParams *params)
