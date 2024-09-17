@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/16 21:55:32 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/17 17:56:56 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,27 +289,20 @@ void facing_sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
 
 bool touch_facing(t_draw *draw, float px, float py , float sprite_x, float sprite_y, int width)
 {
-    // little bit hard coded
+    // it's the same as cos(angle + 90)
     float cosangle = cos(player()->angle);
+    // it's the same as sin(angle + 90)
     float sinangle = sin(player()->angle);
 
-    float x1 = sprite_x + cosangle;
-    float y1 = sprite_y + sinangle;
-    float x2 = sprite_x - cosangle;
-    float y2 = sprite_y - sinangle;
-    
-    float d = distance(x1, y1, x2, y2);
-    float u = ((px - x1) * (x2 - x1) + (py - y1) * (y2 - y1)) / (d * d);
-
-    if (u < 0.0 || u > 1.0)
+ 
+    float u = (cosangle * (sprite_x - px) + sinangle * (sprite_y - py));
+    if (u < 0 || u > 2)
         return false;
-    
+    float v = (-sinangle * (sprite_x - px) + cosangle * (sprite_y - py));
+    draw->tex_x = (int)v + width / 2;
     float dist = distance(px, py, sprite_x, sprite_y);
-    draw->tex_x = (int)dist + 32 % BLOCK_SIZE;
-    
-    if (dist < width / 2)
+    if (dist * 2 < width)
         return true;
-        
     return false;
 }
 
@@ -367,7 +360,6 @@ void draw_line(t_draw draw, ThreadParams *params)
                 draw.facing_sprite_y = draw.y;
             }
             save_facing_sprite = true;
-            // break;
         }
         if(touch_generator(c->map->generators, draw.x, draw.y))
         {
