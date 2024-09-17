@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   keydown.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 19:38:28 by btvildia         ###   ########.fr       */
+/*   Created: 2024/08/02 20:33:44 by escura            #+#    #+#             */
+/*   Updated: 2024/09/15 18:26:19 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void player_keydown(int keycode){
+// Existing key press function
+int key_down(int keycode)
+{
     t_player *p = player();
     t_cube *c = cube();
     
@@ -31,7 +33,7 @@ void player_keydown(int keycode){
     }
 
     if(c->paused)
-        return;
+        return 0;
 
     if(keycode == Q){
         pthread_mutex_lock(&c->add_money_mutex);
@@ -71,7 +73,7 @@ void player_keydown(int keycode){
     //         p->fov -= 5;
     // }
     // if(keycode == PLUS)
-    //     if(p->fov < 120)
+    //     if(p->fov < 90)
     //         p->fov += 5;
     
     if(keycode == E){
@@ -89,4 +91,7 @@ void player_keydown(int keycode){
         p->store->open = !p->store->open;
         p->interact = !p->interact;
     }
+
+    return (0);
 }
+

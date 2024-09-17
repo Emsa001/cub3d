@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   keyup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 16:44:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 14:50:47 by btvildia         ###   ########.fr       */
+/*   Created: 2024/09/15 18:21:05 by escura            #+#    #+#             */
+/*   Updated: 2024/09/15 18:23:17 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void player_keyup(int keycode){
+// Existing key release function
+int key_up(int keycode)
+{
     t_player *p = player();
     const t_cube *c = cube();
 
@@ -55,4 +57,5 @@ void player_keyup(int keycode){
         p->catched = false;
     }
 
+    return (0);
 }
