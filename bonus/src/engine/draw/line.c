@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 17:05:08 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/18 17:38:22 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ int touch_sprite(t_sprite *sprites, float px, float py)
         x = sprites[i].x * BLOCK_SIZE;
         y = sprites[i].y * BLOCK_SIZE;
 
-        if (px >= x && px <= x + sprites[i].width && py >= y && py <= y + 1)
+        if (px >= x && px <= x + sprites[i].width && py >= y && py <= y + 5)
             return i + 1;
         i++;
     }
@@ -251,6 +251,26 @@ void sprite_dist(t_draw *draw)
     draw->sprite_height = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
 }
 
+int sprite_direction(t_draw *draw, float cosangle, float sinangle, t_cube *c)
+{
+    int sx = 0;
+    int sy = 0;
+    if (cosangle > 0)
+        sx = 1;
+    else
+        sx = -1;
+    if (sinangle > 0)
+        sy = 1;
+    else
+        sy = -1;
+    if(touch_sprite(c->map->sprites, draw->sprite_x, draw->sprite_y))
+    {
+        draw->tex_x = (int)draw->sprite_x % BLOCK_SIZE;
+        return 9;
+    }
+    return 0;
+}
+
 void draw_line(t_draw draw, ThreadParams *params)
 {   
     t_cube *c = params->cube;
@@ -267,8 +287,8 @@ void draw_line(t_draw draw, ThreadParams *params)
     {
         if(touch_sprite(c->map->sprites, draw.x, draw.y) || touch_facing_sprite(&draw, c->map->facing, draw.x, draw.y))
         {
-            draw.sprite_x = draw.x;
-            draw.sprite_y = draw.y;
+            touch[i].x = draw.x;
+            touch[i].y = draw.y;
             i++;
         }
         if(touch_generator(c->map->generators, draw.x, draw.y))
@@ -296,14 +316,15 @@ void draw_line(t_draw draw, ThreadParams *params)
     lane_distance(&draw);
     draw_scene(&draw, params);
     put_line(draw, params);
-    sprite_dist(&draw);
-    if(touch_sprite(c->map->sprites, draw.sprite_x, draw.sprite_y))
-    {
-        sprite_frame(draw, params, c->map->sprites[0]);
-    }
-
     while(i > 0)
     {
+        draw.sprite_x = touch[i].x;
+        draw.sprite_y = touch[i].y;
+        sprite_dist(&draw);
+        if(sprite_direction(&draw, cosangle, sinangle, c))
+            sprite_frame(draw, params, c->map->sprites[0]);
+        if(touch_facing_sprite(&draw, c->map->facing, draw.sprite_x, draw.sprite_y))
+            sprite_frame(draw, params, c->map->facing[0]);
         i--;
     }
     ft_free(touch);
