@@ -1,34 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   start.c                                            :+:      :+:    :+:   */
+/*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 15:25:52 by escura           ###   ########.fr       */
+/*   Created: 2024/09/18 17:01:30 by escura            #+#    #+#             */
+/*   Updated: 2024/09/18 17:03:10 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void openPortals(){
-    open_portal(1);
-    // open_portal(1);
-}
-
-void start_game(void)
+void economy_loop()
 {
-    t_render *r = render();
-    t_cube *c = cube();
-    
-    create_image(r, WIDTH, HEIGHT);
-
-    init_hooks();
-    init_economy();
-
-    // ft_wait(5000,openPortals);
-
-    mlx_loop_hook(r->mlx, render_scene_multithread, NULL);
-    mlx_loop(r->mlx);
+    shopkeeper();
+    generators();
 }

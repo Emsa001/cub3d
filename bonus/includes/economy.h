@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:18:44 by escura            #+#    #+#             */
-/*   Updated: 2024/09/17 16:18:21 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/18 17:03:32 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,14 @@ typedef struct s_store
 
 }			t_store;
 
+void economy_loop();
+
 void		shop_item_hover(void *arg);
 void		cases(int x, int y);
 void		special_offer(int x, int y);
 void		shopkeeper(void);
 void		portal_offer(int x, int y);
+
+void generators();
 
 #endif

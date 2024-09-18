@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/17 16:49:59 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/18 15:00:09 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_uitextures
 {
 	t_texture		*button;
 	t_texture		*button_hover;
+	t_texture 		*button_long;
 
 	t_texture		*play;
 	t_texture		*play_hover;

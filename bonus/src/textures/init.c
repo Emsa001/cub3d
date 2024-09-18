@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 22:05:17 by escura            #+#    #+#             */
-/*   Updated: 2024/09/17 16:38:25 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/18 16:45:34 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,6 @@ t_textures *init_textures(t_textures *t)
 
 	if (t == NULL)
 		return (texture);
-
-	cube()->levels = 3;
 
 	t->ceiling = init_textures_array("ceiling", mlx);
 	t->floor = init_textures_array("floor", mlx);

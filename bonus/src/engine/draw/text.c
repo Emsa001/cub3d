@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 15:57:22 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/18 15:28:28 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void clear_string_queue(t_render *r)
 
     pthread_mutex_unlock(&r->string_queue_mutex);
 }
-
 
 void put_string_queue(t_render *r)
 {
@@ -202,4 +201,27 @@ void render_string(t_string *string)
 
         x += char_width * size;
     }
+}
+
+
+void timer_process(t_async *async){
+    char *time = ft_itoa((async->time - async->time_elapsed) / 1000);
+
+    t_string str;
+    str.str = time;
+    str.x = CENTER_WIDTH;
+    str.y = CENTER_HEIGHT;
+    str.color = 0x00FF00;
+    str.size = 3;
+    str.time = 1000;
+    render_string_async(&str);
+}
+
+void string_timer(int time)
+{
+    t_async *async = new_async();
+    async->process = &timer_process;
+    async->process_time = 1000;
+    async->time = time;
+    start_async(async);
 }

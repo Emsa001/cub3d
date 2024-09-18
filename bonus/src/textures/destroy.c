@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 18:36:08 by escura            #+#    #+#             */
-/*   Updated: 2024/09/17 16:50:19 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/18 15:23:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void destroy_textures()
     destroy_texture(t->inventoryGui);
     destroy_texture(t->tooltip_bg);
     destroy_texture(t->open_portal);
+
+    destroy_texture(t->ui->button_long);
     
     destroy_ui();
     

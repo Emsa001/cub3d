@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:44 by escura            #+#    #+#             */
-/*   Updated: 2024/09/17 16:58:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/18 17:07:40 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,32 @@ void add_money(int amount)
     pthread_mutex_lock(&p->money_mutex);
     p->money += amount;
     pthread_mutex_unlock(&p->money_mutex);
+}
+
+bool is_nerby(char cell)
+{
+
+    const t_player *p = player();
+    const t_cube *c = cube();
+
+    int x = (int)p->x_px / BLOCK_SIZE;
+    int y = (int)p->y_px / BLOCK_SIZE;
+
+    char nearby_cells[8];
+    nearby_cells[0] = c->map->map[y-1][x];     // North
+    nearby_cells[1] = c->map->map[y+1][x];     // South
+    nearby_cells[2] = c->map->map[y][x-1];     // West
+    nearby_cells[3] = c->map->map[y][x+1];     // East
+    nearby_cells[4] = c->map->map[y-1][x-1];   // North-West
+    nearby_cells[5] = c->map->map[y-1][x+1];   // North-East
+    nearby_cells[6] = c->map->map[y+1][x-1];   // South-West
+    nearby_cells[7] = c->map->map[y+1][x+1];   // South-East
+
+    for(int i = 0; i < 8; i++) {
+        if(nearby_cells[i] == cell) {
+            return true;
+        }
+    }
+
+    return false;
 }

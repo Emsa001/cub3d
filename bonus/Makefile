@@ -6,7 +6,7 @@
 #    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/09/17 16:49:25 by escura           ###   ########.fr        #
+#    Updated: 2024/09/18 15:39:18 by escura           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ CC = cc
 
 CFLAGS = -g -O3
 # CFLAGS += -fsanitize=thread
-CFLAGS += -fsanitize=address
+# CFLAGS += -fsanitize=address
 # CFLAGS = -Wall -Wextra -Werror
 
 CFLAGS += -I$(LIBFT_DIR) -I$(INCLUDES_DIR)

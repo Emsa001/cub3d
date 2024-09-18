@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/17 16:29:59 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/18 16:48:11 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_cube
 	t_textures				*textures;
 
 	int levels;
+	int next_portal;
 }							t_cube;
 
 typedef struct s_string
@@ -310,5 +311,6 @@ void render_view(t_cube *c);
 void clear_image_queue(t_render *r);
 void clear_string_queue(t_render *r);
 void render_tooltip();
+void string_timer(int time);
 
 #endif

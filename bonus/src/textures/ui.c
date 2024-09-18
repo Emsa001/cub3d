@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:27:14 by escura            #+#    #+#             */
-/*   Updated: 2024/09/17 16:37:59 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/18 15:02:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ void init_ui(t_textures *t)
 	button_hover->image = get_texture_file("assets/UI/Button/Hover.xpm", &button_hover->width, &button_hover->height);
 	button_hover->data = mlx_get_data_addr(button_hover->image, &button_hover->bpp, &button_hover->size_line, &button_hover->endian);
 	t->ui->button_hover = button_hover;
+
+	t_texture *button_long = ft_malloc(sizeof(t_texture));
+	button_long->image = get_texture_file("assets/UI/Button/Default_long.xpm", &button_long->width, &button_long->height);
+	button_long->data = mlx_get_data_addr(button_long->image, &button_long->bpp, &button_long->size_line, &button_long->endian);
+	t->ui->button_long = button_long;
 
 	t_texture *play = ft_malloc(sizeof(t_texture));
 	play->image = get_texture_file("assets/UI/Button/play/Default.xpm", &play->width, &play->height);
