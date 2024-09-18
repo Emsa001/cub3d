@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 18:06:05 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/18 19:49:38 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,12 +282,14 @@ void draw_line(t_draw draw, ThreadParams *params)
     
     bool save = false;
     bool save_last = false;
-    t_touch *touch = ft_calloc(100, sizeof(t_touch));
+
+    bool save_sprite = false;
+    t_touch *touch = ft_calloc(c->map->sprite_count * 2, sizeof(t_touch));
     int i = 0;
 
     while (!find_hitbox(draw.x, draw.y, c))
     {
-        if(touch_sprite(c->map->sprites, draw.x, draw.y) || touch_facing_sprite(&draw, c->map->facing, draw.x, draw.y))
+        if(touch_sprite(c->map->sprites, draw.x, draw.y))
         {
             touch[i].x = draw.x;
             touch[i].y = draw.y;
@@ -312,6 +314,7 @@ void draw_line(t_draw draw, ThreadParams *params)
         }
         draw.x += cosangle;
         draw.y += sinangle;
+        // put_pixel(draw.x, draw.y, 123, params->render);
     }
 
     draw.side = direction(draw.x, draw.y, cosangle, sinangle, c, &draw.tex_x);

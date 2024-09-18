@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 18:04:38 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:21:52 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_map
 	bool	portal;
 
 	bool editor_mode;
+	int sprite_count;
 
 	t_block	*doors;
 	t_block	*blocks;
