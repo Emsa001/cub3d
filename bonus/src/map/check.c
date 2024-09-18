@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/14 19:35:27 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/16 17:37:17 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,7 +321,7 @@ t_sprite *init_map_sprites(t_map *map_info, char **map)
 	int			j;
 	int			k;
 	
-	map_info->sprites = NULL;
+	map_info->facing = NULL;
 	sprites = ft_malloc(sizeof(t_sprite));
 	k = 0;
 
@@ -354,6 +354,7 @@ t_map	*check_map(char **map, int size)
 	map_info->generators = init_generators(map_info, map);
 	map_info->sprites = get_portals(map);
 	map_info->portals = get_portals_points(map);
+	map_info->facing = init_map_sprites(map_info, map);
 	map_info->editor_mode = false;
 	return (map_info);
 }

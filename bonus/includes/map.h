@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 19:34:53 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/16 20:58:59 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ typedef struct s_map
 	t_block *lines;
 	t_block *generators;
 	t_sprite *sprites;
+	t_sprite *facing;
 	t_point *portals;
 	
 	t_minimap *minimap;
@@ -126,8 +127,9 @@ void		fill_loop(char to_fill[], t_point *begin_points, t_map *map_info,
 				t_point size);
 
 void add_sprite(char *path_file, int frames, float x, float y);
+void add_facing_sprite(char *path_file, int frames, float x, float y);
 void remove_sprite(int x, int y);
-void init_sprite(t_map *map_info, t_sprite sprite);
+void init_sprite(t_map *map, t_sprite sprite, bool facing);
 
 t_minimap *minimap();
 

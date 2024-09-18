@@ -58,6 +58,10 @@ void example_click(){
 
 }
 
+void example_tooltip(){
+    tooltip("nerd", 0.5);
+}
+
 void put_example_button(){
     
     const t_uitextures *t = textures()->ui;

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 19:08:37 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/16 20:36:35 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ typedef struct s_draw		t_draw;
 # define SPRINTBONUS 5
 # define MOUSE_SENSITIVITY 0.003
 
-# define JUMP_SPEED 0.06
-# define GRAVITY 0.006
+# define JUMP_SPEED 0.03
+# define GRAVITY 0.003
 
 # define FOV 60
 

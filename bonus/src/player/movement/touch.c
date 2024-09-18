@@ -6,11 +6,25 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:49:03 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 15:55:40 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:14:38 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+bool touch_circle(float px, float py , float circle_x, float circle_y)
+{
+	int i = 0;
+	float x = 0;
+    float y = 0;
+
+    x = circle_x * BLOCK_SIZE;
+    y = circle_y * BLOCK_SIZE;
+	float dist = sqrt(pow(px - x, 2) + pow(py - y, 2));
+    if (dist <= 30)
+        return true;
+	return false;
+}
 
 bool check_level(t_point *portals, float px, float py)
 {

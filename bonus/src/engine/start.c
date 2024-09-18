@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/15 14:45:31 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/18 17:12:17 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void openPortals(){
     open_portal(1);
-    // open_portal(1);
+    open_portal(0);
 }
 
 void start_game(void)
@@ -26,6 +26,13 @@ void start_game(void)
 
     init_hooks();
     init_economy();
+    // add_sprite("assets/fire/", 13,7,37);
+    
+    // t_async *async = new_async();
+    // async->end = &end;
+    // async->end_mt = &end_mt;
+    // async->time = 3000;
+    // start_async(async);
 
     ft_wait(5000,openPortals);
 
