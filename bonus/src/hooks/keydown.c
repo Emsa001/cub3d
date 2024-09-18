@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 20:33:44 by escura            #+#    #+#             */
-/*   Updated: 2024/09/17 17:06:37 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/18 19:35:33 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,8 @@ int key_down(int keycode)
         // exit_game(0);
         // return ;
 
-        if(p->open_inventory){
-            p->open_inventory = false;
-            p->interact = false;
-        }
-
-        else if(p->store->open){
-            p->store->open = false;
-            p->interact = false;
-        }
+        if(p->GUI != -1)
+            p->GUI = -1;
         else if(c->map->editor_mode){
             c->map->editor_mode = false;
         }else{
@@ -43,13 +36,7 @@ int key_down(int keycode)
 
     if(c->paused)
         return 0;
-
-    if(keycode == Q){
-        pthread_mutex_lock(&c->add_money_mutex);
-        c->add_money += 100;
-        pthread_mutex_unlock(&c->add_money_mutex);
-    }
-
+        
     if (keycode == W)
         p->btn_w = true;
     if (keycode == S)
@@ -97,8 +84,10 @@ int key_down(int keycode)
         p->catch = true;
 
     if(keycode == G){
-        p->store->open = !p->store->open;
-        p->interact = !p->interact;
+        if(p->GUI_temp != -1 && p->GUI == -1)
+            p->GUI = p->GUI_temp;
+        else
+            p->GUI = -1;
     }
 
     return (0);

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 17:07:45 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/18 18:51:54 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ typedef struct s_button_node
 	t_button				button;
 	struct s_button_node	*next;
 }							t_button_node;
+
+
+typedef struct s_location{
+	int x;
+	int y;
+} t_location;
 
 typedef struct s_player
 {
@@ -110,7 +116,12 @@ typedef struct s_player
 	t_item					*hand;
 	bool					swing;
 	t_store					*store;
+
+	int GUI;
+	int GUI_temp;
+	t_generator *generator;
 }							t_player;
+
 
 t_player					*player_init(t_player *p);
 t_player					*player(void);
@@ -138,7 +149,7 @@ float						distance(float x1, float y1, float x2, float y2);
 void	hud_inventory(void);
 void add_money(int amount);
 int money();
-bool is_nerby(char cell);
+t_location *is_nerby(char cell);
 
 
 

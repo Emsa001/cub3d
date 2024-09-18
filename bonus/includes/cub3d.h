@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 16:48:11 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/18 17:56:28 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@
 #include <stdint.h>
 #include <X11/Xlib.h>
 
+# define NONE -1
+# define STORE 1
+# define GENERATOR 2
 
 # define YELLOW "\033[1;33m"
 # define GREEN "\033[1;32m"

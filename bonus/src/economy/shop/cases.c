@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:04:42 by escura            #+#    #+#             */
-/*   Updated: 2024/09/17 16:57:08 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/18 18:02:26 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void openCase(void *arg)
     pthread_mutex_unlock(&p->money_mutex);
 
     add_money(-value);
-    store->open = false;
+    p->GUI = NONE;
     int prize = random_int(0, value * 2);
 
     displayPrizeMessage(prize, value);

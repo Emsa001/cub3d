@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 15:00:09 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/18 18:34:58 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_uitextures
 	t_texture		*panel;
 
 	t_texture		*keys[32];
+	t_texture 		*progress[81];
 }					t_uitextures;
 
 typedef struct s_textures

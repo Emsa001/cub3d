@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:07:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 16:53:12 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/18 19:00:44 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 t_store *init_store()
 {
     t_store *store = ft_malloc(sizeof(t_store));
-    store->open = false;
-    store->can_open = false;
     store->case_cooldown = false;
     pthread_mutex_init(&store->case_mutex, NULL);
 
@@ -27,13 +25,7 @@ t_store *init_store()
         i++;
     }
 
-    i = 0;
-    while(i < 2)
-    {
-        store->generators[i] = 147;
-        i++;
-    }
-
+    store->generators = NULL;
     store->x = 7;
     store->y = 35;
     add_sprite("assets/shop/", 28, store->x, store->y);

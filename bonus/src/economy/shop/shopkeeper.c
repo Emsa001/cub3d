@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:07:27 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 16:01:55 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/18 18:39:56 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,13 @@
 
 void shopkeeper()
 {
-    const t_player *p = player();
+    t_player *p = player();
 
     float dist = distance(p->x_px / BLOCK_SIZE, p->y_px / BLOCK_SIZE, p->store->x, p->store->y);
-
-    if(dist < 1.5)
-        p->store->can_open = true;
-    else{
-        p->store->open = false;
-        p->store->can_open = false;
-    }
-
+    open_store();
     
-    if(p->store->can_open){
+    if(dist < 1.5){
+        p->GUI_temp = STORE;
 
         t_string str;
         str.str = "Press G to open the shop";
@@ -37,5 +31,9 @@ void shopkeeper()
 
         render_string(&str);
         // render_string("Press G to open the shop", CENTER_WIDTH - 210, HEIGHT -100, 0x00FF00, 0.7);
+    }else if(p->GUI_temp == STORE){
+        p->GUI_temp = NONE;
+        p->GUI = NONE;
+        printf("You left the shop\n");
     }
 }

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:46:59 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 16:51:13 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/18 18:03:38 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void buy_portalkey(){
 
     if(money() < 10000)
         return;
+    
+    p->GUI = NONE;
     add_money(-10000);
     string_timer(time - 1000);
     ft_wait(time, &opening);

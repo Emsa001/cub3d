@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:27:14 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 15:02:30 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/18 18:37:13 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,28 @@ void init_keys(t_textures *t){
 		key->image = get_texture_file(path2, &key->width, &key->height);
 		key->data = mlx_get_data_addr(key->image, &key->bpp, &key->size_line, &key->endian);
 		t->ui->keys[i] = key;
+		i++;
+
+		ft_free(num);
+        ft_free(path);
+        ft_free(path2);
+	}
+}
+
+static void init_progress(t_textures *t){
+	int i = 0;
+	while(i < 81){
+		t_texture *key = ft_malloc(sizeof(t_texture));
+
+        char *name = "assets/UI/progress/";
+        char *num = ft_itoa(i);
+        char *ext = ".xpm";
+        char *path = ft_strjoin(name, num);
+        char *path2 = ft_strjoin(path, ext);
+
+		key->image = get_texture_file(path2, &key->width, &key->height);
+		key->data = mlx_get_data_addr(key->image, &key->bpp, &key->size_line, &key->endian);
+		t->ui->progress[i] = key;
 		i++;
 
 		ft_free(num);
@@ -80,4 +102,5 @@ void init_ui(t_textures *t)
 	t->ui->panel = panel;
 
 	init_keys(t);
+	init_progress(t);
 }

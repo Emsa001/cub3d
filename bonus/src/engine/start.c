@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 15:25:52 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/18 19:16:40 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void start_game(void)
     create_image(r, WIDTH, HEIGHT);
 
     init_hooks();
-    init_economy();
+    // init_economy();
 
     // ft_wait(5000,openPortals);
 

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 18:36:08 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 15:23:30 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/18 18:38:15 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,12 @@ void destroy_textures()
     int i = 0;
     while(i < 32){
         destroy_texture(t->ui->keys[i]);
+        i++;
+    }
+
+    i = 0;
+    while(i < 81){
+        destroy_texture(t->ui->progress[i]);
         i++;
     }
 }
