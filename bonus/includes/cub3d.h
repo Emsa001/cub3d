@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/17 21:29:50 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/18 16:38:02 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@
 # define BLOCK '2'
 
 # define M_PI 3.14159265358979323846
-# define NUM_THREADS 10
+# define NUM_THREADS 1
 
 typedef struct s_render t_render;
 
@@ -154,6 +154,12 @@ typedef struct s_render
 }							t_render;
 
 
+typedef struct s_touch
+{
+	float					x;
+	float					y;
+}							t_touch;
+
 typedef struct s_draw
 {
 	float					angle;
@@ -167,10 +173,6 @@ typedef struct s_draw
 	float					sprite_y;
 	int						sprite_height;
 	int						sprite_dist;
-	float					facing_sprite_x;
-	float					facing_sprite_y;
-	int						facing_sprite_height;
-	int						facing_sprite_dist;
 	int						height;
 	int						height_top;
 	float					wall_height;
@@ -180,7 +182,7 @@ typedef struct s_draw
 	int						tex_x;
 	int						dist;
 	int						generator_dist;
-	int 					colors[HEIGHT];
+	int 					colors[HEIGHT + 1];
 
 }							t_draw;
 

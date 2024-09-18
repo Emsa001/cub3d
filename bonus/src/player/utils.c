@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:44 by escura            #+#    #+#             */
-/*   Updated: 2024/09/16 18:22:32 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/18 14:36:18 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,4 @@ void lane_distance(t_draw *draw)
     adjusted_distance = raw_distance * cos(player_angle - draw->angle);
     draw->dist = adjusted_distance;
     draw->wall_height = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
-
-    raw_distance = distance(draw->sprite_x, draw->sprite_y, x2, y2);
-    adjusted_distance = raw_distance * cos(player_angle - draw->angle);
-    draw->sprite_dist = adjusted_distance;
-    draw->sprite_height = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
-
-    raw_distance = distance(draw->facing_sprite_x, draw->facing_sprite_y, x2, y2);
-    adjusted_distance = raw_distance * cos(player_angle - draw->angle);
-    draw->facing_sprite_dist = adjusted_distance;
-    draw->facing_sprite_height = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
 }
