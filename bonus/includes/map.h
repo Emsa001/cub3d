@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/16 20:58:59 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:04:38 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ typedef struct s_map
 	t_sprite *sprites;
 	t_sprite *facing;
 	t_point *portals;
-	
 	t_minimap *minimap;
 }			t_map;
 

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 16:38:02 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:06:20 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,6 +246,7 @@ t_texture *get_wall_side(int side, const t_textures *texs, int n);
 int get_texture_color(t_texture *tex, float dist, float cosangle, float sinangle);
 t_texture* get_texture(int start_y, int height, const t_player *p, const t_textures *texs);
 void draw_scene(t_draw *draw, ThreadParams *params);
+int darken_color_wall(int color, float factor, float wall_x, float wall_y);
 
 void						draw_line(t_draw draw, ThreadParams *params);
 void						draw_wall(t_draw *draw, ThreadParams *params);

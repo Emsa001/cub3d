@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 17:38:22 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/18 18:06:05 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,17 +163,17 @@ int touch_sprite(t_sprite *sprites, float px, float py)
     return 0;
 }
 
-void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
+void sprite_frame(t_draw *draw, ThreadParams *params, t_sprite sprite, int bright)
 {
     int color = params->color;
     float tex_y = 0;
-    float step = ((float)T_SIZE) / draw.sprite_height;
+    float step = ((float)T_SIZE) / draw->sprite_height;
     const t_player *p = params->player;
     t_render *r = params->render;
-    int dist = draw.sprite_dist;
+    int dist = draw->sprite_dist;
 
-    int start_y = (p->z - 1) * draw.sprite_height + vert_offset(p);
-    int end_y = start_y + draw.sprite_height;
+    int start_y = (p->z - 1) * draw->sprite_height + vert_offset(p);
+    int end_y = start_y + draw->sprite_height;
 
 
     t_texture *sprite_tex = sprite.sprite_tex[current_frame(sprite.frames)];
@@ -188,9 +188,11 @@ void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
 
     while (start_y < end_y)
     {
-        color = get_pixel_from_image(sprite_tex, draw.tex_x , tex_y);
+        color = get_pixel_from_image(sprite_tex, draw->tex_x , tex_y);
+        color = darken_color_wall(color, (float)dist / 450, draw->sprite_x / BLOCK_SIZE, draw->sprite_y / BLOCK_SIZE);
+        
         if(color && color > 0)
-            put_pixel(draw.start_x, start_y, color, r);
+            draw->colors[start_y] = color;
 
         tex_y += step;
         start_y++;
@@ -315,17 +317,22 @@ void draw_line(t_draw draw, ThreadParams *params)
     draw.side = direction(draw.x, draw.y, cosangle, sinangle, c, &draw.tex_x);
     lane_distance(&draw);
     draw_scene(&draw, params);
-    put_line(draw, params);
     while(i > 0)
     {
         draw.sprite_x = touch[i].x;
         draw.sprite_y = touch[i].y;
         sprite_dist(&draw);
         if(sprite_direction(&draw, cosangle, sinangle, c))
-            sprite_frame(draw, params, c->map->sprites[0]);
-        if(touch_facing_sprite(&draw, c->map->facing, draw.sprite_x, draw.sprite_y))
-            sprite_frame(draw, params, c->map->facing[0]);
+            sprite_frame(&draw, params, c->map->sprites[0], 0);
+        else if(touch_facing_sprite(&draw, c->map->facing, draw.sprite_x, draw.sprite_y))
+            sprite_frame(&draw, params, c->map->facing[0], 1);
         i--;
+    }    
+    int scale = draw.start_x + WIDTH_SCALE;
+    while(draw.start_x < scale)
+    {
+        put_line(draw, params);
+        draw.start_x++;
     }
     ft_free(touch);
 }
