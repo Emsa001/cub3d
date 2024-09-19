@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 14:23:07 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:58:33 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@
 # define HEIGHT 1080
 # define CENTER_WIDTH WIDTH / 2
 # define CENTER_HEIGHT HEIGHT / 2
-# define WIDTH_SCALE 1
+# define WIDTH_SCALE 5
 
 # define WALL '1'
 # define DOOR 'D'

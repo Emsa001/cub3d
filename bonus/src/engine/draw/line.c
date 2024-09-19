@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 14:23:54 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/19 14:57:59 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,17 +283,17 @@ void draw_line(t_draw draw, ThreadParams *params)
     bool save = false;
     bool save_last = false;
 
-    t_touch *touch = malloc(sizeof(t_touch) * c->map->sprite_count + 1);
+    // t_touch *touch = malloc(sizeof(t_touch) * c->map->sprite_count + 1);
     int i = 0;
 
     while (!find_hitbox(draw.x, draw.y, c))
     {
-        if(touch_sprite(c->map->sprites, draw.x, draw.y) || touch_facing_sprite(&draw, c->map->facing, draw.x, draw.y))
-        {
-            touch[i].x = draw.x;
-            touch[i].y = draw.y;
-            i++;
-        }
+        // if(touch_sprite(c->map->sprites, draw.x, draw.y) || touch_facing_sprite(&draw, c->map->facing, draw.x, draw.y))
+        // {
+        //     touch[i].x = draw.x;
+        //     touch[i].y = draw.y;
+        //     i++;
+        // }
         if(touch_generator(c->map->generators, draw.x, draw.y))
         {
             if(!save)
@@ -318,22 +318,22 @@ void draw_line(t_draw draw, ThreadParams *params)
     draw.side = direction(draw.x, draw.y, cosangle, sinangle, c, &draw.tex_x);
     lane_distance(&draw);
     draw_scene(&draw, params);
-    while(i > 0)
-    {
-        draw.sprite_x = touch[i].x;
-        draw.sprite_y = touch[i].y;
-        sprite_dist(&draw);
-        if(sprite_direction(&draw, cosangle, sinangle, c))
-            sprite_frame(&draw, params, c->map->sprites[0], 0);
-        else if(touch_facing_sprite(&draw, c->map->facing, draw.sprite_x, draw.sprite_y))
-            sprite_frame(&draw, params, c->map->facing[0], 1);
-        i--;
-    }    
+    // while(i > 0)
+    // {
+    //     draw.sprite_x = touch[i].x;
+    //     draw.sprite_y = touch[i].y;
+    //     sprite_dist(&draw);
+    //     if(sprite_direction(&draw, cosangle, sinangle, c))
+    //         sprite_frame(&draw, params, c->map->sprites[0], 0);
+    //     else if(touch_facing_sprite(&draw, c->map->facing, draw.sprite_x, draw.sprite_y))
+    //         sprite_frame(&draw, params, c->map->facing[0], 1);
+    //     i--;
+    // }    
     int scale = draw.start_x + WIDTH_SCALE;
     while(draw.start_x < scale)
     {
         put_line(draw, params);
         draw.start_x++;
     }
-    free(touch);
+    // free(touch);
 }
