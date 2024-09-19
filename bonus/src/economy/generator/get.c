@@ -6,18 +6,21 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:52:13 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 19:44:02 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/19 17:57:06 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 void generating(t_async *current){
-
     t_generator *gen = (t_generator *)current->arg;
 
-    add_money(gen->add_money);
-    gen->generated += gen->add_money;
+    if(gen->loop >= 5){
+        add_money(gen->add_money);
+        gen->generated += gen->add_money;
+        gen->loop -= 5;
+    }
+    gen->loop += gen->speed;
 }
 
 t_generator *create_generator(int x, int y)
@@ -26,9 +29,16 @@ t_generator *create_generator(int x, int y)
     t_generator *gen = ft_malloc(sizeof(t_generator));
     gen->x = x;
     gen->y = y;
+    
     gen->generated = 0;
     gen->energy = 0;
     gen->add_money = 10;
+
+    gen->level = 1;
+    gen->speed = 1;
+
+    gen->loop = 0;
+
     gen->next = NULL;
     pthread_mutex_init(&gen->mutex, NULL);
 

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 18:51:54 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/19 17:22:43 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_button
 	void					(*hover)(void *);
 	void					*arg;
 	int						itemId;
+
+	bool hover_change;
 
 }							t_button;
 

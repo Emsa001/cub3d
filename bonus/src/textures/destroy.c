@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 18:36:08 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 18:38:15 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/19 16:08:23 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,14 @@ void destroy_textures()
     }
 
     i = 0;
-    while(i < 81){
-        destroy_texture(t->ui->progress[i]);
+    while(i < 24){
+        destroy_texture(&(t->ui->progress[i]));
+        i++;
+    }
+
+    i = 0;
+    while(i < 3){
+        destroy_texture(&(t->ui->progress_cover[i]));
         i++;
     }
 }
