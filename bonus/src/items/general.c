@@ -1,41 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   click.c                                            :+:      :+:    :+:   */
+/*   general.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:04:34 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 20:17:03 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/19 19:47:59 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include "items.h"
 
-void	player_mouseclick(int button)
+void try_open_door(t_item *item)
 {
-	t_player		*p;
-	t_cube			*c;
-	const t_render	*r = render();
+    t_cube *c = cube();
+    t_player *p = player();
 
-	p = player();
-	c = cube();
-	if (p->mouse_hook)
-	{
-		if (button == LEFT_CLICK)
-		{
-			if (p->hand != NULL)
-				p->swing = true;
-			p->catch = true;
-		}
-		if (button == RIGHT_CLICK)
-		{
-			if (p->hand && p->hand->right_click != NULL){
-				p->hand->right_click(p->hand);
-			}
-		}
-	}
-	int x, y;
-	mlx_mouse_get_pos(r->mlx, r->win, &x, &y);
-	button_click(button, x, y);
+    printf("Trying to open door with %s\n", item->name);
+}
+
+void init_keys_items(t_cube *c)
+{
+    t_item *item;
+
+    item = (t_item *)ft_calloc(sizeof(t_item),1);
+    item->name = "Old Key";
+    item->fontSize = 0.5;
+    item->props.id = 50;
+    item->right_click = &try_open_door;
+    // item->props.effect = 3000;
+    c->items[50] = *item;
 }

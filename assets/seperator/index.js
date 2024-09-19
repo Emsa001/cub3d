@@ -3,15 +3,15 @@ const fs = require('fs');
 const path = require('path');
 
 // Configuration
-const INPUT_IMAGE = './torch.png'; // Path to your input PNG image
-const OUTPUT_DIR = './out'; // Directory where the chunks will be saved
+const INPUT_IMAGE = './04.png'; // Path to your input PNG image
+const OUTPUT_DIR = '../UI/general'; // Directory where the chunks will be saved
 const FILE_NAME = "{id}.xpm";
 
-const CHUNK_WIDTH = 32; 
-const CHUNK_HEIGHT =  64;
+const CHUNK_WIDTH = 48; 
+const CHUNK_HEIGHT =  16;
 
-const OUTPUT_WIDTH = 32;
-const OUTPUT_HEIGHT = 64;
+const OUTPUT_WIDTH = 48;
+const OUTPUT_HEIGHT = 16;
 
 // Create output directory if it doesn't exist
 if (!fs.existsSync(OUTPUT_DIR)) {

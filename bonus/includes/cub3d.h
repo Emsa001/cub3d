@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 19:21:57 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/19 19:45:37 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,9 @@
 #include <stdint.h>
 #include <X11/Xlib.h>
 
+# define NONE -1
+# define STORE 1
+# define GENERATOR 2
 
 # define YELLOW "\033[1;33m"
 # define GREEN "\033[1;32m"
@@ -76,7 +79,7 @@ typedef struct s_cube
 
 	double					delta_time;
 	t_button_node			*buttons;
-	t_item					items[256];
+	t_item					items[328];
 
 	t_map					*map;
 
@@ -94,6 +97,7 @@ typedef struct s_cube
 	t_textures				*textures;
 
 	int levels;
+	int next_portal;
 }							t_cube;
 
 typedef struct s_string
@@ -326,5 +330,6 @@ void render_view(t_cube *c);
 void clear_image_queue(t_render *r);
 void clear_string_queue(t_render *r);
 void render_tooltip();
+void string_timer(int time);
 
 #endif

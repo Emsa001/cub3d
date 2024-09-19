@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
+#    By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/09/19 19:21:50 by escura           ###   ########.fr        #
+#    Updated: 2024/09/19 19:45:14 by btvildia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ CC = cc
 
 CFLAGS = -g -O3
 # CFLAGS += -fsanitize=thread
-# CFLAGS += -fsanitize=address
+# CFLAGS += -fsanitize=aaddress
 # CFLAGS = -Wall -Wextra -Werror
 
 CFLAGS += -I$(LIBFT_DIR) -I$(INCLUDES_DIR)

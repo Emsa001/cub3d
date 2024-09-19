@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keyboard.c                                         :+:      :+:    :+:   */
+/*   set.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/02 20:33:44 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 20:59:55 by escura           ###   ########.fr       */
+/*   Created: 2024/09/18 19:42:05 by escura            #+#    #+#             */
+/*   Updated: 2024/09/19 17:37:22 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// Existing key press function
-int key_down(int keycode)
+void set_addmoney(int add)
 {
     t_cube *c = cube();
-
-    player_keydown(keycode);
-    return (0);
-}
-
-// Existing key release function
-int key_up(int keycode)
-{
-    player_keyup(keycode);
-    return (0);
+    
+    pthread_mutex_lock(&c->add_money_mutex);
+    c->add_money += add;
+    pthread_mutex_unlock(&c->add_money_mutex);
 }

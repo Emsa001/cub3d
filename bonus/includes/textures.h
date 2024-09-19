@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 17:33:28 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/19 16:21:41 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 # define HORIZONTAL_MIRROR 1
 # define VERTICAL_MIRROR 2
 # define BOTH_MIRROR 3
+
+# define PROGRESS_COVER 100
+# define PROGRESS_RED 0
+# define PROGRESS_YELLOW 6
+# define PROGRESS_BLUE 12
+# define PROGRESS_GREEN 18
 
 typedef struct s_texture
 {
@@ -36,6 +42,7 @@ typedef struct s_uitextures
 {
 	t_texture		*button;
 	t_texture		*button_hover;
+	t_texture 		*button_long;
 
 	t_texture		*play;
 	t_texture		*play_hover;
@@ -43,9 +50,10 @@ typedef struct s_uitextures
 
 	t_texture		*window;
 	t_texture		*panel;
-	t_texture		*banner[2];
 
 	t_texture		*keys[32];
+	t_texture 		progress[24];
+	t_texture 		progress_cover[3];
 }					t_uitextures;
 
 typedef struct s_textures
@@ -71,6 +79,7 @@ typedef struct s_textures
 	t_texture		*inventoryGui;
 	t_texture		items[328];
 	t_texture		*tooltip_bg;
+	t_texture 		*open_portal;
 
 	t_uitextures	*ui;
 }					t_textures;
@@ -88,5 +97,7 @@ t_textures			*textures(void);
 void change_image_color(t_texture *img, int color);
 void destroy_textures();
 void destroy_texture(t_texture *texture);
+t_texture *progress_bar(int progress, int color);
+void init_progress(t_textures *t);
 
 #endif

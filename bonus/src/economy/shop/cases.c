@@ -6,18 +6,12 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:04:42 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 15:56:33 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/18 18:02:26 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void updatePlayerMoney(t_player *p, int amount)
-{
-    pthread_mutex_lock(&p->money_mutex);
-    p->money += amount;
-    pthread_mutex_unlock(&p->money_mutex);
-}
 
 void displayPrizeMessage(int prize, int value)
 {
@@ -56,7 +50,7 @@ void displayPrizeMessage(int prize, int value)
     winMessage2.color = 0xFFFFFF;
     winMessage2.size = 2;
     winMessage2.x = CENTER_WIDTH - ft_strlen(winMessage2.str) * 20;
-    winMessage2.y =  CENTER_HEIGHT + 100;
+    winMessage2.y =  CENTER_HEIGHT + 120;
     winMessage2.time = 1000;
     render_string_async(&winMessage2);
 
@@ -66,7 +60,7 @@ void displayPrizeMessage(int prize, int value)
 t_texture *determinePrizeTexture(int prize)
 {
     t_textures *t = textures();
-    t_texture *prizeTexture = &(t->items[65]);
+    t_texture *prizeTexture = &(t->items[66]);
 
     if (prize > 70000) {
         prizeTexture = &(t->items[70]);
@@ -75,7 +69,7 @@ t_texture *determinePrizeTexture(int prize)
     } else if (prize > 20000) {
         prizeTexture = &(t->items[68]);
     } else if (prize > 5000) {
-        prizeTexture = &(t->items[66]);
+        prizeTexture = &(t->items[67]);
     }
 
     return prizeTexture;
@@ -140,12 +134,12 @@ void openCase(void *arg)
     }
     pthread_mutex_unlock(&p->money_mutex);
 
-    updatePlayerMoney(p, -value);
-    store->open = false;
+    add_money(-value);
+    p->GUI = NONE;
     int prize = random_int(0, value * 2);
 
     displayPrizeMessage(prize, value);
-    updatePlayerMoney(p, prize);
+    add_money(prize);
 
     t_texture *prizeTexture = determinePrizeTexture(prize);
     renderPrizeImage(prizeTexture, 1000);
@@ -161,21 +155,18 @@ void cases(int x, int y)
     int i = 0;
     while(i < 3)
     {
-        if (p->store->cases[i] != -1)
-        {
-            t_button button;
-            button.x = x + 315 + (i % 3) * 140;
-            button.y = y + 160 + (i / 3) * 140;
-            button.width = 128;
-            button.height = 128;
-            button.function = &openCase;
-            button.hover = &shop_item_hover;
-            button.arg = (void *)(intptr_t)values[i];
-            button.itemId = p->store->cases[i];
+        t_button button;
+        button.x = x + 315 + (i % 3) * 140;
+        button.y = y + 160 + (i / 3) * 140;
+        button.width = 128;
+        button.height = 128;
+        button.function = &openCase;
+        button.hover = &shop_item_hover;
+        button.arg = (void *)(intptr_t)values[i];
+        button.itemId = 71;
 
-            add_button(&button);
-            item_button(&button, 1.5);
-        }
+        add_button(&button);
+        item_button(&button, 1.5);
         i++;
     }
 }

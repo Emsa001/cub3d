@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/16 20:36:35 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/19 19:45:50 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ typedef struct s_draw		t_draw;
 
 # define WALKSPEED 3
 # define SPRINTBONUS 5
-# define MOUSE_SENSITIVITY 0.003
+# define MOUSE_SENSITIVITY 0.001
 
 # define JUMP_SPEED 0.03
 # define GRAVITY 0.003
@@ -38,6 +38,8 @@ typedef struct s_button
 	void					*arg;
 	int						itemId;
 
+	bool hover_change;
+
 }							t_button;
 
 typedef struct s_button_node
@@ -45,6 +47,12 @@ typedef struct s_button_node
 	t_button				button;
 	struct s_button_node	*next;
 }							t_button_node;
+
+
+typedef struct s_location{
+	int x;
+	int y;
+} t_location;
 
 typedef struct s_player
 {
@@ -110,7 +118,12 @@ typedef struct s_player
 	t_item					*hand;
 	bool					swing;
 	t_store					*store;
+
+	int GUI;
+	int GUI_temp;
+	t_generator *generator;
 }							t_player;
+
 
 t_player					*player_init(t_player *p);
 t_player					*player(void);
@@ -136,5 +149,10 @@ t_store						*init_store(void);
 void						open_store(void);
 float						distance(float x1, float y1, float x2, float y2);
 void	hud_inventory(void);
+void add_money(int amount);
+int money();
+t_location *is_nerby(char cell);
+
+
 
 #endif

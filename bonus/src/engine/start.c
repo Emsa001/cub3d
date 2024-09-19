@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 19:22:04 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/19 19:46:37 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void start_game(void)
     create_image(r, WIDTH, HEIGHT);
 
     init_hooks();
-    init_economy();
     // add_sprite("assets/fire/", 13,7,37);
     
     // t_async *async = new_async();

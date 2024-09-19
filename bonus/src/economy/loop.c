@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ui.c                                               :+:      :+:    :+:   */
+/*   loop.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/23 21:04:58 by escura            #+#    #+#             */
-/*   Updated: 2024/09/15 00:33:24 by marvin           ###   ########.fr       */
+/*   Created: 2024/09/18 17:01:30 by escura            #+#    #+#             */
+/*   Updated: 2024/09/18 17:03:10 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void render_ui()
+void economy_loop()
 {
-    t_player *p = player();
-    p->mouse_hook = true;
-
-    // render_minimap();
-    hud_inventory();
-    hud_currency();
-    if(p->store->open)
-        open_store();
-
-    if(cube()->paused)
-        pause_game();
-
+    shopkeeper();
+    generators();
 }

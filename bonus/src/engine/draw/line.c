@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 17:47:13 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/19 19:47:11 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,6 @@ void sprite_frame(t_draw *draw, ThreadParams *params, t_sprite sprite)
 
     int start_y = (p->z - 1) * draw->sprite_height + vert_offset(p);
     int end_y = start_y + draw->sprite_height;
-
 
     t_texture *sprite_tex = sprite.sprite_tex[current_frame(sprite.frames)];
 

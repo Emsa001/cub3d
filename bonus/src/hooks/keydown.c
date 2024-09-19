@@ -6,13 +6,15 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 19:38:28 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/19 19:47:44 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void player_keydown(int keycode){
+// Existing key press function
+int key_down(int keycode)
+{
     t_player *p = player();
     t_cube *c = cube();
     
@@ -21,24 +23,20 @@ void player_keydown(int keycode){
         // exit_game(0);
         // return ;
 
-        if(c->map->editor_mode){
+        if(p->GUI != -1)
+            p->GUI = -1;
+        else if(c->map->editor_mode){
             c->map->editor_mode = false;
+        }else{
+            pthread_mutex_lock(&c->pause_mutex);
+            c->paused = !c->paused;
+            pthread_mutex_unlock(&c->pause_mutex);
         }
-
-        pthread_mutex_lock(&c->pause_mutex);
-        c->paused = !c->paused;
-        pthread_mutex_unlock(&c->pause_mutex);
     }
 
     if(c->paused)
-        return;
-
-    if(keycode == Q){
-        pthread_mutex_lock(&c->add_money_mutex);
-        c->add_money += 100;
-        pthread_mutex_unlock(&c->add_money_mutex);
-    }
-
+        return 0;
+        
     if (keycode == W)
         p->btn_w = true;
     if (keycode == S)
@@ -71,7 +69,7 @@ void player_keydown(int keycode){
     //         p->fov -= 5;
     // }
     // if(keycode == PLUS)
-    //     if(p->fov < 120)
+    //     if(p->fov < 90)
     //         p->fov += 5;
     
     if(keycode == E){
@@ -86,7 +84,12 @@ void player_keydown(int keycode){
         p->catch = true;
 
     if(keycode == G){
-        p->store->open = !p->store->open;
-        p->interact = !p->interact;
+        if(p->GUI_temp != -1 && p->GUI == -1)
+            p->GUI = p->GUI_temp;
+        else
+            p->GUI = -1;
     }
+
+    return (0);
 }
+

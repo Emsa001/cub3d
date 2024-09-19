@@ -1,12 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   generators.c                                       :+:      :+:    :+:   */
+/*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/11 15:24:21 by escura            #+#    #+#             */
-/*   Updated: 2024/09/11 15:26:22 by escura           ###   ########.fr       */
+/*   Created: 2024/08/23 21:04:58 by escura            #+#    #+#             */
+/*   Updated: 2024/09/19 19:48:36 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "cub3d.h"
+
+void render_ui()
+{
+    t_player *p = player();
+    
+    render_minimap();
+    hud_inventory();
+    hud_currency();
+
+    if(cube()->paused)
+        pause_game();
+
+}
