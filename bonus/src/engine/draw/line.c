@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 21:37:07 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/19 19:24:39 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,9 @@ int direction(float x, float y, float cosangle, float sinangle, t_cube *c, int *
     } else if (touch_block(c->map->blocks, x, y)) {
         *tex_x = (int)y % BLOCK_SIZE;
         return 6;
-    } else if (touch_line(c->map->lines, x - sx, y) == 1){
+    } else if (touch_line(c->map->lines, x, y) == 1){
         *tex_x = (int)x % BLOCK_SIZE;
         return 3;
-    } else if (touch_line(c->map->lines, x, y) == 1) {
-        *tex_x = (int)y % BLOCK_SIZE;
-        return 3;
-    } else if(touch_line(c->map->lines, x - sx, y) == 2)
-    {
-        *tex_x = (int)x % BLOCK_SIZE;
-        return 1;
     } else if(touch_line(c->map->lines, x, y) == 2)
     {
         *tex_x = (int)y % BLOCK_SIZE;
@@ -73,30 +66,6 @@ int generator_direction(t_draw *draw, float cosangle, float sinangle, t_cube *c)
     {
         draw->tex_x = (int)draw->first_y % BLOCK_SIZE;
         return 7;
-    }
-    return 0;
-}
-
-int sprite_direction(t_draw *draw, float cosangle, float sinangle, t_cube *c)
-{
-    int sx = 0;
-    int sy = 0;
-    if (cosangle > 0)
-        sx = 1;
-    else
-        sx = -1;
-    if (sinangle > 0)
-        sy = 1;
-    else
-        sy = -1;
-    if(touch_sprite(c->map->sprites, draw->sprite_x - sx, draw->sprite_y))
-    {
-        draw->tex_x = (int)draw->sprite_x % BLOCK_SIZE;
-        return 9;
-    } else if(touch_sprite(c->map->sprites, draw->sprite_x, draw->sprite_y))
-    {
-        draw->tex_x = (int)draw->sprite_y % BLOCK_SIZE;
-        return 9;
     }
     return 0;
 }
@@ -137,6 +106,7 @@ t_draw init_draw(void)
     draw.sprite_x = 0;
     draw.sprite_y = 0;
     draw.sprite_height = 0;
+    draw.sprite_dist = 0;
     return draw;
 }
 
@@ -145,31 +115,67 @@ long current_frame(int frames)
     struct timeval tv;
     gettimeofday(&tv, NULL);
     int time_delay = 1000 / frames;
+    if(frames == 28)
+        time_delay = 90;
     if(frames == 5)
         time_delay = 60;
     if(frames == 2)
         time_delay = 150;
     long curr_time =  (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
     int curr_frame = (curr_time / time_delay) % frames;
+
     return curr_frame;
 }
 
-void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
+void put_line(t_draw draw, ThreadParams *params)
+{
+    int start = 0;
+    int end = HEIGHT;
+    int i = 0;
+    while (start < end)
+    {
+        put_pixel(draw.start_x, start, draw.colors[start], params->render);
+        start++;
+    }
+}
+
+int touch_sprite(t_sprite *sprites, float px, float py)
+{
+    int i = 0;
+    float x = 0;
+    float y = 0;
+    
+    if (!sprites)
+        return 0;
+
+    while (sprites[i].x != -1)
+    {
+        x = sprites[i].x * BLOCK_SIZE;
+        y = sprites[i].y * BLOCK_SIZE;
+
+        if (px >= x && px <= x + sprites[i].width && py >= y && py <= y + 5)
+            return i + 1;
+        i++;
+    }
+
+    return 0;
+}
+
+void sprite_frame(t_draw *draw, ThreadParams *params, t_sprite sprite)
 {
     int color = params->color;
     float tex_y = 0;
-    float step = ((float)T_SIZE) / draw.sprite_height;
+    float step = ((float)T_SIZE) / draw->sprite_height;
     const t_player *p = params->player;
     t_render *r = params->render;
-    int dist = draw.sprite_dist;
-    const t_textures *texs = params->textures;
+    int dist = draw->sprite_dist;
 
-    int start_y = (p->z - 1) * draw.sprite_height + vert_offset(p);
-    int end_y = start_y + draw.sprite_height;
+    int start_y = (p->z - 1) * draw->sprite_height + vert_offset(p);
+    int end_y = start_y + draw->sprite_height;
+
+
 
     t_texture *sprite_tex = sprite.sprite_tex[current_frame(sprite.frames)];
-    if(!sprite_tex)
-        return;
 
     if(end_y > HEIGHT)
         end_y = HEIGHT;
@@ -181,15 +187,11 @@ void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
 
     while (start_y < end_y)
     {
-        if(!p->vision && dist > 450)
-            break;
-
-        color = get_pixel_from_image(sprite_tex, (draw.tex_x) , tex_y);
-        if(!p->vision)
-            color = darken_color(color, (float)dist / 450);
-
+        color = get_pixel_from_image(sprite_tex, draw->tex_x , tex_y);
+        color = darken_color_wall(color, (float)dist / 450, draw->sprite_x / BLOCK_SIZE, draw->sprite_y / BLOCK_SIZE);
+        
         if(color && color > 0)
-            put_pixel(draw.start_x, start_y, color, r);
+            draw->colors[start_y] = color;
 
         tex_y += step;
         start_y++;
@@ -197,40 +199,80 @@ void sprite_frame(t_draw draw, ThreadParams *params, t_sprite sprite)
 }
 
 
+bool touch_facing(t_draw *draw, float px, float py , float sprite_x, float sprite_y, int width)
+{
+    // it's the same as cos(angle + 90)
+    float cosangle = cos(player()->angle);
+    // it's the same as sin(angle + 90)
+    float sinangle = sin(player()->angle);
+
+ 
+    float u = (cosangle * (sprite_x - px) + sinangle * (sprite_y - py));
+    if (u < 0 || u > 2)
+        return false;
+    float v = (-sinangle * (sprite_x - px) + cosangle * (sprite_y - py));
+    draw->tex_x = (int)v + width / 2;
+    float dist = distance(px, py, sprite_x, sprite_y);
+    if (dist * 2 < width)
+        return true;
+    return false;
+}
+
+bool touch_facing_sprite(t_draw *draw, t_sprite *sprites, float px, float py)
+{
+    int i = 0;
+    float x = 0;
+    float y = 0;
+    
+    if (!sprites)
+        return false;
+
+    while (sprites[i].x != -1)
+    {
+        x = sprites[i].x * BLOCK_SIZE;
+        y = sprites[i].y * BLOCK_SIZE;
+        int width = sprites[i].width;
+        if(touch_facing(draw,px, py, x, y, width))
+            return true;
+        i++;
+    }
+
+    return false;
+}
+
+void sprite_dist(t_draw *draw)
+{
+    float x2 = player()->x_px;
+    float y2 = player()->y_px;
+    float player_angle = player()->angle;
+
+    float raw_distance = distance(draw->sprite_x, draw->sprite_y, x2, y2);
+    float adjusted_distance = raw_distance * cos(player_angle - draw->angle);
+    draw->sprite_dist = adjusted_distance;
+    draw->sprite_height = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
+}
 
 void draw_line(t_draw draw, ThreadParams *params)
 {   
     t_cube *c = params->cube;
-    const t_player *p = params->player;
-
-    if(c == NULL || p == NULL)
-    {
-        printf("Error: draw_line: c or p is NULL\n");
-        return;
-    };
-
-
+    const t_player *p = params->player; 
     float cosangle = cos(draw.angle);
     float sinangle = sin(draw.angle);
     
     bool save = false;
     bool save_last = false;
-    bool save_sprite = false;
+
+    t_touch *touch = malloc(sizeof(t_touch) * c->map->sprite_count);
+    ft_bzero(touch, sizeof(t_touch) * c->map->sprite_count);
     int i = 0;
-    int j = 1;
 
     while (!find_hitbox(draw.x, draw.y, c))
     {
-        if((i = touch_sprite(c->map->sprites, draw.x, draw.y)))
+        if(touch_sprite(c->map->sprites, draw.x, draw.y) || touch_facing_sprite(&draw, c->map->facing, draw.x, draw.y))
         {
-            if(!save_sprite)
-            {
-                draw.sprite_x = draw.x;
-                draw.sprite_y = draw.y;
-            if(i > 1)
-                j = i;
-            }
-            save_sprite = true;
+            touch[i].x = draw.x;
+            touch[i].y = draw.y;
+            i++;
         }
         if(touch_generator(c->map->generators, draw.x, draw.y))
         {
@@ -251,23 +293,40 @@ void draw_line(t_draw draw, ThreadParams *params)
         }
         else
         {
-            draw.x += cosangle;
-            draw.y += sinangle;
+            
+        draw.x += cosangle;
+        draw.y += sinangle;
         }
     }
 
     draw.side = direction(draw.x, draw.y, cosangle, sinangle, c, &draw.tex_x);
     lane_distance(&draw);
-    draw_wall(draw, params);
-    draw_floor(draw.wall_height, draw.start_x, params, draw.angle);
-    draw_sky(draw.wall_height, draw.start_x, params, draw.angle);
-
-    if(sprite_direction(&draw, cosangle, sinangle, c) == 9)
-        sprite_frame(draw, params, c->map->sprites[j - 1]);
+    draw_scene(&draw, params);
+    while(i > 0)
+    {
+        draw.sprite_x = touch[i].x;
+        draw.sprite_y = touch[i].y;
+        sprite_dist(&draw);
+        int j = 0;
+        if((j = touch_sprite(c->map->sprites, draw.sprite_x, draw.sprite_y)))
+        {
+            draw.tex_x = (int)draw.sprite_x % BLOCK_SIZE;
+            sprite_frame(&draw, params, c->map->sprites[j - 1]);
+        }
+        else if(touch_facing_sprite(&draw, c->map->facing, draw.sprite_x, draw.sprite_y))
+            sprite_frame(&draw, params, c->map->facing[0]);
+        i--;
+    }    
     if(generator_direction(&draw, cosangle, sinangle, c) == 7)
-    {   
-        draw_generator_top(draw, params, draw.angle);
-        draw_generator(draw, params, draw.tex_x, draw.angle);
+    {
+        draw_generator_top(&draw, params, draw.angle);
+        draw_generator(&draw, params, draw.tex_x, draw.angle);
     }
-
+    int scale = draw.start_x + WIDTH_SCALE;
+    while(draw.start_x < scale)
+    {
+        put_line(draw, params);
+        draw.start_x++;
+    }
+    free(touch);
 }

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:51:19 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:52:46 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/19 15:18:27 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,5 @@ void place(t_item *item)
     int x = p->x_px / BLOCK_SIZE;
     int y = p->y_px / BLOCK_SIZE;   
     
-    add_sprite("assets/torch/", 9, x,y);
+    add_facing_sprite("assets/torch/", 9, x,y);
 }

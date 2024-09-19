@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   block.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:52:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:19:11 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/13 21:01:36 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_texture	dst_texture(void)
 {
-	const t_texture		*src = textures()->wall_north;
+	const t_texture		*src = textures()->wall_north[player()->level];
 	static t_texture	dst = {0};
 
 	if (!dst.data)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tooltips.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:41:37 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 13:57:17 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/14 19:45:29 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,15 @@ void tooltip(char *string, float size)
     
     render_string(&str);
     // render_string(string, r->mouse_x + size * 20, r->mouse_y - (size) * 50, 0xFFFFFF, size);
+}
+
+void render_tooltip()
+{
+    t_player *p = player();
+    
+    if(p->hover != NULL){
+        t_button *button = p->hover;
+        if(button->hover != NULL)
+            ((void (*)(void*))button->hover)(NULL);
+    } 
 }

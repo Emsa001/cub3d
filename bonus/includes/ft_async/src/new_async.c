@@ -46,6 +46,7 @@ t_async *new_async()
     async->start = NULL;
     async->process = NULL;
     async->end = NULL;
+    async->end_main = NULL;
 
     async->arg = NULL;
 
@@ -54,9 +55,9 @@ t_async *new_async()
     async->process_time = 100;
     async->stopped = false;
 
-    async->cube = NULL;
-    async->player = NULL;
-    async->render = NULL;
+    async->cube = cube();
+    async->render = render();
+    async->player = player();
 
     return async;
 }

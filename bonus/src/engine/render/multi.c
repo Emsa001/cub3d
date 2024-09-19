@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 16:08:53 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/19 19:34:35 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,26 +34,58 @@ void show_image(t_render *r, int x, int y)
     mlx_put_image_to_window(r->mlx, r->win, r->img_ptr, x, y);
 }
 
+void render_queue(t_render *r){
+    put_image_queue(r);
+    put_string_queue(r);
+    async_queue();
+}
 
 int render_scene_multithread(void)
 {
     t_render *r = render();
     t_cube *c = cube();
+    t_player *p = player();
+
+    if(c->map->editor_mode){
+        clear_image(r);
+        destroy_buttons();
+        map_editor_enter();
+        render_queue(r);
+        render_tooltip();
+
+        update_fps();
+        show_image(r, 0, 0);
+        return 0;
+    }
+
+    p->mouse_hook = true;
+
+    if(c->map->editor_mode){
+        // clear_image(r);
+        destroy_buttons();
+        map_editor_enter();
+        render_queue(r);
+        render_tooltip();
+
+        // update_fps();
+        show_image(r, 0, 0);
+        return 0;
+    }
 
     // clear_image(r);
     render_view(c);
     render_player();
-    shopkeeper();
+    economy_loop();
     
     if(!c->paused)
         move_player();
     
-    put_image_queue(r);
-    put_string_queue(r);
+    render_queue(r);
 
     update_fps();
-    // check_hooks();
-
+    check_hooks();
+    
+    render_tooltip();
     show_image(r, 0, 0);
     return 0;
 }

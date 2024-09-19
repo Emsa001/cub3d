@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:30:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:50:03 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/19 19:24:27 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,28 +79,28 @@ int touch_line(t_block *lines, float px, float py)
 	return 0;
 }
 
-int touch_sprite(t_sprite *sprites, float px, float py)
-{
+// int touch_sprite(t_sprite *sprites, float px, float py)
+// {
 
-	int i = 0;
-	float x, y;
+// 	int i = 0;
+// 	float x = 0;
+// 	float y = 0;
 	
-	if (!sprites)
-		return false;
+// 	if (!sprites)
+// 		return false;
 
-	while (sprites[i].x != -1)
-	{
-		x = sprites[i].x * BLOCK_SIZE;
-		y = sprites[i].y * BLOCK_SIZE;
+// 	while (sprites[i].x != -1)
+// 	{
+// 		x = sprites[i].x * BLOCK_SIZE;
+// 		y = sprites[i].y * BLOCK_SIZE;
 
-		if (px >= x && px <= x + sprites[i].width && py >= y && py <= y + 1)
-			return i + 1;
+// 		if (px >= x && px <= x + sprites[i].width && py >= y && py <= y + 1)
+// 			return i + 1;
 
-		i++;
-	}
-
-	return false;
-}
+// 		i++;
+// 	}
+// 	return 0;
+// }
 
 
 bool touch_generator(t_block *lines, float px, float py)
@@ -127,6 +127,7 @@ bool is_touching(float px, float py, const t_cube *c)
 {
 	int x = px / BLOCK_SIZE;
 	int y = py / BLOCK_SIZE;
+	t_player *p = player();
 
 	if (x < 0 || y < 0 || x >= c->map->width || y >= c->map->height)
 		return (true);

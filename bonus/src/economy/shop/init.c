@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:07:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 13:52:26 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/19 19:30:15 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 t_store *init_store()
 {
     t_store *store = ft_malloc(sizeof(t_store));
-    store->open = false;
-    store->can_open = false;
     store->case_cooldown = false;
     pthread_mutex_init(&store->case_mutex, NULL);
 
@@ -27,23 +25,11 @@ t_store *init_store()
         i++;
     }
 
-    i = 0;
-    while(i < 3)
-    {
-        store->cases[i] = 146;
-        i++;
-    }
+    store->generators = NULL;
 
-    i = 0;
-    while(i < 2)
-    {
-        store->generators[i] = 147;
-        i++;
-    }
-
-    store->x = 7;
-    store->y = 1;
-    // add_sprite("assets/torch/", 9, store->x, store->y);
+    t_point *points = get_points(cube()->map->map, 'M');
+    store->x = points[0].x;
+    store->y = points[0].y;
 
     return store;
 }

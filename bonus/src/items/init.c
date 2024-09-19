@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 18:16:29 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:35:54 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/17 16:22:51 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void init_items()
     init_armor(c);
     init_potions(c);
     init_weapons(c);
+    init_keys_items(c);
 }
 
 void useItem(void *arg)

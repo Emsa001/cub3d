@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 13:38:53 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/19 19:25:07 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,36 +17,61 @@ int vert_offset(const t_player *p)
     return (p->z_dir) * HEIGHT;
 }
 
-t_texture *get_wall_side(int side, const t_textures *texs)
+t_texture *get_wall_side(int side, const t_textures *texs, int n)
 {
     t_texture *t = NULL;
+
     
     if (side == 1)
-        t = texs->wall_north;
+        t = texs->wall_north[n];
     else if (side == 2)
-        t = texs->wall_south;
+        t = texs->wall_south[n];
     else if (side == 3)
-        t = texs->wall_east;
+        t = texs->wall_east[n];
     else if (side == 4)
-        t = texs->wall_west;
+        t = texs->wall_west[n];
     else if (side == 5)
         t = texs->door;
     else if (side == 6)
-        t = texs->wall_west;
+        t = texs->wall_west[n];
     else if (side == 7)
-        t = texs->wall_south;
+        t = texs->wall_south[n];
     else
         return NULL;
     return t;
 }
 
-int darken_color(int color, float ratio)
+
+float view_current_distance(const t_player *p, int start_y, float angle)
+{
+    float z = 1;
+    if(start_y >= HEIGHT / 2)
+        z = 0;
+
+    float current_dist = (p->z - z) * HEIGHT / (start_y - HEIGHT / 2);
+    return current_dist / cos(angle - p->angle);
+}
+
+t_texture* get_texture(int start_y, int height, const t_player *p, const t_textures *texs)
+{
+    if (start_y > HEIGHT / 2 + (p->z * height))
+    {
+        return texs->floor[player()->level];
+    }
+    else if (start_y < ((p->z * height) + HEIGHT / 2) - height)
+    {
+        return texs->ceiling[player()->level];
+    }
+    return NULL;
+}
+
+int darken_color(int color, float dist)
 {
     int r = (color >> 16) & 0xFF;
     int g = (color >> 8) & 0xFF;
     int b = color & 0xFF;
 
-    int factor = (int)((1.0f - ratio) * 255);
+    int factor = (int)((1.0f - dist) * 255);
 
     r = (r * factor) >> 8;
     g = (g * factor) >> 8;
@@ -55,137 +80,105 @@ int darken_color(int color, float ratio)
     return (r << 16) | (g << 8) | b;
 }
 
-float view_current_distance(const t_player *p, int start_y, float angle, float z)
+int darken_color_wall(int color, float factor, float wall_x, float wall_y)
 {
-    float current_dist = (p->z - z) * HEIGHT / (start_y - HEIGHT / 2);
-    return current_dist / cos(angle - p->angle);
+    t_sprite *torches = cube()->map->facing;
+    if(torches[0].x == -1)
+        return color = darken_color(color, factor);
+    if (torches[0].x != -1)
+    {
+        int i = 0;
+        float dist_to_torch;
+        float torch_x, torch_y;
+        float total_darken_factor = 1.0f;
+        while (torches[i].x != -1)
+        {
+            torch_x = torches[i].x;
+            torch_y = torches[i].y;
+            dist_to_torch = distance(wall_x, wall_y, torch_x, torch_y);
+
+            float torch_darken_factor = dist_to_torch / 2.0f;
+            float darken_factor = fminf(torch_darken_factor, factor);
+            total_darken_factor = fminf(total_darken_factor, darken_factor);
+            i++;
+        }
+        total_darken_factor = fminf(total_darken_factor, 1.0f);
+
+        color = darken_color(color, total_darken_factor);
+    }
+
+    return color;
 }
 
-void draw_floor(int height, int start_x, ThreadParams *params, float angle)
+int get_texture_color(t_texture *tex, float dist, float cosangle, float sinangle)
 {
-    const t_cube *c = params->cube;
+    float tex_x = player()->x + dist * cosangle;
+    float tex_y = player()->y + dist * sinangle;
+    int color = get_pixel_from_image(tex, tex_x * T_SIZE, tex_y * T_SIZE);
+
+    color = darken_color_wall(color, (float)dist / 7, tex_x, tex_y);
+
+    return color;
+}
+
+void draw_scene(t_draw *draw, ThreadParams *params)
+{
+    int height = draw->wall_height;
+    int start_x = draw->start_x;
     const t_player *p = params->player;
     const t_textures *texs = params->textures;
-    int start_y = HEIGHT;
-    float floor_x = 0;
-    float floor_y = 0;
-    
-    float cosangle = cos(angle);
-    float sinangle = sin(angle);
-    int color = 0;
-
-    float current_dist = 0;
-
-    t_texture *floor = texs->floor;
-
-    while (start_y > HEIGHT / 2 + (p->z * height) )
-    {
-        current_dist = view_current_distance(p, start_y, angle, 0);
-        // VISION CAUSES DATA RACE
-        // if(!p->vision && current_dist > 10)
-        //     break;
-        
-        floor_x = (p->x) + current_dist * cosangle;
-        floor_y = (p->y) + current_dist * sinangle;
-
-        color = get_pixel_from_image(floor, floor_x * T_SIZE, floor_y * T_SIZE);
-        if(!p->vision)
-            color = darken_color(color, (float)current_dist / 7);
-        if (color < 0)
-                color = 0;
-
-        put_pixel(start_x, start_y, color, params->render);
-
-        start_y--;
-    }
-}
-
-void draw_sky(int height, int start_x, ThreadParams *params, float angle)
-{
-    const t_cube *c = params->cube;
-    const t_player *p = params->player;
-    const t_textures *texs = params->textures;
-    int start_y = 0;
-    float sky_x = 0;
-    float sky_y = 0;
-    
-    float cosangle = cos(angle);
-    float sinangle = sin(angle);
-    int color = 0;
-
-    float current_dist = 0;
-
-    t_texture *sky = texs->sky;
-
-    while (start_y < ((p->z * height) + HEIGHT / 2) - height)
-    {
-        current_dist = view_current_distance(p, start_y, angle, 1);
-        // VISION CAUSES DATA RACE
-        // if(!p->vision && current_dist > 10)  
-        //     break;
-            
-        sky_x = (p->x) + current_dist * cosangle;
-        sky_y = (p->y) + current_dist * sinangle;
-
-        color = get_pixel_from_image(sky, sky_x * T_SIZE, sky_y * T_SIZE);
-
-        if(!p->vision)
-            color = darken_color(color, (float)current_dist / 7);
-            if (color < 0)
-                color = 0;
-
-        put_pixel(start_x, start_y, color, params->render);
-
-        start_y++;
-    }
-}
-
-
-void draw_wall(t_draw draw, ThreadParams *params)
-{
-    int color = params->color;
-    float tex_y = 0;
-    float step = (float)T_SIZE / draw.wall_height;
-    const t_cube *c = params->cube;
-    const t_player *p = params->player;
     t_render *r = params->render;
-    const t_textures *texs = params->textures;
-
-    bool catched = p->catch && draw.side == 6;  // Use side instead of r->side
-    t_texture *wall_side = get_wall_side(draw.side, texs);  // Use side instead of r->side
     
-    if (!wall_side || draw.side == 7)
-        return;
-
-    int start_y = (p->z - 1) * draw.wall_height + vert_offset(p);
-    int end_y = start_y + draw.wall_height;
-
-    if (end_y > HEIGHT)
-        end_y = HEIGHT; 
-    if(start_y < 0)
-    {
-        tex_y = -start_y * step;
-        start_y = 0;
+    float cosangle = cos(draw->angle);
+    float sinangle = sin(draw->angle);
+    bool catched = p->catch && draw->side == 6;
+    
+    t_texture *wall_side = get_wall_side(draw->side, texs, p->level);
+    float tex_y = 0;
+    float step = (float)T_SIZE / draw->wall_height;
+    
+    int wall_start_y = (p->z - 1) * draw->wall_height + vert_offset(p);
+    int wall_end_y = wall_start_y + draw->wall_height;
+    if (wall_start_y < 0) {
+        tex_y = step * (-wall_start_y);
+        wall_start_y = 0;
     }
-
-    while (start_y < end_y)
+    if (wall_end_y > HEIGHT)
+        wall_end_y = HEIGHT;
+    
+    int color = 0;
+    int y = 0;
+    while (y < HEIGHT)
     {
-        // if(!p->vision && draw.dist > 600)
-        //     break;
-        if (catched)
-            color = 255;
+        if (y >= wall_end_y || y < wall_start_y)
+        {
+            t_texture *tex = get_texture(y, height, p, texs);
+            if (tex)
+            {
+                float current_dist = view_current_distance(p, y, draw->angle);
+                color = get_texture_color(tex, current_dist, cosangle, sinangle);
+                if (color < 0)
+                    color = 0;
+            }
+        }
         else
         {
-            color = get_pixel_from_image(wall_side, draw.tex_x, tex_y);
-            if(!p->vision)
-                color = darken_color(color, (float)draw.dist / 450);
+            if(catched)
+            {
+                color = 255;
+                color = darken_color(color, (float)draw->dist / 350);
+            }
+            else
+            {
+                color = get_pixel_from_image(wall_side, draw->tex_x, tex_y);
+                color = darken_color_wall(color, (float)draw->dist / 450, draw->x / BLOCK_SIZE, draw->y / BLOCK_SIZE);
+            }
             if (color < 0)
                 color = 0;
+            tex_y += step;
         }
-        
-        put_pixel(draw.start_x, start_y, color, r);
-
-        tex_y += step;
-        start_y++;
+        y++;
+        draw->colors[y] = color;
     }
 }
+

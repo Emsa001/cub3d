@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 18:19:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:18:30 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/17 16:22:04 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,14 @@ void					init_items(void);
 void					init_weapons(t_cube *c);
 void					init_potions(t_cube *c);
 void					init_armor(t_cube *c);
+void init_keys_items(t_cube *c);
 
 void					instand_death(t_itemprops props);
 void					cure(t_itemprops props);
 void					vision(t_itemprops props);
 void					equip(t_itemprops props);
 void					unequip(void *props);
+
 
 void					useItem(void *arg);
 void item_tooltip(void *arg);

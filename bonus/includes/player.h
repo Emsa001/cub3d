@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:20:34 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/19 19:23:50 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 # include "economy.h"
 typedef struct s_draw		t_draw;
 
-# define WALKSPEED 2
+# define WALKSPEED 3
 # define SPRINTBONUS 5
-# define MOUSE_SENSITIVITY 0.003
+# define MOUSE_SENSITIVITY 0.001
 
-# define JUMP_SPEED 0.08
-# define JUMP_HEIGHT 0.38
+# define JUMP_SPEED 0.03
+# define GRAVITY 0.003
 
 # define FOV 60
 
@@ -38,6 +38,8 @@ typedef struct s_button
 	void					*arg;
 	int						itemId;
 
+	bool hover_change;
+
 }							t_button;
 
 typedef struct s_button_node
@@ -45,6 +47,12 @@ typedef struct s_button_node
 	t_button				button;
 	struct s_button_node	*next;
 }							t_button_node;
+
+
+typedef struct s_location{
+	int x;
+	int y;
+} t_location;
 
 typedef struct s_player
 {
@@ -81,7 +89,10 @@ typedef struct s_player
 	bool					catch;
 	bool					catched;
 
-	float					jump_height;
+	bool					jumping;
+
+	float					jump_speed;
+	float					fall_speed;
 
 	int						fov;
 
@@ -97,6 +108,8 @@ typedef struct s_player
 	int						inventory[9];
 	int						equipped[8];
 
+	int						level;
+
 	bool					vision;
 	int						money;
 	pthread_mutex_t			money_mutex;
@@ -105,7 +118,12 @@ typedef struct s_player
 	t_item					*hand;
 	bool					swing;
 	t_store					*store;
+
+	int GUI;
+	int GUI_temp;
+	t_generator *generator;
 }							t_player;
+
 
 t_player					*player_init(t_player *p);
 t_player					*player(void);
@@ -131,5 +149,10 @@ t_store						*init_store(void);
 void						open_store(void);
 float						distance(float x1, float y1, float x2, float y2);
 void	hud_inventory(void);
+void add_money(int amount);
+int money();
+t_location *is_nerby(char cell);
+
+
 
 #endif
