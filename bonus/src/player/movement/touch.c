@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:49:03 by escura            #+#    #+#             */
-/*   Updated: 2024/09/16 18:14:38 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:34:52 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ bool touch()
                 touch_block(c->map->blocks, x, y) || 
                 touch_block(c->map->doors, x, y) ||
                 touch_generator(c->map->generators, x, y) ||
-                touch_line(c->map->lines, x, y) || 
+                touch_line(c->map->lines, x, y) ||
                 check_level(c->map->portals, x, y))
                 return true;
             y++;

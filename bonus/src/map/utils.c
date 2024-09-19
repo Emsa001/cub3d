@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:59:54 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/12 17:21:25 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:26:40 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	ft_check_line(char *line)
 	while (line[i] != '\0')
 	{
 		if (line[i] != '1' && line[i] != 'D' && line[i] != 'G' && line[i] != 'P' && line[i] != '0' && line[i] != 'N' && line[i] != 'S'
-			&& line[i] != 'W' && line[i] != 'E' && ft_isspace(line[i]) == 0)
+			&& line[i] != 'W' && line[i] != 'E' && line[i] != 'M' && ft_isspace(line[i]) == 0)
 			return (0);
 		i++;
 	}

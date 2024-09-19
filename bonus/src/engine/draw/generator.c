@@ -12,23 +12,24 @@
 
 #include "cub3d.h"
 
+
 float view_current_distance_gen(const t_player *p, int start_y, float angle, float z)
 {
     float current_dist = (p->z - z) * HEIGHT / (start_y - HEIGHT / 2);
     return current_dist / cos(angle - p->angle);
 }
 
-void draw_generator(t_draw draw, ThreadParams *params, int tex_x, float angle)
+void draw_generator(t_draw *draw, ThreadParams *params, int tex_x, float angle)
 {
     int color = params->color;
     float tex_y = 0;
-    int dist = draw.generator_dist;
-    float step = (float)(T_SIZE * 1.5) / draw.height_top;
+    int dist = draw->generator_dist;
+    float step = (float)(T_SIZE * 1.5) / draw->height_top;
     const t_player *p = params->player;
     t_render *r = params->render;
 
-    int start_y = (p->z - 0.6) * draw.height_top + vert_offset(p);
-    int end_y = start_y + draw.height_top * 0.6;
+    int start_y = (p->z - 0.6) * draw->height_top + vert_offset(p);
+    int end_y = start_y + draw->height_top * 0.6;
     t_texture *generator_animation[2] = {params->textures->generator, params->textures->generator1};
     
     t_texture *generator = generator_animation[current_frame(2)];
@@ -38,20 +39,16 @@ void draw_generator(t_draw draw, ThreadParams *params, int tex_x, float angle)
 
     while (start_y < end_y)
     {
-        if(!p->vision && dist > 450)
-            break;
         color = get_pixel_from_image(generator, tex_x * 2, tex_y);
-        if(!p->vision)
-            color = darken_color(color, (float)dist / 450);
-        if(color != 0)
-            put_pixel(draw.start_x, start_y, color, r);
+        if(color > 0)
+            draw->colors[start_y] = color;
 
         tex_y += step;
         start_y++;
     }
 }
 
-void draw_generator_top(t_draw draw, ThreadParams *params, float angle)
+void draw_generator_top(t_draw *draw, ThreadParams *params, float angle)
 {
     const t_cube *c = params->cube;
     const t_player *p = params->player;
@@ -66,8 +63,8 @@ void draw_generator_top(t_draw draw, ThreadParams *params, float angle)
         tallness = 0.48;
 
     int color = 123;
-    int start_y = HEIGHT / 2 + ((p->z - tallness) * draw.height);
-    int end_y = (HEIGHT / 2 + ((p->z - tallness) * draw.height_top)) + draw.height_top * 0.01;
+    int start_y = HEIGHT / 2 + ((p->z - tallness) * draw->height);
+    int end_y = (HEIGHT / 2 + ((p->z - tallness) * draw->height_top)) + draw->height_top * 0.01;
 
     float current_dist = 0;
 
@@ -79,17 +76,13 @@ void draw_generator_top(t_draw draw, ThreadParams *params, float angle)
     while(start_y < end_y)
     {
         current_dist = view_current_distance_gen(p, start_y, angle, tallness);
-        if(!p->vision && current_dist > 7)
-            break;
         
         color = get_pixel_from_image(params->textures->generator_top, head_x * (T_SIZE * 2), head_y * (T_SIZE * 2));
-
-        if(!p->vision)
-            color = darken_color(color, (float)current_dist / 7);
         
         head_x = (p->x) + current_dist * cosangle;
         head_y = (p->y) + current_dist * sinangle;
-        put_pixel(draw.start_x, start_y, color, params->render);
+        if(color > 0)
+            draw->colors[start_y] = color; 
 
         start_y++;
     }

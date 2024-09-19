@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 17:12:17 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/19 19:22:04 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ void start_game(void)
     // async->time = 3000;
     // start_async(async);
 
-    ft_wait(5000,openPortals);
+    // open_portal(0);
+    open_portal(1);
+    
 
     mlx_loop_hook(r->mlx, render_scene_multithread, NULL);
     mlx_loop(r->mlx);

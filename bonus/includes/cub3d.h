@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 17:12:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/19 19:21:57 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@
 # define BLOCK '2'
 
 # define M_PI 3.14159265358979323846
-# define NUM_THREADS 1
+# define NUM_THREADS 10
 
 typedef struct s_render t_render;
 
@@ -246,14 +246,15 @@ t_texture *get_wall_side(int side, const t_textures *texs, int n);
 int get_texture_color(t_texture *tex, float dist, float cosangle, float sinangle);
 t_texture* get_texture(int start_y, int height, const t_player *p, const t_textures *texs);
 void draw_scene(t_draw *draw, ThreadParams *params);
+int darken_color_wall(int color, float factor, float wall_x, float wall_y);
 
 void						draw_line(t_draw draw, ThreadParams *params);
 void						draw_wall(t_draw *draw, ThreadParams *params);
 void draw_floor_and_ceiling(t_draw *draw, ThreadParams *params);
 // generator
-void						draw_generator_top(t_draw draw, ThreadParams *params,
+void						draw_generator_top(t_draw *draw, ThreadParams *params,
 								float angle);
-void						draw_generator(t_draw draw, ThreadParams *params,
+void						draw_generator(t_draw *draw, ThreadParams *params,
 								int tex_x, float angle);
 long current_frame(int frames);
 

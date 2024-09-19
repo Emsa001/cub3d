@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/16 20:58:59 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:41:28 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_map
 	bool	portal;
 
 	bool editor_mode;
+	int sprite_count;
 
 	t_block	*doors;
 	t_block	*blocks;
@@ -99,7 +100,6 @@ typedef struct s_map
 	t_sprite *sprites;
 	t_sprite *facing;
 	t_point *portals;
-	
 	t_minimap *minimap;
 }			t_map;
 
@@ -130,6 +130,7 @@ void add_sprite(char *path_file, int frames, float x, float y);
 void add_facing_sprite(char *path_file, int frames, float x, float y);
 void remove_sprite(int x, int y);
 void init_sprite(t_map *map, t_sprite sprite, bool facing);
+t_point *get_points(char **map, char c);
 
 t_minimap *minimap();
 
