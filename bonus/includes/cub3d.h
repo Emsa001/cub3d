@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 17:37:25 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/19 19:33:49 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@
 # define HEIGHT 1080
 # define CENTER_WIDTH WIDTH / 2
 # define CENTER_HEIGHT HEIGHT / 2
+# define WIDTH_SCALE 5
 
 # define WALL '1'
 # define DOOR 'D'
@@ -156,6 +157,13 @@ typedef struct s_render
 	pthread_mutex_t 		put_pixel_mutex;
 }							t_render;
 
+
+typedef struct s_touch
+{
+	float					x;
+	float					y;
+}							t_touch;
+
 typedef struct s_draw
 {
 	float					angle;
@@ -168,6 +176,7 @@ typedef struct s_draw
 	float					sprite_x;
 	float					sprite_y;
 	int						sprite_height;
+	int						sprite_dist;
 	int						height;
 	int						height_top;
 	float					wall_height;
@@ -177,7 +186,8 @@ typedef struct s_draw
 	int						tex_x;
 	int						dist;
 	int						generator_dist;
-	int						sprite_dist;
+	int 					colors[HEIGHT + 1];
+
 }							t_draw;
 
 typedef struct
@@ -224,7 +234,7 @@ int							render_scene_singlethread(t_cube *c);
 int							render_scene(t_cube *p);
 bool						is_touching(float px, float py, const t_cube *c);
 bool						touch_block(t_block *blocks, float px, float py);
-int							touch_sprite(t_sprite *sprites, float px, float py);
+// int							touch_sprite(t_sprite *sprites, float px, float py);
 int							touch_line(t_block *lines, float px, float py);
 bool						touch_generator(t_block *lines, float px, float py);
 void						button_click(int type, int x, int y);
@@ -236,20 +246,26 @@ void						show_image(t_render *r, int x, int y);
 void						add_button(t_button *button);
 
 /* DRAW */
+t_texture *get_wall_side(int side, const t_textures *texs, int n);
+int get_texture_color(t_texture *tex, float dist, float cosangle, float sinangle);
+t_texture* get_texture(int start_y, int height, const t_player *p, const t_textures *texs);
+void draw_scene(t_draw *draw, ThreadParams *params);
+int darken_color_wall(int color, float factor, float wall_x, float wall_y);
+
 void						draw_line(t_draw draw, ThreadParams *params);
-void						draw_wall(t_draw draw, ThreadParams *params);
-void draw_floor_and_ceiling(int height, int start_x, ThreadParams *params, float angle);
+void						draw_wall(t_draw *draw, ThreadParams *params);
+void draw_floor_and_ceiling(t_draw *draw, ThreadParams *params);
 // generator
-void						draw_generator_top(t_draw draw, ThreadParams *params,
+void						draw_generator_top(t_draw *draw, ThreadParams *params,
 								float angle);
-void						draw_generator(t_draw draw, ThreadParams *params,
+void						draw_generator(t_draw *draw, ThreadParams *params,
 								int tex_x, float angle);
 long current_frame(int frames);
 
 // String
 void						render_string(t_string *str);
 int							vert_offset(const t_player *p);
-int							darken_color(int color, float ratio);
+int							darken_color(int color, float dist);
 float						view_current_distance(const t_player *p, int start_y,
 								float angle);
 t_draw						init_draw(void);

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:07:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 19:00:44 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/19 19:30:15 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@ t_store *init_store()
     }
 
     store->generators = NULL;
-    store->x = 7;
-    store->y = 35;
-    add_sprite("assets/shop/", 28, store->x, store->y);
+
+    t_point *points = get_points(cube()->map->map, 'M');
+    store->x = points[0].x;
+    store->y = points[0].y;
 
     return store;
 }

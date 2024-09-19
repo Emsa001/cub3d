@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 19:34:53 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/19 19:23:36 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,15 @@ typedef struct s_map
 	bool	portal;
 
 	bool editor_mode;
+	int sprite_count;
 
 	t_block	*doors;
 	t_block	*blocks;
 	t_block *lines;
 	t_block *generators;
 	t_sprite *sprites;
+	t_sprite *facing;
 	t_point *portals;
-	
 	t_minimap *minimap;
 }			t_map;
 
@@ -126,8 +127,10 @@ void		fill_loop(char to_fill[], t_point *begin_points, t_map *map_info,
 				t_point size);
 
 void add_sprite(char *path_file, int frames, float x, float y);
+void add_facing_sprite(char *path_file, int frames, float x, float y);
 void remove_sprite(int x, int y);
-void init_sprite(t_map *map_info, t_sprite sprite);
+void init_sprite(t_map *map, t_sprite sprite, bool facing);
+t_point *get_points(char **map, char c);
 
 t_minimap *minimap();
 
