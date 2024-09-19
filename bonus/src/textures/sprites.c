@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:39:55 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/18 18:24:41 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:43:35 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ void remove_sprite(int x, int y)
 		i++;
 		j++;
 	}
-
 	new_sprites[j].x = -1;
 	new_sprites[j].y = -1;
 	new_sprites[j].frames = -1;
@@ -95,6 +94,7 @@ void remove_sprite(int x, int y)
 	new_sprites[j].width = -1;
 	new_sprites[j].height = -1;
 	new_sprites[j].type = '\0';
+	cube()->map->sprite_count--;
 	tmp = cube()->map->sprites;
 	cube()->map->sprites = new_sprites;
 	ft_free(tmp);		

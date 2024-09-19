@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:07:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/16 18:17:08 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:40:50 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,9 @@ t_store *init_store()
         store->generators[i] = 147;
         i++;
     }
-
-    store->x = 7;
-    store->y = 35;
-    add_sprite("assets/shop/", 28, store->x, store->y);
+    t_point *points = get_points(cube()->map->map, 'M');
+    store->x = points[0].x;
+    store->y = points[0].y;
 
     return store;
 }

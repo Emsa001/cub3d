@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 18:07:17 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:33:08 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,6 @@ void draw_scene(t_draw *draw, ThreadParams *params)
             tex_y += step;
         }
         y++;
-        // put_pixel(start_x, y, color, r);
         draw->colors[y] = color;
     }
 }

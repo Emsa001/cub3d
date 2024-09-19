@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 14:58:33 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/19 17:44:14 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,9 +252,9 @@ void						draw_line(t_draw draw, ThreadParams *params);
 void						draw_wall(t_draw *draw, ThreadParams *params);
 void draw_floor_and_ceiling(t_draw *draw, ThreadParams *params);
 // generator
-void						draw_generator_top(t_draw draw, ThreadParams *params,
+void						draw_generator_top(t_draw *draw, ThreadParams *params,
 								float angle);
-void						draw_generator(t_draw draw, ThreadParams *params,
+void						draw_generator(t_draw *draw, ThreadParams *params,
 								int tex_x, float angle);
 long current_frame(int frames);
 
