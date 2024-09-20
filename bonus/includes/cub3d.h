@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 19:33:49 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/20 11:25:15 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@
 # define HEIGHT 1080
 # define CENTER_WIDTH WIDTH / 2
 # define CENTER_HEIGHT HEIGHT / 2
-# define WIDTH_SCALE 5
+# define WIDTH_SCALE 1
 
 # define WALL '1'
 # define DOOR 'D'

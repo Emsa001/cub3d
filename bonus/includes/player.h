@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 19:23:50 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/20 11:26:08 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 # include "economy.h"
 typedef struct s_draw		t_draw;
 
-# define WALKSPEED 3
-# define SPRINTBONUS 5
-# define MOUSE_SENSITIVITY 0.001
+# define WALKSPEED 200
+# define SPRINTBONUS 300
+# define MOUSE_SENSITIVITY 0.05
 
-# define JUMP_SPEED 0.03
-# define GRAVITY 0.003
+# define JUMP_SPEED 2
+# define GRAVITY 8
 
 # define FOV 60
 

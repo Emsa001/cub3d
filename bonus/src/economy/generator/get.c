@@ -6,22 +6,11 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:52:13 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 17:57:06 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/20 12:37:31 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void generating(t_async *current){
-    t_generator *gen = (t_generator *)current->arg;
-
-    if(gen->loop >= 5){
-        add_money(gen->add_money);
-        gen->generated += gen->add_money;
-        gen->loop -= 5;
-    }
-    gen->loop += gen->speed;
-}
 
 t_generator *create_generator(int x, int y)
 {
@@ -45,7 +34,7 @@ t_generator *create_generator(int x, int y)
     cube()->add_money += gen->add_money;
 
     t_async *async = new_async();
-    async->process = &generating;
+    async->process = &generator_generating;
     async->process_time = 1000;
     async->arg = (void *)gen;
     async->time = -1;
@@ -80,4 +69,18 @@ t_generator *get_generator(int x, int y)
     }
     
     return gen;
+}
+
+int gen_total_amount()
+{
+    t_player *p = player();
+    t_generator *gen = p->store->generators;
+    int total = 0;
+
+    while(gen){
+        total += (gen->add_money / 5) * gen->speed;
+        gen = gen->next;
+    }
+
+    return total;
 }

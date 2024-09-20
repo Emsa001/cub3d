@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set.c                                              :+:      :+:    :+:   */
+/*   generating.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/18 19:42:05 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 17:37:22 by escura           ###   ########.fr       */
+/*   Created: 2024/09/20 12:37:10 by escura            #+#    #+#             */
+/*   Updated: 2024/09/20 12:39:21 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void set_addmoney(int add)
+void generator_generating(t_async *current)
 {
-    t_cube *c = cube();
-    
-    pthread_mutex_lock(&c->add_money_mutex);
-    c->add_money += add;
-    pthread_mutex_unlock(&c->add_money_mutex);
+    t_generator *gen = (t_generator *)current->arg;
+
+    pthread_mutex_lock(&gen->mutex);
+
+    double money_to_add = (gen->add_money / 5.0) * gen->speed;
+    add_money(money_to_add);
+    gen->generated += money_to_add;
+
+    // gen->loop += gen->speed;
+
+    pthread_mutex_unlock(&gen->mutex);
 }

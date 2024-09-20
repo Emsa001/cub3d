@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:24:31 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 17:53:37 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/20 12:38:57 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,9 @@ static void window_gui(int x, int y){
 
 static void info_gui(int x, int y){
     t_player *p = player();
-    t_generator *gen = p->generator;
+    const t_generator *gen = p->generator;
 
+    pthread_mutex_lock(&gen->mutex);
 
     char *genstr = ft_itoa(gen->generated);
     char *energystr = ft_itoa(gen->energy);
@@ -53,6 +54,8 @@ static void info_gui(int x, int y){
     char *add_temp = ft_strjoin("Generating: ", addstr);
     char *speed = ft_strjoin("Speed: ", speedstr);
     char *add = ft_strjoin(add_temp, " / sec");
+
+    pthread_mutex_unlock(&gen->mutex);
     
     ft_free(add_temp);
     
@@ -88,9 +91,6 @@ void buy_upgrade(void *arg){
     if(upgrade->level)
         *upgrade->level += 1;
     pthread_mutex_unlock(&gen->mutex);
-
-    if(upgrade->extra == UPDATE_ADD_MONEY)
-        set_addmoney(gen->add_money * gen->level);
 }
 
 void generator_upgrade(int x, int y, t_generator_upgrade *upgrade)
