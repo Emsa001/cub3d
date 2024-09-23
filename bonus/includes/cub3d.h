@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 19:45:37 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:49:05 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@
 
 # define WALL '1'
 # define DOOR 'D'
-# define BLOCK '2'
 
 # define M_PI 3.14159265358979323846
 # define NUM_THREADS 10

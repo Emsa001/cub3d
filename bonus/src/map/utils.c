@@ -6,44 +6,21 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:59:54 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/19 17:26:40 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:21:00 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	print_map(char **map)
-{
-	int	i;
-
-	i = 0;
-	while (map[i] != NULL)
-	{
-		printf("%s", map[i]);
-		i++;
-	}
-	printf("\n");
-	printf("\n");
-	usleep(10000);
-}
 
 char	*get_next_string(char *line, char *str)
 {
 	int		i;
 	int		j;
 	char	*tmp;
-	char	**check_split;
 
 	i = 0;
 	j = 0;
 	tmp = NULL;
-	check_split = ft_split(line, ' ');
-	if (ft_arrlen(check_split) != 2)
-	{
-		// ft_arrdel((void **)check_split);
-		// ft_error("Invalid map info");
-	}
-	ft_arrdel((void **)check_split);
 	if (!line || !str)
 		return (NULL);
 	while (line[i] != '\0' && ft_isspace(line[i]))
@@ -90,8 +67,10 @@ int	ft_check_line(char *line)
 		return (0);
 	while (line[i] != '\0')
 	{
-		if (line[i] != '1' && line[i] != 'D' && line[i] != 'G' && line[i] != 'P' && line[i] != '0' && line[i] != 'N' && line[i] != 'S'
-			&& line[i] != 'W' && line[i] != 'E' && line[i] != 'M' && ft_isspace(line[i]) == 0)
+		if (line[i] != '1' && line[i] != 'D' && line[i] != 'G' && line[i] != 'P'
+			&& line[i] != '0' && line[i] != 'N' && line[i] != 'S'
+			&& line[i] != 'W' && line[i] != 'E' && line[i] != 'M'
+			&& ft_isspace(line[i]) == 0)
 			return (0);
 		i++;
 	}

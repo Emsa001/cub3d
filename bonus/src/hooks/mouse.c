@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 20:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 19:47:50 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:56:38 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int mouse_click(int button)
 		{
 			if (p->hand != NULL)
 				p->swing = true;
-			p->catch = true;
 		}
 		if (button == RIGHT_CLICK)
 		{

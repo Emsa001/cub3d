@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 19:47:44 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:57:43 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,15 @@ int key_down(int keycode)
     //     if(p->fov < 90)
     //         p->fov += 5;
     
-    if(keycode == E){
+    if(keycode == E)
         p->open_inventory = !p->open_inventory;
-        p->interact = true;
-    }
     if(keycode == I)
         p->spawn = true;
     if(keycode == O)
         p->remove = true;
     if(keycode == F)
+        p->interact = true;
+    if(keycode == Z)
         p->catch = true;
 
     if(keycode == G){

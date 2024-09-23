@@ -12,39 +12,6 @@
 
 #include "cub3d.h"
 
-int block_count(t_map *map_info, char c)
-{
-    int i;
-    int j;
-    int count;
-
-    i = 0;
-    j = 0;
-    count = 0;
-
-    if(c == '2')
-    {
-        if(map_info->blocks == NULL)
-            return (0);
-        while(map_info->blocks[count].x != -1)
-            count++;
-    }
-    else
-    {
-        while (map_info->map[i] != NULL)
-        {
-            j = 0;
-            while (map_info->map[i][j] != '\0')
-            {
-                if (map_info->map[i][j] == c)
-                    count++;
-                j++;
-            }
-            i++;
-        }
-    }
-    return (count);
-}
 
 t_block    *init_block(t_map *map_info , char c)
 {
@@ -54,7 +21,7 @@ t_block    *init_block(t_map *map_info , char c)
     int        k;
     
     map_info->blocks = NULL;
-    int count = block_count(map_info, c);
+    int count = count_c(map_info->map, c);
     blocks = ft_malloc(sizeof(t_block) * (count + 1));
     i = 0;
     j = 0;

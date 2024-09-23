@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 19:45:44 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/23 17:43:31 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 #define MINIMAP_PIXEL_WIDTH 400
 #define MINIMAP_PIXEL_HEIGHT 400
 #define MINIMAP_RADIUS 300 
+#define MAX_BLOCK 3
 
 #define PLAYER_SIZE 5
 #define PLAYER_DOT_COLOR 0x3b82f6
