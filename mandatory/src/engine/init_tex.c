@@ -6,29 +6,20 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 14:42:00 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/23 14:42:58 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/23 16:38:16 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-t_texture	*load_texture(void *mlx, const char *path, int i)
+t_texture	*load_texture(void *mlx, const char *path, char *real_path)
 {
 	t_texture	*t;
 	int			width;
 	int			height;
 
 	if (!path)
-	{
-		if (i == 0)
-			path = ft_strdup("./assets/level1/north.xpm");
-		else if (i == 1)
-			path = ft_strdup("./assets/level1/south.xpm");
-		else if (i == 2)
-			path = ft_strdup("./assets/level1/east.xpm");
-		else if (i == 3)
-			path = ft_strdup("./assets/level1/west.xpm");
-	}
+		path = real_path;
 	t = ft_malloc(sizeof(t_texture));
 	t->image = mlx_xpm_file_to_image(mlx, (char *)path, &width, &height);
 	if (t->image == NULL)
@@ -47,10 +38,10 @@ t_textures	*init_textures(t_textures *t, void *mlx)
 	c = cube();
 	if (t == NULL)
 		return (texture);
-	t->wall_north = load_texture(mlx, c->map->no, 0);
-	t->wall_south = load_texture(mlx, c->map->so, 1);
-	t->wall_east = load_texture(mlx, c->map->ea, 2);
-	t->wall_west = load_texture(mlx, c->map->we, 3);
+	t->wall_north = load_texture(mlx, c->map->no, "./assets/level1/north.xpm");
+	t->wall_south = load_texture(mlx, c->map->so, "./assets/level1/south.xpm");
+	t->wall_east = load_texture(mlx, c->map->ea, "./assets/level1/east.xpm");
+	t->wall_west = load_texture(mlx, c->map->we, "./assets/level1/west.xpm");
 	texture = t;
 	return (texture);
 }
