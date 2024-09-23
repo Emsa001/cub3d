@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:22:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 17:58:01 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/23 15:38:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void store_window(int x, int y){
 
     put_image(t->window, x, y, 1.8);
     
-    t_string str;
+    t_string str = {0};
     str.str = "MARKET";
     str.color = 0x00FF00;
     str.size = 1.5;

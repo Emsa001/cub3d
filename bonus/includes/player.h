@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/20 11:26:08 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/23 18:57:48 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,16 @@ typedef struct s_button
 	int						y;
 	int						width;
 	int						height;
+	float 					size;
 
 	void					(*function)(void *);
 	void					(*hover)(void *);
 	void					*arg;
 	int						itemId;
 
+	bool is_default;
 	bool hover_change;
+	bool remove;
 
 }							t_button;
 
@@ -118,6 +121,11 @@ typedef struct s_player
 	t_item					*hand;
 	bool					swing;
 	t_store					*store;
+
+	int math[2];
+	int random[3];
+	int math_selected;
+	int streak;
 
 	int GUI;
 	int GUI_temp;

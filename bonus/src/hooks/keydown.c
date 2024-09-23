@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 19:25:30 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/23 17:59:58 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,15 @@ int key_down(int keycode)
         // exit_game(0);
         // return ;
 
-        if(p->GUI != -1)
-            p->GUI = -1;
-        else if(c->map->editor_mode){
-            c->map->editor_mode = false;
-        }else{
-            pthread_mutex_lock(&c->pause_mutex);
-            c->paused = !c->paused;
-            pthread_mutex_unlock(&c->pause_mutex);
-        }
+        if(p->GUI == NONE)
+            p->GUI = PAUSE;
+        else
+            p->GUI = NONE;
+
+        set_paused(!c->paused);
     }
 
-    if(c->paused)
+    if(is_paused())
         return 0;
         
     if (keycode == W)
@@ -73,7 +70,13 @@ int key_down(int keycode)
     //         p->fov += 5;
     
     if(keycode == E){
-        p->open_inventory = !p->open_inventory;
+        if(p->GUI == MATH)
+            return 0;
+
+        if(p->GUI == NONE)
+            p->GUI = INVENTORY;
+        else
+            p->GUI = NONE;
         p->interact = true;
     }
     if(keycode == I)
@@ -84,10 +87,18 @@ int key_down(int keycode)
         p->catch = true;
 
     if(keycode == G){
-        if(p->GUI_temp != -1 && p->GUI == -1)
+
+        if(p->GUI == MATH)
+            return 0;
+
+        if(p->GUI_temp != NONE && p->GUI == NONE)
             p->GUI = p->GUI_temp;
         else
-            p->GUI = -1;
+            p->GUI = NONE;
+    }
+
+    if(keycode == CTRL){
+        
     }
 
     return (0);

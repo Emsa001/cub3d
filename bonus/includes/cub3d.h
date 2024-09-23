@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/20 11:25:15 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/23 19:09:54 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@
 # define NONE -1
 # define STORE 1
 # define GENERATOR 2
+# define INVENTORY 3
+# define MATH 4
+# define PAUSE 255
+
 
 # define YELLOW "\033[1;33m"
 # define GREEN "\033[1;32m"
@@ -61,7 +65,7 @@
 # define HEIGHT 1080
 # define CENTER_WIDTH WIDTH / 2
 # define CENTER_HEIGHT HEIGHT / 2
-# define WIDTH_SCALE 1
+# define WIDTH_SCALE 5
 
 # define WALL '1'
 # define DOOR 'D'
@@ -108,6 +112,8 @@ typedef struct s_string
 	int						color;
 	float					size;
 	int						time;
+	int 					background;
+	int padding;
 
 	void 					*clean;
 	struct s_string			*next;
@@ -213,7 +219,6 @@ typedef struct s_state
 	bool					block;
 	bool					door;
 }							t_state;
-
 
 /* ENGINE */
 t_render					*init_render(t_render *r);
@@ -330,6 +335,11 @@ void render_view(t_cube *c);
 void clear_image_queue(t_render *r);
 void clear_string_queue(t_render *r);
 void render_tooltip();
-void string_timer(int time);
+void string_timer(int time, t_location *location);
+void interaction_notify(char *str);
+
+bool	is_paused(void);
+void set_paused(bool paused);
+void math_gui();
 
 #endif

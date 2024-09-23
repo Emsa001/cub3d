@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:30:48 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 19:26:56 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/23 15:38:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,27 +71,10 @@ static void exit_button()
     button.function = &exit_game_f;
     button.hover = &exit_hover;
     button.arg = (void *)1;
+    button.is_default = false;
     add_button(&button);
 }
 
-static void map_editor(){
-
-    const t_uitextures *t = textures()->ui;
-    const int x = CENTER_WIDTH - t->button->width + 200;
-    const int y = CENTER_HEIGHT + 110;
-
-    put_image(t->button, x, y, 1);
-
-    t_button button = {0};
-    button.x = x;
-    button.y = y;
-    button.width = t->play->width;
-    button.height = t->play->height;
-    button.function = &map_editor_enter;
-    button.hover = &map_editor_hover; 
-    button.arg = NULL;
-    add_button(&button);
-}
 
 static void put_window()
 {
@@ -101,7 +84,7 @@ static void put_window()
 
     put_image(t->window, x, y, 1);
 
-    t_string str;
+    t_string str = {0};
     str.str = "PAUSED";
     str.color = 0x00FF00;
     str.size = 1.5;
@@ -119,7 +102,6 @@ static void put_window()
     put_image(t->keys[1], CENTER_WIDTH - 210, CENTER_HEIGHT + 150, 2.5);
     render_string(&str);
     exit_button();
-    map_editor();
 }
 
 void pause_game()
@@ -131,7 +113,7 @@ void pause_game()
     int x = CENTER_WIDTH - t->play->width / 2;
     int y = CENTER_HEIGHT - t->play->height / 2;
     
-    p->open_inventory = false;
+    p->GUI = PAUSE;
     put_window();
     
     p->mouse_hook = false;
@@ -146,6 +128,7 @@ void pause_game()
     button.function = &resume_game;
     button.hover = &pause_hover; 
     button.arg = NULL;
+    button.is_default = false;
     add_button(&button);
 
 }

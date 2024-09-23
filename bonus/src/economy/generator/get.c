@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:52:13 by escura            #+#    #+#             */
-/*   Updated: 2024/09/20 12:37:31 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/23 16:48:51 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ t_generator *create_generator(int x, int y)
     gen->y = y;
     
     gen->generated = 0;
-    gen->energy = 0;
     gen->add_money = 10;
-
+    
+    gen->random = 0;
     gen->level = 1;
     gen->speed = 1;
 

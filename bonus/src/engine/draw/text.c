@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 19:24:45 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/23 19:12:21 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ void render_string_async(t_string *str)
     str_copy->color = str->color;
     str_copy->size = str->size;
     str_copy->time = str->time;
+    str_copy->background = str->background;
+    str_copy->padding = str->padding;
     str_copy->next = NULL;
 
     ft_free(str->str);
@@ -128,12 +130,13 @@ void render_string_async(t_string *str)
 
 void put_string(char *str, int x, int y, int color, float size)
 {
-    t_string string;
+    t_string string = {0};
     string.str = str;
     string.x = x;
     string.y = y;
     string.color = color;
     string.size = size;
+    string.padding = 0;
     render_string(&string);
 }
 
@@ -171,6 +174,20 @@ void render_string(t_string *string)
     int y = string->y;
     int color = string->color;
     float size = string->size;
+    int padding = string->padding;
+
+    int len = ft_strlen(str);
+
+    if (string->background != NULL)
+    {
+        for (int i = -padding; i < char_width * len * size; ++i)
+        {
+            for (int j = -padding; j < char_height * size; ++j)
+            {
+                put_pixel(x + i , y + j , string->background, r);
+            }
+        }
+    }
 
     while (*str)
     {
@@ -184,6 +201,8 @@ void render_string(t_string *string)
         {
             for (int j = 0; j < char_height; ++j)
             {
+                // if(string->background != NULL)
+                //     put_pixel(x + i , y + j , string->background, r);
                 int pixel_color = pixels[i + j * char_width];
                 if (pixel_color > 0) 
                 {
@@ -206,21 +225,38 @@ void render_string(t_string *string)
 void timer_process(t_async *async){
     char *time = ft_itoa((async->time - async->time_elapsed) / 1000);
 
-    t_string str;
+    t_string str = {0};
     str.str = time;
-    str.x = CENTER_WIDTH;
-    str.y = CENTER_HEIGHT;
-    str.color = 0x00FF00;
+    str.x = ((t_location *)async->arg)->x;
+    str.y = ((t_location *)async->arg)->y;
+    str.color = 0xc2410c;
     str.size = 3;
     str.time = 1000;
     render_string_async(&str);
 }
 
-void string_timer(int time)
+void string_timer(int time, t_location *location)
 {
     t_async *async = new_async();
     async->process = &timer_process;
     async->process_time = 1000;
+    async->arg = (void *)(location);
     async->time = time;
     start_async(async);
+}
+
+void interaction_notify(char *str)
+{
+    t_string notify = {0};
+    notify.str = str;
+    notify.color = 0xeab308;
+    notify.size = 0.7;
+    notify.x = CENTER_WIDTH - 330;
+    notify.y = HEIGHT -100;
+
+    t_texture *t = textures()->ui->button_long;
+    const int length  = ft_strlen(str);
+    for(int i = 0; i < length / 5; i++)
+        put_image(t, CENTER_WIDTH - 400 + (i * t->width*0.7 - ((i-1) * 4)), HEIGHT -115, 0.7);
+    render_string(&notify);
 }

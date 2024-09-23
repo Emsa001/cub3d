@@ -13,10 +13,10 @@ static void run_async_loop(t_async *current, t_async_manager *manager)
         }
         pthread_mutex_unlock(&current->async_mutex);
 
-        usleep(current->process_time * 1000);
-
         if (current->process)
             current->process(current);
+            
+        usleep(current->process_time * 1000);
         
         // pthread_mutex_lock(&current->async_mutex);
         if(current->time != -1)

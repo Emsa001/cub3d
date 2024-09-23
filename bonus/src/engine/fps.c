@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:24:07 by escura            #+#    #+#             */
-/*   Updated: 2024/09/20 11:13:38 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/23 15:38:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void update_fps(void)
     // Convert FPS to string and render it on screen
     char *fps_str = ft_itoa((int)fps);
 
-    t_string str;
+    t_string str = {0};
     str.str = fps_str;
     str.color = 0xFFFFFF;
     str.size = 0.5;

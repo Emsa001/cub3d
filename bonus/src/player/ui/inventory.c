@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:18:14 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 20:20:04 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/23 15:38:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,13 @@ void	hud_inventory(void)
 			button.arg = (void *)(intptr_t)i;
 			button.hover = &item_tooltip;
 			button.itemId = p->equipped[i];
+
+			button.remove = true;
+			button.is_default = false;
 			add_button(&button);
 		}
 		i++;
 	}
-	if (p->open_inventory)
-		open_inventory();
 }
 
 void	open_inventory(void)
@@ -58,7 +59,7 @@ void	open_inventory(void)
 
 	p->mouse_hook = false;
 
-	t_string str;
+	t_string str = {0};
 	str.str = "Inventory";
 	str.color = 0xFFFFFF;
 	str.size = 0.6;
@@ -86,6 +87,9 @@ void	open_inventory(void)
 			button.hover = &item_tooltip;
 			button.arg = (void *)(intptr_t)i;
 			button.itemId = p->inventory[i];
+			
+			button.remove = true;
+			button.is_default = false;
 
 			add_button(&button);
 		}
