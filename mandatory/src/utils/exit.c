@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:52:35 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 19:46:56 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/23 15:26:28 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,16 @@ void	ft_error(char *str)
 
 void	exit_game(int code)
 {
-	t_textures	*t = textures();
+	t_textures	*t;
 
-	if(t)
+	t = textures();
+	if (t)
 	{
 		mlx_destroy_image(cube()->mlx, t->wall_north->image);
 		mlx_destroy_image(cube()->mlx, t->wall_south->image);
 		mlx_destroy_image(cube()->mlx, t->wall_east->image);
 		mlx_destroy_image(cube()->mlx, t->wall_west->image);
 	}
-
-
 	ft_destructor();
-	exit (1);
+	exit(code);
 }

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:12:49 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 19:17:42 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/23 13:17:27 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	ft_free(void *ptr)
 	t_allocs	*lst;
 	t_allocs	*tmp;
 
-	if(ptr == NULL)
+	if (ptr == NULL)
 		return ;
-	if(!FT_DESTRUCTOR)
+	if (!FT_DESTRUCTOR)
 		return (free(ptr));
 	lst = ft_allocs(NULL);
 	tmp = NULL;
@@ -61,7 +61,7 @@ void	ft_destructor(void)
 	free(lst);
 }
 
-int ft_exit(void)
+int	ft_exit(void)
 {
 	ft_destructor();
 	exit(0);
