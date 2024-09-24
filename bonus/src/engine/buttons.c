@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:16:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/23 18:32:24 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/24 19:49:35 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void button_click(int type, int x, int y)
             if(current->button.remove){
                 remove_button(&current->button);
             }
+            return ;
         }
         current = current->next;
     }

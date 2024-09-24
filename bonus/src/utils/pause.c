@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 16:32:12 by escura            #+#    #+#             */
-/*   Updated: 2024/09/23 16:33:31 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/24 19:47:24 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,25 @@
 
 bool	is_paused(void)
 {
-	t_cube *c = cube();
+	t_cube	*c;
 
+	c = cube();
 	pthread_mutex_lock(&c->pause_mutex);
 	if (c->paused)
 	{
 		pthread_mutex_unlock(&c->pause_mutex);
-		return true;
+		return (true);
 	}
 	pthread_mutex_unlock(&c->pause_mutex);
-
-    return false;
+	return (false);
 }
 
-void set_paused(bool paused)
+void	set_paused(bool paused)
 {
-    t_cube *c = cube();
+	t_cube	*c;
 
-    pthread_mutex_lock(&c->pause_mutex);
-    c->paused = paused;
-    pthread_mutex_unlock(&c->pause_mutex);
+	c = cube();
+	pthread_mutex_lock(&c->pause_mutex);
+	c->paused = paused;
+	pthread_mutex_unlock(&c->pause_mutex);
 }

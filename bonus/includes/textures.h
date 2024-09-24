@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 16:21:41 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/24 21:20:29 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_uitextures
 	t_texture		*window;
 	t_texture		*panel;
 
-	t_texture		*keys[32];
+	t_texture		keys[32];
 	t_texture 		progress[24];
 	t_texture 		progress_cover[3];
 }					t_uitextures;
@@ -84,11 +84,33 @@ typedef struct s_textures
 	t_uitextures	*ui;
 }					t_textures;
 
+typedef struct s_rotate_vars
+{
+	double		red_angle;
+	double		cos_a;
+	double		sin_a;
+	int			src_cx;
+	int			src_cy;
+	int			dest_cx;
+	int			dest_cy;
+	int			x;
+	int			y;
+	int			tx;
+	int			ty;
+	int			i;
+	int			src_offset;
+	int			dest_offset;
+}				t_rotate_vars;
+
 void				*get_texture_file(char *file, int *width, int *height);
+char	*get_texture_name(char *dir, int i);
+t_texture	*load_texture(char *dir);
+
 void				resize_texture(const t_texture *src, t_texture *dst,
 						int new_width, int new_height);
 t_texture			*rotate_texture(t_texture *texture, double angle,
 						int mirror_mode);
+		
 
 t_textures			*init_textures(t_textures *t);
 void				init_items_textures(t_textures *t);

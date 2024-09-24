@@ -6,83 +6,98 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 16:44:46 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:34:15 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/24 19:47:07 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-#define DEG_TO_RAD(angle) ((angle) * M_PI / 180.0)
-
-void rotate_image(t_texture *src, t_texture *dest, double angle, int mirror_mode)
+static t_rotate_vars	*rotate_image_init(t_texture *src, t_texture *dest,
+		double angle)
 {
-	double rad_angle = DEG_TO_RAD(angle);
-	double cos_a = cos(rad_angle);
-	double sin_a = sin(rad_angle);
+	t_rotate_vars	*v;
 
-	int src_cx = src->width / 2;
-	int src_cy = src->height / 2;
-	int dest_cx = dest->width / 2;
-	int dest_cy = dest->height / 2;
+	v = ft_malloc(sizeof(t_rotate_vars));
+	v->red_angle = deg_to_rad(angle);
+	v->cos_a = cos(v->red_angle);
+	v->sin_a = sin(v->red_angle);
+	v->src_cx = src->width / 2;
+	v->src_cy = src->height / 2;
+	v->dest_cx = dest->width / 2;
+	v->dest_cy = dest->height / 2;
+	v->y = 0;
+	v->i = 0;
+	return (v);
+}
 
-	for (int y = 0; y < dest->height; y++)
+static void	rotate_image_1(t_rotate_vars *v, t_texture *src, t_texture *dest)
+{
+	const int	src_x = (int)((v->tx - v->dest_cx) * v->cos_a - (v->ty
+				- v->dest_cy) * v->sin_a + v->src_cx);
+	const int	src_y = (int)((v->tx - v->dest_cx) * v->sin_a + (v->ty
+				- v->dest_cy) * v->cos_a + v->src_cy);
+
+	if (src_x >= 0 && src_x < src->width && src_y >= 0 && src_y < src->height)
 	{
-		for (int x = 0; x < dest->width; x++)
+		v->src_offset = src_y * src->size_line + src_x * (src->bpp / 8);
+		v->dest_offset = v->y * dest->size_line + v->x * (dest->bpp / 8);
+		v->i = 0;
+		while (v->i < src->bpp / 8)
 		{
-			// Apply mirror mode
-			int tx = x;
-			int ty = y;
-			if (mirror_mode == HORIZONTAL_MIRROR || mirror_mode == BOTH_MIRROR)
-				tx = dest->width - 1 - x;
-			if (mirror_mode == VERTICAL_MIRROR || mirror_mode == BOTH_MIRROR)
-				ty = dest->height - 1 - y;
-
-			// Calculate the corresponding source coordinates
-			int src_x = (int)((tx - dest_cx) * cos_a - (ty - dest_cy) * sin_a + src_cx);
-			int src_y = (int)((tx - dest_cx) * sin_a + (ty - dest_cy) * cos_a + src_cy);
-
-			// Check boundaries and copy pixel data
-			if (src_x >= 0 && src_x < src->width && src_y >= 0 && src_y < src->height)
-			{
-				int src_offset = src_y * src->size_line + src_x * (src->bpp / 8);
-				int dest_offset = y * dest->size_line + x * (dest->bpp / 8);
-
-				for (int i = 0; i < src->bpp / 8; i++)
-				{
-					dest->data[dest_offset + i] = src->data[src_offset + i];
-				}
-			}
-			else
-			{
-				// Optional: Set a default color for out-of-bounds pixels
-				int dest_offset = y * dest->size_line + x * (dest->bpp / 8);
-				for (int i = 0; i < src->bpp / 8; i++)
-				{
-					dest->data[dest_offset + i] = 0xFF; // white or transparent
-				}
-			}
+			dest->data[v->dest_offset + v->i] = src->data[v->src_offset + v->i];
+			v->i++;
 		}
+	}
+	else
+	{
+		v->dest_offset = v->y * dest->size_line + v->x * (dest->bpp / 8);
+		v->i = 0;
+		while (v->i < src->bpp / 8)
+			dest->data[v->dest_offset + (v->i++)] = 0xFF;
 	}
 }
 
-
-t_texture *rotate_texture(t_texture *texture, double angle, int mirror_mode)
+void	rotate_image(t_texture *src, t_texture *dest, double angle, int mirror)
 {
-	double rad_angle = DEG_TO_RAD(angle);
+	t_rotate_vars	*v;
 
-	// Calculate the bounding box for the rotated image
-	double new_width = fabs(texture->width * cos(rad_angle)) + fabs(texture->height * sin(rad_angle));
-	double new_height = fabs(texture->width * sin(rad_angle)) + fabs(texture->height * cos(rad_angle));
-	t_texture *rotated_texture = ft_malloc(sizeof(t_texture));
+	v = rotate_image_init(src, dest, angle);
+	while (v->y < dest->height)
+	{
+		v->x = 0;
+		while (v->x < dest->width)
+		{
+			v->tx = v->x;
+			v->ty = v->y;
+			if (mirror == HORIZONTAL_MIRROR || mirror == BOTH_MIRROR)
+				v->tx = dest->width - 1 - v->x;
+			if (mirror == VERTICAL_MIRROR || mirror == BOTH_MIRROR)
+				v->ty = dest->height - 1 - v->y;
+			rotate_image_1(v, src, dest);
+			v->x++;
+		}
+		v->y++;
+	}
+	ft_free(v);
+}
 
-	// Create a new image for the rotated texture
-	rotated_texture->image = mlx_new_image(render()->mlx, new_width, new_height);
-	rotated_texture->data = mlx_get_data_addr(rotated_texture->image, &rotated_texture->bpp, &rotated_texture->size_line, &rotated_texture->endian);
+t_texture	*rotate_texture(t_texture *texture, double angle, int mirror)
+{
+	const double	rad_angle = deg_to_rad(angle);
+	const double	new_width = fabs(texture->width * cos(rad_angle))
+		+ fabs(texture->height * sin(rad_angle));
+	const double	new_height = fabs(texture->width * sin(rad_angle))
+		+ fabs(texture->height * cos(rad_angle));
+	t_texture		*rotated_texture;
+
+	rotated_texture = ft_malloc(sizeof(t_texture));
+	rotated_texture->image = mlx_new_image(render()->mlx, new_width,
+			new_height);
+	rotated_texture->data = mlx_get_data_addr(rotated_texture->image,
+			&rotated_texture->bpp, &rotated_texture->size_line,
+			&rotated_texture->endian);
 	rotated_texture->width = new_width;
 	rotated_texture->height = new_height;
-
-	// Rotate and mirror the image
-	rotate_image(texture, rotated_texture, angle, mirror_mode);
-
-	return rotated_texture;
+	rotate_image(texture, rotated_texture, angle, mirror);
+	return (rotated_texture);
 }

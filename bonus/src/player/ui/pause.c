@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:30:48 by escura            #+#    #+#             */
-/*   Updated: 2024/09/24 18:19:53 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/24 21:21:25 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ static void put_window()
     str.x = CENTER_WIDTH - 280;
     str.y = CENTER_HEIGHT + 160;
     
-    put_image(t->keys[1], CENTER_WIDTH - 210, CENTER_HEIGHT + 150, 2.5);
+    put_image(&(t->keys[1]), CENTER_WIDTH - 210, CENTER_HEIGHT + 150, 2.5);
     render_string(&str);
     exit_button();
 }
