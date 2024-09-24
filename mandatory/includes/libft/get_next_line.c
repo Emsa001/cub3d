@@ -3,124 +3,109 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:15:53 by triedel           #+#    #+#             */
-/*   Updated: 2024/05/31 01:42:47 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/23 15:35:00 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <unistd.h>
 
-// void	*ft_memcpy(void *dst, const void *src, size_t n)
-// {
-// 	unsigned int	i;
-
-// 	if (!dst && !src && n > 0)
-// 		return (NULL);
-// 	i = 0;
-// 	while (i < n)
-// 	{
-// 		((char *) dst)[i] = ((char *) src)[i];
-// 		i++;
-// 	}
-// 	return (dst);
-// }
-
-char	*buffer_to_str(t_buffer *buf)
+char	*read_full(int fd, char *line)
 {
-	char	*str;
-	char	*s;
-	size_t	len;
+	char	*buff;
+	ssize_t	byte;
 
-	if (!buf)
-		return (ft_strdup(""));
-	len = buffer_len(buf);
-	if (len == 0)
+	buff = ft_malloc(BUFFER_SIZE + 1);
+	if (!buff)
 		return (NULL);
-	str = ft_malloc((len + 1) * sizeof(char));
-	if (!str)
-		return (NULL);
-	s = str;
-	s[len] = '\0';
-	while (buf->next)
+	byte = 1;
+	while (!ft_nline(line, '\n') && byte > 0)
 	{
-		ft_memcpy(s, buf->data, BUFFER_SIZE);
-		s += BUFFER_SIZE;
-		buf = buf->next;
+		byte = read(fd, buff, BUFFER_SIZE);
+		if (byte < 0)
+		{
+			ft_free(buff);
+			ft_free(line);
+			return (NULL);
+		}
+		buff[byte] = '\0';
+		line = ft_reallocate(line, buff);
 	}
-	ft_memcpy(s, buf->data, buf->pos);
-	return (str);
+	ft_free(buff);
+	return (line);
 }
 
-// Takes a list of buffers, and feeds a filebuffer into it
-//
-// retvals
-//  1 -> found sep
-//  0 -> go on
-// -1 -> error
-int	buffer_feed_filebuffer(t_buffer **buf, t_filebuffer *filebuff, char sep)
+char	*ft_save(char *buff)
 {
-	char		lastchar;
-	t_buffer	*curbuf;
+	int		i;
+	char	*line;
+	int		j;
 
-	if (!*buf)
-		if (buffer_extend(buf) < 0)
-			return (-1);
-	curbuf = buffer_last(*buf);
-	while (filebuff->pos < filebuff->end)
+	i = 0;
+	j = 0;
+	while (buff[i] && buff[i] != '\n')
+		i++;
+	if (!buff[i])
 	{
-		lastchar = filebuff->data[filebuff->pos];
-		(filebuff->pos)++;
-		if (buffer_feed(&curbuf, lastchar) < 0)
-			return (-1);
-		if (lastchar == sep)
-			return (1);
+		ft_free(buff);
+		return (NULL);
 	}
-	return (0);
+	line = ft_malloc(sizeof(char) * (ft_strlen(buff) - i));
+	if (!line)
+		return (ft_free(buff), NULL);
+	i++;
+	while (buff[i])
+	{
+		line[j++] = buff[i++];
+	}
+	line[j] = '\0';
+	ft_free(buff);
+	return (line);
+}
+
+char	*get_first_line(char *buff)
+{
+	char	*line;
+	int		i;
+
+	i = 0;
+	if (!buff[i])
+		return (NULL);
+	while (buff[i] && buff[i] != '\n')
+		i++;
+	i++;
+	line = ft_malloc(i + 1);
+	if (!line)
+		return (NULL);
+	i = 0;
+	while (buff[i] && buff[i] != '\n')
+	{
+		line[i] = buff[i];
+		i++;
+	}
+	if (buff[i] == '\n')
+	{
+		line[i] = buff[i];
+		i++;
+	}
+	line[i] = '\0';
+	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	static t_filebuffer	filebuff = {.pos = BUFFER_SIZE, .end = BUFFER_SIZE};
-	t_buffer			*tmpbuff;
-	int					res;
-	char				*str;
+	static char	*fline;
+	char		*line;
 
-	if (fd < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	tmpbuff = NULL;
-	res = 1;
-	while (res > 0)
-	{
-		res = buffer_feed_filebuffer(&tmpbuff, &filebuff, '\n');
-		if (res == 1)
-			break ;
-		else if (res == -1)
-			return ((char *)buffer_del(tmpbuff));
-		res = read(fd, filebuff.data, BUFFER_SIZE);
-		filebuff.pos = 0;
-		filebuff.end = res;
-		if (res < 0)
-			return ((char *)buffer_del(tmpbuff));
-	}
-	str = buffer_to_str(tmpbuff);
-	buffer_del(tmpbuff);
-	return (str);
+	fline = read_full(fd, fline);
+	if (!fline)
+		return (NULL);
+	line = get_first_line(fline);
+	fline = ft_save(fline);
+	return (line);
 }
-
-/*
-#include <stdio.h>
-
-int	main(void)
-{
-	char	*s;
-
-	while ((s = get_next_line(0)))
-	{
-		printf("%s", s);
-		ft_free(s);
-	}
-}
-*/

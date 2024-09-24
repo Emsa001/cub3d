@@ -3,101 +3,98 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:15:45 by triedel           #+#    #+#             */
-/*   Updated: 2024/05/15 19:31:06 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/23 15:39:48 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "libft.h"
 
-int	buffer_extend(t_buffer **buf)
+char	*ft_nline(char *s, int c)
 {
-	t_buffer	*newbuf;
-
-	newbuf = ft_malloc(sizeof(t_buffer));
-	if (!newbuf)
-		return (-1);
-	newbuf->pos = 0;
-	newbuf->next = NULL;
-	if (*buf)
-		(*buf)->next = newbuf;
-	ft_free(*buf);
-	*buf = newbuf;
-	return (0);
-}
-
-void	*buffer_del(t_buffer *buf)
-{
-	t_buffer	*next;
-
-	while (buf)
+	c = (char)c;
+	while (1)
 	{
-		next = buf->next;
-		ft_free(buf);
-		buf = next;
+		if (!s)
+		{
+			return (0);
+		}
+		if (*s == c)
+		{
+			return ((char *)s);
+		}
+		if (*s == '\0')
+		{
+			break ;
+		}
+		s++;
 	}
 	return (NULL);
 }
 
-t_buffer	*buffer_last(t_buffer *buf)
+static char	*ft_strjoin_get(char *s1, char *s2)
 {
-	t_buffer	*c;
+	unsigned int	x;
+	unsigned int	y;
+	unsigned int	i;
+	char			*a;
 
-	c = buf;
-	while (c->next)
-		c = c->next;
-	return (c);
-}
-
-int	buffer_feed(t_buffer **buf, char c)
-{
-	t_buffer	*cur;
-
-	if (!*buf || (*buf)->pos >= BUFFER_SIZE)
-		if (buffer_extend(buf) != 0)
-			return (-1);
-	cur = *buf;
-	cur->data[cur->pos] = c;
-	(cur->pos)++;
-	return (0);
-}
-
-size_t	buffer_len(t_buffer *buf)
-{
-	size_t	len;
-
-	len = 0;
-	if (!buf)
-		return (0);
-	while (buf->next)
+	i = -1;
+	x = ft_strlen(s1);
+	y = ft_strlen(s2);
+	a = ft_malloc(x + y + 1);
+	if (!a)
+		return (NULL);
+	if (s1 != NULL)
 	{
-		len += BUFFER_SIZE;
-		buf = buf->next;
+		while (s1[++i] != '\0')
+			a[i] = s1[i];
 	}
-	len += (buf->pos);
-	return (len);
+	i = 0;
+	while (s2[i] != '\0')
+	{
+		a[x + i] = s2[i];
+		i++;
+	}
+	a[x + i] = '\0';
+	return (a);
 }
 
-/*
-#include <stdio.h>
-void	buffer_print(t_buffer *buf)
+char	*ft_strjoin_null(char *s2)
 {
-	printf("buffer:\n");
-	printf("pos is %i\n", buf->pos);
-	write(1, buf->data, buf->pos);
-	printf("\n\n");
+	unsigned int	x;
+	unsigned int	y;
+	unsigned int	i;
+	char			*a;
+
+	i = 0;
+	x = 0;
+	y = ft_strlen((char *)s2);
+	a = ft_malloc(x + y + 1);
+	if (!a)
+		return (NULL);
+	a[i] = '\0';
+	while (s2[i] != '\0')
+	{
+		a[x + i] = s2[i];
+		i++;
+	}
+	a[x + i] = '\0';
+	return (a);
 }
 
-void	filebuffer_print(struct s_filebuffer *s)
+char	*ft_reallocate(char *s1, char *s2)
 {
-	printf("filebuffer:\n");
-	printf("pos is %i, ", s->pos);
-	printf("end is %i\n", s->end);
-	printf("data is ");
-	write(1, s->data + s->pos, s->end - s->pos);
-	printf("\n\n");
+	char	*str;
+
+	if (!s1)
+		str = ft_strjoin_null(s2);
+	else
+		str = ft_strjoin_get(s1, s2);
+	ft_free(s1);
+	s1 = str;
+	return (s1);
 }
-*/

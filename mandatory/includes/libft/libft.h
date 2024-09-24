@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:26:07 by triedel           #+#    #+#             */
-/*   Updated: 2024/06/18 20:31:21 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/23 15:38:53 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,16 +167,10 @@ typedef struct s_buffer
 
 /* get_next_line.c */
 void				*ft_memcpy(void *dst, const void *src, size_t n);
-char				*buffer_to_str(t_buffer *buf);
-int					buffer_feed_filebuffer(t_buffer **buf,
-						t_filebuffer *filebuff, char sep);
+char				*ft_reallocate(char *s1, char *s2);
 char				*get_next_line(int fd);
 /* get_next_line_utils.c */
-int					buffer_extend(t_buffer **buf);
-void				*buffer_del(t_buffer *buf);
-t_buffer			*buffer_last(t_buffer *buf);
-int					buffer_feed(t_buffer **buf, char c);
-size_t				buffer_len(t_buffer *buf);
+char				*ft_nline(char *s, int c);
 
 // ===== extra =====
 /* ft_file_as_str.c */

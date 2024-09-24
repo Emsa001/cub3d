@@ -6,7 +6,7 @@
 #    By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/09/11 17:46:52 by btvildia         ###   ########.fr        #
+#    Updated: 2024/09/23 15:10:35 by btvildia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,3 +75,6 @@ mlx:
 	git clone https://github.com/42Paris/minilibx-linux.git ./$(INCLUDES_DIR)/mlx
 	
 .PHONY: all clean fclean re run v
+
+
+# find . -path './includes/mlx' -prune -o -type f -print | xargs norminette

@@ -3,53 +3,78 @@
 /*                                                        :::      ::::::::   */
 /*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:16:13 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 15:43:04 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/23 15:56:42 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void render_floor_ceeling()
+void	draw_floor(void)
 {
-    const t_cube *c = cube();
-    const int floor = (c->map->f[0] << 16 | c->map->f[1] << 8 | c->map->f[2]);
-    const int ceeling = (c->map->c[0] << 16 | c->map->c[1] << 8 | c->map->c[2]);
+	const t_cube	*c = cube();
+	t_render		*r;
+	int				x;
+	int				y;
 
-    t_render *r = render();
-    for (int y = 0; y < HEIGHT / 2; y++) {
-        for (int x = 0; x < WIDTH; x++) {
-            put_pixel(x, y, floor);
-        }
-    }
-    for (int y = HEIGHT / 2; y < HEIGHT; y++) {
-        for (int x = 0; x < WIDTH; x++) {
-            put_pixel(x, y, ceeling);
-        }
-    }
+	r = render();
+	y = HEIGHT / 2;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			put_pixel(x, y, c->map->f);
+			x++;
+		}
+		y++;
+	}
 }
 
-int render_scene(t_cube *c) 
+void	draw_ceeling(void)
 {
-    t_render *r = render();
-    r->img_ptr = mlx_new_image(r->mlx, WIDTH, HEIGHT);
-    render_floor_ceeling();
-    
+	const t_cube	*c = cube();
+	t_render		*r;
+	int				x;
+	int				y;
+
+	r = render();
+	y = 0;
+	while (y < HEIGHT / 2)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			put_pixel(x, y, c->map->c);
+			x++;
+		}
+		y++;
+	}
+}
+
+int	render_scene(t_cube *c)
+{
+	t_render	*r;
+
+	r = render();
+	r->img_ptr = mlx_new_image(r->mlx, WIDTH, HEIGHT);
+	draw_floor();
+	draw_ceeling();
 	render_view();
-    mlx_put_image_to_window(r->mlx, r->win, r->img_ptr , 0, 0);
-    mlx_destroy_image(r->mlx, r->img_ptr);
-
-    move_player();
-
-    return 0;
+	mlx_put_image_to_window(r->mlx, r->win, r->img_ptr, 0, 0);
+	mlx_destroy_image(r->mlx, r->img_ptr);
+	move_player();
+	return (0);
 }
 
-void start_game(void) 
+void	start_game(void)
 {
-    t_cube *c = cube();
-    c->win = mlx_new_window(c->mlx, WIDTH, HEIGHT, "Cub3D");
+	t_cube	*c;
+
+	c = cube();
+	c->win = mlx_new_window(c->mlx, WIDTH, HEIGHT, "Cub3D");
 	render()->win = c->win;
-    init_hooks();
+	init_hooks();
 }

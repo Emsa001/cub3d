@@ -29,7 +29,7 @@ void remove_block(float angle)
     
     if(id == -1)
         return;
-    new_blocks = ft_malloc(sizeof(t_block) * (block_count(c->map, '2')));
+    new_blocks = ft_malloc(sizeof(t_block) * (MAX_BLOCK + 1));
     while(blocks[i].x != -1)
     {
         if(i != id)

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/23 19:09:54 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/24 18:18:54 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@
 
 # define WALL '1'
 # define DOOR 'D'
-# define BLOCK '2'
 
 # define M_PI 3.14159265358979323846
 # define NUM_THREADS 10

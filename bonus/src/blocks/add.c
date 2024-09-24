@@ -28,6 +28,11 @@ void add_block(float angle)
     i = 0;
     while (blocks[i].x != -1)
         i++;
+    if (i == MAX_BLOCK)
+    {
+        printf("Max blocks reached\n");
+        return;
+    }
     new_blocks = ft_malloc(sizeof(t_block) * (i + 2));
     i = 0;
     while (blocks[i].x != -1)

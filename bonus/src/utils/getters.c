@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:21:26 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/24 18:18:11 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/24 18:20:06 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ void	get_map_sizes(t_map *map_info, char **map)
 			map_info->width = width;
 		i++;
 	}
-
 	map_info->height = i;
 }
 
 void	change_positions(char c, int i, int j)
 {
-	t_player	*p = player();
+	t_player	*p;
+
+	p = player();
 	p->x = j + 0.5;
 	p->y = i + 0.5;
 	p->z = 0.5;
@@ -46,10 +47,9 @@ void	change_positions(char c, int i, int j)
 		p->angle = PI;
 	else if (c == 'E')
 		p->angle = 0;
-	
 	p->direction = p->angle * (180 / PI);
-    while (p->direction >= 360)
-        p->direction -= 360;
+	while (p->direction >= 360)
+		p->direction -= 360;
 }
 
 void	get_player_position(char **map)
@@ -80,21 +80,6 @@ void	get_player_position(char **map)
 		ft_error("Invalid player position");
 }
 
-int	ft_check_correct(char *line)
-{
-	int	i;
-
-	i = 0;
-	while (line[i] != '\0')
-	{
-		if (line[i] != '1' && line[i] != '0' && line[i] != 'N' && line[i] != 'S'
-			&& line[i] != 'W' && line[i] != 'E' && line[i] != 'D' && line[i] != 'G' && line[i] != 'P' && ft_isspace(line[i]) == 0)
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 void	get_2d_map(t_map *map_info, char **map, int size)
 {
 	int	i;
@@ -106,11 +91,7 @@ void	get_2d_map(t_map *map_info, char **map, int size)
 	while (map[i] != NULL)
 	{
 		if (ft_check_line(map[i]) == 0)
-		{
-			// if (j > 0)
-			// 	ft_error("Wrong map format");
-			i++;
-		}
+			ft_error("Wrong map format");
 		else
 		{
 			map_info->map[j] = ft_strdup(map[i]);

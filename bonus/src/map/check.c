@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/19 19:26:13 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/23 17:47:45 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,13 @@ void	check_valid(char **map, t_map *map_info)
 	ft_free(begin_points);
 }
 
-int count_lines(char **map)
+int	count_lines(char **map)
 {
-	int i;
-	int count;
-	
+	int	i;
+	int	count;
+
 	i = 0;
 	count = 0;
-	
 	while (map[i] != NULL)
 	{
 		if (ft_strncmp(map[i], "Line", 4) == 0)
@@ -77,14 +76,14 @@ int count_lines(char **map)
 	return (count);
 }
 
-float ft_float_atoi(char *str)
+float	ft_float_atoi(char *str)
 {
-	float res;
-	float dec;
-	int i;
-	int j;
-	int sign;
-	
+	float	res;
+	float	dec;
+	int		i;
+	int		j;
+	int		sign;
+
 	i = 0;
 	j = 0;
 	sign = 1;
@@ -118,22 +117,19 @@ float ft_float_atoi(char *str)
 	return (sign * (res + dec));
 }
 
-
-t_block get_line(char *line)
+t_block	get_line(char *line)
 {
-	t_block block_line;
-	char **line_split;
-	
-	line_split = ft_split(line, ',');
+	t_block	block_line;
+	char	**line_split;
+	int		i;
 
-	int i = 0;
-	
+	line_split = ft_split(line, ',');
+	i = 0;
 	block_line.s_x = ft_float_atoi(line_split[0]);
 	block_line.s_y = ft_float_atoi(line_split[1]);
 	block_line.x = ft_float_atoi(line_split[2]);
 	block_line.y = ft_float_atoi(line_split[3]);
-	
-	while(line_split[i] != NULL)
+	while (line_split[i] != NULL)
 	{
 		ft_free(line_split[i]);
 		i++;
@@ -142,56 +138,30 @@ t_block get_line(char *line)
 	return (block_line);
 }
 
-t_block *init_line(t_map *map_info , char **map)
-{
-	t_block	*lines;
-	int		i = 0;
-	int		j = 0;
-	int		k = 0;
-	
-	map_info->lines = NULL;
-	int line_count = count_lines(map);
-	lines = ft_malloc(sizeof(t_block) * (line_count + 1));
 
-	while(map[i] != NULL)
-	{
-		j = 0;
-		while(map[i][j] != '\0')
-		{
-			if (map[i][j] == 'L' && map[i][j + 1] == 'i' && map[i][j + 2] == 'n' && map[i][j + 3] == 'e' && map[i][j + 4] == ' ')
-			{
-				lines[k] = get_line(get_next_string(map[i], "Line = "));
-				k++;
-			}
-			j++;
-		}
-		i++;
-	}
-	lines[k].x = -1;
-	lines[k].y = -1;
-	return (lines);
-}
-
-t_block *init_generators(t_map *map_info, char **map)
+t_block	*init_generators(t_map *map_info, char **map)
 {
 	t_block	*generators;
-	int		i = 0;
-	int		j = 0;
-	int		k = 0;
-	
-	map_info->generators = NULL;
-	int generator_count = count_c(map, 'G');
-	generators = ft_malloc(sizeof(t_block) * (generator_count + 1));
+	int		i;
+	int		j;
+	int		k;
+	int		generator_count;
 
-	while(map[i] != NULL)
+	i = 0;
+	j = 0;
+	k = 0;
+	map_info->generators = NULL;
+	generator_count = count_c(map, 'G');
+	generators = ft_malloc(sizeof(t_block) * (generator_count + 1));
+	while (map[i] != NULL)
 	{
 		j = 0;
-		while(map[i][j] != '\0')
+		while (map[i][j] != '\0')
 		{
 			if (map[i][j] == 'G')
 			{
 				generators[k].x = j + 0.5;
-				generators[k].y = i	+ 0.5;
+				generators[k].y = i + 0.5;
 				k++;
 			}
 			j++;
@@ -203,35 +173,40 @@ t_block *init_generators(t_map *map_info, char **map)
 	return (generators);
 }
 
-t_block    *init_map_block(t_map *map_info)
+t_block	*init_map_block(t_map *map_info)
 {
-    t_block    *blocks;
-    int        k;
-    
-    map_info->blocks = NULL;
-    blocks = ft_malloc(sizeof(t_block));
-    k = 0;
-    blocks[k].x = -1;
-    blocks[k].y = -1;
-    blocks[k].id = -1;
-    blocks[k].s_x = -1;
-    blocks[k].s_y = -1;
-    blocks[k].type = '\0';
-    return (blocks);
+	t_block	*blocks;
+	int		k;
+
+	map_info->blocks = NULL;
+	blocks = ft_calloc(sizeof(t_block), MAX_BLOCK + 1);
+	k = 0;
+	blocks[k].x = -1;
+	blocks[k].y = -1;
+	blocks[k].id = -1;
+	blocks[k].s_x = -1;
+	blocks[k].s_y = -1;
+	blocks[k].type = '\0';
+	return (blocks);
 }
 
-t_point *get_points(char **map, char c)
+t_point	*get_points(char **map, char c)
 {
-	int k = 0;
-	int count = count_c(map, c);
-	t_point *points = ft_malloc(sizeof(t_point) * (count + 1));
-	int i = 0;
-	int j = 0;
-	
-	while(map[i] != NULL)
+	int		k;
+	int		count;
+	t_point	*points;
+	int		i;
+	int		j;
+
+	k = 0;
+	count = count_c(map, c);
+	points = ft_malloc(sizeof(t_point) * (count + 1));
+	i = 0;
+	j = 0;
+	while (map[i] != NULL)
 	{
 		j = 0;
-		while(map[i][j] != '\0')
+		while (map[i][j] != '\0')
 		{
 			if (map[i][j] == c)
 			{
@@ -243,38 +218,44 @@ t_point *get_points(char **map, char c)
 		}
 		i++;
 	}
-
 	points[k].x = -1;
 	points[k].y = -1;
 	return (points);
 }
 
-void open_portal(int i)
+void	open_portal(int i)
 {
-    int x = 0;
-    int y = 0;
+	int	x;
+	int	y;
 
-    x = cube()->map->portals[i].x;
-    y = cube()->map->portals[i].y;
-    
-    remove_sprite(x, y);
-    add_sprite("assets/portal_opened/", 17, x, y);
+	x = 0;
+	y = 0;
+	x = cube()->map->portals[i].x;
+	y = cube()->map->portals[i].y;
+	remove_sprite(x, y);
+	add_sprite("assets/portal_opened/", 17, x, y);
 }
 
-t_sprite get_sprite(char *path_file, int frames, float x, float y)
+t_sprite	get_sprite(char *path_file, int frames, float x, float y)
 {
-	t_texture **sprite_texture = ft_malloc(sizeof(t_texture) * frames);
-	t_sprite sprite;
-	int i = 0;
-	
+	t_texture	**sprite_texture;
+	t_sprite	sprite;
+	int			i;
+	char		*path;
+	char		*temp;
+
+	sprite_texture = ft_malloc(sizeof(t_texture) * frames);
+	i = 0;
 	while (i < frames)
 	{
 		sprite_texture[i] = ft_malloc(sizeof(t_texture));
-		char *path = ft_strjoin(path_file, ft_itoa(i));
-		char *temp = ft_strjoin(path, ".xpm");
-		
-		sprite_texture[i]->image = get_texture_file(temp, &sprite_texture[i]->width, &sprite_texture[i]->height);
-		sprite_texture[i]->data = mlx_get_data_addr(sprite_texture[i]->image, &sprite_texture[i]->bpp, &sprite_texture[i]->size_line, &sprite_texture[i]->endian);
+		path = ft_strjoin(path_file, ft_itoa(i));
+		temp = ft_strjoin(path, ".xpm");
+		sprite_texture[i]->image = get_texture_file(temp,
+				&sprite_texture[i]->width, &sprite_texture[i]->height);
+		sprite_texture[i]->data = mlx_get_data_addr(sprite_texture[i]->image,
+				&sprite_texture[i]->bpp, &sprite_texture[i]->size_line,
+				&sprite_texture[i]->endian);
 		ft_free(temp);
 		ft_free(path);
 		i++;
@@ -286,36 +267,42 @@ t_sprite get_sprite(char *path_file, int frames, float x, float y)
 	sprite.width = sprite_texture[0]->width;
 	sprite.height = sprite_texture[0]->height;
 	sprite.type = '\0';
-	if(frames == 5)
+	if (frames == 5)
 		sprite.type = 'P';
 	return (sprite);
 }
 
-t_sprite *init_map_sprites(t_map *map_info, char **map)
+t_sprite	*init_map_sprites(t_map *map_info, char **map)
 {
 	t_sprite	*sprites;
 	int			i;
 	int			j;
 	int			k;
-	
+	t_point		*p_points;
+	int			p_count;
+	t_point		*m_points;
+	int			m_count;
+
 	sprites = ft_malloc(sizeof(t_sprite));
 	k = 0;
-	t_point *p_points = get_points(map, 'P');
-	int p_count = count_c(map, 'P');
-	t_point *m_points = get_points(map, 'M');
-	int m_count = count_c(map, 'M');
-	sprites = ft_malloc (sizeof(t_sprite) * (p_count + m_count + 1));
+	p_points = get_points(map, 'P');
+	p_count = count_c(map, 'P');
+	m_points = get_points(map, 'M');
+	m_count = count_c(map, 'M');
+	sprites = ft_malloc(sizeof(t_sprite) * (p_count + m_count + 1));
 	i = 0;
 	while (p_points[i].x != -1)
 	{
-		sprites[k] = get_sprite("assets/portal_closed/", 5, p_points[i].x, p_points[i].y);
+		sprites[k] = get_sprite("assets/portal_closed/", 5, p_points[i].x,
+				p_points[i].y);
 		k++;
 		i++;
 	}
 	i = 0;
 	while (m_points[i].x != -1)
 	{
-		sprites[k] = get_sprite("assets/shop/", 28, m_points[i].x, m_points[i].y);
+		sprites[k] = get_sprite("assets/shop/", 28, m_points[i].x,
+				m_points[i].y);
 		k++;
 		i++;
 	}
@@ -329,16 +316,15 @@ t_sprite *init_map_sprites(t_map *map_info, char **map)
 	return (sprites);
 }
 
-t_sprite *init_map_facing(char **map)
+t_sprite	*init_map_facing(char **map)
 {
 	t_sprite	*sprites;
 	int			i;
 	int			j;
 	int			k;
-	
+
 	sprites = ft_malloc(sizeof(t_sprite));
 	k = 0;
-
 	sprites[k].x = -1;
 	sprites[k].y = -1;
 	sprites[k].frames = -1;
@@ -359,20 +345,20 @@ t_map	*check_map(char **map, int size)
 	map_info->sprite_count = 0;
 	map_info->portal = false;
 	map_info->map = NULL;
+	map_info->lines = NULL;
 	map_info->sprites = NULL;
 	map_info->facing = NULL;
 	get_2d_map(map_info, map, size);
 	get_map_sizes(map_info, map_info->map);
 	check_valid(map_info->map, map_info);
 	map_info->doors = init_block(map_info, 'D');
-	map_info->lines = init_line(map_info, map);
+	map_info->lines = init_map_block(map_info);
 	map_info->blocks = init_map_block(map_info);
 	map_info->generators = init_generators(map_info, map);
 	map_info->facing = init_map_facing(map);
 	map_info->sprites = init_map_sprites(map_info, map);
 	map_info->sprite_count = (count_c(map, 'P') + count_c(map, 'M')) * 64;
 	map_info->portals = get_points(map, 'P');
-	
 	map_info->editor_mode = false;
 	return (map_info);
 }

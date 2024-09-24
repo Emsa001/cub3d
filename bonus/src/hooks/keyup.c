@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:21:05 by escura            #+#    #+#             */
-/*   Updated: 2024/09/15 18:23:17 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/23 17:57:04 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ int key_up(int keycode)
     if(keycode == SPACE)
         p->jumping = false;
 
-    if(keycode == E)
+    if(keycode == F)
         p->interact = false;
 
     if(keycode == I)
         p->spawn = false;
     if(keycode == O)
         p->remove = false;
-    if(keycode == F)
+    if(keycode == Z)
     {
         p->catch = false;
         p->catched = false;

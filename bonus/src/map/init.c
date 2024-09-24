@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:19:15 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 16:50:29 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/23 15:30:38 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ void	map_init(char *av)
 	cube()->map = map_info;
 }
 
-
-t_map *get_map()
+t_map	*get_map(void)
 {
 	return (cube()->map);
 }
-
