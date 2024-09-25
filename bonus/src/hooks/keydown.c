@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/23 17:57:43 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/23 19:45:19 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int key_down(int keycode)
     if(keycode == O)
         p->remove = true;
     if(keycode == F)
-        p->interact = true;
+        p->interact = !p->interact;
     if(keycode == Z)
         p->catch = true;
 

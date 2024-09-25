@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:49:03 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 17:34:52 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:11:33 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ bool check_level(t_point *portals, float px, float py)
             return true;
         if(py < portals[i].y * BLOCK_SIZE + 10)
         {
-            player()->level = 2 - i;
+            player()->level = (cube()->levels - 1) - i;
             break;
         }
         else

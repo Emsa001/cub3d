@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:05:39 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/23 15:56:50 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/25 13:07:32 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@
 
 # define T_SIZE 64
 # define BLOCK_SIZE 64
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 400
+# define HEIGHT 300
 // # define CENTER_WIDTH (WIDTH / 2)
 // # define CENTER_HEIGHT (HEIGHT / 2)
 # define CENTER_WIDTH 960

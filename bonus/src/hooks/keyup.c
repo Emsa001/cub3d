@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:21:05 by escura            #+#    #+#             */
-/*   Updated: 2024/09/23 17:57:04 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/23 19:40:49 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int key_up(int keycode)
     if(keycode == SPACE)
         p->jumping = false;
 
-    if(keycode == F)
-        p->interact = false;
+    // if(keycode == F)
+    //     p->interact = false;
 
     if(keycode == I)
         p->spawn = false;

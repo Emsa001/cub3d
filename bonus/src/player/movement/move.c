@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:46:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 19:48:27 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/23 19:45:21 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,10 @@ void handle_vertical_movement(t_player *p) {
         p->z -= 0.1;
 }
 
-void handle_interactions(t_player *p) {
-    if (p->interact) { // Door interaction
+void handle_interactions(t_player *p) 
+{
+    if (p->interact) 
+    {
         int id = get_block_id(cube()->map->doors, p->x, p->y, p->angle);
         if (p->opened)
             close_door(p->angle, id);

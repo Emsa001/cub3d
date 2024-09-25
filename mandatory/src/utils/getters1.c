@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:22:38 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/23 13:23:35 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/25 13:06:25 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	get_2d_map(t_map *map_info, char **map, int size)
 
 	i = 0;
 	j = 0;
-	map_info->map = ft_malloc(sizeof(char *) * size);
+
+	map_info->map = ft_malloc(sizeof(char *) * (size + 1));
 	while (map[i] != NULL)
 	{
 		if (ft_check_line(map[i]) == 0)

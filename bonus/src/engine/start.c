@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 19:46:37 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:10:48 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ void start_game(void)
     // async->time = 3000;
     // start_async(async);
 
-    // open_portal(0);
+    open_portal(0);
     open_portal(1);
+    open_portal(2);
     
 
     mlx_loop_hook(r->mlx, render_scene_multithread, NULL);
