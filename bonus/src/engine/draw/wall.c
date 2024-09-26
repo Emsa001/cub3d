@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 19:47:31 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/26 11:16:45 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int darken_color(int color, float dist)
 int darken_color_wall(int color, float factor, float wall_x, float wall_y)
 {
     t_sprite *torches = cube()->map->facing;
+    // return(color);
     if(torches[0].x == -1)
         return color = darken_color(color, factor);
     if (torches[0].x != -1)

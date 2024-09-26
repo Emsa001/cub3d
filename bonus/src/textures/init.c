@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 22:05:17 by escura            #+#    #+#             */
-/*   Updated: 2024/09/25 14:04:19 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/26 11:07:40 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_textures *init_textures(t_textures *t)
 	t_texture *generator = ft_malloc(sizeof(t_texture));
 	t_texture *generator1 = ft_malloc(sizeof(t_texture));
 	t_texture *generator_top = ft_malloc(sizeof(t_texture));
-	door->image = get_texture_file("assets/level1/door.xpm", &door->width, &door->height);
+	door->image = get_texture_file("assets/level3/door.xpm", &door->width, &door->height);
 	door->data = mlx_get_data_addr(door->image, &door->bpp, &door->size_line, &door->endian);
 	t->door = door;
 

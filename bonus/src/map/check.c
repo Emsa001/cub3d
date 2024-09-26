@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/25 14:09:44 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/25 17:58:50 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,29 @@ int	count_c(char **map, char c)
 	return (zero);
 }
 
+void ft_replace(char *str, char old, char new)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == old)
+			str[i] = new;
+		i++;
+	}
+}
 void	check_valid(char **map, t_map *map_info)
 {
 	t_point	size;
 	t_point	*begin_points;
 	char	to_fill[9];
+	int		i = 0;
+	while(map[i])
+	{
+		ft_replace(map[i], ' ', '0');
+		i++;
+	}
 
 	begin_points = ft_malloc(sizeof(t_point) * (count_c(map, '0') + 1));
 	begin_points = get_begin_points(map, begin_points);

@@ -6,7 +6,7 @@
 #    By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/09/19 19:45:14 by btvildia         ###   ########.fr        #
+#    Updated: 2024/09/26 13:06:47 by btvildia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,9 @@ OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 all: $(NAME)
 
+map: $(LIBFT) 
+	$(CC) $(CFLAGS) map_generator/map_generator.c -o map_gen $(LDLIBS) $(LDFLAGS)
+	./map_gen
 run: $(NAME)
 	./$(NAME) map.cub
 
@@ -71,6 +74,7 @@ clean:
 
 fclean: clean
 	rm -f $(NAME) 
+	rm -f map_gen
 	$(MAKE) fclean -C $(LIBFT_DIR)
 
 re: fclean
