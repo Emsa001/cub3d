@@ -6,39 +6,62 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 18:16:29 by escura            #+#    #+#             */
-/*   Updated: 2024/09/17 16:22:51 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/26 19:24:35 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "items.h"
 
-void init_items()
+void	init_items(void)
 {
-    t_cube *c = cube();
+	t_cube	*c;
 
-    init_armor(c);
-    init_potions(c);
-    init_weapons(c);
-    init_keys_items(c);
+	c = cube();
+	init_armor(c);
+	init_potions(c);
+	init_weapons(c);
+	init_keys_items(c);
 }
 
-void useItem(void *arg)
+void	useItem(void *arg)
 {
-    int index = (int)(intptr_t)arg;
-    int id =  player()->inventory[index];
-    
-    t_item i = cube()->items[id];
-    i.props.playerslot = index;
-    if(i.use != NULL)
-        i.use(i.props);
+	int		index;
+	int		id;
+	t_item	i;
+
+	index = (int)(intptr_t)arg;
+	id = player()->inventory[index];
+	i = cube()->items[id];
+	i.props.playerslot = index;
+	if (i.use != NULL)
+		i.use(i.props);
 }
 
-void item_tooltip(void *arg)
+void	item_tooltip(void *arg)
 {
-    t_player *p = player();
-    int index = p->hover->itemId;
-    t_item *item = &cube()->items[index];
+	t_player	*p;
+	int			index;
+	t_item		*item;
 
-    tooltip(item->name, item->fontSize);
+	p = player();
+	index = p->hover->itemId;
+	item = &cube()->items[index];
+	tooltip(item->name, item->fontSize);
+}
+
+t_item	*create_item(const t_fullitem *props)
+{
+	t_item	*item;
+
+	item = (t_item *)ft_calloc(1, sizeof(t_item));
+	item->name = ft_strdup(props->name);
+	item->fontSize = 0.4;
+	item->use = props->use;
+	item->right_click = props->right_click;
+	item->props.id = props->id;
+	item->props.slot = props->slot;
+	item->props.effect = props->effect;
+	item->props.playerslot = 0;
+	return (item);
 }

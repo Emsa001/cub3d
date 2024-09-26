@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/26 02:31:56 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/26 19:01:18 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,15 @@ t_location *is_nearby(char cell);
 void	exit_button(void);
 void	resume_game(void);
 void	pause_hover(void *arg);
+
+void		try_move(float x, float y);
+void		handle_movement(t_player *p);
+void		handle_vertical_movement(t_player *p);
+void		handle_interactions(t_player *p);
+void		handle_step_animation(t_player *p, bool is_moving);
+void		handle_jumping(t_player *p);
+void		update_player_position(t_player *p);
+void		update_player_direction(t_player *p);
 
 
 #endif

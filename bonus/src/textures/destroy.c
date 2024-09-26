@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 18:36:08 by escura            #+#    #+#             */
-/*   Updated: 2024/09/24 21:21:07 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/26 19:14:22 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ static void	destroy_textures_multiple(t_textures *t)
 	int	i;
 
 	i = 0;
-	while (i < 328)
+	while (i < 328){
 		destroy_texture(&(t->items[i++]));
+	}
 	i = 0;
 	while (i < 32)
 		destroy_texture(&(t->ui->keys[i++]));
