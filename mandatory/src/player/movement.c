@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:53 by escura            #+#    #+#             */
-/*   Updated: 2024/09/23 14:09:31 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/26 20:25:58 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	try_move(float x, float y)
 {
-	const t_cube	*c = cube();
 	t_player		*p;
 	int				temp_x;
 	int				temp_y;

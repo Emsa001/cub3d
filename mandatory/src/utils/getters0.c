@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:21:26 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/23 16:22:20 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/26 20:37:11 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	*check_get_color(int *colors, char **tmp)
 	return (colors);
 }
 
-int	get_color(t_map *map_info, char **map, char *c)
+int	get_color(char **map, char *c)
 {
 	int		i;
 	char	*line;
@@ -40,6 +40,7 @@ int	get_color(t_map *map_info, char **map, char *c)
 	int		*colors;
 	int		color;
 
+	color = 0;
 	colors = ft_calloc(sizeof(int), 3);
 	i = -1;
 	while (map[++i] != NULL)
@@ -53,12 +54,10 @@ int	get_color(t_map *map_info, char **map, char *c)
 			colors = check_get_color(colors, tmp);
 			color = (colors[0] << 16 | colors[1] << 8 | colors[2]);
 			ft_arrdel((void **)tmp);
-			ft_free(colors);
-			return (color);
+			break ;
 		}
 	}
-	ft_free(colors);
-	return (color);
+	return (ft_free(colors), color);
 }
 
 void	get_no_so_we_ea(t_map *map_info, char **map)

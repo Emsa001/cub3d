@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:50:59 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/26 15:48:07 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/26 18:45:46 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ void	save_draw_txt(t_data *data)
 	int	x;
 	int	y;
 
-	fd = open("../maps/test_map.cub", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	fd = open("../maps/map.cub", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	x = 0;
 	y = 0;
-	while (y < PIC_HEIGHT)
+	while (y < PIC_HEIGHT) 
 	{
 		x = 0;
 		while (x < PIC_WIDTH)

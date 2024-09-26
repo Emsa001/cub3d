@@ -6,7 +6,7 @@
 #    By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/09/26 13:06:47 by btvildia         ###   ########.fr        #
+#    Updated: 2024/09/26 19:05:38 by btvildia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,3 +91,5 @@ mlx:
 	
 .PHONY: all clean fclean re run v
 
+
+# valgrind --leak-check=full --show-leak-kinds=all ./cub3d map.cub

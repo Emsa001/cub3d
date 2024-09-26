@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/23 15:00:37 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/26 20:25:50 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ static void	init_game(char *map)
 
 int	main(int argc, char **argv)
 {
+	if (argc != 2)
+		ft_error("Invalid number of arguments");
 	check_params(argv);
 	ft_alloc_init();
 	init_game(argv[1]);
