@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/25 18:32:58 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/26 02:31:56 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,10 @@ void add_money(int amount);
 int money();
 t_location *is_nearby(char cell);
 
+
+void	exit_button(void);
+void	resume_game(void);
+void	pause_hover(void *arg);
 
 
 #endif
