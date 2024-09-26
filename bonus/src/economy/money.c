@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 21:09:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/23 16:28:20 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/25 16:35:53 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,26 @@ void	hud_currency(void)
 
     ft_free(money);
     ft_free(add);
+}
+
+int	money(void)
+{
+	t_player	*p;
+	int			money;
+
+	p = player();
+	pthread_mutex_lock(&p->money_mutex);
+	money = p->money;
+	pthread_mutex_unlock(&p->money_mutex);
+	return (money);
+}
+
+void	add_money(int amount)
+{
+	t_player	*p;
+
+	p = player();
+	pthread_mutex_lock(&p->money_mutex);
+	p->money += amount;
+	pthread_mutex_unlock(&p->money_mutex);
 }

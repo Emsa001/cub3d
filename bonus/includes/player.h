@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/24 18:19:00 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/25 18:32:58 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ typedef struct s_player
 
 	int						level;
 
-	bool					vision;
 	int						money;
 	pthread_mutex_t			money_mutex;
 
@@ -159,7 +158,7 @@ float						distance(float x1, float y1, float x2, float y2);
 void	hud_inventory(void);
 void add_money(int amount);
 int money();
-t_location *is_nerby(char cell);
+t_location *is_nearby(char cell);
 
 
 
