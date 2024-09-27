@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:08:59 by escura            #+#    #+#             */
-/*   Updated: 2024/09/26 19:04:19 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/26 19:54:40 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	render_player(void)
 
 	p = player();
 	destroy_buttons();
-	render_minimap();
+	// render_minimap();
 	hud_inventory();
 	hud_currency();
 	if (p->GUI == INVENTORY)

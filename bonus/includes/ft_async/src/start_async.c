@@ -62,10 +62,11 @@ void start_async(t_async *async)
 	pthread_detach(thread_id); // VERY IMPORTANT
 }
 
-void ft_wait(int time, void (*func)(void *))
+void ft_wait(int time, void (*func)(void *), void *arg)
 {
     t_async *async = new_async();
     async->time = time;
     async->end_main = func;
+    async->arg = arg;
     start_async(async);
 }

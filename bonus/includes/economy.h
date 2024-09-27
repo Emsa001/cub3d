@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:18:44 by escura            #+#    #+#             */
-/*   Updated: 2024/09/23 16:48:33 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/27 18:40:44 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,6 @@ typedef struct s_generator
 
 typedef struct s_store
 {
-	int		x;
-	int		y;
-
 	bool	case_cooldown;
 	int		items[27];
 	t_generator		*generators;

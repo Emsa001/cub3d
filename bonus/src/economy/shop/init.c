@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:07:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 19:46:22 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/27 18:40:33 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,5 @@ t_store *init_store()
     }
 
     store->generators = NULL;
-
-    t_point *points = get_points(cube()->map->map, 'M');
-    store->x = points[0].x;
-    store->y = points[0].y;
-
     return store;
 }

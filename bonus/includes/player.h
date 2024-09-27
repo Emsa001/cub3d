@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/26 19:01:18 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/27 18:40:55 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,8 @@ typedef struct s_player
 	t_item					*hand;
 	bool					swing;
 	t_store					*store;
+
+	int effects;
 
 	int math[2];
 	int random[3];

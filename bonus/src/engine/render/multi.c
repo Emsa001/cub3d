@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/09/24 18:19:21 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/27 16:57:01 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int render_scene_multithread(void)
     update_fps();
     check_hooks();
     
-    render_tooltip();
+    execute_button_hover();
     show_image(r, 0, 0);
     return 0;
 }

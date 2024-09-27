@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 18:19:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/26 19:28:47 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/26 20:15:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct s_itemprops
 	int					id;
 	int					slot;
 	int					effect;
+	int					time;
+	int					*intvar;
 	int					playerslot;
 }						t_itemprops;
 

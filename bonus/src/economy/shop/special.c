@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:06:59 by escura            #+#    #+#             */
-/*   Updated: 2024/09/23 19:08:53 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/27 18:46:44 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void activate_special(void *arg){
     location->y = y -200;
 
     string_timer(3000, location);
-    ft_wait(3000, &is_correct);
+    ft_wait(3000, &is_correct, NULL);
 }
 
 void special_offer(int x, int y)
@@ -101,7 +101,7 @@ void special_offer(int x, int y)
     {
         if (p->store->items[i] != -1)
         {
-            t_button button;
+            t_button button = { 0 };
             
             button.x = x + 810;
             button.y = y + 160 + i * t->ui->button->height * 3.2;

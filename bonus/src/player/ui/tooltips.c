@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:41:37 by escura            #+#    #+#             */
-/*   Updated: 2024/09/26 02:29:41 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/27 16:57:02 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	tooltip(char *string, float size)
 	render_string(&str);
 }
 
-void	render_tooltip(void)
+void	execute_button_hover(void)
 {
 	t_player	*p;
 	t_button	*button;
