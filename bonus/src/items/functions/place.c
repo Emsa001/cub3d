@@ -3,24 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   place.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 13:51:19 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 15:18:27 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/27 18:18:58 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "items.h"
 #include "cub3d.h"
+#include "items.h"
 
-void place(t_item *item)
+void	place(t_item *item)
 {
-    t_player *p = player();
-    
-    printf("You placed a %s\n", item->name);
+	const int	x = player()->x_px / BLOCK_SIZE;
+	const int	y = player()->y_px / BLOCK_SIZE;
 
-    int x = p->x_px / BLOCK_SIZE;
-    int y = p->y_px / BLOCK_SIZE;   
-    
-    add_facing_sprite("assets/torch/", 9, x,y);
+	printf("You placed a %s\n", item->name);
+	add_facing_sprite("assets/torch/", 9, x, y);
+	player()->equipped[item->props.slot] = -1;
+	player()->hand = NULL;
 }

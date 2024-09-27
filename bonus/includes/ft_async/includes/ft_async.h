@@ -80,6 +80,6 @@ void remove_from_list(t_async *async);
 void start_async(t_async *async);
 void stop_all_async_tasks(void);
 void async_queue();
-void ft_wait(int time, void (*func)(void *));
+void ft_wait(int time, void (*func)(void *), void *arg);
 
 #endif

@@ -6,125 +6,82 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:44 by escura            #+#    #+#             */
-/*   Updated: 2024/09/24 16:32:51 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/27 18:54:12 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 // Distance calculation function
-float distance(float x1, float y1, float x2, float y2)
+float	distance(float x1, float y1, float x2, float y2)
 {
-    return sqrtf((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+	return (sqrtf((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
 }
 
-// int view_lane_distance(float x1, float y1, float angle)
-// {
-//     float x2 = player()->x_px;
-//     float y2 = player()->y_px;
-    
-//     float player_angle = player()->angle;
-    
-//     float raw_distance = distance(x1, y1, x2, y2);
-//     float adjusted_distance = raw_distance * cos(player_angle - angle);
-
-//     return adjusted_distance;
-// }
-
-
-void lane_distance(t_draw *draw)
+void	lane_distance(t_draw *draw)
 {
-    float x2 = player()->x_px;
-    float y2 = player()->y_px;
-    
-    float player_angle = player()->angle;
-    
-    float raw_distance = distance(draw->first_x, draw->first_y, x2, y2);
-    float adjusted_distance = raw_distance * cos(player_angle - draw->angle);
-    draw->generator_dist = adjusted_distance;
-    draw->height_top = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
+	const float	x2 = player()->x_px;
+	const float	y2 = player()->y_px;
+	const float	player_angle = player()->angle;
+	float		raw_distance;
+	float		adjusted_distance;
 
-    raw_distance = distance(draw->last_x, draw->last_y, x2, y2);
-    adjusted_distance = raw_distance * cos(player_angle - draw->angle);
-    draw->height = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
-
-    raw_distance = distance(draw->x, draw->y, x2, y2);
-    adjusted_distance = raw_distance * cos(player_angle - draw->angle);
-    draw->dist = adjusted_distance;
-    draw->wall_height = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
+	raw_distance = distance(draw->first_x, draw->first_y, x2, y2);
+	adjusted_distance = raw_distance * cos(player_angle - draw->angle);
+	draw->generator_dist = adjusted_distance;
+	draw->height_top = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
+	raw_distance = distance(draw->last_x, draw->last_y, x2, y2);
+	adjusted_distance = raw_distance * cos(player_angle - draw->angle);
+	draw->height = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
+	raw_distance = distance(draw->x, draw->y, x2, y2);
+	adjusted_distance = raw_distance * cos(player_angle - draw->angle);
+	draw->dist = adjusted_distance;
+	draw->wall_height = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
 }
 
-int money()
+static void	init_cells(char *nearby_cells, int x, int y)
 {
-    t_player *p = player();
-    pthread_mutex_lock(&p->money_mutex);
-    int money = p->money;
-    pthread_mutex_unlock(&p->money_mutex);
-    return money;
+	const t_cube	*c = cube();
+
+	nearby_cells[0] = c->map->map[y][x];
+	nearby_cells[1] = c->map->map[y - 1][x];
+	nearby_cells[2] = c->map->map[y + 1][x];
+	nearby_cells[3] = c->map->map[y][x - 1];
+	nearby_cells[4] = c->map->map[y][x + 1];
+	nearby_cells[5] = c->map->map[y - 1][x - 1];
+	nearby_cells[6] = c->map->map[y - 1][x + 1];
+	nearby_cells[7] = c->map->map[y + 1][x - 1];
+	nearby_cells[8] = c->map->map[y + 1][x + 1];
 }
 
-void add_money(int amount)
+static t_location	*is_nearby1(int x, int y, int i)
 {
-    t_player *p = player();
+	t_location	*loc;
+	t_location	*offsets;
 
-    pthread_mutex_lock(&p->money_mutex);
-    p->money += amount;
-    pthread_mutex_unlock(&p->money_mutex);
+	offsets = (t_location[]){{0, 0}, {0, -1}, {0, 1}, {-1, 0}, {1, 0}, {-1, -1},
+		{1, -1}, {-1, 1}, {1, 1}};
+	loc = ft_malloc(sizeof(t_location));
+	loc->x = x + offsets[i].x;
+	loc->y = y + offsets[i].y;
+	return (loc);
 }
 
-t_location *is_nerby(char cell)
+t_location	*is_nearby(char cell)
 {
-    const t_player *p = player();
-    const t_cube *c = cube();
+	const t_player	*p = player();
+	const int		x = (int)p->x_px / BLOCK_SIZE;
+	const int		y = (int)p->y_px / BLOCK_SIZE;
+	char			nearby_cells[9];
+	int				i;
 
-    int x = (int)p->x_px / BLOCK_SIZE;
-    int y = (int)p->y_px / BLOCK_SIZE;
-
-    char nearby_cells[9];
-    nearby_cells[0] = c->map->map[y][x];       // Current cell
-    nearby_cells[1] = c->map->map[y-1][x];     // North
-    nearby_cells[2] = c->map->map[y+1][x];     // South
-    nearby_cells[3] = c->map->map[y][x-1];     // West
-    nearby_cells[4] = c->map->map[y][x+1];     // East
-    nearby_cells[5] = c->map->map[y-1][x-1];   // North-West
-    nearby_cells[6] = c->map->map[y-1][x+1];   // North-East
-    nearby_cells[7] = c->map->map[y+1][x-1];   // South-West
-    nearby_cells[8] = c->map->map[y+1][x+1];   // South-East
-
-    for(int i = 0; i < 9; i++) {
-        if(nearby_cells[i] == cell) {
-            t_location *loc = ft_malloc(sizeof(t_location));
-            if(i == 0) {
-                loc->x = x;
-                loc->y = y;
-            } else if(i == 1) {
-                loc->x = x;
-                loc->y = y-1;
-            } else if(i == 2) {
-                loc->x = x;
-                loc->y = y+1;
-            } else if(i == 3) {
-                loc->x = x-1;
-                loc->y = y;
-            } else if(i == 4) {
-                loc->x = x+1;
-                loc->y = y;
-            } else if(i == 5) {
-                loc->x = x-1;
-                loc->y = y-1;
-            } else if(i == 6) {
-                loc->x = x+1;
-                loc->y = y-1;
-            } else if(i == 7) {
-                loc->x = x-1;
-                loc->y = y+1;
-            } else if(i == 8) {
-                loc->x = x+1;
-                loc->y = y+1;
-            }
-            return loc;
-        }
-    }
-
-    return NULL;
+	init_cells(nearby_cells, x, y);
+	i = 0;
+	while (i < 9)
+	{
+		if (nearby_cells[i] == cell)
+			return (is_nearby1(x, y, i));
+		i++;
+	}
+	return (NULL);
 }

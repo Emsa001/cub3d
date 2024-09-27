@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 21:09:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 19:16:34 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/25 16:35:53 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,12 @@ void	hud_currency(void)
     // money texture
     put_image(&t->items[66], 10, 12, 2);
 
-    pthread_mutex_lock(&c->add_money_mutex);
     pthread_mutex_lock(&p->money_mutex);
 
     char *money = ft_itoa(p->money);
-    char *add = ft_itoa(c->add_money);
+    char *add = ft_itoa(gen_total_amount());
 
     pthread_mutex_unlock(&p->money_mutex);
-    pthread_mutex_unlock(&c->add_money_mutex);
 
     put_string("+", 80, 15, 0xFFFFFF, 0.4);
     put_string(add, 95, 15, 0xFFFFFF, 0.4);
@@ -46,4 +44,26 @@ void	hud_currency(void)
 
     ft_free(money);
     ft_free(add);
+}
+
+int	money(void)
+{
+	t_player	*p;
+	int			money;
+
+	p = player();
+	pthread_mutex_lock(&p->money_mutex);
+	money = p->money;
+	pthread_mutex_unlock(&p->money_mutex);
+	return (money);
+}
+
+void	add_money(int amount)
+{
+	t_player	*p;
+
+	p = player();
+	pthread_mutex_lock(&p->money_mutex);
+	p->money += amount;
+	pthread_mutex_unlock(&p->money_mutex);
 }

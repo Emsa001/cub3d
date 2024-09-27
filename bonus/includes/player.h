@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 19:45:50 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/27 18:40:55 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 # include "economy.h"
 typedef struct s_draw		t_draw;
 
-# define WALKSPEED 3
-# define SPRINTBONUS 5
-# define MOUSE_SENSITIVITY 0.001
+# define WALKSPEED 200
+# define SPRINTBONUS 300
+# define MOUSE_SENSITIVITY 0.05
 
-# define JUMP_SPEED 0.03
-# define GRAVITY 0.003
+# define JUMP_SPEED 2
+# define GRAVITY 8
 
 # define FOV 60
 
@@ -32,13 +32,16 @@ typedef struct s_button
 	int						y;
 	int						width;
 	int						height;
+	float 					size;
 
 	void					(*function)(void *);
 	void					(*hover)(void *);
 	void					*arg;
 	int						itemId;
 
+	bool is_default;
 	bool hover_change;
+	bool remove;
 
 }							t_button;
 
@@ -110,7 +113,6 @@ typedef struct s_player
 
 	int						level;
 
-	bool					vision;
 	int						money;
 	pthread_mutex_t			money_mutex;
 
@@ -118,6 +120,13 @@ typedef struct s_player
 	t_item					*hand;
 	bool					swing;
 	t_store					*store;
+
+	int effects;
+
+	int math[2];
+	int random[3];
+	int math_selected;
+	int streak;
 
 	int GUI;
 	int GUI_temp;
@@ -151,8 +160,21 @@ float						distance(float x1, float y1, float x2, float y2);
 void	hud_inventory(void);
 void add_money(int amount);
 int money();
-t_location *is_nerby(char cell);
+t_location *is_nearby(char cell);
 
+
+void	exit_button(void);
+void	resume_game(void);
+void	pause_hover(void *arg);
+
+void		try_move(float x, float y);
+void		handle_movement(t_player *p);
+void		handle_vertical_movement(t_player *p);
+void		handle_interactions(t_player *p);
+void		handle_step_animation(t_player *p, bool is_moving);
+void		handle_jumping(t_player *p);
+void		update_player_position(t_player *p);
+void		update_player_direction(t_player *p);
 
 
 #endif

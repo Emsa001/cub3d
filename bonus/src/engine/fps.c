@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:24:07 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 21:11:17 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/23 15:38:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,30 @@ double get_time_seconds() {
     return ts.tv_sec + ts.tv_nsec / 1e9;
 }
 
+double fps_update_time = 0;
+
 void update_fps(void) 
 {
     const t_render *r = render();
     double current_time = get_time_seconds();
+    
+    // Calculate delta time per frame
+    cube()->delta_time = current_time - last_time;
+    last_time = current_time;
+
     frame_count++;
 
     // Update FPS every second (or other interval)
-    if (current_time - last_time >= 1.0) {
-        fps = frame_count / (current_time - last_time);
-        if(current_time - last_time <= 5)
-            cube()->delta_time = current_time - last_time;
-        last_time = current_time;
+    if (current_time - fps_update_time >= 1.0) {
+        fps = frame_count / (current_time - fps_update_time);
+        fps_update_time = current_time;
         frame_count = 0;
     }
-    
-    char *fps_str = ft_itoa((int)fps);
-    // mlx_string_put(r->mlx, r->win, WIDTH - 50, 30, 0xFFFFFF, fps_str);
 
-    t_string str;
+    // Convert FPS to string and render it on screen
+    char *fps_str = ft_itoa((int)fps);
+
+    t_string str = {0};
     str.str = fps_str;
     str.color = 0xFFFFFF;
     str.size = 0.5;

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:18:44 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 17:47:37 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/27 18:40:44 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "cub3d.h"
 
+typedef struct s_async t_async;
+
 typedef struct s_generator
 {
 	int 	id;
@@ -22,11 +24,11 @@ typedef struct s_generator
 	int		y;
 	
 	int generated;
-	int energy;
 	int add_money;
 	
 	int speed;
 	int level;
+	int random;
 
 	int loop;
 
@@ -36,9 +38,6 @@ typedef struct s_generator
 
 typedef struct s_store
 {
-	int		x;
-	int		y;
-
 	bool	case_cooldown;
 	int		items[27];
 	t_generator		*generators;
@@ -59,6 +58,7 @@ void		portal_offer(int x, int y);
 void generators();
 void generator_gui();
 t_generator *get_generator(int x, int y);
-void set_addmoney(int add);
+int gen_total_amount();
+void generator_generating(t_async *current);
 
 #endif

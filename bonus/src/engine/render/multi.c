@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   multi.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 19:47:35 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/27 16:57:01 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,50 +46,14 @@ int render_scene_multithread(void)
     t_cube *c = cube();
     t_player *p = player();
 
-    if(c->map->editor_mode){
-        clear_image(r);
-        destroy_buttons();
-        map_editor_enter();
-        render_queue(r);
-        render_tooltip();
-
-        update_fps();
-        show_image(r, 0, 0);
-        return 0;
-    }
-
     p->mouse_hook = true;
-
-    if(c->map->editor_mode){
-        // clear_image(r);
-        destroy_buttons();
-        map_editor_enter();
-        render_queue(r);
-        render_tooltip();
-
-        // update_fps();
-        show_image(r, 0, 0);
-        return 0;
-    }
-
-    if(c->map->editor_mode){
-        // clear_image(r);
-        destroy_buttons();
-        map_editor_enter();
-        render_queue(r);
-        render_tooltip();
-
-        // update_fps();
-        show_image(r, 0, 0);
-        return 0;
-    }
 
     // clear_image(r);
     render_view(c);
     render_player();
     economy_loop();
     
-    if(!c->paused)
+    if(!is_paused() && p->GUI != MATH)
         move_player();
     
     render_queue(r);
@@ -97,7 +61,7 @@ int render_scene_multithread(void)
     update_fps();
     check_hooks();
     
-    render_tooltip();
+    execute_button_hover();
     show_image(r, 0, 0);
     return 0;
 }

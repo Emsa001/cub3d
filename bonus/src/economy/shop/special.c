@@ -6,14 +6,89 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:06:59 by escura            #+#    #+#             */
-/*   Updated: 2024/09/12 14:31:28 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/27 18:46:44 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static void is_correct(){
+    t_player *p = player();
+    p->GUI = NONE;
+
+    t_string str = {0};
+    str.color = 0x00FF00;
+    str.size = 2;
+    str.x = CENTER_WIDTH - 150;
+    str.y = CENTER_HEIGHT - 100;
+    str.time = 500;
+    str.background = 0x000001;
+    str.padding = 10;
+
+    if(p->math_selected == p->math[0] + p->math[1])
+    {
+        p->math_selected = 0;
+        p->streak++;
+        str.str = "CORRECT!";
+        str.x -= 50;
+        
+        int multiplier = p->streak;
+        if(multiplier > 5)
+            multiplier = 5;
+        add_money(1000 * multiplier);
+
+        render_string_async(&str);
+        return ;
+    }
+
+    add_money(-1000);
+    str.color = 0xFF0000;
+    str.str = "WRONG!";
+    p->streak = 0;
+    render_string_async(&str);
+
+}
+
 void activate_special(void *arg){
-    int price = (int)(intptr_t)arg;
+    t_player *p = player();
+
+    if(p->money < (int)arg)
+    {
+        interaction_notify("Not enough money!");
+        return ;
+    }
+
+    p->GUI = MATH;
+
+    p->math[0] = random_int(1, 100);
+    p->math[1] = random_int(1, 100);
+
+    int sum = p->math[0] + p->math[1];
+
+    p->random[0] = sum + random_int(-5, 30);
+    p->random[1] = sum + random_int(-10, 10);
+    p->random[2] = sum + random_int(-20, 20);
+
+    int rand_choice = random_int(0, 2);
+
+    if (rand_choice == 0)
+        p->random[0] = p->math[0] + p->math[1];
+    else if (rand_choice == 1)
+        p->random[1] = p->math[0] + p->math[1];
+    else
+        p->random[2] = p->math[0] + p->math[1];
+
+
+    t_texture *window = textures()->ui->window;
+    int x = CENTER_WIDTH - window->width / 2;
+    int y = CENTER_HEIGHT - window->height / 2;
+
+    t_location *location = ft_malloc(sizeof(t_location));
+    location->x = CENTER_WIDTH - 32;
+    location->y = y -200;
+
+    string_timer(3000, location);
+    ft_wait(3000, &is_correct, NULL);
 }
 
 void special_offer(int x, int y)
@@ -26,7 +101,7 @@ void special_offer(int x, int y)
     {
         if (p->store->items[i] != -1)
         {
-            t_button button;
+            t_button button = { 0 };
             
             button.x = x + 810;
             button.y = y + 160 + i * t->ui->button->height * 3.2;
@@ -35,7 +110,7 @@ void special_offer(int x, int y)
             
             button.function = &activate_special;
             button.hover = &shop_item_hover;
-            button.arg = (void *)1000;
+            button.arg = (void *)(1000 * (i + 1));
             button.itemId = p->store->items[i];
             
             add_button(&button);

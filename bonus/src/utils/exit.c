@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:52:35 by escura            #+#    #+#             */
-/*   Updated: 2024/09/19 19:48:48 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/26 19:05:45 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,51 +20,52 @@ void	ft_error(char *str)
 	exit_game(1);
 }
 
-void destroy_sprite_image(t_sprite sprite)
+void	destroy_sprite_image(t_sprite sprite)
 {
-    int i = 0;
-    while(i < sprite.frames)
-    {
-        destroy_texture(sprite.sprite_tex[i]);
-        sprite.sprite_tex[i] = NULL;
-        i++;
-    }
+	int	i;
+
+	i = 0;
+	while (i < sprite.frames)
+	{
+		destroy_texture(sprite.sprite_tex[i]);
+		sprite.sprite_tex[i] = NULL;
+		i++;
+	}
 }
 
+void	destroy_render(void)
+{
+	t_render	*r;
 
-void destroy_render(){
-	t_render *r = render();
-    clean_image(r);
+	r = render();
+	clean_image(r);
 	mlx_destroy_window(r->mlx, r->win);
-    mlx_destroy_display(r->mlx);
+	mlx_destroy_display(r->mlx);
 	free(r->mlx);
-
-    pthread_mutex_destroy(&r->image_queue_mutex);
-    pthread_mutex_destroy(&r->string_queue_mutex);
+	pthread_mutex_destroy(&r->image_queue_mutex);
+	pthread_mutex_destroy(&r->string_queue_mutex);
 }
 
 void	exit_game(int code)
 {
-    destroy_manager();
-    t_textures	*t = textures();
-    t_render *r = render();
-    t_cube *c = cube();
+	t_render	*r;
+	t_sprite	*sprites;
+	int			i;
 
-	t_sprite *sprites = c->map->sprites;
-	int i = 0;
+	r = render();
+	sprites = cube()->map->sprites;
+	i = 0;
+	destroy_manager();
 	while (sprites[i].x != -1)
-    {
-        if(sprites[i].sprite_tex != NULL)
-            destroy_sprite_image(sprites[i]);
+	{
+		if (sprites[i].sprite_tex != NULL)
+			destroy_sprite_image(sprites[i]);
 		i++;
-    }
-
-    clear_image_queue(r);
-    clear_string_queue(r);
-    
-    destroy_textures();
-    destroy_render();
-
-    ft_destructor();
-    exit (code);
+	}
+	clear_image_queue(r);
+	clear_string_queue(r);
+	destroy_textures();
+	destroy_render();
+	ft_destructor();
+	exit(code);
 }

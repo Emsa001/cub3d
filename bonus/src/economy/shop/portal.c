@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:46:59 by escura            #+#    #+#             */
-/*   Updated: 2024/09/18 18:03:38 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/27 18:46:45 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,22 @@ void opening()
 void buy_portalkey(){
     t_player *p = player();
     t_cube *c = cube();
-    int time = 6000;
+    int time = 5000;
 
     if(money() < 10000)
         return;
     
     p->GUI = NONE;
     add_money(-10000);
-    string_timer(time - 1000);
-    ft_wait(time, &opening);
+
+    t_location *l = ft_calloc(1, sizeof(t_location));
+    l->x = CENTER_WIDTH - 32;
+    l->y = CENTER_HEIGHT - 32;
+
+    string_timer(time,l);
+    ft_wait(time, &opening, NULL);
     
-    t_string str;
+    t_string str = {0};
     str.str = "You have powered up the portal!";
     str.x = CENTER_WIDTH - 500;
     str.y = HEIGHT - 200;
@@ -43,7 +48,7 @@ void buy_portalkey(){
     t_texture *t = textures()->ui->button_long;
 
     for(int i = 0; i < 5; i++){
-        t_image img;
+        t_image img = { 0 };
         img.img = t;
         img.x = CENTER_WIDTH - 555 + (i * t->width - ((i-1) * 4));
         img.y = HEIGHT - 225;
@@ -68,7 +73,7 @@ void portal_offer(int x, int y)
 
     if(c->next_portal == 0)
         return ;
-    t_button button;
+    t_button button = { 0 };
     button.x = x + t->ui->button->width * 3 + 25;
     button.y = y + 360;
     button.width = t->ui->button->width * 5 + 25;

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:49:37 by escura            #+#    #+#             */
-/*   Updated: 2024/09/23 19:32:05 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/27 18:53:13 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define DOWN 65364
 # define RIGHT 65363
 # define SHIFT 65505
+# define CTRL 65507
 # define SPACE 32
 # define LEFT_CLICK 1
 # define RIGHT_CLICK 3
