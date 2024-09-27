@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:22:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/27 18:48:28 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/27 20:09:01 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,33 @@ static void store_window(int x, int y){
     render_string(&str);    
 }
 
+static void *buy_item(void *arg){
+    const t_button *button = player()->hover;
+    const int price = (int)arg;
+
+    if(price > money())
+    {
+        printf("Not enough money\n");
+        return NULL;
+    }
+
+    int i = 0;
+    while(i < 9)
+    {
+        if(player()->inventory[i] == -1)
+        {
+            add_money(-price);
+            player()->inventory[i] = button->itemId;
+            return NULL;
+        }
+        i++;
+    }
+
+    printf("Inventory full\n");
+
+    return NULL;
+}
+
 static void init_shop_items(int x, int y, t_player *p){
     int i = 0;
     while(i < 21)
@@ -39,7 +66,7 @@ static void init_shop_items(int x, int y, t_player *p){
             button.y = y + 160 + (i / 3) * 70;
             button.width = 64;
             button.height = 64;
-            button.function = NULL;
+            button.function = &buy_item;
             button.hover = &shop_item_hover;
             button.arg = (void *)(intptr_t)(i * 1000);
             button.itemId = p->store->items[i];
