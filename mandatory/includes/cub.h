@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:05:39 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/26 20:31:03 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/27 18:26:39 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,6 @@ typedef struct s_render
 t_render	*init_render(t_render *r);
 t_render	*render(void);
 
-void		check_params(char **av);
 t_cube		*init_cube(t_cube *c);
 t_cube		*cube(void);
 void		start_game(void);
