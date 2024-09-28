@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:04:05 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/28 19:34:31 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/28 20:00:16 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define SQUARE_SIZE 32
 # define MINIMAP_PIXEL_WIDTH WIDTH / 6
 # define MINIMAP_PIXEL_HEIGHT WIDTH / 8
-# define CORNER 0
+# define CORNER 6
 # define FRAME_WIDTH 6
 # define FRAME_COLOR 0x000000
 
