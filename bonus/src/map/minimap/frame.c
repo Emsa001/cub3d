@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 15:12:05 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/28 16:21:38 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/28 19:57:41 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ void	draw_minimap_square(int x, int y)
 
 	i = 0;
 	j = 0;
-	// draw_top_and_bottom_borders(x, y);
-	// draw_left_and_right_borders(x, y);
+	draw_top_and_bottom_borders(x, y);
+	draw_left_and_right_borders(x, y);
 	while (i < MINIMAP_PIXEL_WIDTH)
 	{
 		j = 0;
