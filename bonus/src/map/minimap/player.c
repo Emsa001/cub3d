@@ -3,57 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:51:28 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 22:22:11 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/28 17:11:58 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/* it detects colors, I believe there is better way to do it */
-static void minimap_draw_fov(float angle)
+void	draw_triangle(int size, int x, int y, int color)
 {
-    t_render *r = render();
-    float x = minimap_center_x();
-    float y = minimap_center_y();
-    int col = 0;
-    int i = 0;
-    
-    const double cos_angle = cos(angle);
-    const double sin_angle = sin(angle);
+	int	i;
+	int	start_x;
+	int	end_x;
+	int	height;
+	int	j;
 
-    while (i < 100 && col <= 3)
-    {
-        x += 6 * cos_angle;
-        y += 6 * sin_angle;
-
-        if(get_scene_pixel((int)x, (int)y) != MINIMAP_COLOR)
-            col++;
-
-        put_pixel((int)x, (int)y, 0xa1a1aa, r);
-        i += 6;
-    }
+	i = 0;
+	start_x = 0;
+	end_x = 0;
+	height = 0;
+	j = 0;
+	y = y - size / 2;
+	height = (int)(size * sin((80) * PI / 180.0));
+	while (i < height)
+	{
+		start_x = x - (i * size) / height / 2;
+		end_x = x + (i * size) / height / 2;
+		j = start_x;
+		while (j <= end_x)
+		{
+			put_pixel(j, y + i, color, render());
+			j++;
+		}
+		i++;
+	}
 }
 
-void minimap_draw_player()
+void	draw_player(int x, int y)
 {
-    const t_player *p = player();
-    float angle = p->angle;
-
-    float fovInRadians = p->fov * PI / 180;
-    float halfFovInRadians = fovInRadians / 2.0;
-    float angleOffset = angle - halfFovInRadians;
-
-    draw_circle(minimap_center_x(), minimap_center_y(), PLAYER_SIZE, PLAYER_DOT_COLOR);
-
-    int i = 0;
-    while (i < WIDTH) 
-    {
-        float fraction = (float)i / WIDTH;
-        float rayAngle = angleOffset + fraction * fovInRadians;
-        minimap_draw_fov(rayAngle);
-        i += (170 - p->fov);
-    }
+	draw_triangle(MINIMAP_PLAYER_SIZE + 8, x, y, 0);
+	draw_triangle(MINIMAP_PLAYER_SIZE, x, y + 1, MINIMAP_PLAYER_COLOR);
 }

@@ -3,72 +3,66 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:16:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/26 19:07:03 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/28 19:56:45 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static t_minimap_utils	*set_utils(void)
+void	rotate_coords(float *bx, float *by, float angle)
 {
-	t_minimap_utils	*utils;
+	float	old_bx;
+	float	old_by;
 
-	utils = ft_malloc(sizeof(t_minimap_utils));
-	utils->center_x = minimap()->x + MINIMAP_PIXEL_WIDTH / 2.0f;
-	utils->center_y = minimap()->y + MINIMAP_PIXEL_HEIGHT / 2.0f;
-	utils->start_x = player()->x - MINIMAP_RADIUS / (float)MINIMAP_BLOCK_SIZE;
-	utils->start_y = player()->y - MINIMAP_RADIUS / (float)MINIMAP_BLOCK_SIZE;
-	utils->end_x = utils->start_x + MINIMAP_RADIUS * 2
-		/ (float)MINIMAP_BLOCK_SIZE;
-	utils->end_y = utils->start_y + MINIMAP_RADIUS * 2
-		/ (float)MINIMAP_BLOCK_SIZE;
-	return (utils);
+	old_bx = *bx;
+	old_by = *by;
+	*bx = old_bx * cos(angle) - old_by * sin(angle);
+	*by = old_bx * sin(angle) + old_by * cos(angle);
 }
 
-static void	set_block(int i, int j, t_minimap_utils *utils)
+void	draw_blocks(t_minimap *m, t_map *map, t_player *p)
 {
-	const t_cube	*c = cube();
-	const t_minimap	*m = minimap();
-	int				screen_x;
-	int				screen_y;
+	int		x;
+	int		y;
+	int		bx;
+	int		by;
+	float	rel_x;
+	float	rel_y;
+	float	angle;
 
-	if (c->map && i >= 0 && i < c->map->height && j >= 0 && j < c->map->width && c->map->map[i])
+	angle = p->angle;
+	x = 0;
+	while (x < map->width)
 	{
-		if (c->map->map[i][j] == '1')
+		y = 0;
+		while (y < map->height)
 		{
-			screen_x = m->x + (int)((j - utils->start_x) * MINIMAP_BLOCK_SIZE);
-			screen_y = m->y + (int)((i - utils->start_y) * MINIMAP_BLOCK_SIZE);
-			screen_x -= MINIMAP_BLOCK_SIZE * 2.05;
-			screen_y -= MINIMAP_BLOCK_SIZE * 2.05;
-			minimap_block(j, i, screen_x, screen_y);
+			if (map->map[y][x] == '1')
+			{
+				rel_x = (x - p->x) * SQUARE_SIZE + SQUARE_SIZE / 2;
+				rel_y = (y - p->y) * SQUARE_SIZE + SQUARE_SIZE / 2;
+				rotate_coords(&rel_x, &rel_y, -(angle + PI / 2));
+				bx = m->center_x - SQUARE_SIZE / 2 + rel_x;
+				by = m->center_y - SQUARE_SIZE / 2 + rel_y;
+				draw_block(bx, by, -(angle + PI / 2));
+			}
+			y++;
 		}
+		x++;
 	}
 }
 
 void	render_minimap(void)
 {
-	t_minimap_utils *utils;
-	int i;
-	int j;
+	t_minimap *m = minimap();
+	t_map *map = cube()->map;
+	t_player *p = player();
 
-	utils = set_utils();
-	i = (int)utils->start_y;
-	draw_circle(utils->center_x, utils->center_y, minimap()->radius,
-		MINIMAP_COLOR);
-	while (i < (int)utils->end_y)
-	{
-		j = (int)utils->start_x;
-		while (j < (int)utils->end_x)
-		{
-			set_block(i, j, utils);
-			j++;
-		}
-		i++;
-	}
+	draw_minimap_square(m->x, m->y);
+	draw_player(m->center_x, m->center_y);
 
-	ft_free(utils);
-	minimap_draw_player();
+	draw_blocks(m, map, p);
 }

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/27 20:20:33 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/28 16:06:22 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "keyhooks.h"
 # include "libft.h"
 # include "map.h"
+# include "minimap.h"
 # include "mlx/mlx.h"
 # include "player.h"
 # include "textures.h"
@@ -70,7 +71,7 @@
 # define DOOR 'D'
 
 # define M_PI 3.14159265358979323846
-# define NUM_THREADS 10
+# define NUM_THREADS 1
 
 typedef struct s_render	t_render;
 
