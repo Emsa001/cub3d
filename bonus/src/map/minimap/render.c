@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:16:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/28 20:32:52 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/28 20:51:52 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ void	draw_blocks(t_minimap *m, t_map *map, t_player *p)
 	{
 		while (map->map[y][x] != '\0')
 		{
-			if (map->map[y][x] == '1' || map->map[y][x] == 'D' || map->map[y][x] == 'M' || map->map[y][x] == 'G' || map->map[y][x] == 'P')
+			if (map->map[y][x] == '1' || map->map[y][x] == 'D'
+				|| map->map[y][x] == 'M' || map->map[y][x] == 'G'
+				|| map->map[y][x] == 'P')
 			{
 				rel_x = (x - p->x) * SQUARE_SIZE + SQUARE_SIZE / 2;
 				rel_y = (y - p->y) * SQUARE_SIZE + SQUARE_SIZE / 2;

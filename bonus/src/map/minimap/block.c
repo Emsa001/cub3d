@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   block.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:52:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/28 20:47:55 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/28 21:48:37 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	draw_top_and_bottom_borders(int x, int y, float angle)
 			p = get_rotated_coordinates(i, j - 3, cos_theta, sin_theta);
 			if (check(x + p.x, y + p.y))
 				put_pixel(x + p.x, y + p.y, FRAME_COLOR, render());
-			p = get_rotated_coordinates(i, SQUARE_SIZE - 1 - j + 3, cos_theta,
+			p = get_rotated_coordinates(i, SQUARE_SIZE - j + 3, cos_theta,
 					sin_theta);
 			if (check(x + p.x, y + p.y))
 				put_pixel(x + p.x, y + p.y, FRAME_COLOR, render());
@@ -97,7 +97,7 @@ void	draw_left_and_right_border(int x, int y, float angle)
 	}
 }
 
-int get_color(char c)
+int	get_color(char c)
 {
 	if (c == '1')
 		return (BLOCK_COLOR);
@@ -118,21 +118,32 @@ void	draw_block(int x, int y, float angle, int c)
 	int		j;
 	float	cos_theta;
 	float	sin_theta;
+	int		start;
 	t_point	p;
+	t_point	shape;
 
+	start = 0;
 	cos_theta = cos(angle);
 	sin_theta = sin(angle);
-	int square_y = SQUARE_SIZE;
-	int square_x = SQUARE_SIZE;
-	i = 0;
-	if(c == 'M' || c == 'P')
-		square_y /= 8;
-	draw_top_and_bottom_borders(x, y, angle);
-	draw_left_and_right_border(x, y, angle);
-	while (i < square_x)
+	shape.x = SQUARE_SIZE;
+	shape.y = SQUARE_SIZE;
+	if (c == 'G' || c == 'M' || c == 'P')
 	{
-		j = 0;
-		while (j < square_y)
+		if (c == 'G')
+			start = shape.x / 2;
+		else
+			shape.y /= 8;
+	}
+	if (c != 'G' && c != 'M' && c != 'P')
+	{
+		draw_top_and_bottom_borders(x, y, angle);
+		draw_left_and_right_border(x, y, angle);
+	}
+	i = start;
+	while (i < shape.x)
+	{
+		j = start;
+		while (j < shape.y)
 		{
 			p = get_rotated_coordinates(i, j, cos_theta, sin_theta);
 			if (check(x + p.x, y + p.y))

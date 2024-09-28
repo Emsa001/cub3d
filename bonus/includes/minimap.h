@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:04:05 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/28 20:30:54 by marvin           ###   ########.fr       */
+/*   Updated: 2024/09/28 21:04:43 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 // block colors
 # define BLOCK_COLOR 0x27272a
 // blue
-# define DOOR_COLOR  0x0000ff
+# define DOOR_COLOR 0x0000ff
 // pink
 # define SHOP_COLOR 0xff00ff
 // yellow
