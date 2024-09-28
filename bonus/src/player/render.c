@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:08:59 by escura            #+#    #+#             */
-/*   Updated: 2024/09/28 14:21:27 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/28 20:02:43 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void	render_player(void)
 
 	p = player();
 	destroy_buttons();
-	render_minimap();
 	hud_inventory();
 	hud_currency();
 	if (p->GUI == INVENTORY)
@@ -85,4 +84,5 @@ void	render_player(void)
 	else if (is_paused())
 		pause_game();
 	render_hand_item();
+	render_minimap();
 }

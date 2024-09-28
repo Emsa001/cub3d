@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:16:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/28 20:00:24 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/28 20:13:38 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,16 @@ void	draw_blocks(t_minimap *m, t_map *map, t_player *p)
 	float	rel_y;
 	float	angle;
 
-	angle = p->angle;
 	x = 0;
-	while (x < map->width)
+	y = 0;
+	bx = 0;
+	by = 0;
+	rel_x = 0;
+	rel_y = 0;
+	angle = p->angle;
+	while (map->map[y] != NULL)
 	{
-		y = 0;
-		while (y < map->height)
+		while (map->map[y][x] != '\0')
 		{
 			if (map->map[y][x] == '1')
 			{
@@ -49,9 +53,10 @@ void	draw_blocks(t_minimap *m, t_map *map, t_player *p)
 				by = m->center_y - SQUARE_SIZE / 2 + rel_y;
 				draw_block(bx, by, -(angle + PI / 2));
 			}
-			y++;
+			x++;
 		}
-		x++;
+		x = 0;
+		y++;
 	}
 }
 
