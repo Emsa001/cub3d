@@ -6,60 +6,50 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:52:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/28 21:48:37 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/29 18:10:43 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool	check(int x, int y)
-{
-	if (x < minimap()->last_x && y < minimap()->last_y && x > minimap()->x
-		&& y > minimap()->y)
-		return (true);
-	return (false);
-}
-t_point	get_rotated_coordinates(int x, int y, float cos_theta, float sin_theta)
+bool	get_rotated_coordinates(int x, int y, t_square square)
 {
 	t_point	p;
-	int		translated_x;
-	int		translated_y;
-	int		rotated_x;
-	int		rotated_y;
+	t_point	t_p;
+	t_point	r_p;
+	int		check_result;
 
 	p = (t_point){0, 0};
-	translated_x = x - SQUARE_SIZE / 2;
-	translated_y = y - SQUARE_SIZE / 2;
-	rotated_x = (int)(translated_x * cos_theta - translated_y * sin_theta);
-	rotated_y = (int)(translated_x * sin_theta + translated_y * cos_theta);
-	p.x = SQUARE_SIZE / 2 + rotated_x;
-	p.y = SQUARE_SIZE / 2 + rotated_y;
-	return (p);
+	t_p.x = x - SQUARE_SIZE / 2;
+	t_p.y = y - SQUARE_SIZE / 2;
+	r_p.x = (int)(t_p.x * square.cosangle - t_p.y * square.sinangle);
+	r_p.y = (int)(t_p.x * square.sinangle + t_p.y * square.cosangle);
+	p.x = SQUARE_SIZE / 2 + r_p.x;
+	p.y = SQUARE_SIZE / 2 + r_p.y;
+	check_result = check(square.x + p.x, square.y + p.y);
+	if (check_result)
+	{
+		if (check_result == 1)
+			put_pixel(square.x + p.x, square.y + p.y, square.color, render());
+		return (true);
+	}
+	return (false);
 }
 
-void	draw_top_and_bottom_borders(int x, int y, float angle)
+void	draw_top_and_bottom_borders(t_square square)
 {
-	int		i;
-	int		j;
-	float	cos_theta;
-	float	sin_theta;
-	t_point	p;
+	int	i;
+	int	j;
 
-	cos_theta = cos(angle);
-	sin_theta = sin(angle);
 	i = 0;
 	j = 0;
 	while (i < SQUARE_SIZE)
 	{
 		while (j < 3)
 		{
-			p = get_rotated_coordinates(i, j - 3, cos_theta, sin_theta);
-			if (check(x + p.x, y + p.y))
-				put_pixel(x + p.x, y + p.y, FRAME_COLOR, render());
-			p = get_rotated_coordinates(i, SQUARE_SIZE - j + 3, cos_theta,
-					sin_theta);
-			if (check(x + p.x, y + p.y))
-				put_pixel(x + p.x, y + p.y, FRAME_COLOR, render());
+			if (!get_rotated_coordinates(i, j - 3, square)
+				|| !get_rotated_coordinates(i, SQUARE_SIZE - j + 3, square))
+				return ;
 			j++;
 		}
 		j = 0;
@@ -67,29 +57,20 @@ void	draw_top_and_bottom_borders(int x, int y, float angle)
 	}
 }
 
-void	draw_left_and_right_border(int x, int y, float angle)
+void	draw_left_and_right_border(t_square square)
 {
-	int		i;
-	int		j;
-	float	cos_theta;
-	float	sin_theta;
-	t_point	p;
+	int	i;
+	int	j;
 
-	cos_theta = cos(angle);
-	sin_theta = sin(angle);
 	i = 0;
 	j = 0;
 	while (j < SQUARE_SIZE)
 	{
 		while (i < 3)
 		{
-			p = get_rotated_coordinates(i - 3, j, cos_theta, sin_theta);
-			if (check(x + p.x, y + p.y))
-				put_pixel(x + p.x, y + p.y, FRAME_COLOR, render());
-			p = get_rotated_coordinates(SQUARE_SIZE - 1 - i + 3, j, cos_theta,
-					sin_theta);
-			if (check(x + p.x, y + p.y))
-				put_pixel(x + p.x, y + p.y, FRAME_COLOR, render());
+			if (!get_rotated_coordinates(i - 3, j, square)
+				|| !get_rotated_coordinates(SQUARE_SIZE - i + 3, j, square))
+				return ;
 			i++;
 		}
 		i = 0;
@@ -97,59 +78,51 @@ void	draw_left_and_right_border(int x, int y, float angle)
 	}
 }
 
-int	get_color(char c)
-{
-	if (c == '1')
-		return (BLOCK_COLOR);
-	if (c == 'D')
-		return (DOOR_COLOR);
-	if (c == 'M')
-		return (SHOP_COLOR);
-	if (c == 'G')
-		return (GENERATOR_COLOR);
-	if (c == 'P')
-		return (PORTAL_COLOR);
-	return (0);
-}
-
-void	draw_block(int x, int y, float angle, int c)
+void	draw_block(t_square square)
 {
 	int		i;
 	int		j;
-	float	cos_theta;
-	float	sin_theta;
 	int		start;
-	t_point	p;
 	t_point	shape;
 
 	start = 0;
-	cos_theta = cos(angle);
-	sin_theta = sin(angle);
 	shape.x = SQUARE_SIZE;
 	shape.y = SQUARE_SIZE;
-	if (c == 'G' || c == 'M' || c == 'P')
-	{
-		if (c == 'G')
-			start = shape.x / 2;
-		else
-			shape.y /= 8;
-	}
-	if (c != 'G' && c != 'M' && c != 'P')
-	{
-		draw_top_and_bottom_borders(x, y, angle);
-		draw_left_and_right_border(x, y, angle);
-	}
+	check_get(&square, &shape, &start);
 	i = start;
 	while (i < shape.x)
 	{
 		j = start;
 		while (j < shape.y)
 		{
-			p = get_rotated_coordinates(i, j, cos_theta, sin_theta);
-			if (check(x + p.x, y + p.y))
-				put_pixel(x + p.x, y + p.y, get_color(c), render());
+			if (!get_rotated_coordinates(i, j, square))
+				return ;
 			j++;
 		}
 		i++;
+	}
+}
+
+void	draw_blocks(t_minimap *m, t_map *map, t_player *player)
+{
+	t_point		p;
+	t_square	square;
+
+	p.x = 0;
+	p.y = 0;
+	init_square(&square, -(player->angle + PI / 2));
+	while (map->map[p.y] != NULL)
+	{
+		while (map->map[p.y][p.x] != '\0')
+		{
+			if (get_c(map->map[p.y][p.x], &square))
+			{
+				rotate_coords(p, player, &square, m);
+				draw_block(square);
+			}
+			p.x++;
+		}
+		p.x = 0;
+		p.y++;
 	}
 }

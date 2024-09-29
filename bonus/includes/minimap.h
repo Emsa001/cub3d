@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:04:05 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/28 21:04:43 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/29 18:07:57 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,42 @@
 # define PORTAL_COLOR 0x00ff00
 # include "cub3d.h"
 
+typedef struct s_player	t_player;
+
 typedef struct s_minimap
 {
-	int		x;
-	int		y;
+	int					x;
+	int					y;
 
-	int		center_x;
-	int		center_y;
+	int					center_x;
+	int					center_y;
 
-	int		last_x;
-	int		last_y;
-}			t_minimap;
+	int					last_x;
+	int					last_y;
+}						t_minimap;
 
-t_minimap	*minimap(void);
-void		draw_player(int x, int y);
-void		render_minimap(void);
-void		draw_minimap_square(int x, int y);
-void		draw_block(int x, int y, float angle, int c);
+typedef struct s_square
+{
+	int					x;
+	int					y;
+	int					color;
+	float				cosangle;
+	float				sinangle;
+	char				c;
+}						t_square;
+
+t_minimap				*minimap(void);
+void					minimap_init(void);
+void					init_square(t_square *square, float angle);
+
+void					draw_player(int x, int y);
+void					render_minimap(void);
+void					draw_minimap_square(int x, int y);
+
+int						check(int x, int y);
+void					check_get(t_square *square, t_point *shape, int *start);
+void					rotate_coords(t_point p, t_player *player,
+							t_square *square, t_minimap *m);
+void					draw_blocks(t_minimap *m, t_map *map, t_player *p);
 
 #endif

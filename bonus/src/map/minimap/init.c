@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:13:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/28 19:35:09 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/29 18:09:18 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,15 @@ void	minimap_init(void)
 	minimap->last_x = minimap->x + MINIMAP_PIXEL_WIDTH;
 	minimap->last_y = minimap->y + MINIMAP_PIXEL_HEIGHT;
 	cube()->map->minimap = minimap;
+}
+
+void	init_square(t_square *square, float angle)
+{
+	square->cosangle = cos(angle);
+	square->sinangle = sin(angle);
+	square->color = 0;
+	square->x = 0;
+	square->y = 0;
 }
 
 t_minimap	*minimap(void)

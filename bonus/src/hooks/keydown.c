@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/27 18:54:01 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/29 15:20:02 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	key_down(int keycode)
 			p->GUI = INVENTORY;
 		else
 			p->GUI = NONE;
-		p->interact = true;
 	}
 	if (keycode == I)
 		p->spawn = true;
