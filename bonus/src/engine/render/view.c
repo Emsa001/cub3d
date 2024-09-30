@@ -6,83 +6,90 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:32:21 by escura            #+#    #+#             */
-/*   Updated: 2024/09/29 20:57:49 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/30 19:45:21 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void* draw_lines_thread(void* arg)
+void	*draw_lines_thread(void *arg)
 {
-    ThreadParams *params = (ThreadParams*)arg;
-    t_draw draw = init_draw();
-    int i = params->start;
-    while(i < params->end)
-    {
-        float fraction = (float)i / WIDTH;
-        draw.angle = params->angleOffset + fraction * params->fovInRadians;
-        draw.start_x = i;
-        draw_line(draw, params);
-        i = i + WIDTH_SCALE;
-    }
-    return NULL;
+	ThreadParams	*params;
+	t_draw			draw;
+	int				i;
+	float			fraction;
+
+	params = (ThreadParams *)arg;
+	draw = init_draw();
+	i = params->start;
+	while (i < params->end)
+	{
+		fraction = (float)i / WIDTH;
+		draw.angle = params->angleOffset + fraction * params->fovInRadians;
+		draw.start_x = i;
+		draw_line(draw, params);
+		i = i + WIDTH_SCALE;
+	}
+	return (NULL);
 }
 
-void render_view(t_cube *c)
+void	render_view(t_cube *c)
 {
-    t_render *r = render();
-    t_player *p = player();
-    t_textures *t = textures();
-    
-    float angle = p->angle;
-    float fovInRadians = p->fov * PI / 180;
-    float halfFovInRadians = fovInRadians / 2.0;
-    float angleOffset = angle - halfFovInRadians;
+	t_render *r = render();
+	t_player *p = player();
+	t_textures *t = textures();
 
-    pthread_t threads[NUM_THREADS];
-    ThreadParams threadParams[NUM_THREADS];
-    pthread_mutex_t mutex;
+	float angle = p->angle;
+	float fovInRadians = p->fov * PI / 180;
+	float halfFovInRadians = fovInRadians / 2.0;
+	float angleOffset = angle - halfFovInRadians;
 
-    int linesPerThread = WIDTH / NUM_THREADS;
+	pthread_t threads[NUM_THREADS];
+	ThreadParams threadParams[NUM_THREADS];
+	pthread_mutex_t mutex;
 
-    pthread_mutex_init(&mutex, NULL);
+	int linesPerThread = WIDTH / NUM_THREADS;
 
-    int colors[12] = {
-        0xFF0000, // red
-        0x00FF00, // green
-        0x0000FF, // blue
-        0xFFFF00, // yellow
-        0xFF00FF, // magenta
-        0x00FFFF, // cyan
-        0xFFA500, // orange
-        0x800080, // purple
-        0x008000, // dark green
-        0x000080, // dark blue
-        0x800000, // dark red
-        0x808080, // gray
-    };
+	pthread_mutex_init(&mutex, NULL);
 
-    for (int i = 0; i < NUM_THREADS; i++) {
-        threadParams[i].start = i * linesPerThread;
-        threadParams[i].end = (i + 1 == NUM_THREADS) ? WIDTH : (i + 1) * linesPerThread;
-        threadParams[i].angleOffset = angleOffset;
-        threadParams[i].fovInRadians = fovInRadians;
+	int colors[12] = {
+		0xFF0000, // red
+		0x00FF00, // green
+		0x0000FF, // blue
+		0xFFFF00, // yellow
+		0xFF00FF, // magenta
+		0x00FFFF, // cyan
+		0xFFA500, // orange
+		0x800080, // purple
+		0x008000, // dark green
+		0x000080, // dark blue
+		0x800000, // dark red
+		0x808080, // gray
+	};
 
-        threadParams[i].cube = c;
-        threadParams[i].render = r;
-        threadParams[i].player = p;
-        threadParams[i].textures = t;
+	for (int i = 0; i < NUM_THREADS; i++)
+	{
+		threadParams[i].start = i * linesPerThread;
+		threadParams[i].end = (i + 1 == NUM_THREADS) ? WIDTH : (i + 1) * linesPerThread;
+		threadParams[i].angleOffset = angleOffset;
+		threadParams[i].fovInRadians = fovInRadians;
 
-        threadParams[i].color = colors[i % 12];
+		threadParams[i].cube = c;
+		threadParams[i].render = r;
+		threadParams[i].player = p;
+		threadParams[i].textures = t;
 
-        threadParams[i].mutex = &mutex;
-        
-        pthread_create(&threads[i], NULL, draw_lines_thread, &threadParams[i]);
-    }
+		threadParams[i].color = colors[i % 12];
 
-    for (int i = 0; i < NUM_THREADS; i++) {
-        pthread_join(threads[i], NULL);
-    }
+		threadParams[i].mutex = &mutex;
 
-    pthread_mutex_destroy(&mutex);  // Clean up the mutex when done
+		pthread_create(&threads[i], NULL, draw_lines_thread, &threadParams[i]);
+	}
+
+	for (int i = 0; i < NUM_THREADS; i++)
+	{
+		pthread_join(threads[i], NULL);
+	}
+
+	pthread_mutex_destroy(&mutex); // Clean up the mutex when done
 }
