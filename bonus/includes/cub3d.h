@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 18:43:03 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/30 19:33:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define CUB3D_H
 
 # include "./ft_async/includes/ft_async.h"
-# include "economy.h"
 # include "fcntl.h"
 # include "ft_destructor/ft_alloc.h"
 # include "items.h"
@@ -38,6 +37,7 @@
 # include <sys/time.h>
 # include <time.h>
 # include <unistd.h>
+# include "economy.h"
 
 # define NONE -1
 # define STORE 1
@@ -259,6 +259,7 @@ void					clean_image(t_render *r);
 void					create_image(t_render *r, int width, int height);
 void					show_image(t_render *r, int x, int y);
 void					add_button(t_button *button);
+void	start_case(void *arg);
 
 /* DRAW */
 t_texture				*get_wall_side(int side, const t_textures *texs, int n);

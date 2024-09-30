@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:22:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/27 20:09:01 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/30 19:33:52 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void open_store()
 
     store_window(x,y);
     special_offer(x,y);
-    cases(x,y);
+    init_cases(x,y);
     portal_offer(x,y);
     init_shop_items(x,y,p);    
 }
