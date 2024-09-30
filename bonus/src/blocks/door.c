@@ -79,9 +79,11 @@ void open_door(float angle, int id)
         return;
     if(!opening)
         opening = true;
+
     side = get_side(map->doors[id].s_x, map->doors[id].s_y, map->map);
     if(!side)
         return;
+
     if(side == 1 && map->doors[id].x >= map->doors[id].s_x - 0.9)
         map->doors[id].x -= 0.05;    
     else if(side == 2 && map->doors[id].y >= map->doors[id].s_y - 0.9)
@@ -90,6 +92,7 @@ void open_door(float angle, int id)
         map->doors[id].x += 0.05;
     else if(side == 4 && map->doors[id].y <= map->doors[id].s_y + 0.9)
         map->doors[id].y += 0.05;
+        
     if(side == 1 && map->doors[id].x <= map->doors[id].s_x - 0.9)
         p->opened = true;
     else if(side == 2 && map->doors[id].y <= map->doors[id].s_y - 0.9)
@@ -98,6 +101,11 @@ void open_door(float angle, int id)
         p->opened = true;
     else if(side == 4 && map->doors[id].y >= map->doors[id].s_y + 0.9)
         p->opened = true;
+    
+    if(p->opened){
+        p->interact = false;
+    }
+    
 }
 
 void close_door(float angle, int id)
@@ -111,8 +119,10 @@ void close_door(float angle, int id)
     if(!closing)
         closing = true;
     side = get_side(map->doors[id].s_x, map->doors[id].s_y, map->map);
+    
     if(!side)
         return;
+
     if(side == 1 && map->doors[id].x <= map->doors[id].s_x)
         map->doors[id].x += 0.05;
     else if(side == 2 && map->doors[id].y <= map->doors[id].s_y)
@@ -130,4 +140,8 @@ void close_door(float angle, int id)
         p->opened = false;
     else if(side == 4 && map->doors[id].y <= map->doors[id].s_y)
         p->opened = false;
+    
+    if(!p->opened){
+        p->interact = false;
+    }
 }

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:08:59 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 15:45:51 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/30 16:28:02 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void	render_player(void)
 
 	p = player();
 	destroy_buttons();
-	// render_minimap();
 	hud_inventory();
 	hud_currency();
 	if (p->GUI == INVENTORY)
@@ -85,4 +84,5 @@ void	render_player(void)
 	else if (is_paused())
 		pause_game();
 	render_hand_item();
+	render_minimap();
 }

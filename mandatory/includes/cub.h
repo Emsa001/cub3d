@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:05:39 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/23 15:56:50 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/27 18:26:39 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@
 
 # define T_SIZE 64
 # define BLOCK_SIZE 64
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 400
+# define HEIGHT 300
 // # define CENTER_WIDTH (WIDTH / 2)
 // # define CENTER_HEIGHT (HEIGHT / 2)
 # define CENTER_WIDTH 960
@@ -101,12 +101,11 @@ typedef struct s_render
 t_render	*init_render(t_render *r);
 t_render	*render(void);
 
-void		check_params(char **av);
 t_cube		*init_cube(t_cube *c);
 t_cube		*cube(void);
 void		start_game(void);
 void		init_hooks(void);
-int			render_scene(t_cube *p);
+int			render_scene(void);
 void		render_view(void);
 bool		is_touching(float px, float py);
 float		distance(float x1, float y1, float x2, float y2);

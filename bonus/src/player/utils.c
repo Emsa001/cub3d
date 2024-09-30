@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:44 by escura            #+#    #+#             */
-/*   Updated: 2024/09/25 17:12:57 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/27 18:54:12 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static t_location	*is_nearby1(int x, int y, int i)
 	t_location	*offsets;
 
 	offsets = (t_location[]){{0, 0}, {0, -1}, {0, 1}, {-1, 0}, {1, 0}, {-1, -1},
-	{1, -1}, {-1, 1}, {1, 1}};
+		{1, -1}, {-1, 1}, {1, 1}};
 	loc = ft_malloc(sizeof(t_location));
 	loc->x = x + offsets[i].x;
 	loc->y = y + offsets[i].y;

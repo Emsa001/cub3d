@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
+#    By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/09/24 21:23:30 by escura           ###   ########.fr        #
+#    Updated: 2024/09/30 15:50:49 by btvildia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,10 @@ CC = cc
 
 CFLAGS = -g -O3
 # CFLAGS += -fsanitize=thread
-CFLAGS += -fsanitize=address
+# CFLAGS += -fsanitize=address
 # CFLAGS = -Wall -Wextra -Werror
+
+MAP_GEN = map_generator/map_generator.c map_generator/draw.c map_generator/utils.c
 
 CFLAGS += -I$(LIBFT_DIR) -I$(INCLUDES_DIR)
 LDFLAGS += -L./$(INCLUDES_DIR)/mlx -lmlx -lXext -lX11 -lm -lz
@@ -52,6 +54,9 @@ OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 all: $(NAME)
 
+map: $(LIBFT) 
+	$(CC) $(CFLAGS) $(MAP_GEN) -o map_gen $(LDLIBS) $(LDFLAGS)
+	./map_gen
 run: $(NAME)
 	./$(NAME) map.cub
 
@@ -71,6 +76,7 @@ clean:
 
 fclean: clean
 	rm -f $(NAME) 
+	rm -f map_gen
 	$(MAKE) fclean -C $(LIBFT_DIR)
 
 re: fclean
@@ -87,3 +93,5 @@ mlx:
 	
 .PHONY: all clean fclean re run v
 
+
+# valgrind --leak-check=full --show-leak-kinds=all ./cub3d map.cub

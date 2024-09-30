@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:52:35 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/23 17:25:08 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/26 14:30:48 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ void	fill(char **tab, t_point size, t_point begin, char to_fill[])
 	{
 		if (c == to_fill[i])
 		{
-			if (begin.y >= size.y - 1 || begin.y == 0 || begin.x == 0
-				|| begin.x >= size.x - 1)
+			if (begin.y >= size.y - 1 || begin.x >= size.x - 1)
 				ft_error("Map is not closed");
 			neighbor_check(tab, size, begin, to_fill);
 			tab[begin.y][begin.x] = 'X';

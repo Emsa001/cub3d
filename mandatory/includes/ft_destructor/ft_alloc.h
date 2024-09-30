@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:06:08 by escura            #+#    #+#             */
-/*   Updated: 2024/07/21 19:44:30 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/26 19:32:49 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #  define DEBUG 0
 # endif
 
-# define FT_DESTRUCTOR 0
+# define FT_DESTRUCTOR 1
 
 # include <stdbool.h>
 # include <stdio.h>

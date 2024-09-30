@@ -6,58 +6,123 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:52:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/13 21:01:36 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/29 18:10:43 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static t_texture	dst_texture(void)
+bool	get_rotated_coordinates(int x, int y, t_square square)
 {
-	const t_texture		*src = textures()->wall_north[player()->level];
-	static t_texture	dst = {0};
+	t_point	p;
+	t_point	t_p;
+	t_point	r_p;
+	int		check_result;
 
-	if (!dst.data)
+	p = (t_point){0, 0};
+	t_p.x = x - SQUARE_SIZE / 2;
+	t_p.y = y - SQUARE_SIZE / 2;
+	r_p.x = (int)(t_p.x * square.cosangle - t_p.y * square.sinangle);
+	r_p.y = (int)(t_p.x * square.sinangle + t_p.y * square.cosangle);
+	p.x = SQUARE_SIZE / 2 + r_p.x;
+	p.y = SQUARE_SIZE / 2 + r_p.y;
+	check_result = check(square.x + p.x, square.y + p.y);
+	if (check_result)
 	{
-		dst.width = MINIMAP_BLOCK_SIZE;
-		dst.height = MINIMAP_BLOCK_SIZE;
-		dst.bpp = src->bpp;
-		dst.size_line = dst.width * (dst.bpp / 8);
-		dst.endian = src->endian;
-		dst.data = (char *)ft_malloc(dst.size_line * dst.height);
-		resize_texture(src, &dst, MINIMAP_BLOCK_SIZE, MINIMAP_BLOCK_SIZE);
+		if (check_result == 1)
+			put_pixel(square.x + p.x, square.y + p.y, square.color, render());
+		return (true);
 	}
-	return (dst);
+	return (false);
 }
 
-static void	draw_block(int i, int j, int screen_x, int screen_y)
+void	draw_top_and_bottom_borders(t_square square)
 {
-	t_render	*r = render();
-	t_texture	texture = dst_texture();
-	const float		pixel_x = screen_x + i;
-	const float		pixel_y = screen_y + j;
-	const float		dx = pixel_x - minimap_center_x();
-	const float		dy = pixel_y - minimap_center_y();
+	int	i;
+	int	j;
 
-	if (dx * dx + dy * dy <= pow(minimap()->radius, 2))
-		put_pixel(pixel_x, pixel_y, get_pixel_from_image(&texture, i, j), r);
-}
-
-void	minimap_block(int x, int y, int screen_x, int screen_y)
-{
-	const t_texture	texture = dst_texture();
-	int				j;
-	int				i;
-
+	i = 0;
 	j = 0;
-	while (j < texture.height)
+	while (i < SQUARE_SIZE)
 	{
-		i = 0;
-		while (i < texture.width)
+		while (j < 3)
 		{
-			draw_block(i, j, screen_x, screen_y);
+			if (!get_rotated_coordinates(i, j - 3, square)
+				|| !get_rotated_coordinates(i, SQUARE_SIZE - j + 3, square))
+				return ;
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+}
+
+void	draw_left_and_right_border(t_square square)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (j < SQUARE_SIZE)
+	{
+		while (i < 3)
+		{
+			if (!get_rotated_coordinates(i - 3, j, square)
+				|| !get_rotated_coordinates(SQUARE_SIZE - i + 3, j, square))
+				return ;
 			i++;
 		}
+		i = 0;
 		j++;
+	}
+}
+
+void	draw_block(t_square square)
+{
+	int		i;
+	int		j;
+	int		start;
+	t_point	shape;
+
+	start = 0;
+	shape.x = SQUARE_SIZE;
+	shape.y = SQUARE_SIZE;
+	check_get(&square, &shape, &start);
+	i = start;
+	while (i < shape.x)
+	{
+		j = start;
+		while (j < shape.y)
+		{
+			if (!get_rotated_coordinates(i, j, square))
+				return ;
+			j++;
+		}
+		i++;
+	}
+}
+
+void	draw_blocks(t_minimap *m, t_map *map, t_player *player)
+{
+	t_point		p;
+	t_square	square;
+
+	p.x = 0;
+	p.y = 0;
+	init_square(&square, -(player->angle + PI / 2));
+	while (map->map[p.y] != NULL)
+	{
+		while (map->map[p.y][p.x] != '\0')
+		{
+			if (get_c(map->map[p.y][p.x], &square))
+			{
+				rotate_coords(p, player, &square, m);
+				draw_block(square);
+			}
+			p.x++;
+		}
+		p.x = 0;
+		p.y++;
 	}
 }

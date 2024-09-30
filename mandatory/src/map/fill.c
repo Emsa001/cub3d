@@ -6,13 +6,13 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:52:35 by btvildia          #+#    #+#             */
-/*   Updated: 2024/07/21 18:01:33 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/26 20:30:41 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	neighbor_check(char **tab, t_point size, t_point begin, char to_fill[])
+void	neighbor_check(char **tab, t_point size, t_point begin)
 {
 	int		i;
 	char	neighbor;
@@ -54,7 +54,7 @@ void	fill(char **tab, t_point size, t_point begin, char to_fill[])
 			if (begin.y >= size.y - 1 || begin.y == 0 || begin.x == 0
 				|| begin.x >= size.x - 1)
 				ft_error("Map is not closed");
-			neighbor_check(tab, size, begin, to_fill);
+			neighbor_check(tab, size, begin);
 			tab[begin.y][begin.x] = 'X';
 			fill(tab, size, (t_point){begin.x - 1, begin.y}, to_fill);
 			fill(tab, size, (t_point){begin.x + 1, begin.y}, to_fill);
@@ -107,10 +107,13 @@ void	fill_loop(char to_fill[], t_point *begin_points, t_map *map_info,
 		i++;
 	}
 	map2[i] = NULL;
+	i = 0;
 	while (begin_points[i].x != -1)
 	{
 		fill(map2, size, begin_points[i], to_fill);
 		i++;
 	}
+	if (i == 0)
+		ft_error("Map doesnt have any 0");
 	ft_arrdel((void **)map2);
 }

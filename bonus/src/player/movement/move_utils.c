@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:56:21 by escura            #+#    #+#             */
-/*   Updated: 2024/09/26 19:00:16 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/28 14:08:44 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	handle_step_animation(t_player *p, bool is_moving)
 
 	step_frequency = 0.2;
 	if (p->sprint)
-		step_frequency = 0.4;
+		step_frequency = 0.3;
 	if (is_moving && p->jump_speed == 0)
 	{
 		step_progress += step_frequency;

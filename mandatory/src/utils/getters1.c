@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getters1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:22:38 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/25 16:32:54 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/27 18:56:03 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	get_2d_map(t_map *map_info, char **map, int size)
 
 	i = 0;
 	j = 0;
-	map_info->map = ft_malloc(sizeof(char *) * size);
+	map_info->map = ft_malloc(sizeof(char *) * (size + 1));
 	while (map[i] != NULL)
 	{
 		if (ft_check_line(map[i]) == 0)
