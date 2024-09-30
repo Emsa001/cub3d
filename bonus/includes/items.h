@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 18:19:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/26 20:15:30 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/30 16:04:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,12 @@ typedef struct s_item
 typedef struct s_fullitem
 {
 	const char			*name;
+	float				fontSize;
 	int					id;
 	int					slot;
 	int					effect;
+	int					time;
+	int					*intvar;
 	void				(*use)(t_itemprops);
 	void				(*right_click)(t_item *);
 }						t_fullitem;
@@ -61,7 +64,7 @@ void					equip(t_itemprops props);
 void					unequip(void *props);
 void					consume(t_itemprops props);
 
-void					useItem(void *arg);
+void					use_item(void *arg);
 void					item_tooltip(void *arg);
 void					place(t_item *item);
 

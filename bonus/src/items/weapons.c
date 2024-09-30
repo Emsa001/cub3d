@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:59:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/26 19:27:52 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/30 16:10:34 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 void	init_weapons(t_cube *c)
 {
 	const t_fullitem	weapons[] = {\
-		{"Wooden Sword", 273, WEAPON, 10, &equip, NULL}, \
-		{"Stone Sword", 275, WEAPON, 10, &equip, NULL}, \
-		{"Pirate Sword", 279, WEAPON, 10, &equip, NULL}, \
-		{"Axe", 24, WEAPON, 10, &equip, NULL}, \
-		{"Torch", 33, WEAPON, 10, &equip, &place}, \
-		{"Dagger", 282, WEAPON, 10, &equip, NULL}, \
+		{"Wooden Sword",	0.4, 273,	WEAPON, 10, 0, NULL, &equip, NULL}, \
+		{"Stone Sword",		0.4, 275,	WEAPON, 10, 0, NULL, &equip, NULL}, \
+		{"Pirate Sword",	0.4, 279,	WEAPON, 10, 0, NULL, &equip, NULL}, \
+		{"Axe",				0.5, 24,	WEAPON, 10, 0, NULL, &equip, NULL}, \
+		{"Torch",			0.5, 33,	WEAPON, 10, 0, NULL, &equip, &place}, \
+		{"Dagger",			0.4, 282,	WEAPON, 10, 0, NULL, &equip, NULL}, \
 		NULL
 	};
 	int					i;

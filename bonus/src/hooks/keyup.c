@@ -3,22 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   keyup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:21:05 by escura            #+#    #+#             */
-/*   Updated: 2024/09/29 15:20:01 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:27:52 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// Existing key release function
-int	key_up(int keycode)
+static void	handle_movement_controlls(int keycode, t_player *p)
 {
-	t_player		*p;
-	const t_cube	*c = cube();
-
-	p = player();
 	if (keycode == W)
 		p->btn_w = false;
 	if (keycode == S)
@@ -30,21 +25,21 @@ int	key_up(int keycode)
 	if (keycode == SHIFT)
 		p->sprint = false;
 	if (keycode == LEFT)
-	{
 		p->btn_left = false;
-	}
 	if (keycode == RIGHT)
-	{
 		p->btn_right = false;
-	}
 	if (keycode == UP)
 		p->btn_up = false;
 	if (keycode == DOWN)
 		p->btn_down = false;
 	if (keycode == SPACE)
 		p->jumping = false;
-	// if(keycode == F)
-	//     p->interact = false;
+}
+
+static void	handle_interaction_controlls(int keycode, t_player *p)
+{
+	if (keycode == F)
+		p->interact = false;
 	if (keycode == I)
 		p->spawn = false;
 	if (keycode == O)
@@ -54,5 +49,14 @@ int	key_up(int keycode)
 		p->catch = false;
 		p->catched = false;
 	}
+}
+
+int	key_up(int keycode)
+{
+	t_player	*p;
+
+	p = player();
+	handle_movement_controlls(keycode, p);
+	handle_interaction_controlls(keycode, p);
 	return (0);
 }

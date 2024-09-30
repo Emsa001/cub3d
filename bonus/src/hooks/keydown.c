@@ -3,27 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   keydown.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/29 15:20:02 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:27:43 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-// Existing key press function
-int	key_down(int keycode)
+static bool	handle_pause_controlls(int keycode, t_player *p, t_cube *c)
 {
-	t_player	*p;
-	t_cube		*c;
-
-	p = player();
-	c = cube();
 	if (keycode == ESC)
 	{
-		// exit_game(0);
-		// return ;
 		if (p->GUI == NONE)
 			p->GUI = PAUSE;
 		else
@@ -31,7 +23,12 @@ int	key_down(int keycode)
 		set_paused(!c->paused);
 	}
 	if (is_paused())
-		return (0);
+		return (true);
+	return (false);
+}
+
+static void	handle_movement_controlls(int keycode, t_player *p)
+{
 	if (keycode == W)
 		p->btn_w = true;
 	if (keycode == S)
@@ -41,13 +38,9 @@ int	key_down(int keycode)
 	if (keycode == D)
 		p->btn_d = true;
 	if (keycode == LEFT)
-	{
 		p->btn_left = true;
-	}
 	if (keycode == RIGHT)
-	{
 		p->btn_right = true;
-	}
 	if (keycode == UP)
 		p->btn_up = true;
 	if (keycode == DOWN)
@@ -56,41 +49,55 @@ int	key_down(int keycode)
 		p->sprint = true;
 	if (keycode == SPACE)
 		p->jumping = true;
-	// if(keycode == MINUS){
-	//     if(p->fov > 30)
-	//         p->fov -= 5;
-	// }
-	// if(keycode == PLUS)
-	//     if(p->fov < 90)
-	//         p->fov += 5;
-	if (keycode == E)
-	{
-		if (p->GUI == MATH)
-			return (0);
-		if (p->GUI == NONE)
-			p->GUI = INVENTORY;
-		else
-			p->GUI = NONE;
-	}
-	if (keycode == I)
-		p->spawn = true;
-	if (keycode == O)
-		p->remove = true;
-	if (keycode == F)
-		p->interact = !p->interact;
-	if (keycode == Z)
-		p->catch = true;
+}
+
+static bool	handle_gui_controlls(int keycode, t_player *p)
+{
 	if (keycode == G)
 	{
 		if (p->GUI == MATH)
-			return (0);
+			return (true);
 		if (p->GUI_temp != NONE && p->GUI == NONE)
 			p->GUI = p->GUI_temp;
 		else
 			p->GUI = NONE;
 	}
-	if (keycode == CTRL)
+	if (keycode == E)
 	{
+		if (p->GUI == MATH)
+			return (true);
+		if (p->GUI == NONE)
+			p->GUI = INVENTORY;
+		else
+			p->GUI = NONE;
 	}
+	return (false);
+}
+
+static void	handle_interaction_controlls(int keycode, t_player *p)
+{
+	if (keycode == E)
+		p->interact = true;
+	if (keycode == I)
+		p->spawn = true;
+	if (keycode == O)
+		p->remove = true;
+	if (keycode == F)
+		p->interact = true;
+	if (keycode == Z)
+		p->catch = true;
+}
+
+int	key_down(int keycode)
+{
+	t_player	*p;
+
+	p = player();
+	if (handle_pause_controlls(keycode, p, cube()))
+		return (0);
+	if (handle_gui_controlls(keycode, p))
+		return (0);
+	handle_movement_controlls(keycode, p);
+	handle_interaction_controlls(keycode, p);
 	return (0);
 }

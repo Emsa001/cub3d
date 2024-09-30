@@ -3,23 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   mouse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 20:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/09/23 17:56:38 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:25:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int mouse_click(int button)
+// static void	move_mouse_to_center(void)
+// {
+// 	const t_render	*r = render();
+
+// 	mlx_mouse_move(r->mlx, r->win, WIDTH / 2, HEIGHT / 2);
+// }
+
+int	mouse_click(int button)
 {
 	t_player		*p;
-	t_cube			*c;
 	const t_render	*r = render();
+	int				x;
+	int				y;
 
 	p = player();
-	c = cube();
 	if (p->mouse_hook)
 	{
 		if (button == LEFT_CLICK)
@@ -29,35 +36,30 @@ int mouse_click(int button)
 		}
 		if (button == RIGHT_CLICK)
 		{
-			if (p->hand && p->hand->right_click != NULL){
+			if (p->hand && p->hand->right_click != NULL)
 				p->hand->right_click(p->hand);
-			}
 		}
 	}
-	int x, y;
 	mlx_mouse_get_pos(r->mlx, r->win, &x, &y);
 	button_click(button, x, y);
-    return (0);
+	return (0);
 }
 
-int mouse_move(int x, int y)
+int	mouse_move(int x, int y)
 {
-    t_render *r = render();
+	t_render	*r;
 
-    r->mouse_x = x;
-    r->mouse_y = y;
-    
-    ft_free(player()->hover);
-    player()->hover = NULL;
-
-    if(!player()->mouse_hook)
-    {
-        button_hover(x, y);
-        return 0;
-    }
-
-    if(!cube()->paused)
-        handle_mouse_rotate(x,y);
-    // mlx_mouse_move(r->mlx, r->win, WIDTH / 2, HEIGHT / 2);
+	r = render();
+	r->mouse_x = x;
+	r->mouse_y = y;
+	ft_free(player()->hover);
+	player()->hover = NULL;
+	if (!player()->mouse_hook)
+	{
+		button_hover(x, y);
+		return (0);
+	}
+	if (!cube()->paused)
+		handle_mouse_rotate(x, y);
 	return (0);
 }

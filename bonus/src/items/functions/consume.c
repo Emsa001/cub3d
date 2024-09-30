@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 19:21:03 by escura            #+#    #+#             */
-/*   Updated: 2024/09/27 18:23:51 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/30 16:04:09 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ void	consume(t_itemprops props)
 	l->y = 50;
 	string_timer(time, l);
 	ft_wait(time, &consume_end, (void *)(props_ptr));
-	printf("Consuming %d\n", props.slot);
+	printf("Consuming %d\n", props.id);
 	player()->inventory[props.playerslot] = -1;
 }

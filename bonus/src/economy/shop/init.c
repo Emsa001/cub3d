@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:07:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/27 18:40:33 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/30 16:11:15 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,15 @@ t_store *init_store()
     store->case_cooldown = false;
     pthread_mutex_init(&store->case_mutex, NULL);
 
+    int items[27] = {
+        33, 169, 325, 3, 4, 5, 6, 7, 8, 9,
+        10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+        20, 21, 22, 23, 24, 25, 26
+    };
     int i = 0;
     while(i < 27)
     {
-        store->items[i] = 1;
+        store->items[i] = items[i];
         i++;
     }
 
