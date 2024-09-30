@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 16:01:47 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/30 16:30:55 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ void	start_game(void)
 {
 	const t_render	*r = render();
 
-	open_portal(0);
-	open_portal(1);
-	open_portal(2);
+
 	create_image(r, WIDTH, HEIGHT);
 	init_hooks();
 	mlx_loop_hook(r->mlx, render_scene_multithread, NULL);
