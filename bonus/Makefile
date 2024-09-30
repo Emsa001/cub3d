@@ -6,7 +6,7 @@
 #    By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/09/27 20:06:04 by btvildia         ###   ########.fr        #
+#    Updated: 2024/09/30 15:50:49 by btvildia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,8 @@ CFLAGS = -g -O3
 # CFLAGS += -fsanitize=address
 # CFLAGS = -Wall -Wextra -Werror
 
+MAP_GEN = map_generator/map_generator.c map_generator/draw.c map_generator/utils.c
+
 CFLAGS += -I$(LIBFT_DIR) -I$(INCLUDES_DIR)
 LDFLAGS += -L./$(INCLUDES_DIR)/mlx -lmlx -lXext -lX11 -lm -lz
 
@@ -53,7 +55,7 @@ OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 all: $(NAME)
 
 map: $(LIBFT) 
-	$(CC) $(CFLAGS) map_generator/map_generator.c -o map_gen $(LDLIBS) $(LDFLAGS)
+	$(CC) $(CFLAGS) $(MAP_GEN) -o map_gen $(LDLIBS) $(LDFLAGS)
 	./map_gen
 run: $(NAME)
 	./$(NAME) map.cub
