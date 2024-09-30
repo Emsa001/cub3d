@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 14:40:03 by escura            #+#    #+#             */
-/*   Updated: 2024/09/23 14:59:30 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/30 11:28:31 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,16 @@ int	calculate_direction(float x, float y, float angle, int dir)
 	if (is_touching(x - sx, y) || is_touching(x - sx, y - sy))
 	{
 		cube()->tex_x = (int)x % BLOCK_SIZE;
-		dir = 3;
+		dir = 1;
 		if (sy == 1)
-			dir = 1;
+			dir = 2;
 	}
 	else if (is_touching(x, y - sy) || is_touching(x, y))
 	{
 		cube()->tex_x = (int)y % BLOCK_SIZE;
-		dir = 4;
+		dir = 3;
 		if (sx == 1)
-			dir = 2;
+			dir = 4;
 	}
 	return (dir);
 }

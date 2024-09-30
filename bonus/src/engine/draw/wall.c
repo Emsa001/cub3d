@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/09/29 18:12:09 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/30 11:25:59 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,13 @@ int vert_offset(const t_player *p)
 t_texture *get_wall_side(int side, const t_textures *texs, int n)
 {
     t_texture *t = NULL;
-
     
     if (side == 1)
-        t = texs->wall_north[n];
-    else if (side == 2)
         t = texs->wall_south[n];
-    else if (side == 3)
+    else if (side == 2)
         t = texs->wall_east[n];
+    else if (side == 3)
+        t = texs->wall_north[n];
     else if (side == 4)
         t = texs->wall_west[n];
     else if (side == 5)
