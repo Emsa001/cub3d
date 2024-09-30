@@ -6,7 +6,7 @@
 #    By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/09/30 19:59:19 by btvildia         ###   ########.fr        #
+#    Updated: 2024/09/30 20:01:49 by btvildia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRC = $(filter-out $(wildcard $(SRC_DIR)/_*), $(wildcard $(SRC_DIR)/*.c) $(wildc
 CC = cc
 
 CFLAGS = -g -O3
-CFLAGS += -fsanitize=thread
+# CFLAGS += -fsanitize=thread
 # CFLAGS += -fsanitize=address
 # CFLAGS = -Wall -Wextra -Werror
 
