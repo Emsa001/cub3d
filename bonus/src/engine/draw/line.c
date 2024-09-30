@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/28 14:12:04 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/30 18:47:46 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,22 +151,6 @@ long	current_frame(int frames)
 	return curr_frame;
 }
 
-void	put_line(t_draw draw, ThreadParams *params)
-{
-	int	start;
-	int	end;
-	int	i;
-
-	start = 0;
-	end = HEIGHT;
-	i = 0;
-	while (start < end)
-	{
-		put_pixel(draw.start_x, start, draw.colors[start], params->render);
-		start++;
-	}
-}
-
 int	touch_sprite(t_sprite *sprites, float px, float py)
 {
 	int		i;
@@ -291,6 +275,22 @@ void	sprite_dist(t_draw *draw)
 	adjusted_distance = raw_distance * cos(player_angle - draw->angle);
 	draw->sprite_dist = adjusted_distance;
 	draw->sprite_height = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
+}
+
+void	put_line(t_draw draw, ThreadParams *params)
+{
+	int	start;
+	int	end;
+	int	i;
+
+	start = 0;
+	end = HEIGHT;
+	i = 0;
+	while (start < end)
+	{
+		put_pixel(draw.start_x, start, draw.colors[start], params->render);
+		start++;
+	}
 }
 
 void	draw_line(t_draw draw, ThreadParams *params)

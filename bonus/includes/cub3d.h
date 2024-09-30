@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 16:27:08 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/30 18:43:03 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,6 +217,19 @@ typedef struct s_state
 	bool				door;
 }						t_state;
 
+typedef struct s_vars{
+    float x;
+    float y;
+    float x1;
+    float y1;
+    float x2;
+    float y2;
+    float dx;
+    float dy;
+    float d;
+    float u;
+}              t_vars;
+
 /* ENGINE */
 t_render				*init_render(t_render *r);
 t_render				*render(void);
@@ -344,5 +357,6 @@ void					interaction_notify(char *str);
 bool					is_paused(void);
 void					set_paused(bool paused);
 void					math_gui(void);
+bool check_if_point_is_on_line(t_block line, float px, float py);
 
 #endif

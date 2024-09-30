@@ -6,7 +6,7 @@
 #    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/09/30 16:36:45 by escura           ###   ########.fr        #
+#    Updated: 2024/09/30 18:42:27 by escura           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRC = $(filter-out $(wildcard $(SRC_DIR)/_*), $(wildcard $(SRC_DIR)/*.c) $(wildc
 CC = cc
 
 CFLAGS = -g -O3
-# CFLAGS += -fsanitize=thread
+CFLAGS += -fsanitize=thread
 # CFLAGS += -fsanitize=address
 # CFLAGS = -Wall -Wextra -Werror
 
