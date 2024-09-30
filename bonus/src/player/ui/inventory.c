@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:18:14 by escura            #+#    #+#             */
-/*   Updated: 2024/09/26 02:38:25 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/30 15:47:29 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	open_inventory_con(t_player *p, int i, int x, int y)
 		button.y = y + 25 + (i / 3) * 70;
 		button.width = 64;
 		button.height = 64;
-		button.function = &useItem;
+		button.function = &use_item;
 		button.hover = &item_tooltip;
 		button.arg = (void *)(intptr_t)i;
 		button.itemId = p->inventory[i];

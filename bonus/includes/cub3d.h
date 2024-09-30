@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/27 16:57:01 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/30 16:23:31 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,7 +317,7 @@ int							key_up(int keycode);
 int							mouse_click(int button);
 int							mouse_move(int x, int y);
 
-void						check_hooks(void);
+void						hide_mouse(void);
 
 void						item_button(t_button *button, float size);
 

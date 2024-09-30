@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 18:16:29 by escura            #+#    #+#             */
-/*   Updated: 2024/09/26 19:24:35 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/30 16:04:23 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	init_items(void)
 	init_keys_items(c);
 }
 
-void	useItem(void *arg)
+void	use_item(void *arg)
 {
 	int		index;
 	int		id;
@@ -56,12 +56,14 @@ t_item	*create_item(const t_fullitem *props)
 
 	item = (t_item *)ft_calloc(1, sizeof(t_item));
 	item->name = ft_strdup(props->name);
-	item->fontSize = 0.4;
+	item->fontSize = props->fontSize;
 	item->use = props->use;
 	item->right_click = props->right_click;
 	item->props.id = props->id;
 	item->props.slot = props->slot;
 	item->props.effect = props->effect;
+	item->props.time = props->time;
 	item->props.playerslot = 0;
+	item->props.intvar = props->intvar;
 	return (item);
 }
