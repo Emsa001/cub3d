@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 22:05:17 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 13:44:16 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:01:30 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ t_textures	*init_textures(t_textures *t)
 	t->wall_east = init_textures_array("east", mlx);
 	t->wall_west = init_textures_array("west", mlx);
 	t->door = load_texture("assets/level3/door.xpm");
-	t->shotgun = load_texture("assets/shotgun.xpm");
 	t->generator = load_texture("assets/generator0.xpm");
 	t->generator1 = load_texture("assets/generator1.xpm");
 	t->generator_top = load_texture("assets/back.xpm");

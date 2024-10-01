@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 14:04:15 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:02:14 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	render_scene_multithread(void)
 	c = cube();
 	p = player();
 	p->mouse_hook = true;
-	clear_image(r);
+	// clear_image(r);
 	render_view(c);
 	update_fps();
 	render_player();

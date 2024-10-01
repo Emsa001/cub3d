@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 14:39:54 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:02:20 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -292,39 +292,6 @@ void	sprite_dist(t_draw *draw)
 	draw->sprite_height = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
 }
 
-bool	is_shotgun(float x, float y, t_draw *draw)
-{
-	float		cosangle;
-	t_player	*p;
-	t_shotgun	shotgun;
-	float		sinangle;
-	float		u;
-	float		v;
-	float		dist;
-	int			width;
-	float		shot_x;
-	float		shot_y;
-
-	p = player();
-	shotgun = player()->shotgun;
-	shotgun.x = p->x + cos(p->angle) * 1.5;
-	shotgun.y = p->y + sin(p->angle) * 1.5;
-	shot_x = shotgun.x * BLOCK_SIZE;
-	shot_y = shotgun.y * BLOCK_SIZE;
-	width = 32;
-	cosangle = cos(p->angle + PI / 2.5);
-	sinangle = sin(p->angle + PI / 2.5);
-	u = (cosangle * (shot_x - x) + sinangle * (shot_y - y));
-	if (u < 0 || u > 2)
-		return (false);
-	v = (-sinangle * (shot_x - x) + cosangle * (shot_y - y));
-	draw->tex_x = (int)v + width / 2;
-	dist = distance(x, y, shot_x, shot_y);
-	if (dist * 2 < width)
-		return (true);
-	return (false);
-}
-
 void	draw_line(t_draw draw, ThreadParams *params)
 {
 	t_cube *c = params->cube;
@@ -341,10 +308,6 @@ void	draw_line(t_draw draw, ThreadParams *params)
 
 	while (!find_hitbox(draw.x, draw.y, c))
 	{
-		if (is_shotgun(draw.x, draw.y, &draw))
-		{
-			break ;
-		}
 		if (touch_sprite(c->map->sprites, draw.x, draw.y)
 			|| touch_facing_sprite(&draw, c->map->facing, draw.x, draw.y))
 		{
@@ -372,7 +335,6 @@ void	draw_line(t_draw draw, ThreadParams *params)
 		}
 		else
 		{
-			put_pixel(draw.x, draw.y, 255, params->render);
 			draw.x += cosangle;
 			draw.y += sinangle;
 		}
@@ -381,7 +343,27 @@ void	draw_line(t_draw draw, ThreadParams *params)
 	draw.side = direction(draw.x, draw.y, cosangle, sinangle, c, &draw.tex_x);
 	lane_distance(&draw);
 	draw_scene(&draw, params);
-
+	while (i > 0)
+	{
+		draw.sprite_x = touch[i].x;
+		draw.sprite_y = touch[i].y;
+		sprite_dist(&draw);
+		int j = 0;
+		if ((j = touch_sprite(c->map->sprites, draw.sprite_x, draw.sprite_y)))
+		{
+			draw.tex_x = (int)draw.sprite_x % BLOCK_SIZE;
+			sprite_frame(&draw, params, c->map->sprites[j - 1]);
+		}
+		else if (touch_facing_sprite(&draw, c->map->facing, draw.sprite_x,
+				draw.sprite_y))
+			sprite_frame(&draw, params, c->map->facing[0]);
+		i--;
+	}
+	if (generator_direction(&draw, cosangle, sinangle, c) == 7)
+	{
+		draw_generator_top(&draw, params, draw.angle);
+		draw_generator(&draw, params, draw.tex_x, draw.angle);
+	}
 	int scale = draw.start_x + WIDTH_SCALE;
 	while (draw.start_x < scale && draw.start_x < params->end)
 	{

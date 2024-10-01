@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 13:46:58 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:01:35 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ typedef struct s_textures
 	t_texture		**wall_west;
 
 	t_texture		*door;
-	t_texture		*shotgun;
 
 	t_texture		*player;
 
