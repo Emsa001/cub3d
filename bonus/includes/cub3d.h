@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 19:33:30 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/01 14:44:25 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,6 +270,7 @@ t_texture				*get_texture(int start_y, int height, const t_player *p,
 void					draw_scene(t_draw *draw, ThreadParams *params);
 int						darken_color_wall(int color, float factor, float wall_x,
 							float wall_y);
+void					draw_shotgun(void);
 
 void					draw_line(t_draw draw, ThreadParams *params);
 void					draw_wall(t_draw *draw, ThreadParams *params);
@@ -334,7 +335,7 @@ int						key_up(int keycode);
 int						mouse_click(int button);
 int						mouse_move(int x, int y);
 
-void						hide_mouse(void);
+void					hide_mouse(void);
 
 void					item_button(t_button *button, float size);
 

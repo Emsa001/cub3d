@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:52:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/29 18:10:43 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/01 12:58:46 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,15 @@ void	draw_block(t_square square)
 {
 	int		i;
 	int		j;
-	int		start;
 	t_point	shape;
 
-	start = 0;
 	shape.x = SQUARE_SIZE;
 	shape.y = SQUARE_SIZE;
-	check_get(&square, &shape, &start);
-	i = start;
+	check_get(&square, &shape);
+	i = 0;
 	while (i < shape.x)
 	{
-		j = start;
+		j = 0;
 		while (j < shape.y)
 		{
 			if (!get_rotated_coordinates(i, j, square))

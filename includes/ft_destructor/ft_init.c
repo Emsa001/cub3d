@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   start.c                                            :+:      :+:    :+:   */
+/*   ft_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 12:52:31 by btvildia         ###   ########.fr       */
+/*   Created: 2024/05/04 14:08:30 by escura            #+#    #+#             */
+/*   Updated: 2024/05/08 15:20:45 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "ft_alloc.h"
 
-void	start_game(void)
+bool	ft_alloc_init(void)
 {
-	const t_render	*r = render();
+	t_allocs	*lst;
 
-	create_image(r, WIDTH, HEIGHT);
-	open_portal(0);
-	open_portal(1);
-	open_portal(2);
-	init_hooks();
-	mlx_loop_hook(r->mlx, render_scene_multithread, NULL);
-	mlx_loop(r->mlx);
+	lst = ft_calloc(1, sizeof(t_allocs));
+	if (lst == NULL)
+		return (false);
+	ft_allocs(lst);
+	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:04:05 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/29 18:07:57 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/01 12:58:32 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_square
 
 t_minimap				*minimap(void);
 void					minimap_init(void);
+bool					get_c(char c, t_square *square);
 void					init_square(t_square *square, float angle);
 
 void					draw_player(int x, int y);
@@ -68,9 +69,11 @@ void					render_minimap(void);
 void					draw_minimap_square(int x, int y);
 
 int						check(int x, int y);
-void					check_get(t_square *square, t_point *shape, int *start);
+void					check_get(t_square *square, t_point *shape);
 void					rotate_coords(t_point p, t_player *player,
 							t_square *square, t_minimap *m);
 void					draw_blocks(t_minimap *m, t_map *map, t_player *p);
+void					draw_top_and_bottom_borders(t_square square);
+void					draw_left_and_right_border(t_square square);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotate.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 20:39:43 by escura            #+#    #+#             */
-/*   Updated: 2024/09/26 02:38:56 by escura           ###   ########.fr       */
+/*   Updated: 2024/09/30 20:27:47 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	handle_mouse_rotate(int x, int y)
 	p = player();
 	dx = x - WIDTH / 2;
 	dy = y - HEIGHT / 2;
-	p->angle += dx * MOUSE_SENSITIVITY * cube()->delta_time;
+	p->angle += dx * MOUSE_SENSITIVITY;
 	if (p->z_dir > 1)
 		p->z_dir = 1;
 	if (p->z_dir < 0)

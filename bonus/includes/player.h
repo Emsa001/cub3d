@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/27 20:05:26 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/01 14:00:41 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,20 @@ typedef struct s_draw		t_draw;
 
 # define WALKSPEED 200
 # define SPRINTBONUS 300
-# define MOUSE_SENSITIVITY 0.05
+# define MOUSE_SENSITIVITY 0.001
 
 # define JUMP_SPEED 2
 # define GRAVITY 8
 
 # define FOV 60
+
+typedef struct s_shotgun
+{
+	float					x;
+	float					y;
+	float					z;
+	float					angle;
+}							t_shotgun;
 
 typedef struct s_button
 {
@@ -32,16 +40,16 @@ typedef struct s_button
 	int						y;
 	int						width;
 	int						height;
-	float 					size;
+	float					size;
 
 	void					(*function)(void *);
 	void					(*hover)(void *);
 	void					*arg;
 	int						itemId;
 
-	bool is_default;
-	bool hover_change;
-	bool remove;
+	bool					is_default;
+	bool					hover_change;
+	bool					remove;
 
 }							t_button;
 
@@ -51,11 +59,11 @@ typedef struct s_button_node
 	struct s_button_node	*next;
 }							t_button_node;
 
-
-typedef struct s_location{
-	int x;
-	int y;
-} t_location;
+typedef struct s_location
+{
+	int						x;
+	int						y;
+}							t_location;
 
 typedef struct s_player
 {
@@ -121,18 +129,18 @@ typedef struct s_player
 	bool					swing;
 	t_store					*store;
 
-	int effects;
+	int						effects;
 
-	int math[2];
-	int random[3];
-	int math_selected;
-	int streak;
+	int						math[2];
+	int						random[3];
+	int						math_selected;
+	int						streak;
 
-	int GUI;
-	int GUI_temp;
-	t_generator *generator;
+	int						GUI;
+	int						GUI_temp;
+	t_generator				*generator;
+	t_shotgun				shotgun;
 }							t_player;
-
 
 t_player					*player_init(t_player *p);
 t_player					*player(void);
@@ -157,24 +165,22 @@ void						hud_currency(void);
 t_store						*init_store(void);
 void						open_store(void);
 float						distance(float x1, float y1, float x2, float y2);
-void	hud_inventory(void);
-void add_money(int amount);
-int money();
-t_location *is_nearby(char cell);
+void						hud_inventory(void);
+void						add_money(int amount);
+int							money(void);
+t_location					*is_nearby(char cell);
 
+void						exit_button(void);
+void						resume_game(void);
+void						pause_hover(void *arg);
 
-void	exit_button(void);
-void	resume_game(void);
-void	pause_hover(void *arg);
-
-void		try_move(float x, float y);
-void		handle_movement(t_player *p);
-void		handle_vertical_movement(t_player *p);
-void		handle_interactions(t_player *p);
-void		handle_step_animation(t_player *p, bool is_moving);
-void		handle_jumping(t_player *p);
-void		update_player_position(t_player *p);
-void		update_player_direction(t_player *p);
-
+void						try_move(float x, float y);
+void						handle_movement(t_player *p);
+void						handle_vertical_movement(t_player *p);
+void						handle_interactions(t_player *p);
+void						handle_step_animation(t_player *p, bool is_moving);
+void						handle_jumping(t_player *p);
+void						update_player_position(t_player *p);
+void						update_player_direction(t_player *p);
 
 #endif

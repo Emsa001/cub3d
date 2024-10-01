@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 16:27:58 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/01 14:08:14 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,14 @@ static void	init_options(t_player *player)
 	player->effects = 0;
 }
 
+void	init_shotgun(t_shotgun *shotgun)
+{
+	shotgun->x = 3;
+	shotgun->y = 3;
+	shotgun->z = 0.5;
+	shotgun->angle = 0;
+}
+
 t_player	*player_init(t_player *p)
 {
 	static t_player	*player;
@@ -76,6 +84,7 @@ t_player	*player_init(t_player *p)
 	init_interaction(player);
 	init_inventory(player);
 	init_options(player);
+	init_shotgun(&player->shotgun);
 	player->x_px = player->x * BLOCK_SIZE;
 	player->y_px = player->y * BLOCK_SIZE;
 	player->z = 0.5;

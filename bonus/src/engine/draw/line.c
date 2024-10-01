@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 18:47:46 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/01 14:44:41 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ static bool	find_hitbox(float x, float y, t_cube *c)
 		return (true);
 	if (touch_line(c->map->lines, x, y))
 		return (true);
-	return false;
+	return (false);
 }
 
 t_draw	init_draw(void)
@@ -128,7 +128,7 @@ t_draw	init_draw(void)
 	draw.sprite_y = 0;
 	draw.sprite_height = 0;
 	draw.sprite_dist = 0;
-	return draw;
+	return (draw);
 }
 
 long	current_frame(int frames)
@@ -148,7 +148,24 @@ long	current_frame(int frames)
 		time_delay = 150;
 	curr_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
 	curr_frame = (curr_time / time_delay) % frames;
-	return curr_frame;
+	return (curr_frame);
+}
+
+void	put_line(t_draw draw, ThreadParams *params)
+{
+	int	start;
+	int	end;
+	int	i;
+
+	start = 0;
+	end = HEIGHT;
+	i = 0;
+	while (start < end)
+	{
+		put_pixel(draw.start_x, start, draw.colors[start], params->render);
+		// put_pixel(draw.start_x, start, params->color, params->render);
+		start++;
+	}
 }
 
 int	touch_sprite(t_sprite *sprites, float px, float py)
@@ -161,16 +178,16 @@ int	touch_sprite(t_sprite *sprites, float px, float py)
 	x = 0;
 	y = 0;
 	if (!sprites)
-		return 0;
+		return (0);
 	while (sprites[i].x != -1)
 	{
 		x = sprites[i].x * BLOCK_SIZE;
 		y = sprites[i].y * BLOCK_SIZE;
 		if (px >= x && px <= x + sprites[i].width && py >= y && py <= y + 5)
-			return i + 1;
+			return (i + 1);
 		i++;
 	}
-	return 0;
+	return (0);
 }
 
 void	sprite_frame(t_draw *draw, ThreadParams *params, t_sprite sprite)
@@ -221,19 +238,17 @@ bool	touch_facing(t_draw *draw, float px, float py, float sprite_x,
 	float	v;
 	float	dist;
 
-	// it's the same as cos(angle + 90)
 	cosangle = cos(player()->angle);
-	// it's the same as sin(angle + 90)
 	sinangle = sin(player()->angle);
 	u = (cosangle * (sprite_x - px) + sinangle * (sprite_y - py));
 	if (u < 0 || u > 2)
-		return false;
+		return (false);
 	v = (-sinangle * (sprite_x - px) + cosangle * (sprite_y - py));
 	draw->tex_x = (int)v + width / 2;
 	dist = distance(px, py, sprite_x, sprite_y);
 	if (dist * 2 < width)
-		return true;
-	return false;
+		return (true);
+	return (false);
 }
 
 bool	touch_facing_sprite(t_draw *draw, t_sprite *sprites, float px, float py)
@@ -247,17 +262,17 @@ bool	touch_facing_sprite(t_draw *draw, t_sprite *sprites, float px, float py)
 	x = 0;
 	y = 0;
 	if (!sprites)
-		return false;
+		return (false);
 	while (sprites[i].x != -1)
 	{
 		x = sprites[i].x * BLOCK_SIZE;
 		y = sprites[i].y * BLOCK_SIZE;
 		width = sprites[i].width;
 		if (touch_facing(draw, px, py, x, y, width))
-			return true;
+			return (true);
 		i++;
 	}
-	return false;
+	return (false);
 }
 
 void	sprite_dist(t_draw *draw)
@@ -277,20 +292,37 @@ void	sprite_dist(t_draw *draw)
 	draw->sprite_height = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
 }
 
-void	put_line(t_draw draw, ThreadParams *params)
+bool	is_shotgun(float x, float y, t_draw *draw)
 {
-	int	start;
-	int	end;
-	int	i;
+	float		cosangle;
+	t_player	*p;
+	t_shotgun	shotgun;
+	float		sinangle;
+	float		u;
+	float		v;
+	float		dist;
+	int			width;
+	float		shot_x;
+	float		shot_y;
 
-	start = 0;
-	end = HEIGHT;
-	i = 0;
-	while (start < end)
-	{
-		put_pixel(draw.start_x, start, draw.colors[start], params->render);
-		start++;
-	}
+	p = player();
+	shotgun = player()->shotgun;
+	shotgun.x = p->x + cos(p->angle) * 1.5;
+	shotgun.y = p->y + sin(p->angle) * 1.5;
+	shot_x = shotgun.x * BLOCK_SIZE;
+	shot_y = shotgun.y * BLOCK_SIZE;
+	width = 32;
+	cosangle = cos(p->angle + PI / 2.5);
+	sinangle = sin(p->angle + PI / 2.5);
+	u = (cosangle * (shot_x - x) + sinangle * (shot_y - y));
+	if (u < 0 || u > 2)
+		return (false);
+	v = (-sinangle * (shot_x - x) + cosangle * (shot_y - y));
+	draw->tex_x = (int)v + width / 2;
+	dist = distance(x, y, shot_x, shot_y);
+	if (dist * 2 < width)
+		return (true);
+	return (false);
 }
 
 void	draw_line(t_draw draw, ThreadParams *params)
@@ -309,6 +341,10 @@ void	draw_line(t_draw draw, ThreadParams *params)
 
 	while (!find_hitbox(draw.x, draw.y, c))
 	{
+		if (is_shotgun(draw.x, draw.y, &draw))
+		{
+			break ;
+		}
 		if (touch_sprite(c->map->sprites, draw.x, draw.y)
 			|| touch_facing_sprite(&draw, c->map->facing, draw.x, draw.y))
 		{
@@ -336,6 +372,7 @@ void	draw_line(t_draw draw, ThreadParams *params)
 		}
 		else
 		{
+			put_pixel(draw.x, draw.y, 255, params->render);
 			draw.x += cosangle;
 			draw.y += sinangle;
 		}
@@ -344,29 +381,9 @@ void	draw_line(t_draw draw, ThreadParams *params)
 	draw.side = direction(draw.x, draw.y, cosangle, sinangle, c, &draw.tex_x);
 	lane_distance(&draw);
 	draw_scene(&draw, params);
-	while (i > 0)
-	{
-		draw.sprite_x = touch[i].x;
-		draw.sprite_y = touch[i].y;
-		sprite_dist(&draw);
-		int j = 0;
-		if ((j = touch_sprite(c->map->sprites, draw.sprite_x, draw.sprite_y)))
-		{
-			draw.tex_x = (int)draw.sprite_x % BLOCK_SIZE;
-			sprite_frame(&draw, params, c->map->sprites[j - 1]);
-		}
-		else if (touch_facing_sprite(&draw, c->map->facing, draw.sprite_x,
-				draw.sprite_y))
-			sprite_frame(&draw, params, c->map->facing[0]);
-		i--;
-	}
-	if (generator_direction(&draw, cosangle, sinangle, c) == 7)
-	{
-		draw_generator_top(&draw, params, draw.angle);
-		draw_generator(&draw, params, draw.tex_x, draw.angle);
-	}
+
 	int scale = draw.start_x + WIDTH_SCALE;
-	while (draw.start_x < scale)
+	while (draw.start_x < scale && draw.start_x < params->end)
 	{
 		put_line(draw, params);
 		draw.start_x++;

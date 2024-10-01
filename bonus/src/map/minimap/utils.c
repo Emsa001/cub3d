@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:30:29 by escura            #+#    #+#             */
-/*   Updated: 2024/09/29 18:09:00 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/01 12:58:12 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	get_color(char c)
 	return (0);
 }
 
-void	check_get(t_square *square, t_point *shape, int *start)
+void	check_get(t_square *square, t_point *shape)
 {
 	char	c;
 
@@ -57,7 +57,10 @@ void	check_get(t_square *square, t_point *shape, int *start)
 	if (c == 'G' || c == 'M' || c == 'P')
 	{
 		if (c == 'G')
-			*start = shape->x / 2;
+		{
+			shape->x /= 2;
+			shape->y /= 2;
+		}
 		else
 			shape->y /= 8;
 	}
