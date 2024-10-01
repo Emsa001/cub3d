@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/09/28 16:09:45 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/01 13:06:15 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ void						get_no_so_we_ea(t_map *map_info, char **map);
 void						get_2d_map(t_map *map_info, char **map, int size);
 t_point						*get_begin_points(char **map,
 								t_point *begin_points);
+t_sprite					get_sprite(char *path_file, int frames, float x,
+								float y);
 void						fill_loop(char to_fill[], t_point *begin_points,
 								t_map *map_info, t_point size);
 
@@ -103,6 +105,11 @@ void						add_facing_sprite(char *path_file, int frames,
 void						remove_sprite(int x, int y);
 void						init_sprite(t_map *map, t_sprite sprite,
 								bool facing);
-t_point						*get_points(char **map, char c);
+void						get_points(t_point **points, char **map, char c);
+
+int							count_c(char **map, char c);
+t_block						*init_generators(t_map *map_info, char **map);
+t_sprite					*init_map_sprites(t_map *map_info, char **map);
+t_sprite					*init_map_facing(char **map);
 
 #endif

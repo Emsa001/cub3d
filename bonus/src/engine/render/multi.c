@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 19:57:13 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/09/30 20:27:42 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,16 @@ int render_scene_multithread(void)
 
     // clear_image(r);
     render_view(c);
+    update_fps();
+    
     render_player();
     economy_loop();
-    
+
     if(!is_paused() && p->GUI != MATH)
-        move_player();
+            move_player();
+
     
     render_queue(r);
-
-    update_fps();
     hide_mouse();
     
     execute_button_hover();

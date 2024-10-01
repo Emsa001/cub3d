@@ -6,13 +6,13 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 15:12:05 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/29 18:09:23 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/01 12:40:35 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	draw_top_and_bottom_borders(int x, int y)
+static void	draw_top_and_bottom(int x, int y)
 {
 	int	i;
 	int	j;
@@ -33,7 +33,7 @@ static void	draw_top_and_bottom_borders(int x, int y)
 	}
 }
 
-static void	draw_left_and_right_borders(int x, int y)
+static void	draw_left_and_right(int x, int y)
 {
 	int	i;
 	int	j;
@@ -61,8 +61,8 @@ void	draw_minimap_square(int x, int y)
 
 	i = 0;
 	j = 0;
-	draw_top_and_bottom_borders(x, y);
-	draw_left_and_right_borders(x, y);
+	draw_top_and_bottom(x, y);
+	draw_left_and_right(x, y);
 	while (i < MINIMAP_PIXEL_WIDTH)
 	{
 		j = 0;
