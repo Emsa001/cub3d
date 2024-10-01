@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 12:53:21 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/01 14:27:53 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,6 +256,7 @@ t_texture				*get_texture(int start_y, int height, const t_player *p,
 void					draw_scene(t_draw *draw, ThreadParams *params);
 int						darken_color_wall(int color, float factor, float wall_x,
 							float wall_y);
+void					draw_shotgun(void);
 
 void					draw_line(t_draw draw, ThreadParams *params);
 void					draw_wall(t_draw *draw, ThreadParams *params);
