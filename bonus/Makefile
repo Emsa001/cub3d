@@ -6,7 +6,7 @@
 #    By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/09/30 20:13:55 by btvildia         ###   ########.fr        #
+#    Updated: 2024/10/01 17:04:16 by btvildia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ CC = cc
 
 CFLAGS = -g -O3
 # CFLAGS += -fsanitize=thread
-# CFLAGS += -fsanitize=address
+CFLAGS += -fsanitize=address
 # CFLAGS = -Wall -Wextra -Werror
 
 MAP_GEN = map_generator/map_generator.c map_generator/draw.c map_generator/utils.c

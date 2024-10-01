@@ -6,41 +6,39 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:39:55 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/01 15:15:03 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/01 18:57:15 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	init_sprite(t_map *map, t_sprite sprite, bool facing)
+void	terminate_sprite(t_sprite **sprites, int *i)
 {
-	t_sprite	*new_sprites;
-	t_sprite	*tmp;
-	int			i;
-	t_sprite	*sprites;
+	(*sprites)[*i].x = -1;
+	(*sprites)[*i].y = -1;
+	(*sprites)[*i].frames = -1;
+	(*sprites)[*i].sprite_tex = NULL;
+	(*sprites)[*i].width = -1;
+	(*sprites)[*i].height = -1;
+	(*sprites)[*i].type = '\0';
+}
+
+void	copy_sprites(t_sprite *src, t_sprite *dst)
+{
+	int	i;
 
 	i = 0;
-	if (facing)
-		sprites = map->facing;
-	else
-		sprites = map->sprites;
-	while (sprites[i].x != -1)
-		i++;
-	new_sprites = ft_malloc(sizeof(t_sprite) * (i + 2));
-	i = 0;
-	while (sprites[i].x != -1)
+	while (src[i].x != -1)
 	{
-		new_sprites[i] = sprites[i];
+		dst[i] = src[i];
 		i++;
 	}
-	map->sprite_count++;
-	new_sprites[i] = sprite;
-	new_sprites[i + 1].x = -1;
-	new_sprites[i + 1].y = -1;
-	new_sprites[i + 1].frames = -1;
-	new_sprites[i + 1].sprite_tex = NULL;
-	new_sprites[i + 1].width = -1;
-	new_sprites[i + 1].height = -1;
+}
+
+void	update_sprite_pointers(t_map *map, t_sprite *new_sprites, bool facing)
+{
+	t_sprite	*tmp;
+
 	if (facing)
 	{
 		tmp = map->facing;
@@ -54,50 +52,70 @@ void	init_sprite(t_map *map, t_sprite sprite, bool facing)
 	ft_free(tmp);
 }
 
+void	init_sprite(t_map *map, t_sprite sprite, bool facing)
+{
+	t_sprite	*new_sprites;
+	int			i;
+	t_sprite	*sprites;
+
+	i = 0;
+	if (facing)
+		sprites = map->facing;
+	else
+		sprites = map->sprites;
+	while (sprites[i].x != -1)
+		i++;
+	new_sprites = ft_malloc(sizeof(t_sprite) * (i + 2));
+	copy_sprites(sprites, new_sprites);
+	new_sprites[i] = sprite;
+	map->sprite_count++;
+	i++;
+	terminate_sprite(&new_sprites, &i);
+	update_sprite_pointers(map, new_sprites, facing);
+}
+
+bool	find_sprite(float x, float y, int *i)
+{
+	const t_sprite	*sprites = cube()->map->sprites;
+	int				j;
+
+	j = 0;
+	while (sprites[*i].x != -1)
+	{
+		if (sprites[*i].x == x && sprites[*i].y == y)
+			j++;
+		(*i)++;
+	}
+	if (j > 0)
+		return (true);
+	return (false);
+}
+
 void	remove_sprite(int x, int y)
 {
 	t_sprite	*sprites;
 	t_sprite	*new_sprites;
-	t_sprite	*tmp;
 	int			i;
 	int			j;
 
 	sprites = cube()->map->sprites;
 	i = 0;
 	j = 0;
-	while (sprites[i].x != -1)
-	{
-		if (sprites[i].x == x && sprites[i].y == y)
-			j++;
-		i++;
-	}
-	if (!j)
+	if (!find_sprite(x, y, &i))
 		return ;
 	new_sprites = ft_malloc(sizeof(t_sprite) * i);
 	i = 0;
-	j = 0;
 	while (sprites[i].x != -1)
 	{
 		if (sprites[i].x == x && sprites[i].y == y)
-		{
 			i++;
-			continue ;
-		}
-		new_sprites[j] = sprites[i];
-		i++;
-		j++;
+		else
+			new_sprites[j++] = sprites[i++];
 	}
-	new_sprites[j].x = -1;
-	new_sprites[j].y = -1;
-	new_sprites[j].frames = -1;
-	new_sprites[j].sprite_tex = NULL;
-	new_sprites[j].width = -1;
-	new_sprites[j].height = -1;
-	new_sprites[j].type = '\0';
-	cube()->map->sprite_count--;
-	tmp = cube()->map->sprites;
+	terminate_sprite(&new_sprites, &j);
 	cube()->map->sprites = new_sprites;
-	ft_free(tmp);
+	ft_free(sprites);
+	cube()->map->sprite_count--;
 }
 
 t_texture	**load_sprite_textures(char *path_file, int frames)

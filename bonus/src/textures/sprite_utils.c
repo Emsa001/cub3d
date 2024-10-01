@@ -1,26 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   start.c                                            :+:      :+:    :+:   */
+/*   sprite_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 16:54:57 by btvildia         ###   ########.fr       */
+/*   Created: 2024/10/01 18:56:47 by btvildia          #+#    #+#             */
+/*   Updated: 2024/10/01 18:56:53 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	start_game(void)
-{
-	const t_render	*r = render();
-
-	create_image(r, WIDTH, HEIGHT);
-	// open_portal(0);
-	// open_portal(1);
-	// open_portal(2);
-	init_hooks();
-	mlx_loop_hook(r->mlx, render_scene_multithread, NULL);
-	mlx_loop(r->mlx);
-}

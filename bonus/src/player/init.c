@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 15:01:57 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/01 15:49:31 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ static void	init_inventory(t_player *player)
 	i = 0;
 	while (i < 9)
 	{
-		player->inventory[i] = -1;
+		player->inventory[i] = 33;
 		player->equipped[i] = -1;
 		i++;
 	}
+
 }
 
 static void	init_interaction(t_player *player)

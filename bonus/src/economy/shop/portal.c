@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   portal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:46:59 by escura            #+#    #+#             */
-/*   Updated: 2024/09/27 18:46:45 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/01 17:36:10 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void opening()
 void buy_portalkey(){
     t_player *p = player();
     t_cube *c = cube();
-    int time = 5000;
+    int time = 1000;
 
     if(money() < 10000)
         return;
