@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:08:59 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 14:48:54 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:22:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	render_player(void)
 	destroy_buttons();
 	hud_inventory();
 	hud_currency();
-	if (p->GUI == INVENTORY)
+	if (p->gui == INVENTORY)
 		open_inventory();
 	else if (is_paused())
 		pause_game();

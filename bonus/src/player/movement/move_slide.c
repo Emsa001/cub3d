@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   settings.h                                         :+:      :+:    :+:   */
+/*   move_slide.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/02 20:32:46 by escura            #+#    #+#             */
-/*   Updated: 2024/08/23 14:36:45 by marvin           ###   ########.fr       */
+/*   Created: 2024/10/02 16:19:53 by escura            #+#    #+#             */
+/*   Updated: 2024/10/02 16:27:03 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SETTINGS_H
-# define SETTINGS_H
+#include "cub3d.h"
 
-# include "cub3d.h"
-
-void settings_render(void);
-
-#endif
+void	sliding(t_player *p, int *speed)
+{
+	if (p->slide)
+	{
+		*speed += 300;
+		if (p->z > 0.3)
+			p->z -= 0.05;
+	}
+	else if (p->z < 0.5)
+		p->z += 0.01;
+}

@@ -21,7 +21,7 @@ float	view_current_distance_gen(const t_player *p, int start_y, float angle,
 	return (current_dist / cos(angle - p->angle));
 }
 
-void	draw_generator(t_draw *draw, ThreadParams *params, int tex_x,
+void	draw_generator(t_draw *draw, t_thread_params *params, int tex_x,
 		float angle)
 {
 	int				color;
@@ -57,7 +57,7 @@ void	draw_generator(t_draw *draw, ThreadParams *params, int tex_x,
 	}
 }
 
-void	draw_generator_top(t_draw *draw, ThreadParams *params, float angle)
+void	draw_generator_top(t_draw *draw, t_thread_params *params, float angle)
 {
 	const t_cube		*c = params->cube;
 	const t_player		*p = params->player;

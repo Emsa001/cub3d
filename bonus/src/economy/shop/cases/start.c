@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 19:26:21 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 16:33:18 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:22:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,17 @@ void	start_case(void *arg)
 	t_player	*p;
 	const int	value = (int)(intptr_t)arg;
 	const int	prize = random_int(0, value * 2);
-	t_texture	*prizeTexture;
+	t_texture	*prize_texture;
 
 	p = player();
 	if (cooldown())
 		return ;
-	if(money() < value)
+	if (money() < value)
 		return ;
 	add_money(-value);
-	p->GUI = NONE;
-	displayPrizeMessage(prize, value);
+	p->gui = NONE;
+	display_prize_message(prize, value);
 	add_money(prize);
-	prizeTexture = determinePrizeTexture(prize);
-	renderPrizeImage(prizeTexture, 1000);
+	prize_texture = determine_prize_texture(prize);
+	render_prize_image(prize_texture, 1000);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:26:07 by triedel           #+#    #+#             */
-/*   Updated: 2024/09/23 15:38:13 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/02 16:47:48 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ char				**ft_strduparr(const char **src);
 void				ft_striteri(char *s, void (*f)(unsigned int, char *s));
 /* ft_strjoin.c */
 char				*ft_strjoin(char const *s1, char const *s2);
+char				*ft_strjoin_itoa(char const *s1, int n);
 /* ft_strlcat.c */
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
 /* ft_strlcpy.c */

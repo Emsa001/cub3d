@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 18:16:29 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 16:04:23 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:21:44 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	item_tooltip(void *arg)
 	t_item		*item;
 
 	p = player();
-	index = p->hover->itemId;
+	index = p->hover->item_id;
 	item = &cube()->items[index];
-	tooltip(item->name, item->fontSize);
+	tooltip(item->name, item->font_size);
 }
 
 t_item	*create_item(const t_fullitem *props)
@@ -56,7 +56,7 @@ t_item	*create_item(const t_fullitem *props)
 
 	item = (t_item *)ft_calloc(1, sizeof(t_item));
 	item->name = ft_strdup(props->name);
-	item->fontSize = props->fontSize;
+	item->font_size = props->font_size;
 	item->use = props->use;
 	item->right_click = props->right_click;
 	item->props.id = props->id;

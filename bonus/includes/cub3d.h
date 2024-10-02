@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 16:42:35 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:35:54 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,17 +55,21 @@
 
 // math constants
 # define PI 3.14159265359
-# define P2 PI / 2
-# define P3 3 * PI / 2
+# define P2 PI / 2 // TODO: norm error
+# define P3 3 * PI / 2 // TODO: norm error
 # define DR 0.0174533
 
 # define T_SIZE 64
 # define BLOCK_SIZE 64
-# define WIDTH 1920
-# define HEIGHT 1080
-# define CENTER_WIDTH WIDTH / 2
-# define CENTER_HEIGHT HEIGHT / 2
+# define WIDTH 800
+# define HEIGHT 600
+# define CENTER_WIDTH WIDTH / 2 // TODO: norm error
+# define CENTER_HEIGHT HEIGHT / 2 // TODO: norm error
 # define WIDTH_SCALE 5
+
+# define CHAR_WIDTH 32
+# define CHAR_HEIGHT 32
+# define CHARS_PER_ROW 16
 
 # define WALL '1'
 # define DOOR 'D'
@@ -193,12 +197,12 @@ typedef struct s_draw
 
 }						t_draw;
 
-typedef struct
+typedef struct s_thread_params
 {
 	int					start;
 	int					end;
-	float				angleOffset;
-	float				fovInRadians;
+	float				angle_offset;
+	float				fov_in_radians;
 
 	int					color;
 
@@ -208,7 +212,7 @@ typedef struct
 	t_textures			*textures;
 
 	pthread_mutex_t		*mutex;
-}						ThreadParams;
+}						t_thread_params;
 
 typedef struct s_state
 {
@@ -217,18 +221,19 @@ typedef struct s_state
 	bool				door;
 }						t_state;
 
-typedef struct s_vars{
-    float x;
-    float y;
-    float x1;
-    float y1;
-    float x2;
-    float y2;
-    float dx;
-    float dy;
-    float d;
-    float u;
-}              t_vars;
+typedef struct s_vars
+{
+	float				x;
+	float				y;
+	float				x1;
+	float				y1;
+	float				x2;
+	float				y2;
+	float				dx;
+	float				dy;
+	float				d;
+	float				u;
+}						t_vars;
 
 /* ENGINE */
 t_render				*init_render(t_render *r);
@@ -259,7 +264,7 @@ void					clean_image(t_render *r);
 void					create_image(t_render *r, int width, int height);
 void					show_image(t_render *r, int x, int y);
 void					add_button(t_button *button);
-void	start_case(void *arg);
+void					start_case(void *arg);
 
 /* DRAW */
 t_texture				*get_wall_side(int side, const t_textures *texs, int n);
@@ -267,19 +272,19 @@ int						get_texture_color(t_texture *tex, float dist,
 							float cosangle, float sinangle);
 t_texture				*get_texture(int start_y, int height, const t_player *p,
 							const t_textures *texs);
-void					draw_scene(t_draw *draw, ThreadParams *params);
+void					draw_scene(t_draw *draw, t_thread_params *params);
 int						darken_color_wall(int color, float factor, float wall_x,
 							float wall_y);
 void					draw_shotgun(void);
 
-void					draw_line(t_draw draw, ThreadParams *params);
-void					draw_wall(t_draw *draw, ThreadParams *params);
+void					draw_line(t_draw draw, t_thread_params *params);
+void					draw_wall(t_draw *draw, t_thread_params *params);
 void					draw_floor_and_ceiling(t_draw *draw,
-							ThreadParams *params);
+							t_thread_params *params);
 // generator
-void					draw_generator_top(t_draw *draw, ThreadParams *params,
-							float angle);
-void					draw_generator(t_draw *draw, ThreadParams *params,
+void					draw_generator_top(t_draw *draw,
+							t_thread_params *params, float angle);
+void					draw_generator(t_draw *draw, t_thread_params *params,
 							int tex_x, float angle);
 long					current_frame(int frames);
 
@@ -359,6 +364,7 @@ void					interaction_notify(char *str);
 bool					is_paused(void);
 void					set_paused(bool paused);
 void					math_gui(void);
-bool check_if_point_is_on_line(t_block line, float px, float py);
+bool					check_if_point_is_on_line(t_block line, float px,
+							float py);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:30:48 by escura            #+#    #+#             */
-/*   Updated: 2024/09/26 02:33:03 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:22:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	pause_game(void)
 	const int			y = CENTER_HEIGHT - t->play->height / 2;
 	t_button			button;
 
-	player()->GUI = PAUSE;
+	player()->gui = PAUSE;
 	player()->mouse_hook = false;
 	put_window();
 	put_image(t->play, x, y, 1);

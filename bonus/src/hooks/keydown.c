@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 17:26:56 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:22:32 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ static bool	handle_pause_controlls(int keycode, t_player *p, t_cube *c)
 {
 	if (keycode == ESC)
 	{
-		if(p->GUI != NONE && p->GUI != PAUSE)
+		if(p->gui != NONE && p->gui != PAUSE)
 		{
-			p->GUI = NONE;
+			p->gui = NONE;
 			return false;
 		}
-		p->GUI = NONE;
+		p->gui = NONE;
 		set_paused(!c->paused);
 	}
 	if (is_paused()){
-		p->GUI = PAUSE;
+		p->gui = PAUSE;
 		return (true);
 	}
 	return (false);
@@ -68,21 +68,21 @@ static bool	handle_gui_controlls(int keycode, t_player *p)
 {
 	if (keycode == G)
 	{
-		if (p->GUI == MATH)
+		if (p->gui == MATH)
 			return (true);
-		if (p->GUI_temp != NONE && p->GUI == NONE)
-			p->GUI = p->GUI_temp;
+		if (p->gui_temp != NONE && p->gui == NONE)
+			p->gui = p->gui_temp;
 		else
-			p->GUI = NONE;
+			p->gui = NONE;
 	}
 	if (keycode == E)
 	{
-		if (p->GUI == MATH)
+		if (p->gui == MATH)
 			return (true);
-		if (p->GUI == NONE)
-			p->GUI = INVENTORY;
+		if (p->gui == NONE)
+			p->gui = INVENTORY;
 		else
-			p->GUI = NONE;
+			p->gui = NONE;
 	}
 	return (false);
 }

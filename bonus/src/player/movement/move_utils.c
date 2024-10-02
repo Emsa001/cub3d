@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 18:56:21 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 16:27:44 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 16:26:58 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,8 @@ void	handle_step_animation(t_player *p, bool is_moving)
 	float			step_frequency;
 	const float		base_z = 0.55;
 
-	if(p->slide || p->z < 0.49)
+	if (p->slide || p->z < 0.49)
 		return ;
-
 	step_frequency = 20;
 	if (p->sprint)
 		step_frequency = 30;

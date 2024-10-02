@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:08:30 by escura            #+#    #+#             */
-/*   Updated: 2024/06/18 15:04:42 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:17:57 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	*ft_malloc(size_t size)
 		ft_destructor();
 		exit(EXIT_FAILURE);
 	}
-	if(FT_DESTRUCTOR)
+	if (FT_DESTRUCTOR)
 		add_allocnode(&allocs, create_alloc(ptr));
 	return (ptr);
 }

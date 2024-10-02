@@ -6,32 +6,32 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:24:21 by escura            #+#    #+#             */
-/*   Updated: 2024/09/25 17:02:01 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:22:32 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void generators()
+void	generators(void)
 {
-    t_player *p = player();
-    const t_cube *c = cube();
+	t_player			*p;
+	const t_cube		*c = cube();
+	t_location *const	find = is_nearby('G');
 
-    t_location *find = is_nearby('G');
-
-    if(find){
-        p->GUI_temp = GENERATOR;
-        p->generator = get_generator(find->x, find->y);
-       
-        interaction_notify("Press G to open a Generator");
-    } else if(p->GUI_temp == GENERATOR){
-        p->GUI_temp = NONE;
-        p->GUI = NONE;
-        printf("You left the generator\n");
-    }
-
-    // ft_free(find);
-
-    if(p->GUI == GENERATOR)
-        generator_gui();
+	p = player();
+	if (find)
+	{
+		p->gui_temp = GENERATOR;
+		p->generator = get_generator(find->x, find->y);
+		interaction_notify("Press G to open a Generator");
+	}
+	else if (p->gui_temp == GENERATOR)
+	{
+		p->gui_temp = NONE;
+		p->gui = NONE;
+		printf("You left the generator\n");
+	}
+	ft_free(find);
+	if (p->gui == GENERATOR)
+		generator_gui();
 }

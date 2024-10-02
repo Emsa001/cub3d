@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 19:27:50 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 19:33:38 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:21:44 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	init_cases(int x, int y)
 		button.function = &start_case;
 		button.hover = &shop_item_hover;
 		button.arg = (void *)(intptr_t)values[i];
-		button.itemId = 71;
+		button.item_id = 71;
 		add_button(&button);
 		item_button(&button, 1.5);
 		i++;

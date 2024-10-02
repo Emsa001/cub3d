@@ -6,86 +6,78 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 19:27:23 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 16:38:42 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 17:24:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static char	*getDisplayText(int prize, int value)
+static char	*get_display_text(int prize, int value)
 {
-	char	*displayText;
-	char	*tmp;
-	char	*removeMoneyStr;
+	char		*display_text;
+	char *const	remove_money_str = ft_itoa(prize - value);
 
-    tmp = ft_itoa(prize - value);
-    removeMoneyStr = ft_strdup(tmp);
-    ft_free(tmp);
 	if (prize - value > 0)
-		displayText = ft_strjoin("+", removeMoneyStr);
+		display_text = ft_strjoin("+", remove_money_str);
 	else
-		return removeMoneyStr;
-    ft_free(removeMoneyStr);
-	return displayText;
+		return (remove_money_str);
+	ft_free(remove_money_str);
+	return (display_text);
 }
 
-void displayPrizeMessage(int prize, int value)
+void	display_prize_message(int prize, int value)
 {
-    char *displayText = getDisplayText(prize, value);
-    t_string string;
-    if (displayText == NULL)
-        return;
+	t_string	string;
+	char *const	display_text = get_display_text(prize, value);
 
-    string = (t_string){ 0 };
-    string.str = ft_strdup(displayText);
-    string.color = 0xFFFFFF;
-    string.size =  0.4;
-    string.x = 80;
-    string.y = 60;
-    string.time = 1000;
-    render_string_async(&string);
-
-    string.str = "You got";
-    string.size = 1;
-    string.x = CENTER_WIDTH - ft_strlen(string.str) * 8;
-    string.y = CENTER_HEIGHT - 200;
-
-    render_string_async(&string);
-
-    string.str = displayText;
-    string.size = 2;
-    string.x = CENTER_WIDTH - ft_strlen(string.str) * 20;
-    string.y =  CENTER_HEIGHT + 120;
-    render_string_async(&string);
+	if (display_text == NULL)
+		return ;
+	string = (t_string){0};
+	string.str = ft_strdup(display_text);
+	string.color = 0xFFFFFF;
+	string.size = 0.4;
+	string.x = 80;
+	string.y = 60;
+	string.time = 1000;
+	render_string_async(&string);
+	string.str = "You got";
+	string.size = 1;
+	string.x = CENTER_WIDTH - ft_strlen(string.str) * 8;
+	string.y = CENTER_HEIGHT - 200;
+	render_string_async(&string);
+	string.str = display_text;
+	string.size = 2;
+	string.x = CENTER_WIDTH - ft_strlen(string.str) * 20;
+	string.y = CENTER_HEIGHT + 120;
+	render_string_async(&string);
 }
 
-t_texture *determinePrizeTexture(int prize)
+t_texture	*determine_prize_texture(int prize)
 {
-    t_textures *t = textures();
-    t_texture *prizeTexture = &(t->items[66]);
+	const t_textures	*t = textures();
+	t_texture			*prize_texture;
 
-    if (prize > 70000) {
-        prizeTexture = &(t->items[70]);
-    } else if (prize > 50000) {
-        prizeTexture = &(t->items[69]);
-    } else if (prize > 20000) {
-        prizeTexture = &(t->items[68]);
-    } else if (prize > 5000) {
-        prizeTexture = &(t->items[67]);
-    }
-
-    return prizeTexture;
+	prize_texture = &(t->items[66]);
+	if (prize > 70000)
+		prize_texture = &(t->items[70]);
+	else if (prize > 50000)
+		prize_texture = &(t->items[69]);
+	else if (prize > 20000)
+		prize_texture = &(t->items[68]);
+	else if (prize > 5000)
+		prize_texture = &(t->items[67]);
+	return (prize_texture);
 }
 
-void renderPrizeImage(t_texture *prizeTexture, int time)
+void	render_prize_image(t_texture *prize_texture, int time)
 {
-    // Render the prize image
-    t_image prizeImage = { 0 };
-    prizeImage.img = prizeTexture;
-    prizeImage.x = CENTER_WIDTH - 100;
-    prizeImage.y = CENTER_HEIGHT - 200;
-    prizeImage.size = 10;
-    prizeImage.time = time;
+	t_image	prize_image;
 
-    render_image_async(&prizeImage);
+	prize_image = (t_image){0};
+	prize_image.img = prize_texture;
+	prize_image.x = CENTER_WIDTH - 100;
+	prize_image.y = CENTER_HEIGHT - 200;
+	prize_image.size = 10;
+	prize_image.time = time;
+	render_image_async(&prize_image);
 }

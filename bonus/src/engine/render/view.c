@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:32:21 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 14:44:47 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:25:48 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 void	*draw_lines_thread(void *arg)
 {
-	ThreadParams	*params;
+	t_thread_params	*params;
 	t_draw			draw;
 	int				i;
 	float			fraction;
 
-	params = (ThreadParams *)arg;
+	params = (t_thread_params *)arg;
 	draw = init_draw();
 	i = params->start;
 	while (i < params->end)
 	{
 		fraction = (float)i / WIDTH;
-		draw.angle = params->angleOffset + fraction * params->fovInRadians;
+		draw.angle = params->angle_offset + fraction * params->fov_in_radians;
 		draw.start_x = i;
 		draw_line(draw, params);
 		i = i + WIDTH_SCALE;
@@ -40,12 +40,12 @@ void	render_view(t_cube *c)
 	t_textures *t = textures();
 
 	float angle = p->angle;
-	float fovInRadians = p->fov * PI / 180;
-	float halfFovInRadians = fovInRadians / 2.0;
-	float angleOffset = angle - halfFovInRadians;
+	float fov_in_radians = p->fov * PI / 180;
+	float halfFovInRadians = fov_in_radians / 2.0;
+	float angle_offset = angle - halfFovInRadians;
 
 	pthread_t threads[NUM_THREADS];
-	ThreadParams threadParams[NUM_THREADS];
+	t_thread_params t_thread_params[NUM_THREADS];
 	pthread_mutex_t mutex;
 
 	int linesPerThread = WIDTH / NUM_THREADS;
@@ -69,21 +69,21 @@ void	render_view(t_cube *c)
 
 	for (int i = 0; i < NUM_THREADS; i++)
 	{
-		threadParams[i].start = i * linesPerThread;
-		threadParams[i].end = (i + 1 == NUM_THREADS) ? WIDTH : (i + 1) * linesPerThread;
-		threadParams[i].angleOffset = angleOffset;
-		threadParams[i].fovInRadians = fovInRadians;
+		t_thread_params[i].start = i * linesPerThread;
+		t_thread_params[i].end = (i + 1 == NUM_THREADS) ? WIDTH : (i + 1) * linesPerThread;
+		t_thread_params[i].angle_offset = angle_offset;
+		t_thread_params[i].fov_in_radians = fov_in_radians;
 
-		threadParams[i].cube = c;
-		threadParams[i].render = r;
-		threadParams[i].player = p;
-		threadParams[i].textures = t;
+		t_thread_params[i].cube = c;
+		t_thread_params[i].render = r;
+		t_thread_params[i].player = p;
+		t_thread_params[i].textures = t;
 
-		threadParams[i].color = colors[i % 12];
+		t_thread_params[i].color = colors[i % 12];
 
-		threadParams[i].mutex = &mutex;
+		t_thread_params[i].mutex = &mutex;
 
-		pthread_create(&threads[i], NULL, draw_lines_thread, &threadParams[i]);
+		pthread_create(&threads[i], NULL, draw_lines_thread, &t_thread_params[i]);
 	}
 
 	for (int i = 0; i < NUM_THREADS; i++)

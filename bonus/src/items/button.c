@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 20:09:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 15:46:34 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:21:44 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	item_button(t_button *button, float size)
 {
 	const t_textures	*t = textures();
 	const t_player		*p = player();
-	const t_texture		item_texture = t->items[button->itemId];
+	const t_texture		item_texture = t->items[button->item_id];
 	const int			item_x = button->x + (button->width - item_texture.width
 			* size * 2) / 2;
 	const int			item_y = button->y + (button->height

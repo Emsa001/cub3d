@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 22:05:17 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 16:28:45 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:23:03 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,30 +55,31 @@ t_texture	**init_textures_array(char *path, void *mlx)
 	return (textures);
 }
 
-static void init_font(t_textures *t)
+static void	init_font(t_textures *t)
 {
-    t_render *r = render();
-
-    const int char_width = 32;
-    const int char_height = 32; 
-    const int chars_per_row = 16; 
+	int	index;
+	int	src_x;
+	int	src_y;
+	int	i;
+	int	j;
 
 	t->font = load_texture("assets/font.xpm");
-	for (int index = 0; index < 95; ++index)
+	index = 0;
+	while (index < 95)
 	{
-		int row = index / chars_per_row;
-		int col = index % chars_per_row;
-		int src_x = col * char_width;
-		int src_y = row * char_height;
-		
-		for (int i = 0; i < char_width; ++i)
+		src_x = index % CHARS_PER_ROW * CHAR_WIDTH;
+		src_y = index / CHARS_PER_ROW * CHAR_HEIGHT;
+		i = 0;
+		while (i < CHAR_WIDTH)
 		{
-			for (int j = 0; j < char_height; ++j)
-			{
-				int pixel_color = get_pixel_from_image(t->font, src_x + i, src_y + j);
-				t->char_pixel_data[index][i + j * char_width] = pixel_color;
-			}
+			j = 0;
+			while (++j < CHAR_HEIGHT)
+				t->char_pixel_data[index][i + j
+					* CHAR_WIDTH] = get_pixel_from_image(t->font, src_x + i,
+						src_y + j);
+			i++;
 		}
+		index++;
 	}
 }
 
@@ -97,14 +98,13 @@ t_textures	*init_textures(t_textures *t)
 	t->wall_east = init_textures_array("east", mlx);
 	t->wall_west = init_textures_array("west", mlx);
 	t->door = load_texture("assets/level3/door.xpm");
-	t->shotgun = load_texture("assets/shotgun.xpm");
 	t->generator = load_texture("assets/generator0.xpm");
 	t->generator1 = load_texture("assets/generator1.xpm");
 	t->generator_top = load_texture("assets/back.xpm");
 	t->open_portal = load_texture("assets/banners/portal.xpm");
 	t->tooltip_bg = load_texture("assets/hud/titlebox.xpm");
-	t->inventoryPlayer = load_texture("assets/hud/inventory.xpm");
-	t->inventoryGui = load_texture("assets/hud/inventory_gui.xpm");
+	t->inventory_player = load_texture("assets/hud/inventory.xpm");
+	t->inventory_gui = load_texture("assets/hud/inventory_gui.xpm");
 	init_font(t);
 	init_items_textures(t);
 	init_ui(t);

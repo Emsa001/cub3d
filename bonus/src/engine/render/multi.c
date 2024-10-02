@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 14:46:42 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:22:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int render_scene_multithread(void)
     render_player();
     economy_loop();
     
-    if(!is_paused() && p->GUI != MATH)
+    if(!is_paused() && p->gui != MATH)
         move_player();
     
     render_queue(r);

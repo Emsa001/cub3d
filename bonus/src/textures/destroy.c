@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 18:36:08 by escura            #+#    #+#             */
-/*   Updated: 2024/09/26 19:14:22 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:23:03 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,8 @@ static void	destroy_textures_multiple(t_textures *t)
 	int	i;
 
 	i = 0;
-	while (i < 328){
+	while (i < 328)
 		destroy_texture(&(t->items[i++]));
-	}
 	i = 0;
 	while (i < 32)
 		destroy_texture(&(t->ui->keys[i++]));
@@ -84,8 +83,8 @@ void	destroy_textures(void)
 	destroy_texture(t->generator1);
 	destroy_texture(t->generator_top);
 	destroy_texture(t->font);
-	destroy_texture(t->inventoryPlayer);
-	destroy_texture(t->inventoryGui);
+	destroy_texture(t->inventory_player);
+	destroy_texture(t->inventory_gui);
 	destroy_texture(t->tooltip_bg);
 	destroy_texture(t->open_portal);
 	destroy_texture(t->ui->button_long);

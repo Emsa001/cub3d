@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 18:19:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 16:04:30 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:20:01 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_itemprops
 typedef struct s_item
 {
 	char				*name;
-	float				fontSize;
+	float				font_size;
 	void				(*use)(t_itemprops props);
 	void				(*right_click)(t_item *item);
 
@@ -42,7 +42,7 @@ typedef struct s_item
 typedef struct s_fullitem
 {
 	const char			*name;
-	float				fontSize;
+	float				font_size;
 	int					id;
 	int					slot;
 	int					effect;

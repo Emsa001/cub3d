@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:01:30 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 19:25:29 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:22:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@ void	economy_loop(void)
 {
 	shopkeeper();
 	generators();
-	math_gui();
+	if (player()->gui == MATH)
+		math_gui();
 }

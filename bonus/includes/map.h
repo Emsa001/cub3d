@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 13:58:30 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:18:35 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,13 @@ void						init_sprite(t_map *map, t_sprite sprite,
 void						get_points(t_point **points, char **map, char c);
 
 int							count_c(char **map, char c);
+
+// sprites
+bool						find_sprite(float x, float y, int *i);
+void						copy_sprites(t_sprite *src, t_sprite *dst);
+void						terminate_sprite(t_sprite **sprites, int *i);
+void						update_sprite_pointers(t_map *map,
+								t_sprite *new_sprites, bool facing);
 t_block						*init_generators(t_map *map_info, char **map);
 t_sprite					*init_map_sprites(t_map *map_info, char **map);
 t_sprite					*init_map_facing(char **map);

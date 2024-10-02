@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 15:38:37 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:25:48 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ int	touch_sprite(t_sprite *sprites, float px, float py)
 	return 0;
 }
 
-void	sprite_frame(t_draw *draw, ThreadParams *params, t_sprite sprite)
+void	sprite_frame(t_draw *draw, t_thread_params *params, t_sprite sprite)
 {
 	int				color;
 	float			tex_y;
@@ -277,7 +277,7 @@ void	sprite_dist(t_draw *draw)
 	draw->sprite_height = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
 }
 
-void	put_line(t_draw draw, ThreadParams *params)
+void	put_line(t_draw draw, t_thread_params *params)
 {
 	int	start;
 	int	end;
@@ -293,7 +293,7 @@ void	put_line(t_draw draw, ThreadParams *params)
 	}
 }
 
-void	draw_line(t_draw draw, ThreadParams *params)
+void	draw_line(t_draw draw, t_thread_params *params)
 {
 	t_cube *c = params->cube;
 	const t_player *p = params->player;

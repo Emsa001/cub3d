@@ -6,33 +6,11 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:16:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/27 20:05:34 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:34:41 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void remove_button(t_button *button)
-{
-    t_cube *c = cube();
-    t_button_node *current = c->buttons;
-    t_button_node *prev = NULL;
-
-    while(current != NULL)
-    {
-        if(ft_memcmp(&current->button, button, sizeof(t_button)) == 0)
-        {
-            if(prev == NULL)
-                c->buttons = current->next;
-            else
-                prev->next = current->next;
-            ft_free(current);
-            return;
-        }
-        prev = current;
-        current = current->next;
-    }
-}
 
 void button_click(int type, int x, int y)
 {
@@ -48,10 +26,6 @@ void button_click(int type, int x, int y)
             {
                 printf("Function pointer is valid. Calling function...\n");
                 ((void (*)(void*))current->button.function)(current->button.arg);
-            }
-
-            if(current->button.remove){
-                remove_button(&current->button);
             }
             return ;
         }

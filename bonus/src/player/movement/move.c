@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:46:56 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 16:27:10 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 16:26:55 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,11 @@ static void	handle_movement_con(t_player *p, bool is_moving, int speed)
 	handle_step_animation(p, is_moving);
 }
 
-void	handle_movement(t_player *p)
+static void	handle_movement(t_player *p, int speed)
 {
 	float	cos_angle;
 	float	sin_angle;
 	bool	is_moving;
-	int		speed;
 
 	cos_angle = cos(p->angle);
 	sin_angle = sin(p->angle);
@@ -47,14 +46,7 @@ void	handle_movement(t_player *p)
 	speed = p->speed;
 	if (p->sprint)
 		speed += SPRINTBONUS;
-	if (p->slide)
-	{
-		speed += 300;
-		if (p->z > 0.3)
-			p->z -= 0.05;
-	}
-	else if (p->z < 0.5)
-		p->z += 0.01;
+	sliding(p, &speed);
 	if (p->btn_w || p->btn_s)
 	{
 		if (p->btn_s)
@@ -127,14 +119,16 @@ void	handle_jumping(t_player *p)
 void	move_player(void)
 {
 	t_player	*p;
+	int			speed;
 
+	speed = 0;
 	p = player();
 	if (p->jumping == true && p->z <= 0.6)
 	{
 		p->jump_speed = JUMP_SPEED;
 		p->fall_speed = 0;
 	}
-	handle_movement(p);
+	handle_movement(p, speed);
 	handle_arrow_rotation(p);
 	handle_vertical_movement(p);
 	handle_interactions(p);

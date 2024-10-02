@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 16:14:07 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:23:03 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct s_uitextures
 typedef struct s_textures
 {
 	t_texture		*font;
-	int char_pixel_data[95][32 * 32];
+	int				char_pixel_data[95][32 * 32];
 
 	t_texture		**ceiling;
 	t_texture		**floor;
@@ -69,7 +69,6 @@ typedef struct s_textures
 	t_texture		**wall_west;
 
 	t_texture		*door;
-	t_texture		*shotgun;
 
 	t_texture		*player;
 
@@ -77,8 +76,8 @@ typedef struct s_textures
 	t_texture		*generator1;
 	t_texture		*generator_top;
 
-	t_texture		*inventoryPlayer;
-	t_texture		*inventoryGui;
+	t_texture		*inventory_player;
+	t_texture		*inventory_gui;
 	t_texture		items[328];
 	t_texture		*tooltip_bg;
 	t_texture		*open_portal;

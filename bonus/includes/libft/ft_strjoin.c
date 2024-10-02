@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 17:06:20 by triedel           #+#    #+#             */
-/*   Updated: 2024/05/27 14:35:35 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:16:58 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,15 @@ char	*ft_strappend(char const *s1, char const *s2)
 	res = ft_strjoin(s1, s2);
 	ft_free((void *)s1);
 	return (res);
+}
+
+char	*ft_strjoin_itoa(char const *s1, int n)
+{
+	char	*str;
+	char	*itoa;
+
+	itoa = ft_itoa(n);
+	str = ft_strjoin(s1, itoa);
+	ft_free(itoa);
+	return (str);
 }

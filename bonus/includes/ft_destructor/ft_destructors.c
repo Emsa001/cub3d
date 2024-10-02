@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 14:12:49 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 18:03:24 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:18:02 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	ft_free(void *ptr)
 	t_allocs	*lst;
 	t_allocs	*tmp;
 
-	if(ptr == NULL)
+	if (ptr == NULL)
 		return ;
-	if(!FT_DESTRUCTOR)
+	if (!FT_DESTRUCTOR)
 		return (free(ptr));
 	lst = ft_allocs(NULL);
 	tmp = NULL;
@@ -61,7 +61,7 @@ void	ft_destructor(void)
 	free(lst);
 }
 
-int ft_exit(void)
+int	ft_exit(void)
 {
 	ft_destructor();
 	exit(0);

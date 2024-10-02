@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 15:10:37 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:25:48 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int	get_texture_color(t_texture *tex, float dist, float cosangle,
 	return (color);
 }
 
-void	draw_scene(t_draw *draw, ThreadParams *params)
+void	draw_scene(t_draw *draw, t_thread_params *params)
 {
 	int					height;
 	int					start_x;

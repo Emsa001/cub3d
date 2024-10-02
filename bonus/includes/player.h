@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 15:16:36 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:22:33 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "cub3d.h"
 # include "economy.h"
-typedef struct s_draw		t_draw;
 
 # define WALKSPEED 200
 # define SPRINTBONUS 300
@@ -26,13 +25,7 @@ typedef struct s_draw		t_draw;
 
 # define FOV 60
 
-typedef struct s_shotgun
-{
-	float					x;
-	float					y;
-	float					z;
-	float					angle;
-}							t_shotgun;
+typedef struct s_draw		t_draw;
 
 typedef struct s_button
 {
@@ -45,7 +38,7 @@ typedef struct s_button
 	void					(*function)(void *);
 	void					(*hover)(void *);
 	void					*arg;
-	int						itemId;
+	int						item_id;
 
 	bool					is_default;
 	bool					hover_change;
@@ -109,7 +102,7 @@ typedef struct s_player
 
 	int						speed;
 	bool					sprint;
-	bool 					slide;
+	bool					slide;
 
 	float					plane_x;
 	float					plane_y;
@@ -137,10 +130,9 @@ typedef struct s_player
 	int						math_selected;
 	int						streak;
 
-	int						GUI;
-	int						GUI_temp;
+	int						gui;
+	int						gui_temp;
 	t_generator				*generator;
-	t_shotgun				shotgun;
 }							t_player;
 
 t_player					*player_init(t_player *p);
@@ -176,12 +168,12 @@ void						resume_game(void);
 void						pause_hover(void *arg);
 
 void						try_move(float x, float y);
-void						handle_movement(t_player *p);
 void						handle_vertical_movement(t_player *p);
 void						handle_interactions(t_player *p);
 void						handle_step_animation(t_player *p, bool is_moving);
 void						handle_jumping(t_player *p);
 void						update_player_position(t_player *p);
 void						update_player_direction(t_player *p);
+void						sliding(t_player *p, int *speed);
 
 #endif
