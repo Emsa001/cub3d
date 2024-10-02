@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:22:33 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:46:00 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,5 +175,10 @@ void						handle_jumping(t_player *p);
 void						update_player_position(t_player *p);
 void						update_player_direction(t_player *p);
 void						sliding(t_player *p, int *speed);
+
+bool						handle_pause_controlls(int keycode, t_player *p,
+								t_cube *c);
+bool						handle_gui_controlls(int keycode, t_player *p);
+void						stop_slide(void);
 
 #endif
