@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:23:03 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 19:17:35 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,6 @@ void				*get_texture_file(char *file, int *width, int *height);
 char				*get_texture_name(char *dir, int i);
 t_texture			*load_texture(char *dir);
 
-void				resize_texture(const t_texture *src, t_texture *dst,
-						int new_width, int new_height);
 t_texture			*rotate_texture(t_texture *texture, double angle,
 						int mirror_mode);
 
@@ -121,5 +119,6 @@ void				destroy_textures(void);
 void				destroy_texture(t_texture *texture);
 t_texture			*progress_bar(int progress, int color);
 void				init_progress(t_textures *t);
+int					get_pixel_from_image(t_texture *t, int x, int y);
 
 #endif

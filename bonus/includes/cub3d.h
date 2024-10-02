@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:45:34 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 19:29:39 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,9 +260,7 @@ bool					touch_generator(t_block *lines, float px, float py);
 void					button_click(int type, int x, int y);
 void					button_tooltip(int x, int y);
 
-void					clean_image(t_render *r);
 void					create_image(t_render *r, int width, int height);
-void					show_image(t_render *r, int x, int y);
 void					add_button(t_button *button);
 void					start_case(void *arg);
 
@@ -297,10 +295,6 @@ float					view_current_distance(const t_player *p, int start_y,
 t_draw					init_draw(void);
 
 // updating
-int						get_scene_pixel(int x, int y);
-void					draw_circle(int center_x, int center_y, int radius,
-							int color);
-int						get_pixel_from_image(t_texture *t, int x, int y);
 void					minimap_init(void);
 void					destroy_buttons(void);
 void					render_string_async(t_string *str);
@@ -326,8 +320,7 @@ int						block_count(t_map *map_info, char c);
 void					catch_block(float angle);
 void					add_block(float angle);
 void					remove_block(float angle);
-void					put_string(char *str, int x, int y, int color,
-							float size);
+void 					put_string(char *str, int x, int y, int color);
 void					move_door(t_map *map, t_player *p, bool opening);
 int						get_side(int x, int y, char **map);
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   view.c                                             :+:      :+:    :+:   */
+/*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:32:21 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:25:48 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 19:18:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,18 @@ void	render_view(t_cube *c)
 	pthread_mutex_init(&mutex, NULL);
 
 	int colors[12] = {
-		0xFF0000, // red
-		0x00FF00, // green
-		0x0000FF, // blue
-		0xFFFF00, // yellow
-		0xFF00FF, // magenta
-		0x00FFFF, // cyan
-		0xFFA500, // orange
-		0x800080, // purple
-		0x008000, // dark green
-		0x000080, // dark blue
-		0x800000, // dark red
-		0x808080, // gray
+		0xFF0000,
+		0x00FF00, 
+		0x0000FF,
+		0xFFFF00, 
+		0xFF00FF,
+		0x00FFFF, 
+		0xFFA500, 
+		0x800080, 
+		0x008000, 
+		0x000080, 
+		0x800000, 
+		0x808080, 
 	};
 
 	for (int i = 0; i < NUM_THREADS; i++)

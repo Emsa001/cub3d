@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:16:47 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:34:41 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 19:22:43 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ void add_button(t_button *button)
         node = node->next;
     }
 
-    // If we've reached this point, the button doesn't exist in the list
     t_button_node *new_node = ft_malloc(sizeof(t_button_node));
     ft_memcpy(&new_node->button, button, sizeof(t_button));
     new_node->next = c->buttons;

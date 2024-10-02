@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 16:31:44 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 19:29:20 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,14 +127,14 @@ void render_string_async(t_string *str)
     start_async(async);
 }
 
-void put_string(char *str, int x, int y, int color, float size)
+void put_string(char *str, int x, int y, int color)
 {
     t_string string = {0};
     string.str = str;
     string.x = x;
     string.y = y;
     string.color = color;
-    string.size = size;
+    string.size = 0.5;
     string.padding = 0;
     render_string(&string);
 }

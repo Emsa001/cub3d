@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:24:31 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:22:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 19:29:54 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ static void	info_gui(int x, int y, t_generator *gen)
 	char *const	speed = ft_strjoin_itoa("Speed: ", gen->speed);
 	char *const	add = ft_strjoin(add_temp, " / sec");
 
-	put_string(add, x + 20, y + 160, 0x00FF00, 0.5);
-	put_string(generated, x + 20, y + 100, 0x00FF00, 0.5);
-	put_string(random, x + 20, y + 130, 0x00FF00, 0.5);
-	put_string(speed, x + 20, y + 190, 0x00FF00, 0.5);
+	put_string(add, x + 20, y + 160, 0x00FF00);
+	put_string(generated, x + 20, y + 100, 0x00FF00);
+	put_string(random, x + 20, y + 130, 0x00FF00);
+	put_string(speed, x + 20, y + 190, 0x00FF00);
 	ft_free(add_temp);
 	ft_free(generated);
 	ft_free(random);

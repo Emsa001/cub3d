@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:39:01 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 17:45:19 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 19:31:27 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ static void	window_gui(int x, int y, t_texture *window)
 	char *const	str3 = ft_strjoin(str2, " = ?");
 
 	put_image(window, x, y, 1);
-	put_string("WHAT IS ... ?", x + 90, y + 10, 0x7dd3fc, 1);
-	put_string(temp, x + 220, y + 50, 0xfb7185, 0.5);
-	put_string(str3, x + 180, y + 100, 0x00FF00, 0.8);
+	render_string(&(t_string){.str = "WHAT IS ... ?", .color = 0x7dd3fc,
+		.size = 1, .x = x + 90, .y = y + 10});
+	put_string(temp, x + 220, y + 50, 0xfb7185);
+	render_string(&(t_string){.str = str3, .color = 0x00FF00, .size = 0.8,
+		.x = x + 180, .y = y + 100});
 	ft_free(temp);
 	ft_free(num1);
 	ft_free(str);

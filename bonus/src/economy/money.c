@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 21:09:25 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 16:28:38 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 19:31:48 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void	hud_currency(void)
 	draw_background();
 	money_srt = ft_itoa(money());
 	add = ft_itoa(gen_total_amount());
-	put_string("+", 80, 15, 0xFFFFFF, 0.4);
-	put_string(add, 95, 15, 0xFFFFFF, 0.4);
-	put_string(money_srt, 80, 37, 0xffbf00, 0.5);
+	put_string("+", 80, 15, 0xFFFFFF);
+	put_string(add, 95, 15, 0xFFFFFF);
+	put_string(money_srt, 80, 37, 0xffbf00);
 	ft_free(money_srt);
 	ft_free(add);
 }
