@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 13:38:11 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:21:21 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 typedef struct s_minimap	t_minimap;
 typedef struct s_texture	t_texture;
+typedef struct s_float		t_float;
 
 typedef struct s_point
 {
@@ -80,7 +81,7 @@ void						print_map_info(void);
 void						print_map(char **map);
 int							ft_strlen_space(char *s);
 int							ft_check_line(char *line);
-t_block						*init_block(t_map *map_info, char c);
+t_block						*init_door(t_map *map_info);
 void						print_block_info(t_block *doors);
 void						get_player_position(char **map);
 t_map						*check_map(char **map, int size);
@@ -108,6 +109,9 @@ void						init_sprite(t_map *map, t_sprite sprite,
 void						get_points(t_point **points, char **map, char c);
 
 int							count_c(char **map, char c);
+void						terminate_blocks(t_block **blocks, int i);
+void						init_once(t_block *blocks, t_float point, int *k,
+								char type);
 
 // sprites
 bool						find_sprite(float x, float y, int *i);

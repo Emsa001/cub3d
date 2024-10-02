@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 13:59:18 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:10:04 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -302,8 +302,8 @@ void	draw_line(t_draw draw, ThreadParams *params)
 	bool save = false;
 	bool save_last = false;
 
-	t_touch *touch = malloc(sizeof(t_touch) * c->map->sprite_count);
-	ft_bzero(touch, sizeof(t_touch) * c->map->sprite_count);
+	t_float *touch = malloc(sizeof(t_float) * c->map->sprite_count);
+	ft_bzero(touch, sizeof(t_float) * c->map->sprite_count);
 	int i = 0;
 
 	while (!find_hitbox(draw.x, draw.y, c))

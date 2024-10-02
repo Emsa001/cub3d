@@ -13,135 +13,80 @@
 
 #include "cub3d.h"
 
-t_block	*init_block(t_map *map_info, char c)
+void	opening_door(t_map *map, int id, int side)
 {
-	t_block	*blocks;
-	int		i;
-	int		j;
-	int		k;
-	int		count;
+	float	move_step;
 
-	map_info->blocks = NULL;
-	count = count_c(map_info->map, c);
-	blocks = ft_malloc(sizeof(t_block) * (count + 1));
-	i = 0;
-	j = 0;
-	k = 0;
-	while (map_info->map[i] != NULL)
-	{
-		j = 0;
-		while (map_info->map[i][j] != '\0')
-		{
-			if (map_info->map[i][j] == c)
-			{
-				blocks[k].x = j;
-				blocks[k].y = i;
-				blocks[k].s_x = j;
-				blocks[k].s_y = i;
-				blocks[k].id = k;
-				blocks[k].type = c;
-				k++;
-			}
-			j++;
-		}
-		i++;
-	}
-	blocks[k].x = -1;
-	blocks[k].y = -1;
-	blocks[k].id = -1;
-	blocks[k].s_x = -1;
-	blocks[k].s_y = -1;
-	blocks[k].type = '\0';
-	return (blocks);
-}
-
-int	get_side(int x, int y, char **map)
-{
-	if (map[y][x - 1] == '1')
-		return (1);
-	else if (map[y - 1][x] == '1')
-		return (2);
-	else if (map[y][x + 1] == '1')
-		return (3);
-	else if (map[y + 1][x] == '1')
-		return (4);
-	return (0);
-}
-
-void	open_door(float angle, int id)
-{
-	static bool	opening = false;
-	t_player	*p;
-	t_map		*map;
-	int			side;
-
-	p = player();
-	map = cube()->map;
-	side = 0;
-	if (id == -1)
-		return ;
-	if (!opening)
-		opening = true;
-	side = get_side(map->doors[id].s_x, map->doors[id].s_y, map->map);
-	if (!side)
-		return ;
+	move_step = 0.05;
 	if (side == 1 && map->doors[id].x >= map->doors[id].s_x - 0.9)
-		map->doors[id].x -= 0.05;
+		map->doors[id].x -= move_step;
 	else if (side == 2 && map->doors[id].y >= map->doors[id].s_y - 0.9)
-		map->doors[id].y -= 0.05;
+		map->doors[id].y -= move_step;
 	else if (side == 3 && map->doors[id].x <= map->doors[id].s_x + 0.9)
-		map->doors[id].x += 0.05;
+		map->doors[id].x += move_step;
 	else if (side == 4 && map->doors[id].y <= map->doors[id].s_y + 0.9)
-		map->doors[id].y += 0.05;
-	if (side == 1 && map->doors[id].x <= map->doors[id].s_x - 0.9)
-		p->opened = true;
-	else if (side == 2 && map->doors[id].y <= map->doors[id].s_y - 0.9)
-		p->opened = true;
-	else if (side == 3 && map->doors[id].x >= map->doors[id].s_x + 0.9)
-		p->opened = true;
-	else if (side == 4 && map->doors[id].y >= map->doors[id].s_y + 0.9)
-		p->opened = true;
-	if (p->opened)
-	{
-		p->interact = false;
-	}
+		map->doors[id].y += move_step;
 }
 
-void	close_door(float angle, int id)
+void	closing_door(t_map *map, int id, int side)
 {
-	t_player	*p;
-	t_map		*map;
-	int			side;
-	static bool	closing = false;
+	float	move_step;
 
-	p = player();
-	map = cube()->map;
+	move_step = 0.05;
+	if (side == 1 && map->doors[id].x <= map->doors[id].s_x)
+		map->doors[id].x += move_step;
+	else if (side == 2 && map->doors[id].y <= map->doors[id].s_y)
+		map->doors[id].y += move_step;
+	else if (side == 3 && map->doors[id].x >= map->doors[id].s_x)
+		map->doors[id].x -= move_step;
+	else if (side == 4 && map->doors[id].y >= map->doors[id].s_y)
+		map->doors[id].y -= move_step;
+}
+
+bool	check_door_opened(t_map *map, int id, int side)
+{
+	if ((side == 1 && map->doors[id].x <= map->doors[id].s_x - 0.9)
+		|| (side == 2 && map->doors[id].y <= map->doors[id].s_y - 0.9)
+		|| (side == 3 && map->doors[id].x >= map->doors[id].s_x + 0.9)
+		|| (side == 4 && map->doors[id].y >= map->doors[id].s_y + 0.9))
+		return (true);
+	return (false);
+}
+
+bool	check_door_closed(t_map *map, int id, int side)
+{
+	if ((side == 1 && map->doors[id].x >= map->doors[id].s_x) || (side == 2
+			&& map->doors[id].y >= map->doors[id].s_y) || (side == 3
+			&& map->doors[id].x <= map->doors[id].s_x) || (side == 4
+			&& map->doors[id].y <= map->doors[id].s_y))
+		return (true);
+	return (false);
+}
+
+void	move_door(t_map *map, t_player *p, bool opening)
+{
+	int	side;
+	int	id;
+
 	side = 0;
+	id = get_block_id(map->doors, p->x, p->y, p->angle);
 	if (id == -1)
 		return ;
-	if (!closing)
-		closing = true;
 	side = get_side(map->doors[id].s_x, map->doors[id].s_y, map->map);
 	if (!side)
 		return ;
-	if (side == 1 && map->doors[id].x <= map->doors[id].s_x)
-		map->doors[id].x += 0.05;
-	else if (side == 2 && map->doors[id].y <= map->doors[id].s_y)
-		map->doors[id].y += 0.05;
-	else if (side == 3 && map->doors[id].x >= map->doors[id].s_x)
-		map->doors[id].x -= 0.05;
-	else if (side == 4 && map->doors[id].y >= map->doors[id].s_y)
-		map->doors[id].y -= 0.05;
-	if (side == 1 && map->doors[id].x >= map->doors[id].s_x)
-		p->opened = false;
-	else if (side == 2 && map->doors[id].y >= map->doors[id].s_y)
-		p->opened = false;
-	else if (side == 3 && map->doors[id].x <= map->doors[id].s_x)
-		p->opened = false;
-	else if (side == 4 && map->doors[id].y <= map->doors[id].s_y)
-		p->opened = false;
-	if (!p->opened)
+	if (opening)
 	{
-		p->interact = false;
+		opening_door(map, id, side);
+		if (check_door_opened(map, id, side))
+			p->opened = true;
 	}
+	else
+	{
+		closing_door(map, id, side);
+		if (check_door_closed(map, id, side))
+			p->opened = false;
+	}
+	if (p->opened == opening)
+		p->interact = false;
 }

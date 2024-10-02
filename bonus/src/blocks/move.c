@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:53:45 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/02 15:08:35 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/02 18:21:23 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,24 @@
 int	get_block_id(t_block *blocks, float px, float py, float angle)
 {
 	int		i;
-	float	x;
-	float	y;
-	float	p_x;
-	float	p_y;
+	t_float	point;
+	t_float	point_p;
 	float	full_angle;
 	float	md;
 
+	point.x = 0;
+	point.y = 0;
+	point_p.x = px - 0.5 + 2.5 * cos(angle);
+	point_p.y = py - 0.5 + 2.5 * sin(angle);
 	i = 0;
-	x = 0;
-	y = 0;
-	p_x = px - 0.5 + 2.5 * cos(angle);
-	p_y = py - 0.5 + 2.5 * sin(angle);
 	full_angle = angle * 180 / PI;
 	md = 2 + (-cos(angle * PI / 45));
 	while (blocks[i].x != -1)
 	{
-		x = blocks[i].x;
-		y = blocks[i].y;
-		if ((p_x - md <= x && x <= p_x + md) && (p_y - md <= y && y <= p_y
-				+ md))
+		point.x = blocks[i].x;
+		point.y = blocks[i].y;
+		if ((point_p.x - md <= point.x && point.x <= point_p.x + md)
+			&& (point_p.y - md <= point.y && point.y <= point_p.y + md))
 			return (i);
 		i++;
 	}
