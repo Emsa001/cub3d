@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:45:34 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 23:54:46 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@
 # define DOOR 'D'
 
 # define M_PI 3.14159265358979323846
-# define NUM_THREADS 12
+# define NUM_THREADS 10
 
 typedef struct s_render	t_render;
 
@@ -171,29 +171,39 @@ typedef struct s_float
 	float				y;
 }						t_float;
 
+typedef struct s_sprite_coords
+{
+	float				x;
+	float				y;
+	float				dist;
+	int					height;
+	int 				tex_x;
+}						t_sprite_coords;
+
 typedef struct s_draw
 {
 	float				angle;
+	float 				cosangle;
+	float 				sinangle;
 	float				x;
 	float				y;
 	float				first_x;
 	float				first_y;
 	float				last_x;
 	float				last_y;
-	float				sprite_x;
-	float				sprite_y;
-	int					sprite_height;
-	int					sprite_dist;
+	t_sprite_coords		*sprites;
+	bool 				is_sprite;
 	int					height;
 	int					height_top;
 	float				wall_height;
 	int					start_x;
 	int					start_y;
-	int					side;
 	int					tex_x;
+	float 				tex_y;
 	int					dist;
 	int					generator_dist;
 	int					colors[HEIGHT + 1];
+	t_texture			*texture;
 
 }						t_draw;
 
@@ -214,12 +224,6 @@ typedef struct s_thread_params
 	pthread_mutex_t		*mutex;
 }						t_thread_params;
 
-typedef struct s_state
-{
-	bool				save;
-	bool				block;
-	bool				door;
-}						t_state;
 
 typedef struct s_vars
 {
@@ -268,14 +272,15 @@ void					start_case(void *arg);
 
 /* DRAW */
 t_texture				*get_wall_side(int side, const t_textures *texs, int n);
-int						get_texture_color(t_texture *tex, float dist,
-							float cosangle, float sinangle);
-t_texture				*get_texture(int start_y, int height, const t_player *p,
-							const t_textures *texs);
+int						get_texture_color(t_texture *tex, float dist, t_draw *draw);
+t_texture				*get_texture(int start_y, int height, t_thread_params *params);
 void					draw_scene(t_draw *draw, t_thread_params *params);
 int						darken_color_wall(int color, float factor, float wall_x,
 							float wall_y);
-void					draw_shotgun(void);
+
+void	direction(t_draw *draw, t_thread_params *params);
+void	put_line(t_draw draw, t_thread_params *params);
+bool	find_hitbox(t_draw *draw, t_cube *c, int *iter);
 
 void					draw_line(t_draw draw, t_thread_params *params);
 void					draw_wall(t_draw *draw, t_thread_params *params);

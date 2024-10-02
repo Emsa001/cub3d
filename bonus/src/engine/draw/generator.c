@@ -102,3 +102,112 @@ void	draw_generator_top(t_draw *draw, t_thread_params *params, float angle)
 		start_y++;
 	}
 }
+// void	draw_line(t_draw draw, t_thread_params *params)
+// {
+// 	t_cube *c = params->cube;
+// 	const t_player *p = params->player;
+// 	float cosangle = cos(draw.angle);
+// 	float sinangle = sin(draw.angle);
+
+// 	bool save = false;
+// 	bool save_last = false;
+
+// 	t_float *touch = malloc(sizeof(t_float) * c->map->sprite_count);
+// 	ft_bzero(touch, sizeof(t_float) * c->map->sprite_count);
+// 	int i = 0;
+
+// 	while (!find_hitbox(draw.x, draw.y, c))
+// 	{
+// 		if (touch_sprite(c->map->sprites, draw.x, draw.y)
+// 			|| touch_facing_sprite(&draw, c->map->facing, draw.x, draw.y))
+// 		{
+// 			touch[i].x = draw.x;
+// 			touch[i].y = draw.y;
+// 			i++;
+// 		}
+// 		if (touch_generator(c->map->generators, draw.x, draw.y))
+// 		{
+// 			if (!save)
+// 			{
+// 				save = true;
+// 				draw.first_x = draw.x;
+// 				draw.first_y = draw.y;
+// 			}
+// 			draw.x += cosangle;
+// 			draw.y += sinangle;
+// 			if (!save_last && !touch_generator(c->map->generators, draw.x,
+// 					draw.y))
+// 			{
+// 				save_last = true;
+// 				draw.last_x = draw.x;
+// 				draw.last_y = draw.y;
+// 			}
+// 		}
+// 		else
+// 		{
+// 			draw.x += cosangle;
+// 			draw.y += sinangle;
+// 		}
+// 	}
+
+// 	draw.side = direction(draw.x, draw.y, cosangle, sinangle, c, &draw.tex_x);
+// 	lane_distance(&draw);
+// 	draw_scene(&draw, params);
+// 	while (i > 0)
+// 	{
+// 		draw.sprite_x = touch[i].x;
+// 		draw.sprite_y = touch[i].y;
+// 		sprite_dist(&draw);
+// 		int j = 0;
+// 		if ((j = touch_sprite(c->map->sprites, draw.sprite_x, draw.sprite_y)))
+// 		{
+// 			draw.tex_x = (int)draw.sprite_x % BLOCK_SIZE;
+// 			sprite_frame(&draw, params, c->map->sprites[j - 1]);
+// 		}
+// 		else if (touch_facing_sprite(&draw, c->map->facing, draw.sprite_x,
+// 				draw.sprite_y))
+// 			sprite_frame(&draw, params, c->map->facing[0]);
+// 		i--;
+// 	}
+// 	if (generator_direction(&draw, cosangle, sinangle, c) == 7)
+// 	{
+// 		draw_generator_top(&draw, params, draw.angle);
+// 		draw_generator(&draw, params, draw.tex_x, draw.angle);
+// 	}
+// 	int scale = draw.start_x + WIDTH_SCALE;
+// 	while (draw.start_x < scale && draw.start_x < params->end)
+// 	{
+// 		put_line(draw, params);
+// 		draw.start_x++;
+// 	}
+// 	free(touch);
+// }
+
+
+// int	generator_direction(t_draw *draw, float cosangle, float sinangle, t_cube *c)
+// {
+// 	int	sx;
+// 	int	sy;
+
+// 	sx = 0;
+// 	sy = 0;
+// 	if (cosangle > 0)
+// 		sx = 1;
+// 	else
+// 		sx = -1;
+// 	if (sinangle > 0)
+// 		sy = 1;
+// 	else
+// 		sy = -1;
+// 	if (touch_generator(c->map->generators, draw->first_x - sx, draw->first_y))
+// 	{
+// 		draw->tex_x = (int)draw->first_x % BLOCK_SIZE;
+// 		return (7);
+// 	}
+// 	else if (touch_generator(c->map->generators, draw->first_x, draw->first_y))
+// 	{
+// 		draw->tex_x = (int)draw->first_y % BLOCK_SIZE;
+// 		return (7);
+// 	}
+// 	return (0);
+// }

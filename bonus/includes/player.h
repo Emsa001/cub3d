@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:46:00 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 22:24:50 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ void						handle_mouse_rotate(int x, int y);
 void						handle_arrow_rotation(t_player *p);
 void						open_inventory(void);
 
-void						lane_distance(t_draw *draw);
+float	lane_distance(t_draw *draw);
 
 void						player_keydown(int keycode);
 void						player_keyup(int keycode);

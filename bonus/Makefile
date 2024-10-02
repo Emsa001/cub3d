@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
+#    By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/10/02 18:43:09 by escura           ###   ########.fr        #
+#    Updated: 2024/10/02 23:34:03 by btvildia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ CC = cc
 
 CFLAGS = -g -O3
 # CFLAGS += -fsanitize=thread
-# CFLAGS += -fsanitize=address
+CFLAGS += -fsanitize=address
 # CFLAGS = -Wall -Wextra -Werror
 
 MAP_GEN = map_generator/map_generator.c map_generator/draw.c map_generator/utils.c

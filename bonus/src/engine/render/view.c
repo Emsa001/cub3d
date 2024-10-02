@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   view.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:32:21 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:25:48 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 23:39:57 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	*draw_lines_thread(void *arg)
 		draw_line(draw, params);
 		i = i + WIDTH_SCALE;
 	}
+	free(draw.sprites);
 	return (NULL);
 }
 
