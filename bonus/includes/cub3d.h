@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:35:54 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:38:37 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@
 
 # define T_SIZE 64
 # define BLOCK_SIZE 64
-# define WIDTH 800
-# define HEIGHT 600
+# define WIDTH 1920
+# define HEIGHT 1080
 # define CENTER_WIDTH WIDTH / 2 // TODO: norm error
 # define CENTER_HEIGHT HEIGHT / 2 // TODO: norm error
 # define WIDTH_SCALE 5
@@ -165,11 +165,11 @@ typedef struct s_render
 	pthread_mutex_t		put_pixel_mutex;
 }						t_render;
 
-typedef struct s_touch
+typedef struct s_float
 {
 	float				x;
 	float				y;
-}						t_touch;
+}						t_float;
 
 typedef struct s_draw
 {
@@ -326,10 +326,10 @@ int						block_count(t_map *map_info, char c);
 void					catch_block(float angle);
 void					add_block(float angle);
 void					remove_block(float angle);
-void					open_door(float angle, int id);
-void					close_door(float angle, int id);
 void					put_string(char *str, int x, int y, int color,
 							float size);
+void					move_door(t_map *map, t_player *p, bool opening);
+int						get_side(int x, int y, char **map);
 
 /* KeyBoard */
 

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:22:32 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:38:00 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ static bool	handle_gui_controlls(int keycode, t_player *p)
 
 static void	handle_interaction_controlls(int keycode, t_player *p)
 {
-	if (keycode == E)
-		p->interact = true;
 	if (keycode == I)
 		p->spawn = true;
 	if (keycode == O)

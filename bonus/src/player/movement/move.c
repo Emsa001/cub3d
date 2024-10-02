@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:46:56 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 16:26:55 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:38:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,19 @@ static void	handle_movement(t_player *p, int speed)
 
 void	handle_interactions(t_player *p)
 {
-	const int	id = get_block_id(cube()->map->doors, p->x, p->y, p->angle);
-
 	if (p->interact)
 	{
 		if (p->opened)
-			close_door(p->angle, id);
+			move_door(cube()->map, p, false);
 		else
-			open_door(p->angle, id);
+			move_door(cube()->map, p, true);
 	}
 	if (p->spawn)
 	{
 		add_block(p->angle);
 		p->spawn = false;
 	}
-	if (p->remove)
+	if (p->remove && !p->catched)
 	{
 		remove_block(p->angle);
 		p->remove = false;

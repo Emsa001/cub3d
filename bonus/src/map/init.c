@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:19:15 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 13:10:21 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/02 17:38:00 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_map	*check_map(char **map, int size)
 	get_2d_map(map_info, map, size);
 	get_map_sizes(map_info, map_info->map);
 	check_valid(map_info->map, map_info);
-	map_info->doors = init_block(map_info, 'D');
+	map_info->doors = init_door(map_info);
 	map_info->lines = init_map_block(map_info);
 	map_info->blocks = init_map_block(map_info);
 	map_info->generators = init_generators(map_info, map);
