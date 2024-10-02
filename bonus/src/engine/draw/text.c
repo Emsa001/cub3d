@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/09/24 18:19:09 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/01 17:17:38 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void remove_string_queue(t_string **q)
         *q = NULL;
     }
 }
-
 
 void clear_string_queue(t_render *r)
 {
@@ -123,7 +122,7 @@ void render_string_async(t_string *str)
     async->process = &enqueue_string;
     async->end = end_string;
     async->arg = str_copy;
-    async->process_time = 10;
+    async->process_time = 5;
     async->time = str->time;
     start_async(async);
 }
@@ -142,32 +141,14 @@ void put_string(char *str, int x, int y, int color, float size)
 
 // https://stmn.itch.io/font2bitmap
 void render_string(t_string *string)
-{
+{    
+    int char_pixel_data[95][32 * 32];
+    memcpy(char_pixel_data, textures()->char_pixel_data, sizeof(char_pixel_data)); 
     t_texture *font = textures()->font;
     t_render *r = render();
 
     const int char_width = 32;
-    const int char_height = 32; 
-    const int chars_per_row = 16; 
-
-    int char_pixel_data[95][32 * 32];
-
-    for (int index = 0; index < 95; ++index)
-    {
-        int row = index / chars_per_row;
-        int col = index % chars_per_row;
-        int src_x = col * char_width;
-        int src_y = row * char_height;
-        
-        for (int i = 0; i < char_width; ++i)
-        {
-            for (int j = 0; j < char_height; ++j)
-            {
-                int pixel_color = get_pixel_from_image(font, src_x + i, src_y + j);
-                char_pixel_data[index][i + j * char_width] = pixel_color;
-            }
-        }
-    }
+    const int char_height = 32;
 
     char *str = string->str;
     int x = string->x;
@@ -175,52 +156,57 @@ void render_string(t_string *string)
     int color = string->color;
     float size = string->size;
     int padding = string->padding;
-
     int len = ft_strlen(str);
 
-    if (string->background != NULL)
+    // Draw background in one pass
+    if (string->background != false)
     {
-        for (int i = -padding; i < char_width * len * size; ++i)
+        int background_width = (char_width * len * size) + padding * 2;
+        int background_height = (char_height * size) + padding * 2;
+
+        for (int i = 0; i < background_width; ++i)
         {
-            for (int j = -padding; j < char_height * size; ++j)
+            for (int j = 0; j < background_height; ++j)
             {
-                put_pixel(x + i , y + j , string->background, r);
+                put_pixel(x + i - padding, y + j - padding, string->background, r);
             }
         }
     }
 
+    // Render each character
     while (*str)
     {
         char ch = *str++;
-        if (ch && ch < ' ' || ch > '~') continue; 
+        if (ch < ' ' || ch > '~') continue; // Skip non-printable characters
 
         int char_index = ch - ' ';
         int *pixels = char_pixel_data[char_index];
 
+        // Drawing character scaled by 'size'
         for (int i = 0; i < char_width; ++i)
         {
             for (int j = 0; j < char_height; ++j)
             {
-                // if(string->background != NULL)
-                //     put_pixel(x + i , y + j , string->background, r);
                 int pixel_color = pixels[i + j * char_width];
-                if (pixel_color > 0) 
+                if (pixel_color > 0) // Only draw non-transparent pixels
                 {
+                    int scaled_x = x + i * size;
+                    int scaled_y = y + j * size;
                     for (int dx = 0; dx < size; ++dx)
                     {
                         for (int dy = 0; dy < size; ++dy)
                         {
-                            put_pixel(x + i * size + dx, y + j * size + dy, color, r);
+                            put_pixel(scaled_x + dx, scaled_y + dy, color, r);
                         }
                     }
                 }
             }
         }
 
+        // Advance x position for next character
         x += char_width * size;
     }
 }
-
 
 void timer_process(t_async *async){
     char *time = ft_itoa((async->time - async->time_elapsed) / 1000);

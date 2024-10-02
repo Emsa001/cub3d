@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 16:27:43 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/01 17:26:56 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,24 @@ static bool	handle_pause_controlls(int keycode, t_player *p, t_cube *c)
 {
 	if (keycode == ESC)
 	{
-		if (p->GUI == NONE)
-			p->GUI = PAUSE;
-		else
+		if(p->GUI != NONE && p->GUI != PAUSE)
+		{
 			p->GUI = NONE;
+			return false;
+		}
+		p->GUI = NONE;
 		set_paused(!c->paused);
 	}
-	if (is_paused())
+	if (is_paused()){
+		p->GUI = PAUSE;
 		return (true);
+	}
 	return (false);
+}
+
+static void stop_slide(){
+	t_player *p = player();
+	p->slide = false;
 }
 
 static void	handle_movement_controlls(int keycode, t_player *p)
@@ -49,6 +58,10 @@ static void	handle_movement_controlls(int keycode, t_player *p)
 		p->sprint = true;
 	if (keycode == SPACE)
 		p->jumping = true;
+	if(keycode == CTRL){
+		p->slide = true;
+		ft_wait(500, &stop_slide, NULL);
+	}
 }
 
 static bool	handle_gui_controlls(int keycode, t_player *p)

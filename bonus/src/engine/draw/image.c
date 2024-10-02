@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:35:54 by escura            #+#    #+#             */
-/*   Updated: 2024/09/14 15:47:08 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/01 16:43:31 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void put_image_queue(t_render *r)
         put_image(q->img, q->x, q->y, q->size);
 
         t_image *tmp = q->next;
-        remove_image_queue(&q);  // Properly free the dequeued image
+        remove_image_queue(&q);
         q = tmp;
     }
 
@@ -128,7 +128,7 @@ void render_image_async(t_image *img)
     async->process = &enqueue_image;
     async->end = &end_image;
     async->arg = img_copy;
-    async->process_time = 10;
+    async->process_time = 5;
     async->time = img->time;
     start_async(async);
 }

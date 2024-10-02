@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 19:27:23 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 20:42:11 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/01 16:38:42 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void displayPrizeMessage(int prize, int value)
     string.y =  CENTER_HEIGHT + 120;
     render_string_async(&string);
 }
-
 
 t_texture *determinePrizeTexture(int prize)
 {

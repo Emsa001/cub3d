@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 21:09:25 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 14:44:28 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/01 15:02:11 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,16 @@ void	hud_currency(void)
 {
 	const t_player	*p = player();
 	const t_render	*r = render();
-	char			*money;
+	char			*money_srt;
 	char			*add;
 
 	draw_background();
-	pthread_mutex_lock(&p->money_mutex);
-	money = ft_itoa(p->money);
+	money_srt = ft_itoa(money());
 	add = ft_itoa(gen_total_amount());
-	pthread_mutex_unlock(&p->money_mutex);
 	put_string("+", 80, 15, 0xFFFFFF, 0.4);
 	put_string(add, 95, 15, 0xFFFFFF, 0.4);
-	put_string(money, 80, 37, 0xffbf00, 0.5);
-	ft_free(money);
+	put_string(money_srt, 80, 37, 0xffbf00, 0.5);
+	ft_free(money_srt);
 	ft_free(add);
 }
 

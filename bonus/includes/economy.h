@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:18:44 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 19:33:46 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/01 17:18:55 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ typedef struct s_store
 {
 	bool				case_cooldown;
 	int					items[27];
+	int 				prices[27];
 	t_generator			*generators;
+	int math[2];
 
 	pthread_mutex_t		case_mutex;
 
@@ -60,4 +62,8 @@ t_generator				*get_generator(int x, int y);
 int						gen_total_amount(void);
 void					generator_generating(t_async *current);
 
+t_texture *determinePrizeTexture(int prize);
+void renderPrizeImage(t_texture *prizeTexture, int time);
+
 #endif
+

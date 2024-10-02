@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/01 14:44:25 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/01 16:42:35 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@
 # define DOOR 'D'
 
 # define M_PI 3.14159265358979323846
-# define NUM_THREADS 10
+# define NUM_THREADS 12
 
 typedef struct s_render	t_render;
 

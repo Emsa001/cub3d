@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:22:47 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 19:33:52 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/01 17:20:13 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void init_shop_items(int x, int y, t_player *p){
             button.height = 64;
             button.function = &buy_item;
             button.hover = &shop_item_hover;
-            button.arg = (void *)(intptr_t)(i * 1000);
+            button.arg = p->store->prices[i];
             button.itemId = p->store->items[i];
             
             add_button(&button);

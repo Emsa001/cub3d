@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 19:26:21 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 19:34:15 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/01 16:33:18 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,8 @@ void	start_case(void *arg)
 	p = player();
 	if (cooldown())
 		return ;
-	pthread_mutex_lock(&p->money_mutex);
-	if (p->money < value)
-	{
-		pthread_mutex_unlock(&p->money_mutex);
+	if(money() < value)
 		return ;
-	}
-	pthread_mutex_unlock(&p->money_mutex);
 	add_money(-value);
 	p->GUI = NONE;
 	displayPrizeMessage(prize, value);

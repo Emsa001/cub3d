@@ -6,49 +6,30 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:39:01 by escura            #+#    #+#             */
-/*   Updated: 2024/09/23 19:13:57 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/01 17:53:56 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void window_gui(int x, int y, t_texture *window){
-    put_image(window, x,y, 1);
-    
-    t_string str = {0};
-    str.str = "WHAT IS ... ?";
-    str.color = 0x7dd3fc;
-    str.size = 1;
-    str.x = x + 90;
-    str.y = y + 10;
+static void	window_gui(int x, int y, t_texture *window)
+{
+	t_string	str;
+	char		*streak_str;
 
-    render_string(&str);    
-
-
-    char *streak_str = ft_itoa(player()->streak);
-    char *str2 = ft_strjoin("Streak: ", streak_str);
-
-    t_string streak = {0};
-    streak.str = str2;
-    streak.color = 0xfb7185;
-    streak.size = 0.5;
-    streak.x = x + 220;
-    streak.y = y + 50;
-
-    render_string(&streak);  
-    ft_free(streak_str);
-    ft_free(str2);  
+	put_image(window, x, y, 1);
+    put_string("WHAT IS ... ?", x + 90, y + 10, 0x7dd3fc, 1);
+	str = (t_string){0};
+	streak_str = ft_itoa(player()->streak);
+	char *temp = ft_strjoin("Streak: ", streak_str);
+    put_string(temp, x + 220, y + 50, 0xfb7185, 0.5);
+	ft_free(streak_str);
+	ft_free(temp);
 }
 
-void *empty(void *){
-    return NULL;
-}
-
-void select_math(void *arg){
-    int num = (int)arg;
-    t_player *p = player();
-
-    p->math_selected = num; 
+static void	select_math(void *arg)
+{
+	player()->math_selected = (int)arg;
 }
 
 static void choices(int x, int y){
@@ -67,7 +48,6 @@ static void choices(int x, int y){
         button.y = y + 200;
         button.size = 2;
         button.is_default = true;
-        button.hover = &empty;
         button.function = &select_math;
         button.arg = p->random[i];
         add_button(&button);
@@ -92,7 +72,6 @@ static void choices(int x, int y){
         ft_free(num);
         i++;
     }
-
 }
 
 void math_gui()

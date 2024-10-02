@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:46:56 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 20:15:38 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/01 16:27:10 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ void	handle_movement(t_player *p)
 	speed = p->speed;
 	if (p->sprint)
 		speed += SPRINTBONUS;
+	if (p->slide)
+	{
+		speed += 300;
+		if (p->z > 0.3)
+			p->z -= 0.05;
+	}
+	else if (p->z < 0.5)
+		p->z += 0.01;
 	if (p->btn_w || p->btn_s)
 	{
 		if (p->btn_s)
@@ -58,6 +66,8 @@ void	handle_movement(t_player *p)
 		try_move(speed * cos_angle, 0);
 		is_moving = true;
 	}
+	else
+		p->sprint = false;
 	handle_movement_con(p, is_moving, speed);
 }
 
@@ -96,6 +106,10 @@ void	handle_jumping(t_player *p)
 	{
 		p->z += p->jump_speed * c->delta_time;
 		p->jump_speed -= GRAVITY * c->delta_time;
+		if (p->slide)
+		{
+			p->slide = false;
+		}
 	}
 	else if (p->jump_speed < 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:52:13 by escura            #+#    #+#             */
-/*   Updated: 2024/09/23 16:48:51 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/01 15:01:49 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,12 @@ int gen_total_amount()
     t_generator *gen = p->store->generators;
     int total = 0;
 
+    int x = 0;
     while(gen){
         total += (gen->add_money / 5) * gen->speed;
         gen = gen->next;
+        x++;
     }
-
+    
     return total;
 }
