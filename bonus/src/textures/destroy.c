@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   destroy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 18:36:08 by escura            #+#    #+#             */
-/*   Updated: 2024/09/26 19:14:22 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 13:57:07 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,8 @@ static void	destroy_textures_multiple(t_textures *t)
 	int	i;
 
 	i = 0;
-	while (i < 328){
+	while (i < 328)
 		destroy_texture(&(t->items[i++]));
-	}
 	i = 0;
 	while (i < 32)
 		destroy_texture(&(t->ui->keys[i++]));

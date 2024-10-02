@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keyup.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:21:05 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 16:27:52 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 15:52:44 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ static void	handle_movement_controlls(int keycode, t_player *p)
 
 static void	handle_interaction_controlls(int keycode, t_player *p)
 {
-	if (keycode == F)
-		p->interact = false;
+	// if (keycode == F)
+	// 	p->interact = false;
 	if (keycode == I)
 		p->spawn = false;
 	if (keycode == O)
