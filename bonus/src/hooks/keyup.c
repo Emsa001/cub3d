@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:21:05 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 15:55:37 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:44:38 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ static void	handle_movement_controlls(int keycode, t_player *p)
 
 static void	handle_interaction_controlls(int keycode, t_player *p)
 {
-	// if (keycode == F)
-	// 	p->interact = false;
 	if (keycode == I)
 		p->spawn = false;
 	if (keycode == O)

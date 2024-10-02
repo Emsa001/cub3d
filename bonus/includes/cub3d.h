@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:38:37 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 18:45:34 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -366,5 +366,6 @@ void					set_paused(bool paused);
 void					math_gui(void);
 bool					check_if_point_is_on_line(t_block line, float px,
 							float py);
+
 
 #endif
