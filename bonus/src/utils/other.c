@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 16:47:44 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 19:17:16 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 00:09:35 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,18 @@ bool	check_if_point_is_on_line(t_block line, float px, float py)
 //     return (true);
 // return (false);
 
-
-int get_pixel_from_image(t_texture *t, int x, int y)
+int	get_pixel_from_image(t_texture *t, int x, int y)
 {
-    if (t == NULL || t->data == NULL) {
-        return 0;
-    }
+	char	*pixel;
 
-    x = x % t->width;
-    y = y % t->height;
-
-    if (x >= 0 && x < t->width && y >= 0 && y < t->height) {
-        char *pixel = t->data + (y * t->size_line + x * (t->bpp / 8));
-        return *(int *)pixel;
-    }
-    return 0;
+	if (t == NULL || t->data == NULL)
+		return (0);
+	x = x % t->width;
+	y = y % t->height;
+	if (x >= 0 && x < t->width && y >= 0 && y < t->height)
+	{
+		pixel = t->data + (y * t->size_line + x * (t->bpp / 8));
+		return (*(int *)pixel);
+	}
+	return (0);
 }

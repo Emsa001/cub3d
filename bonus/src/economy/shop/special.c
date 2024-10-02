@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:06:59 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:22:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 22:51:06 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	is_correct(int *arg)
 	t_player *const	p = player();
 
 	p->gui = NONE;
+	set_paused(false);
 	str = (t_string){0};
 	str.color = 0x00FF00;
 	str.size = 2;
@@ -63,6 +64,7 @@ static void	activate_special_timer(void *arg)
 	location->x = CENTER_WIDTH - 32;
 	location->y = y - 200;
 	string_timer(3000, location);
+	set_paused(true);
 	ft_wait(3000, &is_correct, arg);
 }
 
@@ -109,7 +111,7 @@ void	special_offer(int x, int y)
 		button.y = y + 160 + i * t->ui->button->height * 3.2;
 		button.width = t->ui->button->width * 3.2;
 		button.height = t->ui->button->height * 3.2;
-		button.function = &activate_special;
+		button.left_click = &activate_special;
 		button.hover = &shop_item_hover;
 		button.arg = prices[i];
 		button.item_id = p->store->math[i];

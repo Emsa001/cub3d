@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:13:59 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:13:59 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 23:03:26 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	add_to_functions_queue(t_async *async)
 
 	manager = get_manager();
 	pthread_mutex_lock(&manager->functions_queue_mutex);
-	new = (t_function *)calloc(1, sizeof(t_function));
+	new = (t_function *)malloc(sizeof(t_function));
 	tmp = manager->functions_queue;
 	new->func = async->end_main;
 	new->arg = async->arg;

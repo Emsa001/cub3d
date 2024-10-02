@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:18:14 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:35:10 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 22:51:06 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	hud_inventory_con(t_player *p, int i, int x, int y)
 		button.y = y + 25 + (i / 4) * 70;
 		button.width = 64;
 		button.height = 64;
-		button.function = &unequip;
+		button.left_click = &unequip;
 		button.arg = (void *)(intptr_t)i;
 		button.hover = &item_tooltip;
 		button.item_id = p->equipped[i];
@@ -64,7 +64,7 @@ static void	open_inventory_con(t_player *p, int i, int x, int y)
 		button.y = y + 25 + (i / 3) * 70;
 		button.width = 64;
 		button.height = 64;
-		button.function = &use_item;
+		button.left_click = &use_item;
 		button.hover = &item_tooltip;
 		button.arg = (void *)(intptr_t)i;
 		button.item_id = p->inventory[i];

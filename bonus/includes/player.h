@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:46:00 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 22:50:43 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ typedef struct s_button
 	int						height;
 	float					size;
 
-	void					(*function)(void *);
+	void					(*left_click)(void *);
+	void					(*right_click)(void *);
 	void					(*hover)(void *);
 	void					*arg;
 	int						item_id;

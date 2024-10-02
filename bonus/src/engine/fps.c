@@ -3,60 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   fps.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:24:07 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 20:21:06 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/02 22:39:37 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <time.h>
 
-static double last_time = 0.0;
-static int frame_count = 0;
-static double fps = 0.0;
+static double	get_time_seconds(void)
+{
+	struct timespec	ts;
 
-double get_time_seconds() {
-    struct timespec ts;
-    if (clock_gettime(CLOCK_MONOTONIC, &ts) == -1) {
-        perror("clock_gettime");
-        return 0.0;
-    }
-    return ts.tv_sec + ts.tv_nsec / 1e9;
+	if (clock_gettime(CLOCK_MONOTONIC, &ts) == -1)
+	{
+		printf("TIME ERROR clock_gettime\n");
+		return (0.0);
+	}
+	return (ts.tv_sec + ts.tv_nsec / 1e9);
 }
 
-double fps_update_time = 0;
-
-void update_fps(void) 
+void	update_fps(void)
 {
-    const t_render *r = render();
-    double current_time = get_time_seconds();
-    
-    // Calculate delta time per frame
-    cube()->delta_time = current_time - last_time;
-    last_time = current_time;
+	const double	current_time = get_time_seconds();
+	char			*fps_str;
+	t_render *const	r = render();
 
-    frame_count++;
-
-    // Update FPS every second (or other interval)
-    if (current_time - fps_update_time >= 1.0) {
-        fps = frame_count / (current_time - fps_update_time);
-        fps_update_time = current_time;
-        frame_count = 0;
-    }
-
-    // Convert FPS to string and render it on screen
-    char *fps_str = ft_itoa((int)fps);
-
-    t_string str = {0};
-    str.str = fps_str;
-    str.color = 0xFFFFFF;
-    str.size = 0.5;
-    str.x = WIDTH - 50;
-    str.y = 30;
-
-    render_string(&str);
-
-    ft_free(fps_str);
+	cube()->delta_time = current_time - r->last_time;
+	r->last_time = current_time;
+	r->frame_count++;
+	if (current_time - r->fps_update_time >= 1.0)
+	{
+		r->fps = r->frame_count / (current_time - r->fps_update_time);
+		r->fps_update_time = current_time;
+		r->frame_count = 0;
+	}
+	fps_str = ft_itoa((int)r->fps);
+	put_string(fps_str, WIDTH - 60, 30, 0xFFFFFF);
+	ft_free(fps_str);
 }

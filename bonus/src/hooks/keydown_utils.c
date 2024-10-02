@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:44:54 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:45:46 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 22:24:59 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	handle_pause_controlls(int keycode, t_player *p, t_cube *c)
 {
-	if (keycode == ESC)
+	if (keycode == ESC && p->gui != MATH)
 	{
 		if (p->gui != NONE && p->gui != PAUSE)
 		{
@@ -22,12 +22,13 @@ bool	handle_pause_controlls(int keycode, t_player *p, t_cube *c)
 			return (false);
 		}
 		p->gui = NONE;
-		set_paused(!c->paused);
-	}
-	if (is_paused())
-	{
-		p->gui = PAUSE;
-		return (true);
+		if (is_paused())
+			set_paused(false);
+		else
+		{
+			p->gui = PAUSE;
+			set_paused(true);
+		}
 	}
 	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 02:30:25 by escura            #+#    #+#             */
-/*   Updated: 2024/09/26 02:33:39 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 22:51:06 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	resume_game(void)
 	c = cube();
 	p = player();
 	p->mouse_hook = true;
+	p->gui = NONE;
 	pthread_mutex_lock(&c->pause_mutex);
 	c->paused = false;
 	pthread_mutex_unlock(&c->pause_mutex);
@@ -74,7 +75,7 @@ void	exit_button(void)
 	button.y = y;
 	button.width = t->button->width;
 	button.height = t->button->height;
-	button.function = &exit_game_f;
+	button.left_click = &exit_game_f;
 	button.hover = &exit_hover;
 	button.arg = (void *)1;
 	button.is_default = false;

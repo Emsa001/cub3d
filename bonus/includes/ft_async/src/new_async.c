@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:14:01 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:14:01 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 23:02:59 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	add_to_list(t_async *async)
 	manager = async->manager;
 	pthread_mutex_lock(&manager->list_mutex);
 	node = manager->thread_list;
-	new_node = (t_async_list *)calloc(1, sizeof(t_async_list));
+	new_node = (t_async_list *)malloc(sizeof(t_async_list));
 	new_node->current = async;
 	new_node->next = NULL;
 	if (node == NULL)
@@ -49,7 +49,7 @@ t_async	*new_async(void)
 
 	manager = get_manager();
 	async = (t_async *)malloc(sizeof(t_async));
-	bzero(async, sizeof(t_async));
+	ft_bzero(async, sizeof(t_async));
 	async->id = -1;
 	async->manager = manager;
 	async->start = NULL;

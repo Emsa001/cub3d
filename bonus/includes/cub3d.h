@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 19:29:39 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 00:20:55 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,13 @@ typedef struct s_render
 	int					mouse_x;
 	int					mouse_y;
 
+	double last_time;
+	int frame_count;
+	double fps;
+	double fps_update_time;
+
+	int quaility;
+
 	t_image				*image_queue;
 	t_string			*string_queue;
 	t_functions			*functions_queue;
@@ -162,7 +169,7 @@ typedef struct s_render
 	pthread_mutex_t		string_queue_mutex;
 	pthread_mutex_t		image_queue_mutex;
 	pthread_mutex_t		functions_queue_mutex;
-	pthread_mutex_t		put_pixel_mutex;
+	pthread_mutex_t 	quality_mutex;
 }						t_render;
 
 typedef struct s_float
@@ -170,6 +177,15 @@ typedef struct s_float
 	float				x;
 	float				y;
 }						t_float;
+
+typedef struct s_string_params
+{
+    int char_index;
+    int x;
+    int y;
+    int color;
+    float size;
+} t_string_params;
 
 typedef struct s_draw
 {
@@ -210,8 +226,7 @@ typedef struct s_thread_params
 	t_render			*render;
 	t_player			*player;
 	t_textures			*textures;
-
-	pthread_mutex_t		*mutex;
+	pthread_t			thread_id;
 }						t_thread_params;
 
 typedef struct s_state
@@ -337,7 +352,6 @@ void					hide_mouse(void);
 
 void					item_button(t_button *button, float size);
 
-void					remove_image_queue(t_image **q);
 void					put_image_queue(t_render *r);
 
 void					put_string_queue(t_render *r);
@@ -359,6 +373,10 @@ void					set_paused(bool paused);
 void					math_gui(void);
 bool					check_if_point_is_on_line(t_block line, float px,
 							float py);
+void 					draw_background(t_string *s);
+
+int		get_quality(t_render *r);
+void	update_quality(t_render *r, int quality);
 
 
 #endif

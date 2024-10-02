@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:39:01 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 19:31:27 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 22:51:06 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	choice_button(int x, int y, int i)
 	button.y = y + 200;
 	button.size = 2;
 	button.is_default = true;
-	button.function = &select_math;
+	button.left_click = &select_math;
 	button.arg = p->random[i];
 	add_button(&button);
 	if (p->hover != NULL && p->hover->x == button.x && p->hover->y == button.y

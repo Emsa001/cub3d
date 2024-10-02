@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:37:57 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 00:21:13 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -365,7 +365,8 @@ void	draw_line(t_draw draw, t_thread_params *params)
 		draw_generator_top(&draw, params, draw.angle);
 		draw_generator(&draw, params, draw.tex_x, draw.angle);
 	}
-	int scale = draw.start_x + WIDTH_SCALE;
+
+	int scale = draw.start_x + get_quality(params->render);
 	while (draw.start_x < scale && draw.start_x < params->end)
 	{
 		put_line(draw, params);

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:46:59 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:30:02 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 22:51:06 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	portal_offer(int x, int y)
 	button.y = y + 360;
 	button.width = t->ui->button->width * 5 + 25;
 	button.height = t->ui->button->height * 3;
-	button.function = &power_portal;
+	button.left_click = &power_portal;
 	button.hover = &buy_portal_tooltip;
 	add_button(&button);
 	put_image(t->open_portal, button.x, button.y, 0.9);

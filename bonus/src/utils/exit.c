@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:52:35 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 19:21:39 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 00:09:44 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void	ft_error(char *str)
 	write(2, "Error: ", 7);
 	write(2, str, ft_strlen(str));
 	write(2, "\n", 1);
-	exit_game(1);
+	exit(1);
 }
 
-static void clean_image(t_render *r)
+static void	clean_image(t_render *r)
 {
-    mlx_destroy_image(r->mlx, r->img_ptr);
-    r->img_ptr = NULL;
+	mlx_destroy_image(r->mlx, r->img_ptr);
+	r->img_ptr = NULL;
 }
 
 void	destroy_sprite_image(t_sprite sprite)

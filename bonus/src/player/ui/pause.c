@@ -6,11 +6,48 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:30:48 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:22:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 00:28:04 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void change_quality(void *arg)
+{
+	int quality = (int)arg;
+	printf("Quality: %d\n", quality);
+	update_quality(render(), quality);
+}
+
+static void quality_hover(void *arg){
+	int quality = (int)arg;
+	if(quality == 20)
+		tooltip("Low Quality",0.45);
+	else if(quality == 5)
+		tooltip("Medium Quality",0.38);
+	else if(quality == 1)
+		tooltip("High Quality",0.42);
+}
+
+static void quality_settings(int x, int y)
+{
+	t_button button = {0};
+	button.x = x + 10;
+	button.y = y + 100;
+	button.is_default = true;
+	button.left_click = &change_quality;
+	button.hover = &quality_hover;
+	button.arg = 1;
+	add_button(&button);
+
+	button.y = y + 185;
+	button.arg = 5;
+	add_button(&button);
+
+	button.y = y + 270;
+	button.arg = 20;
+	add_button(&button);
+}
 
 static void	put_window(void)
 {
@@ -35,6 +72,7 @@ static void	put_window(void)
 	put_image(&(t->keys[1]), CENTER_WIDTH - 210, CENTER_HEIGHT + 150, 2.5);
 	render_string(&str);
 	exit_button();
+	quality_settings(x,y);
 }
 
 void	pause_game(void)
@@ -52,7 +90,7 @@ void	pause_game(void)
 	button.y = y;
 	button.width = t->play->width;
 	button.height = t->play->height;
-	button.function = &resume_game;
+	button.left_click = &resume_game;
 	button.hover = &pause_hover;
 	button.arg = NULL;
 	button.is_default = false;

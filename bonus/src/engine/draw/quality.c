@@ -1,37 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   start.c                                            :+:      :+:    :+:   */
+/*   quality.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 22:47:13 by escura           ###   ########.fr       */
+/*   Created: 2024/10/03 00:20:23 by escura            #+#    #+#             */
+/*   Updated: 2024/10/03 00:20:47 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	loading(void)
+int	get_quality(t_render *r)
 {
-	t_string	str;
+	int	quality;
 
-	str = (t_string){0};
-	str.str = "Loading...";
-	str.color = 0xFFFFFF;
-	str.size = 1;
-	str.x = CENTER_WIDTH - ft_strlen(str.str) * 8;
-	str.y = CENTER_HEIGHT - 20;
-	str.time = 10000;
-	render_string_async(&str);
+	pthread_mutex_lock(&r->quality_mutex);
+	quality = r->quaility;
+	pthread_mutex_unlock(&r->quality_mutex);
+	return (quality);
 }
 
-void	start_game(void)
+void	update_quality(t_render *r, int quality)
 {
-	const t_render	*r = render();
-
-	create_image(r, WIDTH, HEIGHT);
-	init_hooks();
-	mlx_loop_hook(r->mlx, render_scene_multithread, NULL);
-	mlx_loop(r->mlx);
+	pthread_mutex_lock(&r->quality_mutex);
+	r->quaility = quality;
+	pthread_mutex_unlock(&r->quality_mutex);
 }

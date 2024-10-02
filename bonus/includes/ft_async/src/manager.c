@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:14:05 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:14:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 23:03:17 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_async_manager	*get_manager(void)
 	if (manager == NULL)
 	{
 		manager = (t_async_manager *)malloc(sizeof(t_async_manager));
-		bzero(manager, sizeof(t_async_manager));
+		ft_bzero(manager, sizeof(t_async_manager));
 		manager->thread_list = NULL;
 		manager->thread_count = 0;
 		manager->stop_all = false;

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 19:27:23 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 17:24:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/02 23:38:54 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,11 @@ void	display_prize_message(int prize, int value)
 	string.time = 1000;
 	render_string_async(&string);
 	string.str = "You got";
-	string.size = 1;
-	string.x = CENTER_WIDTH - ft_strlen(string.str) * 8;
-	string.y = CENTER_HEIGHT - 200;
-	render_string_async(&string);
-	string.str = display_text;
 	string.size = 2;
 	string.x = CENTER_WIDTH - ft_strlen(string.str) * 20;
+	string.y = CENTER_HEIGHT - 250;
+	render_string_async(&string);
+	string.str = display_text;
 	string.y = CENTER_HEIGHT + 120;
 	render_string_async(&string);
 }
