@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_sprites.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:24:21 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/01 12:35:33 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:48:14 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ t_sprite	get_sprite(char *path_file, int frames, float x, float y)
 	t_texture	**s_t;
 	t_sprite	sprite;
 	int			i;
-	char		*path;
-	char		*temp;
 
 	s_t = ft_malloc(sizeof(t_texture) * frames);
 	i = 0;

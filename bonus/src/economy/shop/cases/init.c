@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 19:27:50 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 22:51:06 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:57:34 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_cases(int x, int y)
 	i = 0;
 	while (i < 3)
 	{
+		button = (t_button){0};
 		button.x = x + 315 + (i % 3) * 140;
 		button.y = y + 160 + (i / 3) * 140;
 		button.width = 128;

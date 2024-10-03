@@ -6,27 +6,29 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:46:59 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 22:51:06 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:51:48 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	opening(void)
+static void	opening(void *arg)
 {
 	open_portal(cube()->next_portal);
+	(void)arg;
 }
 
-void	buy_portal_tooltip(void)
+static void	buy_portal_tooltip(void *arg)
 {
 	tooltip("10000 $", 0.4);
+	(void)arg;
 }
 
 static void	power_portal_info(int time)
 {
-	t_string		str;
-	t_image			img;
-	const t_texture	*t = textures()->ui->button_long;
+	t_string			str;
+	t_image				img;
+	t_texture *const	t = textures()->ui->button_long;
 	int				i;
 
 	str = (t_string){0};
@@ -51,7 +53,7 @@ static void	power_portal_info(int time)
 	}
 }
 
-static void	power_portal(void)
+static void	power_portal(void *arg)
 {
 	const int			time = 1000;
 	t_location *const	loc = ft_calloc(1, sizeof(t_location));
@@ -66,13 +68,13 @@ static void	power_portal(void)
 	ft_wait(time, &opening, NULL);
 	add_money(-10000);
 	(cube()->next_portal)--;
+	(void)arg;
 }
 
 void	portal_offer(int x, int y)
 {
 	const t_cube		*c = cube();
 	const t_textures	*t = textures();
-	const t_player		*p = player();
 	t_button			button;
 
 	if (c->next_portal == 0)

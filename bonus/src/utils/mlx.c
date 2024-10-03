@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:35:04 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 18:46:21 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 17:55:53 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	put_pixel(int x, int y, int color, t_render *r)
 {
 	int	index;
 
-	if (x >= WIDTH || y >= HEIGHT || x < 0 || y < 0 || r->img_ptr == NULL)
+	if (x < 0 || y < 0 || r->img_ptr == NULL)
 		return ;
 	index = y * r->size_line + x * r->bpp / 8;
 	r->data[index] = color & 0xFF;

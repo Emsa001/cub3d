@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movement.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:53 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 20:14:34 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:17:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	move_player(void)
 	sin_angle = sin(p->angle);
 	handle_forward_backward_movement(p, cos_angle, sin_angle);
 	handle_strafe_movement(p);
-	// handle_rotation(p);
+	handle_rotation(p);
 	p->x = p->x_px / BLOCK_SIZE;
 	p->y = p->y_px / BLOCK_SIZE;
 	p->x_dir = cos(p->angle);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:33:00 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/01 13:07:48 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:48:37 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,13 @@ t_sprite	*init_map_sprites(t_map *map_info, char **map)
 	sprites[k].width = -1;
 	sprites[k].height = -1;
 	sprites[k].type = '\0';
+	(void)map_info;
 	return (sprites);
 }
 
 t_sprite	*init_map_facing(char **map)
 {
 	t_sprite	*sprites;
-	int			i;
-	int			j;
 	int			k;
 
 	sprites = ft_malloc(sizeof(t_sprite));
@@ -86,5 +85,7 @@ t_sprite	*init_map_facing(char **map)
 	sprites[k].width = -1;
 	sprites[k].height = -1;
 	sprites[k].type = '\0';
+
+	(void)map;
 	return (sprites);
 }

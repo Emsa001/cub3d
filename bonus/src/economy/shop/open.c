@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:22:47 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 22:51:06 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:21:57 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ static void	store_window(int x, int y)
 	render_string(&str);
 }
 
-static void	*buy_item(void *arg)
+static void buy_item(void *arg)
 {
-	const int	price = (int)arg;
+	const int	price = (intptr_t)arg;
 	int			i;
 
 	if (price > money())
 	{
 		printf("Not enough money\n");
-		return (NULL);
+		return;
 	}
 	i = 0;
 	while (i < 9)
@@ -44,17 +44,17 @@ static void	*buy_item(void *arg)
 		{
 			add_money(-price);
 			player()->inventory[i] = player()->hover->item_id;
-			return (NULL);
+			return ;
 		}
 		i++;
 	}
 	printf("Inventory full\n");
-	return (NULL);
 }
 
 static void	init_shop_items(int x, int y)
 {
-	t_button	button;
+	t_player *const	p = player();
+	t_button		button;
 	int			i;
 
 	i = 0;
@@ -69,8 +69,8 @@ static void	init_shop_items(int x, int y)
 			button.height = 64;
 			button.left_click = &buy_item;
 			button.hover = &shop_item_hover;
-			button.arg = player()->store->prices[i];
-			button.item_id = player()->store->items[i];
+			button.arg = (void *)(intptr_t)(p->store->prices[i]);
+			button.item_id = p->store->items[i];
 			add_button(&button);
 			item_button(&button, 0.8);
 		}

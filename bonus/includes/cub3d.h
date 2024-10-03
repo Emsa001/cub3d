@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 00:20:55 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:25:12 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -377,6 +377,6 @@ void 					draw_background(t_string *s);
 
 int		get_quality(t_render *r);
 void	update_quality(t_render *r, int quality);
-
+float	ft_float_atoi(char *str);
 
 #endif

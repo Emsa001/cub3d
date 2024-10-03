@@ -6,13 +6,13 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 02:30:25 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 22:51:06 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:09:54 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	resume_game(void)
+void	resume_game(void *arg)
 {
 	t_cube		*c;
 	t_player	*p;
@@ -24,6 +24,8 @@ void	resume_game(void)
 	pthread_mutex_lock(&c->pause_mutex);
 	c->paused = false;
 	pthread_mutex_unlock(&c->pause_mutex);
+
+	(void)arg;
 }
 
 void	pause_hover(void *arg)
@@ -37,9 +39,12 @@ void	pause_hover(void *arg)
 			- t->play_hover->height) / 2;
 
 	put_image(t->play_hover, new_x, new_y, 1.1);
+
+
+	(void)arg;
 }
 
-void	exit_hover(void *arg)
+static void	exit_hover(void *arg)
 {
 	const t_uitextures	*t = textures()->ui;
 	const int			x = CENTER_WIDTH + 205;
@@ -53,9 +58,11 @@ void	exit_hover(void *arg)
 	change_image_color(t->home, 0xE52554);
 	put_image(t->home, CENTER_WIDTH + 218, CENTER_HEIGHT + 118, 1.1);
 	tooltip("Exit :(", 0.5);
+
+	(void)arg;
 }
 
-void	exit_game_f(void *arg)
+static void	exit_game_f(void *arg)
 {
 	(void)arg;
 	exit_game(0);

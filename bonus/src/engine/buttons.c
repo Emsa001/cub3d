@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:16:47 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 23:08:59 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:39:21 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static void	new_button_node(t_button *button)
 
 void	add_button(t_button *button)
 {
-	const t_texture	*button_t = textures()->ui->button;
+	t_texture *const	button_t = textures()->ui->button;
 
 	if (button->is_default == true)
 	{

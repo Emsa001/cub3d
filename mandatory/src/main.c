@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/27 18:35:03 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:17:46 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	check_format(char *map)
 
 	len = ft_strlen(map);
 	if (len <= 4 || map[len - 1] != 'b' || map[len - 2] != 'u' || map[len
-		- 3] != 'c' || map[len - 4] != '.')
+			- 3] != 'c' || map[len - 4] != '.')
 	{
 		printf(RED "Error\n" RESET);
 		printf("Invalid map format\n");

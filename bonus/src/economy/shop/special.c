@@ -6,13 +6,13 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:06:59 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 22:51:06 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:19:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	is_correct_true(t_player *p, int *arg, t_string str)
+static void	is_correct_true(t_player *p, int arg, t_string str)
 {
 	int	multiplier;
 
@@ -23,11 +23,11 @@ static void	is_correct_true(t_player *p, int *arg, t_string str)
 	multiplier = p->streak;
 	if (multiplier > 5)
 		multiplier = 5;
-	add_money((int)(arg)*multiplier);
+	add_money(arg*multiplier);
 	render_string_async(&str);
 }
 
-static void	is_correct(int *arg)
+static void	is_correct(void *arg)
 {
 	t_string		str;
 	t_player *const	p = player();
@@ -43,7 +43,7 @@ static void	is_correct(int *arg)
 	str.background = 0x000001;
 	str.padding = 10;
 	if (p->math_selected == p->math[0] + p->math[1])
-		return (is_correct_true(p, arg, str));
+		return (is_correct_true(p, (intptr_t)arg, str));
 	str.color = 0xFF0000;
 	str.str = "WRONG!";
 	render_string_async(&str);
@@ -74,12 +74,12 @@ void	activate_special(void *arg)
 	const int	rand_choice = random_int(0, 2);
 
 	p = player();
-	if (p->money < (int)arg)
+	if (p->money < (intptr_t)arg)
 	{
 		printf("Not enough money!");
 		return ;
 	}
-	add_money(-(int)arg);
+	add_money(-(intptr_t)arg);
 	p->gui = MATH;
 	p->math[0] = random_int(1, 100);
 	p->math[1] = random_int(1, 100);
@@ -113,7 +113,7 @@ void	special_offer(int x, int y)
 		button.height = t->ui->button->height * 3.2;
 		button.left_click = &activate_special;
 		button.hover = &shop_item_hover;
-		button.arg = prices[i];
+		button.arg = (void *)(intptr_t)prices[i];
 		button.item_id = p->store->math[i];
 		add_button(&button);
 		item_button(&button, 3.2);

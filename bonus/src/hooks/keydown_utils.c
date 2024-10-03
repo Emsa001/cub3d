@@ -6,13 +6,13 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:44:54 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 22:24:59 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:44:00 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool	handle_pause_controlls(int keycode, t_player *p, t_cube *c)
+bool	handle_pause_controlls(int keycode, t_player *p)
 {
 	if (keycode == ESC && p->gui != MATH)
 	{
@@ -56,10 +56,11 @@ bool	handle_gui_controlls(int keycode, t_player *p)
 	return (false);
 }
 
-void	stop_slide(void)
+void	stop_slide(void *arg)
 {
 	t_player	*p;
 
 	p = player();
 	p->slide = false;
+	(void)arg;
 }

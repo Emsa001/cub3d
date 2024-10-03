@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 18:16:29 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:21:44 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:45:53 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	item_tooltip(void *arg)
 	index = p->hover->item_id;
 	item = &cube()->items[index];
 	tooltip(item->name, item->font_size);
+	(void)arg;
 }
 
 t_item	*create_item(const t_fullitem *props)

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:39:01 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 22:51:06 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:21:26 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ static void	window_gui(int x, int y, t_texture *window)
 
 static void	select_math(void *arg)
 {
-	player()->math_selected = (int)arg;
+	player()->math_selected = (intptr_t)arg;
 }
 
 static void	choice_button(int x, int y, int i)
 {
-	const t_player	*p = player();
+	t_player *const	p = player();
 	t_button		button;
 
 	button = (t_button){0};
@@ -49,7 +49,7 @@ static void	choice_button(int x, int y, int i)
 	button.size = 2;
 	button.is_default = true;
 	button.left_click = &select_math;
-	button.arg = p->random[i];
+	button.arg = (void *)(intptr_t)(p->random[i]);
 	add_button(&button);
 	if (p->hover != NULL && p->hover->x == button.x && p->hover->y == button.y
 		|| p->math_selected == p->random[i])
@@ -88,9 +88,9 @@ static void	choices(int x, int y)
 
 void	math_gui(void)
 {
-	const t_texture	*window = textures()->ui->window;
-	const int		x = CENTER_WIDTH - window->width / 2;
-	const int		y = CENTER_HEIGHT - window->height / 2;
+	t_texture *const	window = textures()->ui->window;
+	const int			x = CENTER_WIDTH - window->width / 2;
+	const int			y = CENTER_HEIGHT - window->height / 2;
 
 	player()->mouse_hook = false;
 	window_gui(x, y, window);

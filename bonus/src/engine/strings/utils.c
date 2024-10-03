@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 23:29:41 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 23:59:51 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:14:36 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ void	string_timer(int time, t_location *location)
 
 void	interaction_notify(char *str)
 {
-	const t_texture	*t = textures()->ui->button_long;
-	const int		length = ft_strlen(str);
-	int				i;
-	t_string		notify;
+	t_texture *const	t = textures()->ui->button_long;
+	const int			length = ft_strlen(str);
+	int					i;
+	t_string			notify;
 
 	notify = (t_string){0};
 	notify.str = str;

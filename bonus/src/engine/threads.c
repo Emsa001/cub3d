@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:32:21 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 00:21:03 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:38:58 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	get_thread_color(int i)
 
 static void	*draw_lines_thread(void *arg)
 {
-	const t_thread_params	*params = (t_thread_params *)arg;
+	t_thread_params *const	params = (t_thread_params *)arg;
 	t_draw					draw;
 	int						i;
 	float					fraction;

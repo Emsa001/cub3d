@@ -55,6 +55,7 @@ void	draw_generator(t_draw *draw, t_thread_params *params, int tex_x,
 		tex_y += step;
 		start_y++;
 	}
+	(void)angle;
 }
 
 void	draw_generator_top(t_draw *draw, t_thread_params *params, float angle)

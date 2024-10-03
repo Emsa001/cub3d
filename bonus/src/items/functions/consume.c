@@ -6,14 +6,14 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 19:21:03 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 16:04:09 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:12:12 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "items.h"
 
-void	*consume_end(void *arg)
+void	consume_end(void *arg)
 {
 	t_itemprops	*props;
 
@@ -22,7 +22,6 @@ void	*consume_end(void *arg)
 	*(props->intvar) -= 500;
 	player()->effects--;
 	ft_free(props);
-	return (NULL);
 }
 
 void	consume(t_itemprops props)

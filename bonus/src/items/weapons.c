@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 18:59:10 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 16:10:34 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:49:09 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	init_weapons(t_cube *c)
 		{"Axe",				0.5, 24,	WEAPON, 10, 0, NULL, &equip, NULL}, \
 		{"Torch",			0.5, 33,	WEAPON, 10, 0, NULL, &equip, &place}, \
 		{"Dagger",			0.4, 282,	WEAPON, 10, 0, NULL, &equip, NULL}, \
-		NULL
+		{NULL, 0, 0, 0, 0, 0, NULL, NULL, NULL}
 	};
 	int					i;
 

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:20:57 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 00:07:46 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:42:40 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	init_game(char *map)
 
 int	main(int argc, char **argv)
 {
+	(void)argc;
 	check_params(argv);
 	ft_alloc_init();
 	init_game(argv[1]);

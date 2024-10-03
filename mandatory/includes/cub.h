@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 13:05:39 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/27 18:26:39 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:16:29 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@
 
 # define T_SIZE 64
 # define BLOCK_SIZE 64
-# define WIDTH 400
-# define HEIGHT 300
+# define WIDTH 1920
+# define HEIGHT 1080
 // # define CENTER_WIDTH (WIDTH / 2)
 // # define CENTER_HEIGHT (HEIGHT / 2)
 # define CENTER_WIDTH 960

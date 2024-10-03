@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 19:26:21 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:22:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:05:09 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	start_cooldown(t_async *async)
 
 static bool	cooldown(void)
 {
-	const t_store	*store = player()->store;
+	t_store	*const	store = player()->store;
 	t_async			*async;
 
 	pthread_mutex_lock(&store->case_mutex);

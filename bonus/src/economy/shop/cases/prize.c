@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 19:27:23 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 23:38:54 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:04:43 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	display_prize_message(int prize, int value)
 
 t_texture	*determine_prize_texture(int prize)
 {
-	const t_textures	*t = textures();
+	t_textures *const	t = textures();
 	t_texture			*prize_texture;
 
 	prize_texture = &(t->items[66]);

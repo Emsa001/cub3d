@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 22:05:17 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:23:03 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:50:59 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static char	*get_path(char *path, int i)
 t_texture	**init_textures_array(char *path, void *mlx)
 {
 	t_texture	**textures;
-	char		*tmp2;
 	int			i;
 	char		*p;
 
@@ -52,6 +51,7 @@ t_texture	**init_textures_array(char *path, void *mlx)
 		ft_free(p);
 		i++;
 	}
+	(void)mlx;
 	return (textures);
 }
 

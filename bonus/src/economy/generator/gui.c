@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 17:24:31 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 19:29:54 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:22:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ static void	upgrades(int x, int y, t_generator *gen)
 
 void	generator_gui(void)
 {
-	const t_generator	*gen = player()->generator;
-	const t_texture		*window = textures()->ui->window;
+	t_generator *const	gen = player()->generator;
+	t_texture *const	window = textures()->ui->window;
 	const int			x = CENTER_WIDTH - window->width / 2;
 	const int			y = CENTER_HEIGHT - window->height / 2;
 

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:46:17 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:44:08 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	key_down(int keycode)
 	t_player	*p;
 
 	p = player();
-	if (handle_pause_controlls(keycode, p, cube()))
+	if (handle_pause_controlls(keycode, p))
 		return (0);
 	if (handle_gui_controlls(keycode, p))
 		return (0);

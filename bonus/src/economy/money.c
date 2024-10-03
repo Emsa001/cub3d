@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 21:09:25 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 23:57:42 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:40:20 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	draw_background_money(void)
 {
-	const t_textures	*t = textures();
+	t_textures	*const	t = textures();
 	int					i;
 
 	i = 0;
@@ -31,8 +31,6 @@ static void	draw_background_money(void)
 
 void	hud_currency(void)
 {
-	const t_player	*p = player();
-	const t_render	*r = render();
 	char			*money_srt;
 	char			*add;
 

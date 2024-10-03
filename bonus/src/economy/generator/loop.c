@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:24:21 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:22:32 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:51:07 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	generators(void)
 {
 	t_player			*p;
-	const t_cube		*c = cube();
 	t_location *const	find = is_nearby('G');
 
 	p = player();

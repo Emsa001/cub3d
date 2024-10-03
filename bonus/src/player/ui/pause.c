@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:30:48 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 00:28:04 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:14:00 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static void change_quality(void *arg)
 {
-	int quality = (int)arg;
+	int quality = (intptr_t)arg;
 	printf("Quality: %d\n", quality);
 	update_quality(render(), quality);
 }
 
 static void quality_hover(void *arg){
-	int quality = (int)arg;
+	int quality = (intptr_t)arg;
 	if(quality == 20)
 		tooltip("Low Quality",0.45);
 	else if(quality == 5)
@@ -37,21 +37,21 @@ static void quality_settings(int x, int y)
 	button.is_default = true;
 	button.left_click = &change_quality;
 	button.hover = &quality_hover;
-	button.arg = 1;
+	button.arg = (void *)1;
 	add_button(&button);
 
 	button.y = y + 185;
-	button.arg = 5;
+	button.arg = (void *)5;
 	add_button(&button);
 
 	button.y = y + 270;
-	button.arg = 20;
+	button.arg = (void *)20;
 	add_button(&button);
 }
 
 static void	put_window(void)
 {
-	const t_uitextures	*t = textures()->ui;
+	t_uitextures *const	t = textures()->ui;
 	const int			x = CENTER_WIDTH - t->window->width / 2;
 	const int			y = CENTER_HEIGHT - t->window->height / 2;
 	t_string			str;

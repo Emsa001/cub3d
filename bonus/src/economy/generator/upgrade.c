@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 16:37:28 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 22:51:06 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:23:00 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ static void	upgrade_hover(void *arg)
 
 static void	upgrade_button(t_generator_upgrade *upgrade, int btn_x, int btn_y)
 {
-	const t_texture	*cover = progress_bar(1, PROGRESS_COVER);
-	const t_texture	*progress = progress_bar(*upgrade->level, PROGRESS_RED);
-	t_button		button;
+	t_texture *const	cover = progress_bar(1, PROGRESS_COVER);
+	t_texture *const	progress = progress_bar(*upgrade->level, PROGRESS_RED);
+	t_button			button;
 
 	if (!cover || !progress)
 		return ;
