@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 19:46:10 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/03 14:18:41 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:22:20 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,3 +48,4 @@ void	draw_sprite(t_draw *draw, t_thread_params *params)
 		while (--draw->f_count >= 0)
 			draw_sprites(draw, params, draw->facing[draw->f_count]);
 }
+

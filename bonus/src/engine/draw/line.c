@@ -6,42 +6,43 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 14:18:56 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:35:20 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_scene(t_draw *draw, t_thread_params *params)
+void	draw_ceiling(t_draw *draw, t_thread_params *params, int start_y)
 {
-	const t_player	*p = params->player;
-	float			step;
-	int				start_y;
-	int				end_y;
-	int				y;
-	int				color;
-	t_texture		*tex;
-	float			current_dist;
+	float		current_dist;
+	t_texture	*tex;
+	int			color;
 
-	color = 0;
-	draw->tex_y = get_check(&start_y, &end_y, &step, draw->wall_height);
-	y = 0;
-	while (y <= start_y)
+	while (start_y >= 0)
 	{
-		if (draw->colors[y] == 0)
+		if (draw->colors[start_y] == 0)
 		{
-			current_dist = view_current_distance(p, y, draw->angle);
-			tex = params->textures->ceiling[p->level];
+			current_dist = view_current_distance(params->player, start_y,
+					draw->angle);
+			tex = params->textures->ceiling[params->player->level];
 			color = get_texture_color(tex, current_dist, draw);
 			if (color <= 0)
 				color = 0;
-			draw->colors[y] = color;
+			draw->colors[start_y] = color;
 		}
-		y++;
+		start_y--;
 	}
-	while (y <= end_y)
+}
+
+void	draw_wall(t_draw *draw, t_thread_params *params, int start_y, int end_y)
+{
+	int		color;
+	float	step;
+
+	step = ((float)T_SIZE) / draw->wall_height;
+	while (start_y <= end_y)
 	{
-		if (draw->colors[y] == 0)
+		if (draw->colors[start_y] == 0)
 		{
 			color = get_pixel_from_image(draw->texture, draw->tex_x,
 					draw->tex_y);
@@ -50,77 +51,47 @@ void	draw_scene(t_draw *draw, t_thread_params *params)
 			if (color <= 0)
 				color = 0;
 			draw->tex_y += step;
-			draw->colors[y] = color;
+			draw->colors[start_y] = color;
 		}
-		y++;
+		start_y++;
 	}
-	while (y < HEIGHT)
+}
+
+void	draw_floor(t_draw *draw, t_thread_params *params, int end_y)
+{
+	float		current_dist;
+	t_texture	*tex;
+	int			color;
+
+	while (end_y < HEIGHT)
 	{
-		if (draw->colors[y] == 0)
+		if (draw->colors[end_y] == 0)
 		{
-			current_dist = view_current_distance(p, y, draw->angle);
-			tex = params->textures->floor[p->level];
+			current_dist = view_current_distance(params->player, end_y,
+					draw->angle);
+			tex = params->textures->floor[params->player->level];
 			color = get_texture_color(tex, current_dist, draw);
 			if (color <= 0)
 				color = 0;
-			draw->colors[y] = color;
+			draw->colors[end_y] = color;
 		}
-		y++;
+		end_y++;
 	}
 }
 
-t_sprite_coords	*init_sprite_coords(int count)
+void	draw_scene(t_draw *draw, t_thread_params *params)
 {
-	t_sprite_coords	*sprites;
-	int				i;
+	float	step;
+	int		start_y;
+	int		end_y;
 
-	i = 0;
-	sprites = malloc(sizeof(t_sprite_coords) * count);
-	ft_bzero(sprites, sizeof(t_sprite_coords) * count);
-	while (i < count)
-	{
-		sprites[i].x = 0;
-		sprites[i].y = 0;
-		sprites[i].dist = 0;
-		sprites[i].height = 0;
-		sprites[i].tex_x = 0;
-		sprites[i].sprite_tex = NULL;
-		sprites[i].frames = 0;
-		i++;
-	}
-	return (sprites);
-}
-
-t_draw	init_draw(void)
-{
-	t_draw	draw;
-
-	draw.sprites = init_sprite_coords(cube()->map->sprite_count);
-	draw.facing = init_sprite_coords(100);
-	draw.s_count = 0;
-	draw.f_count = 0;
-	draw.x = player()->x_px;
-	draw.y = player()->y_px;
-	draw.is_sprite = false;
-	draw.first_x = 0;
-	draw.first_y = 0;
-	draw.last_x = 0;
-	draw.last_y = 0;
-	draw.wall_height = 0;
-	draw.height = 0;
-	draw.height_top = 0;
-	draw.start_x = 0;
-	draw.start_y = 0;
-	draw.tex_x = 0;
-	draw.tex_y = 0;
-	draw.angle = 0;
-	draw.dist = 0;
-	draw.generator_dist = 0;
-	draw.texture = NULL;
-	draw.cosangle = 0;
-	draw.sinangle = 0;
-	ft_bzero(draw.colors, (HEIGHT + 1) * sizeof(int));
-	return (draw);
+	draw->tex_y = get_check(&start_y, &end_y, &step, draw->wall_height);
+	// draw ceiling
+	draw_ceiling(draw, params, start_y);
+	// draw wall
+	draw_wall(draw, params, start_y, end_y);
+	// draw floor
+	draw_floor(draw, params, end_y);
 }
 
 void	draw_line(t_draw draw, t_thread_params *params)

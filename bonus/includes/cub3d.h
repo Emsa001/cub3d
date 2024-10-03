@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 14:18:28 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:28:02 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,32 +184,35 @@ typedef struct s_sprite_coords
 
 typedef struct s_draw
 {
+	// only walls
+	float				x;
+	float				y;
+	int					dist;
+	int					tex_x;
+	float 				tex_y;
 	float				angle;
 	float 				cosangle;
 	float 				sinangle;
-	float				x;
-	float				y;
+	t_texture			*texture;
+	float				wall_height;
+	int					colors[HEIGHT + 1];
+	// only generators
 	float				first_x;
 	float				first_y;
 	float				last_x;
 	float				last_y;
 	int					height;
 	int					height_top;
-	float				wall_height;
 	int					start_x;
 	int					start_y;
-	int					tex_x;
-	float 				tex_y;
-	int					dist;
 	int					generator_dist;
-	int					colors[HEIGHT + 1];
+	// only sprites
 	bool 				is_sprite;
 	bool				is_facing;
 	t_sprite_coords		*sprites;
 	t_sprite_coords		*facing;
 	int 				s_count;
 	int 				f_count;
-	t_texture			*texture;
 
 }						t_draw;
 
@@ -284,6 +287,7 @@ void					draw_scene(t_draw *draw, t_thread_params *params);
 int						darken_color_wall(int color, float factor, float wall_x,
 							float wall_y);
 
+t_draw	init_draw(void);
 void	direction(t_draw *draw, t_thread_params *params);
 void	put_line(t_draw draw, t_thread_params *params);
 bool	find_hitbox(t_draw *draw, t_cube *c);
