@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 19:25:20 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/02 23:57:15 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 10:24:56 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,14 @@ void	put_line(t_draw draw, t_thread_params *params)
 void get_sprite_coordinates(t_draw *draw, int i, int *iter)
 {
 	// i is the index of the sprite in the array
-	draw[0].sprites[i].x = draw->x;
-	draw[0].sprites[i].y = draw->y;
-	draw[0].sprites[i].dist = lane_distance(draw);
-	draw[0].sprites[i].height = (BLOCK_SIZE * HEIGHT) / draw->sprites[i].dist;
-	draw[0].sprites[i].tex_x = (int)draw->x % BLOCK_SIZE;
-	draw[0].is_sprite = true;
+	draw->sprites[(*iter)].x = draw->x;
+	draw->sprites[(*iter)].y = draw->y;
+	draw->sprites[(*iter)].dist = lane_distance(draw);
+	draw->sprites[(*iter)].height = (BLOCK_SIZE * HEIGHT) / draw->sprites[(*iter)].dist;
+	draw->sprites[(*iter)].tex_x = (int)draw->x % BLOCK_SIZE;
+	draw->sprites[(*iter)].sprite_tex = cube()->map->sprites[i].sprite_tex;
+	draw->sprites[(*iter)].frames = cube()->map->sprites[i].frames;
+	draw->is_sprite = true;
 	(*iter)++;
 }
 

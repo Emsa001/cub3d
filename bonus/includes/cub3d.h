@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 23:54:46 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 10:24:37 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,6 +178,8 @@ typedef struct s_sprite_coords
 	float				dist;
 	int					height;
 	int 				tex_x;
+	t_texture			**sprite_tex;
+	int frames;
 }						t_sprite_coords;
 
 typedef struct s_draw

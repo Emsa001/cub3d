@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 23:56:36 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 10:33:38 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,42 +36,51 @@ void	draw_scene(t_draw *draw, t_thread_params *params)
 	y = 0;
 	while (y <= wall_start_y)
 	{
-		float			current_dist;
-		current_dist = view_current_distance(p, y, draw->angle);
-		tex = params->textures->ceiling[p->level];
-		color = get_texture_color(tex, current_dist, draw);
-		if (color <= 0)
-			color = 0;
-		draw->colors[y] = color;
+		if(draw->colors[y] == 0)
+		{
+			float			current_dist;
+			current_dist = view_current_distance(p, y, draw->angle);
+			tex = params->textures->ceiling[p->level];
+			color = get_texture_color(tex, current_dist, draw);
+			if (color <= 0)
+				color = 0;
+			draw->colors[y] = color;
+		}
 		y++;
 	}
 	while (y <= wall_end_y)
 	{
-		color = get_pixel_from_image(draw->texture, draw->tex_x, draw->tex_y);
-		color = darken_color_wall(color, (float)draw->dist / 450, draw->x
-				/ BLOCK_SIZE, draw->y / BLOCK_SIZE);
-		if (color <= 0)
-			color = 0;
-		draw->tex_y += step;
-		draw->colors[y] = color;
+		if(draw->colors[y] == 0)
+		{
+			color = get_pixel_from_image(draw->texture, draw->tex_x, draw->tex_y);
+			color = darken_color_wall(color, (float)draw->dist / 450, draw->x
+					/ BLOCK_SIZE, draw->y / BLOCK_SIZE);
+			if (color <= 0)
+				color = 0;
+			draw->tex_y += step;
+			draw->colors[y] = color;
+		}
 		y++;
 	}
 	while (y < HEIGHT)
 	{
-		float			current_dist;
-		current_dist = view_current_distance(p, y, draw->angle);
-		tex = params->textures->floor[p->level];
-		color = get_texture_color(tex, current_dist, draw);
-		if (color <= 0)
-			color = 0;
-		draw->colors[y] = color;
+		if(draw->colors[y] == 0)
+		{
+			float			current_dist;
+			current_dist = view_current_distance(p, y, draw->angle);
+			tex = params->textures->floor[p->level];
+			color = get_texture_color(tex, current_dist, draw);
+			if (color <= 0)
+				color = 0;
+			draw->colors[y] = color;
+		}
 		y++;
 	}
 }
 
 void draw_sprites(t_draw *draw, t_thread_params *params, t_sprite_coords sprites)
 {
-	t_texture *tex = params->cube->map->sprites[0].sprite_tex[0];
+	t_texture *tex = sprites.sprite_tex[current_frame(sprites.frames)];
 	const t_player *p = params->player;
 	int start_y;
 	float tex_y = 0;
@@ -118,6 +127,8 @@ void init_sprite_coords(t_draw *draw)
 		sprites[i].dist = 0;
 		sprites[i].height = 0;
 		sprites[i].tex_x = 0;
+		sprites[i].sprite_tex = NULL;
+		sprites[i].frames = 0;
 		i++;
 	}
 	draw->sprites = sprites;
