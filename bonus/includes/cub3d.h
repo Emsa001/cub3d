@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 20:15:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 20:17:26 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@
 # define HEIGHT 1080
 # define CENTER_WIDTH WIDTH / 2 // TODO: norm error
 # define CENTER_HEIGHT HEIGHT / 2 // TODO: norm error
-# define WIDTH_SCALE 10
+# define WIDTH_SCALE 5
 
 # define CHAR_WIDTH 32
 # define CHAR_HEIGHT 32
