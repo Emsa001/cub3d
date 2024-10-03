@@ -6,15 +6,23 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 19:25:32 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 19:26:55 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include "./ft_async/includes/ft_async.h"
 # include "fcntl.h"
 # include "ft_destructor/ft_alloc.h"
+# include "items.h"
+# include "keyhooks.h"
+# include "libft.h"
+# include "map.h"
+# include "minimap.h"
+# include "mlx/mlx.h"
+# include "player.h"
 # include "textures.h"
 # include <X11/X.h>
 # include <X11/Xlib.h>
@@ -29,14 +37,6 @@
 # include <sys/time.h>
 # include <time.h>
 # include <unistd.h>
-# include "items.h"
-# include "keyhooks.h"
-# include "libft.h"
-# include "map.h"
-# include "minimap.h"
-# include "mlx/mlx.h"
-# include "player.h"
-# include "./ft_async/includes/ft_async.h"
 # include "economy.h"
 
 # define NONE -1
@@ -197,7 +197,7 @@ typedef struct s_string_params
     float size;
 } t_string_params;
 
-typedef struct s_draw
+typedef struct s_sprite_coords
 {
 	float				x;
 	float				y;

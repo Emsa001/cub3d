@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:33:00 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/03 18:48:37 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 19:33:11 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ t_sprite	*init_map_facing(char **map)
 	sprites[k].width = -1;
 	sprites[k].height = -1;
 	sprites[k].type = '\0';
-
 	(void)map;
 	return (sprites);
 }

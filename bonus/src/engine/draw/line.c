@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 19:19:52 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 19:29:41 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,9 @@ void	draw_line(t_draw draw, t_thread_params *params)
 		draw.y += draw.sinangle;
 	}
 	direction(&draw, params);
+	draw_scene(&draw, params);
 	draw_sprite(&draw, params);
 	draw_generators(&draw, params);
-	draw_scene(&draw, params);
 	scale = draw.start_x + WIDTH_SCALE;
 	while (draw.start_x < scale && draw.start_x < params->end)
 	{
