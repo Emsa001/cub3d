@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 11:58:00 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 14:18:28 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,9 +193,6 @@ typedef struct s_draw
 	float				first_y;
 	float				last_x;
 	float				last_y;
-	t_sprite_coords		*sprites;
-	bool 				is_sprite;
-	bool				is_facing;
 	int					height;
 	int					height_top;
 	float				wall_height;
@@ -206,6 +203,12 @@ typedef struct s_draw
 	int					dist;
 	int					generator_dist;
 	int					colors[HEIGHT + 1];
+	bool 				is_sprite;
+	bool				is_facing;
+	t_sprite_coords		*sprites;
+	t_sprite_coords		*facing;
+	int 				s_count;
+	int 				f_count;
 	t_texture			*texture;
 
 }						t_draw;
@@ -283,12 +286,11 @@ int						darken_color_wall(int color, float factor, float wall_x,
 
 void	direction(t_draw *draw, t_thread_params *params);
 void	put_line(t_draw draw, t_thread_params *params);
-bool	find_hitbox(t_draw *draw, t_cube *c, int *iter);
+bool	find_hitbox(t_draw *draw, t_cube *c);
+float	get_check(int *start_y, int *end_y, float *step, float height);
 
 void					draw_line(t_draw draw, t_thread_params *params);
-void					draw_wall(t_draw *draw, t_thread_params *params);
-void					draw_floor_and_ceiling(t_draw *draw,
-							t_thread_params *params);
+void	draw_sprite(t_draw *draw, t_thread_params *params);
 // generator
 void					draw_generator_top(t_draw *draw,
 							t_thread_params *params, float angle);
