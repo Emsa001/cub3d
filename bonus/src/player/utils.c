@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:44 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 13:59:01 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/02 22:24:39 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,18 @@ float	distance(float x1, float y1, float x2, float y2)
 	return (sqrtf((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)));
 }
 
-void	lane_distance(t_draw *draw)
+float	lane_distance(t_draw *draw)
 {
+	const float	player_angle = player()->angle;
 	const float	x2 = player()->x_px;
 	const float	y2 = player()->y_px;
-	const float	player_angle = player()->angle;
 	float		raw_distance;
 	float		adjusted_distance;
 
-	raw_distance = distance(draw->first_x, draw->first_y, x2, y2);
-	adjusted_distance = raw_distance * cos(player_angle - draw->angle);
-	draw->generator_dist = adjusted_distance;
-	draw->height_top = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
-	raw_distance = distance(draw->last_x, draw->last_y, x2, y2);
-	adjusted_distance = raw_distance * cos(player_angle - draw->angle);
-	draw->height = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
+
 	raw_distance = distance(draw->x, draw->y, x2, y2);
 	adjusted_distance = raw_distance * cos(player_angle - draw->angle);
-	draw->dist = adjusted_distance;
-	draw->wall_height = (BLOCK_SIZE * HEIGHT) / adjusted_distance;
+	return (adjusted_distance);
 }
 
 static void	init_cells(char *nearby_cells, int x, int y)
@@ -60,7 +53,7 @@ static t_location	*is_nearby1(int x, int y, int i)
 	t_location	*offsets;
 
 	offsets = (t_location[]){{0, 0}, {0, -1}, {0, 1}, {-1, 0}, {1, 0}, {-1, -1},
-	{1, -1}, {-1, 1}, {1, 1}};
+		{1, -1}, {-1, 1}, {1, 1}};
 	loc = ft_malloc(sizeof(t_location));
 	loc->x = x + offsets[i].x;
 	loc->y = y + offsets[i].y;

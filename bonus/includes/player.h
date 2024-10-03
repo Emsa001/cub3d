@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:40:10 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 18:44:04 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 19:24:09 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void						handle_mouse_rotate(int x, int y);
 void						handle_arrow_rotation(t_player *p);
 void						open_inventory(void);
 
-void						lane_distance(t_draw *draw);
+float						lane_distance(t_draw *draw);
 
 void						player_keydown(int keycode);
 void						player_keyup(int keycode);

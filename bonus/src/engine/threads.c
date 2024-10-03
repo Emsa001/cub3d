@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:32:21 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 18:38:58 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 19:21:18 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ static void	*draw_lines_thread(void *arg)
 		draw_line(draw, params);
 		i = i + get_quality(params->render);
 	}
+	free(draw.sprites);
+	free(draw.facing);
 	return (NULL);
 }
 

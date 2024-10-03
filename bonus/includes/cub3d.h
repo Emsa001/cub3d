@@ -6,23 +6,15 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 18:25:12 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 19:25:32 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "./ft_async/includes/ft_async.h"
 # include "fcntl.h"
 # include "ft_destructor/ft_alloc.h"
-# include "items.h"
-# include "keyhooks.h"
-# include "libft.h"
-# include "map.h"
-# include "minimap.h"
-# include "mlx/mlx.h"
-# include "player.h"
 # include "textures.h"
 # include <X11/X.h>
 # include <X11/Xlib.h>
@@ -37,6 +29,14 @@
 # include <sys/time.h>
 # include <time.h>
 # include <unistd.h>
+# include "items.h"
+# include "keyhooks.h"
+# include "libft.h"
+# include "map.h"
+# include "minimap.h"
+# include "mlx/mlx.h"
+# include "player.h"
+# include "./ft_async/includes/ft_async.h"
 # include "economy.h"
 
 # define NONE -1
@@ -73,11 +73,21 @@
 
 # define WALL '1'
 # define DOOR 'D'
+# define MAX_TORCHES 100
 
 # define M_PI 3.14159265358979323846
-# define NUM_THREADS 12
+# define NUM_THREADS 10
 
 typedef struct s_render	t_render;
+
+typedef struct s_line
+{
+	int			start_y;
+	float		tex_y;
+	int			end_y;
+	int			color;
+	float		step;
+}						t_line;
 
 typedef struct s_cube
 {
@@ -189,27 +199,56 @@ typedef struct s_string_params
 
 typedef struct s_draw
 {
-	float				angle;
 	float				x;
 	float				y;
+	float				dist;
+	int					height;
+	int 				tex_x;
+	t_texture			**sprite_tex;
+	int frames;
+}						t_sprite_coords;
+
+typedef struct s_gen_coords
+{
+	float				dist;
+	bool 				save;
 	float				first_x;
 	float				first_y;
 	float				last_x;
 	float				last_y;
-	float				sprite_x;
-	float				sprite_y;
-	int					sprite_height;
-	int					sprite_dist;
+	int					first_tex_x;
+	int					last_tex_x;
 	int					height;
 	int					height_top;
-	float				wall_height;
+	float				tall;
+	float 				top;
+}						t_gen_coords;
+
+typedef struct s_draw
+{
+	// only walls
+	float				x;
+	float				y;
+	int					dist;
+	int					tex_x;
+	float 				tex_y;
+	float				angle;
+	float				height;
 	int					start_x;
 	int					start_y;
-	int					side;
-	int					tex_x;
-	int					dist;
-	int					generator_dist;
+	float 				cosangle;
+	float 				sinangle;
+	t_texture			*texture;
 	int					colors[HEIGHT + 1];
+	// only generators
+	t_gen_coords		gen;
+	// only sprites
+	bool 				is_sprite;
+	bool				is_facing;
+	t_sprite_coords		*sprites;
+	t_sprite_coords		*facing;
+	int 				s_count;
+	int 				f_count;
 
 }						t_draw;
 
@@ -229,12 +268,6 @@ typedef struct s_thread_params
 	pthread_t			thread_id;
 }						t_thread_params;
 
-typedef struct s_state
-{
-	bool				save;
-	bool				block;
-	bool				door;
-}						t_state;
 
 typedef struct s_vars
 {
@@ -281,24 +314,28 @@ void					start_case(void *arg);
 
 /* DRAW */
 t_texture				*get_wall_side(int side, const t_textures *texs, int n);
-int						get_texture_color(t_texture *tex, float dist,
-							float cosangle, float sinangle);
-t_texture				*get_texture(int start_y, int height, const t_player *p,
-							const t_textures *texs);
+int						get_texture_color(t_texture *tex, float dist, t_draw *draw);
+t_texture				*get_texture(int start_y, int height, t_thread_params *params);
 void					draw_scene(t_draw *draw, t_thread_params *params);
 int						darken_color_wall(int color, float factor, float wall_x,
 							float wall_y);
-void					draw_shotgun(void);
+
+void	get_facing_coordinates(t_draw *draw, int i);
+void	get_sprite_coordinates(t_draw *draw, int i);
+bool	touch_facing(t_draw *draw, t_float p, t_float s, int width);
+
+t_draw	init_draw(void);
+void	direction(t_draw *draw, t_thread_params *params);
+void	put_line(t_draw draw, t_thread_params *params);
+bool	find_hitbox(t_draw *draw, t_cube *c);
+float	get_check(int *start_y, int *end_y, float *step, float height);
 
 void					draw_line(t_draw draw, t_thread_params *params);
-void					draw_wall(t_draw *draw, t_thread_params *params);
-void					draw_floor_and_ceiling(t_draw *draw,
-							t_thread_params *params);
+void	draw_sprite(t_draw *draw, t_thread_params *params);
 // generator
-void					draw_generator_top(t_draw *draw,
-							t_thread_params *params, float angle);
-void					draw_generator(t_draw *draw, t_thread_params *params,
-							int tex_x, float angle);
+void draw_generators(t_draw *draw, t_thread_params *params);
+
+
 long					current_frame(int frames);
 
 // String

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 19:17:35 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 19:19:29 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,7 @@ typedef struct s_textures
 
 	t_texture		*player;
 
-	t_texture		*generator;
-	t_texture		*generator1;
+	t_texture		*generator[2];
 	t_texture		*generator_top;
 
 	t_texture		*inventory_player;

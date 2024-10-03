@@ -1,105 +1,96 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   generator.c                                            :+:      :+:    :+:   */
+/*   generator.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/09/06 13:47:24 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/12 14:29:54 by escura           ###   ########.fr       */
+/*   Created: 2024/10/03 18:59:22 by btvildia          #+#    #+#             */
+/*   Updated: 2024/10/03 19:19:42 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-float	view_current_distance_gen(const t_player *p, int start_y, float angle,
-		float z)
+float	view_current_distance_gen(int start_y, float angle, float z)
 {
 	float	current_dist;
+	float	view;
 
-	current_dist = (p->z - z) * HEIGHT / (start_y - HEIGHT / 2);
-	return (current_dist / cos(angle - p->angle));
+	current_dist = (player()->z - z) * HEIGHT / (start_y - HEIGHT / 2);
+	view = current_dist / cos(angle - player()->angle);
+	return (view);
 }
 
-void	draw_generator(t_draw *draw, t_thread_params *params, int tex_x,
-		float angle)
+void	draw_generator_top(t_draw *draw, t_thread_params *params, int start_y,
+		int end_y)
 {
-	int				color;
-	float			tex_y;
-	int				dist;
-	float			step;
 	const t_player	*p = params->player;
-	t_render		*r;
-	int				start_y;
-	int				end_y;
-	t_texture		*generator_animation[2] = {params->textures->generator,
-				params->textures->generator1};
-	t_texture		*generator;
+	int				color;
+	float			head_x;
+	float			head_y;
+	float			current_dist;
 
-	color = params->color;
-	tex_y = 0;
-	dist = draw->generator_dist;
-	step = (float)(T_SIZE * 1.5) / draw->height_top;
-	r = params->render;
-	start_y = (p->z - 0.6) * draw->height_top + vert_offset(p);
-	end_y = start_y + draw->height_top * 0.6;
-	generator = generator_animation[current_frame(2)];
-	if (end_y > HEIGHT)
-		end_y = HEIGHT;
+	if (current_frame(2) == 1)
+		draw->gen.top += 0.01;
 	while (start_y < end_y)
 	{
-		color = get_pixel_from_image(generator, tex_x * 2, tex_y);
-		color = darken_color(color, (float)dist / 450);
-		if (color > 0)
-			draw->colors[start_y] = color;
-		tex_y += step;
-		start_y++;
-	}
-	(void)angle;
-}
-
-void	draw_generator_top(t_draw *draw, t_thread_params *params, float angle)
-{
-	const t_cube		*c = params->cube;
-	const t_player		*p = params->player;
-	const t_textures	*texs = params->textures;
-	float				head_x;
-	float				head_y;
-	float				cosangle;
-	float				sinangle;
-	float				tallness;
-	int					color;
-	int					start_y;
-	int					end_y;
-	float				current_dist;
-	t_texture			*head;
-
-	head_x = 0;
-	head_y = 0;
-	cosangle = cos(angle);
-	sinangle = sin(angle);
-	tallness = 0.49;
-	if (current_frame(2) == 0)
-		tallness = 0.48;
-	color = 123;
-	start_y = HEIGHT / 2 + ((p->z - tallness) * draw->height);
-	end_y = (HEIGHT / 2 + ((p->z - tallness) * draw->height_top))
-		+ draw->height_top * 0.01;
-	current_dist = 0;
-	head = texs->wall_south[p->level];
-	if (end_y > HEIGHT)
-		end_y = HEIGHT;
-	while (start_y < end_y)
-	{
-		current_dist = view_current_distance_gen(p, start_y, angle, tallness);
+		current_dist = view_current_distance_gen(start_y, draw->angle,
+				draw->gen.top);
+		head_x = (p->x) + current_dist * draw->cosangle;
+		head_y = (p->y) + current_dist * draw->sinangle;
 		color = get_pixel_from_image(params->textures->generator_top, head_x
 				* (T_SIZE * 2), head_y * (T_SIZE * 2));
-		color = darken_color_wall(color, (float)current_dist / 7, head_x,
-				head_y);
-		head_x = (p->x) + current_dist * cosangle;
-		head_y = (p->y) + current_dist * sinangle;
+		color = darken_color(color, current_dist / 7);
 		if (color > 0)
 			draw->colors[start_y] = color;
 		start_y++;
 	}
+}
+
+void	draw_generator(t_draw *draw, t_thread_params *params, int height,
+		int tex_x)
+{
+	t_line		line;
+	t_texture	*tex;
+
+	line.start_y = (player()->z - draw->gen.tall) * height + HEIGHT / 2;
+	line.end_y = line.start_y + height * draw->gen.tall;
+	line.tex_y = 0;
+	line.step = (float)(T_SIZE * 1.5) / height;
+	tex = params->textures->generator[current_frame(2)];
+	if (line.start_y < 0)
+	{
+		line.tex_y = -line.start_y * line.step;
+		line.start_y = 0;
+	}
+	if (line.end_y > HEIGHT)
+		line.end_y = HEIGHT;
+	while (line.start_y < line.end_y)
+	{
+		line.color = get_pixel_from_image(tex, tex_x * 2, line.tex_y);
+		line.color = darken_color(line.color, (float)draw->gen.dist / 450);
+		if (line.color > 0)
+			draw->colors[line.start_y] = line.color;
+		line.tex_y += line.step;
+		line.start_y++;
+	}
+}
+
+void	draw_generators(t_draw *draw, t_thread_params *params)
+{
+	int	start_y;
+	int	end_y;
+
+	start_y = HEIGHT / 2 + ((player()->z - draw->gen.top)
+			* draw->gen.height_top);
+	end_y = (HEIGHT / 2 + ((player()->z - draw->gen.top) * draw->gen.height))
+		+ draw->gen.height * 0.01;
+	if (start_y < 0)
+		start_y = 0;
+	if (end_y > HEIGHT)
+		end_y = HEIGHT;
+	draw_generator(draw, params, draw->gen.height_top, draw->gen.last_tex_x);
+	draw_generator_top(draw, params, start_y, end_y);
+	draw_generator(draw, params, draw->gen.height, draw->gen.first_tex_x);
 }

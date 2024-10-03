@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   touch.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:49:03 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 16:28:16 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 11:41:04 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ bool	check_level_con(t_point *portals, float px, float py, int i)
 	{
 		x = portals[i].x * BLOCK_SIZE;
 		y = portals[i].y * BLOCK_SIZE;
-		if (px >= x && px <= x + BLOCK_SIZE && py >= y && py <= y
-			&& sprites[i].type == 'P')
-			return (true);
+		// if (px >= x && px <= x + BLOCK_SIZE && py >= y && py <= y
+		// 	&& sprites[i].type == 'P')
+		// 	return (true);
 		if (py < portals[i].y * BLOCK_SIZE + 10)
 		{
 			player()->level = (cube()->levels - 1) - i;
