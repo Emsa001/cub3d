@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:32:21 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 19:21:18 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 20:16:03 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	*draw_lines_thread(void *arg)
 	t_draw					draw;
 	int						i;
 	float					fraction;
+	const int quality = get_quality(params->render);
 
 	draw = init_draw();
 	i = params->start;
@@ -47,7 +48,7 @@ static void	*draw_lines_thread(void *arg)
 		draw.angle = params->angle_offset + fraction * params->fov_in_radians;
 		draw.start_x = i;
 		draw_line(draw, params);
-		i = i + get_quality(params->render);
+		i = i + quality;
 	}
 	free(draw.sprites);
 	free(draw.facing);

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 19:26:21 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 18:05:09 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 20:09:54 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	cooldown_end(t_async *async)
 	pthread_mutex_lock(&store->case_mutex);
 	store->case_cooldown = false;
 	pthread_mutex_unlock(&store->case_mutex);
+	(void)async;
 }
 
 static void	start_cooldown(t_async *async)
@@ -30,6 +31,7 @@ static void	start_cooldown(t_async *async)
 	pthread_mutex_lock(&store->case_mutex);
 	store->case_cooldown = true;
 	pthread_mutex_unlock(&store->case_mutex);
+	(void)async;
 }
 
 static bool	cooldown(void)

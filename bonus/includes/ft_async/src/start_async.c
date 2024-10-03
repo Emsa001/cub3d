@@ -6,13 +6,13 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:13:56 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:13:56 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 20:10:35 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_async.h"
 
-static void	run_async_loop(t_async *current, t_async_manager *manager)
+static void	run_async_loop(t_async *current)
 {
 	while (1)
 	{
@@ -39,7 +39,7 @@ static void	*run_async(void *arg)
 	current = (t_async *)arg;
 	if (current->start)
 		current->start(current);
-	run_async_loop(current, current->manager);
+	run_async_loop(current);
 	if (!current->stopped)
 	{
 		if (current->end_main)
@@ -55,6 +55,7 @@ void	start_async(t_async *async)
 {
 	pthread_t	thread_id;
 
+	thread_id = 0;
 	pthread_mutex_init(&async->async_mutex, NULL);
 	add_to_list(async);
 	pthread_mutex_lock(&async->async_mutex);

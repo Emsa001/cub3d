@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 18:45:29 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 19:52:54 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	start_game(void)
 
 	create_image(r, WIDTH, HEIGHT);
 	init_hooks();
-	// exit(0);
 	mlx_loop_hook(r->mlx, render_scene_multithread, NULL);
 	mlx_loop(r->mlx);
 }
