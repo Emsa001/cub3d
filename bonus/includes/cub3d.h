@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 10:24:37 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 11:58:00 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,7 @@ typedef struct s_draw
 	float				last_y;
 	t_sprite_coords		*sprites;
 	bool 				is_sprite;
+	bool				is_facing;
 	int					height;
 	int					height_top;
 	float				wall_height;

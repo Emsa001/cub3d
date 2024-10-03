@@ -6,34 +6,13 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 19:46:10 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/02 22:50:37 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 11:44:02 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 
-// int	touch_sprite(t_sprite *sprites, float px, float py)
-// {
-// 	int		i;
-// 	float	x;
-// 	float	y;
-
-// 	i = 0;
-// 	x = 0;
-// 	y = 0;
-// 	if (!sprites)
-// 		return 0;
-// 	while (sprites[i].x != -1)
-// 	{
-// 		x = sprites[i].x * BLOCK_SIZE;
-// 		y = sprites[i].y * BLOCK_SIZE;
-// 		if (px >= x && px <= x + sprites[i].width && py >= y && py <= y + 5)
-// 			return i + 1;
-// 		i++;
-// 	}
-// 	return 0;
-// }
 // void	sprite_frame(t_draw *draw, t_thread_params *params, t_sprite sprite)
 // {
 // 	int				color;

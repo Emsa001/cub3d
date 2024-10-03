@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 19:25:20 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/03 10:24:56 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 12:21:30 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	put_line(t_draw draw, t_thread_params *params)
 
 void get_sprite_coordinates(t_draw *draw, int i, int *iter)
 {
-	// i is the index of the sprite in the array
+	i = i - 1;
 	draw->sprites[(*iter)].x = draw->x;
 	draw->sprites[(*iter)].y = draw->y;
 	draw->sprites[(*iter)].dist = lane_distance(draw);
@@ -59,8 +59,54 @@ void get_sprite_coordinates(t_draw *draw, int i, int *iter)
 	draw->sprites[(*iter)].tex_x = (int)draw->x % BLOCK_SIZE;
 	draw->sprites[(*iter)].sprite_tex = cube()->map->sprites[i].sprite_tex;
 	draw->sprites[(*iter)].frames = cube()->map->sprites[i].frames;
-	draw->is_sprite = true;
 	(*iter)++;
+	draw->is_sprite = true;
+}
+
+bool	touch_facing(t_draw *draw, float px, float py, float sprite_x,
+		float sprite_y, int width)
+{
+	float	cosangle;
+	float	sinangle;
+	float	u;
+	float	v;
+	float	dist;
+
+	// it's the same as cos(angle + 90)
+	cosangle = cos(player()->angle);
+	// it's the same as sin(angle + 90)
+	sinangle = sin(player()->angle);
+	u = (cosangle * (sprite_x - px) + sinangle * (sprite_y - py));
+	if (u < 0 || u > 2)
+		return false;
+	v = (-sinangle * (sprite_x - px) + cosangle * (sprite_y - py));
+	draw->tex_x = (int)v + width / 2;
+	dist = distance(px, py, sprite_x, sprite_y);
+	if (dist * 2 < width)
+		return true;
+	return false;
+}
+
+bool	touch_facing_sprite(t_draw *draw, t_sprite *sprites, float px, float py)
+{
+	int		i;
+	float	x;
+	float	y;
+
+	i = 0;
+	x = 0;
+	y = 0;
+	if (!sprites)
+		return false;
+	while (sprites[i].x != -1)
+	{
+		x = sprites[i].x * BLOCK_SIZE;
+		y = sprites[i].y * BLOCK_SIZE;
+		if (touch_facing(draw, px, py, x, y, sprites[i].width))
+			return true;
+		i++;
+	}
+	return false;
 }
 
 bool	find_hitbox(t_draw *draw, t_cube *c, int *iter)
@@ -75,7 +121,7 @@ bool	find_hitbox(t_draw *draw, t_cube *c, int *iter)
 	if (touch_line(c->map->lines, draw->x, draw->y))
 		return (true);
 	if ((i = touch_sprite(c->map->sprites, draw->x, draw->y)))
-		get_sprite_coordinates(draw, i - 1, iter);
+		get_sprite_coordinates(draw, i, iter);
 	return false;
 }
 

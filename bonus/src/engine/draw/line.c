@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 10:33:38 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 12:25:43 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,8 @@ t_draw	init_draw(void)
 	return (draw);
 }
 
+
+
 int	touch_sprite(t_sprite *sprites, float px, float py)
 {
 	int		i;
@@ -204,7 +206,8 @@ void	draw_line(t_draw draw, t_thread_params *params)
 	draw.wall_height = (BLOCK_SIZE * HEIGHT) / draw.dist;
 	draw_scene(&draw, params);
 	if(draw.is_sprite)
-		draw_sprites(&draw, params, draw.sprites[0]);
+		while(--iter >= 0)
+			draw_sprites(&draw, params, draw.sprites[iter]);
 
 	scale = draw.start_x + WIDTH_SCALE;
 	while (draw.start_x < scale && draw.start_x < params->end)
