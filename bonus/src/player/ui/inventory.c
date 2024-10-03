@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:18:14 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 18:11:16 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 19:37:21 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static void	hud_inventory_con(const t_player *p, int i, int x, int y)
 	button = (t_button){0};
 	if (p->equipped[i] != -1)
 	{
-		put_image(&(textures()->items[p->equipped[i]]), x + 25 + (i % 4) * 70, y
-			+ 25 + (i / 4) * 70, 1.5);
 		button.x = x + 25 + (i % 4) * 70;
 		button.y = y + 25 + (i / 4) * 70;
 		button.width = 64;
@@ -32,6 +30,8 @@ static void	hud_inventory_con(const t_player *p, int i, int x, int y)
 		button.item_id = p->equipped[i];
 		button.is_default = false;
 		add_button(&button);
+		put_image(&(textures()->items[p->equipped[i]]), x + 25 + (i % 4) * 70, y
+			+ 25 + (i / 4) * 70, 1.5);
 	}
 }
 
