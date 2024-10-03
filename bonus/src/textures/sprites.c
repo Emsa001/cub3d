@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:39:55 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/02 13:41:00 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:42:01 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,9 @@ t_texture	**load_sprite_textures(char *path_file, int frames)
 	while (i < frames)
 	{
 		sprite_texture[i] = ft_malloc(sizeof(t_texture));
-		path = ft_strjoin(path_file, ft_itoa(i));
+		path = ft_strjoin_itoa(path_file, i);
 		temp = ft_strjoin(path, ".xpm");
-		sprite_texture[i]->image = get_texture_file(temp,
-				&sprite_texture[i]->width, &sprite_texture[i]->height);
-		sprite_texture[i]->data = mlx_get_data_addr(sprite_texture[i]->image,
-				&sprite_texture[i]->bpp, &sprite_texture[i]->size_line,
-				&sprite_texture[i]->endian);
+		sprite_texture[i] = load_texture(temp);
 		ft_free(temp);
 		ft_free(path);
 		i++;

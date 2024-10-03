@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_draw.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:23:37 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/03 19:05:59 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:47:52 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ t_draw	init_draw(void)
 	draw.x = player()->x_px;
 	draw.y = player()->y_px;
 	draw.is_sprite = false;
+	draw.is_facing = false;
 	draw.height = 0;
 	draw.start_x = 0;
 	draw.start_y = 0;
