@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:23:37 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/03 14:24:31 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:05:59 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,31 +34,44 @@ t_sprite_coords	*init_sprite_coords(int count)
 	return (sprites);
 }
 
+t_gen_coords	init_gen_coords(void)
+{
+	t_gen_coords	gen;
+
+	gen.dist = 0;
+	gen.save = false;
+	gen.first_x = 0;
+	gen.first_y = 0;
+	gen.last_x = 0;
+	gen.last_y = 0;
+	gen.first_tex_x = 0;
+	gen.last_tex_x = 0;
+	gen.height = 0;
+	gen.height_top = 0;
+	gen.tall = 0.6;
+	gen.top = gen.tall - 0.12;
+	return (gen);
+}
+
 t_draw	init_draw(void)
 {
 	t_draw	draw;
 
 	draw.sprites = init_sprite_coords(cube()->map->sprite_count);
-	draw.facing = init_sprite_coords(100);
+	draw.facing = init_sprite_coords(MAX_TORCHES);
+	draw.gen = init_gen_coords();
 	draw.s_count = 0;
 	draw.f_count = 0;
 	draw.x = player()->x_px;
 	draw.y = player()->y_px;
 	draw.is_sprite = false;
-	draw.first_x = 0;
-	draw.first_y = 0;
-	draw.last_x = 0;
-	draw.last_y = 0;
-	draw.wall_height = 0;
 	draw.height = 0;
-	draw.height_top = 0;
 	draw.start_x = 0;
 	draw.start_y = 0;
 	draw.tex_x = 0;
 	draw.tex_y = 0;
 	draw.angle = 0;
 	draw.dist = 0;
-	draw.generator_dist = 0;
 	draw.texture = NULL;
 	draw.cosangle = 0;
 	draw.sinangle = 0;

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 14:28:02 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:45:18 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,23 @@
 
 # define WALL '1'
 # define DOOR 'D'
+# define MAX_TORCHES 100
 
 # define M_PI 3.14159265358979323846
 # define NUM_THREADS 10
 
 typedef struct s_render	t_render;
+
+// norminette bonus/src/engine/draw/draw_sprite.c bonus/src/engine/draw/draw_utils.c bonus/src/engine/draw/generator.c bonus/src/engine/draw/init_draw.c bonus/src/engine/draw/line.c bonus/src/engine/draw/touch_points.c
+
+typedef struct s_line
+{
+	int			start_y;
+	float		tex_y;
+	int			end_y;
+	int			color;
+	float		step;
+}						t_line;
 
 typedef struct s_cube
 {
@@ -182,6 +194,22 @@ typedef struct s_sprite_coords
 	int frames;
 }						t_sprite_coords;
 
+typedef struct s_gen_coords
+{
+	float				dist;
+	bool 				save;
+	float				first_x;
+	float				first_y;
+	float				last_x;
+	float				last_y;
+	int					first_tex_x;
+	int					last_tex_x;
+	int					height;
+	int					height_top;
+	float				tall;
+	float 				top;
+}						t_gen_coords;
+
 typedef struct s_draw
 {
 	// only walls
@@ -191,21 +219,15 @@ typedef struct s_draw
 	int					tex_x;
 	float 				tex_y;
 	float				angle;
+	float				height;
+	int					start_x;
+	int					start_y;
 	float 				cosangle;
 	float 				sinangle;
 	t_texture			*texture;
-	float				wall_height;
 	int					colors[HEIGHT + 1];
 	// only generators
-	float				first_x;
-	float				first_y;
-	float				last_x;
-	float				last_y;
-	int					height;
-	int					height_top;
-	int					start_x;
-	int					start_y;
-	int					generator_dist;
+	t_gen_coords		gen;
 	// only sprites
 	bool 				is_sprite;
 	bool				is_facing;
@@ -287,6 +309,10 @@ void					draw_scene(t_draw *draw, t_thread_params *params);
 int						darken_color_wall(int color, float factor, float wall_x,
 							float wall_y);
 
+void	get_facing_coordinates(t_draw *draw, int i);
+void	get_sprite_coordinates(t_draw *draw, int i);
+bool	touch_facing(t_draw *draw, t_float p, t_float s, int width);
+
 t_draw	init_draw(void);
 void	direction(t_draw *draw, t_thread_params *params);
 void	put_line(t_draw draw, t_thread_params *params);
@@ -296,10 +322,9 @@ float	get_check(int *start_y, int *end_y, float *step, float height);
 void					draw_line(t_draw draw, t_thread_params *params);
 void	draw_sprite(t_draw *draw, t_thread_params *params);
 // generator
-void					draw_generator_top(t_draw *draw,
-							t_thread_params *params, float angle);
-void					draw_generator(t_draw *draw, t_thread_params *params,
-							int tex_x, float angle);
+void draw_generators(t_draw *draw, t_thread_params *params);
+
+
 long					current_frame(int frames);
 
 // String

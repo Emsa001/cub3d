@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   touch.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 16:46:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 16:55:17 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 15:40:16 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,19 +60,19 @@ int	touch_line(t_block *lines, float px, float py)
 	return (0);
 }
 
-bool	touch_generator(t_block *lines, float px, float py)
+bool	touch_generator(t_block *gens, float px, float py)
 {
 	int		i;
 	float	x;
 	float	y;
 
 	i = 0;
-	if (!lines)
+	if (!gens)
 		return (false);
-	while (lines[i].x != -1)
+	while (gens[i].x != -1)
 	{
-		x = lines[i].x * BLOCK_SIZE;
-		y = lines[i].y * BLOCK_SIZE;
+		x = gens[i].x * BLOCK_SIZE;
+		y = gens[i].y * BLOCK_SIZE;
 		if (px >= x && px <= x + BLOCK_SIZE / 2 && py >= y && py <= y
 			+ BLOCK_SIZE / 2)
 			return (true);

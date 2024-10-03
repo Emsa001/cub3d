@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   destroy.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 18:36:08 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:23:03 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 18:57:09 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,8 @@ void	destroy_textures(void)
 	destroy_texture_arr(t->ceiling);
 	destroy_texture_arr(t->floor);
 	destroy_texture(t->door);
-	destroy_texture(t->generator);
-	destroy_texture(t->generator1);
+	destroy_texture(t->generator[0]);
+	destroy_texture(t->generator[1]);
 	destroy_texture(t->generator_top);
 	destroy_texture(t->font);
 	destroy_texture(t->inventory_player);

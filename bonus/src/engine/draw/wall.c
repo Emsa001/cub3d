@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 16:03:04 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 21:24:07 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 19:14:26 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,57 +40,6 @@ t_texture	*get_texture(int start_y, int height, t_thread_params *p)
 		return (p->textures->ceiling[player()->level]);
 	}
 	return (NULL);
-}
-
-int	darken_color(int color, float dist)
-{
-	int	r;
-	int	g;
-	int	b;
-	int	factor;
-
-	r = (color >> 16) & 0xFF;
-	g = (color >> 8) & 0xFF;
-	b = color & 0xFF;
-	factor = (int)((1.0f - dist) * 255);
-	r = (r * factor) >> 8;
-	g = (g * factor) >> 8;
-	b = (b * factor) >> 8;
-	return ((r << 16) | (g << 8) | b);
-}
-
-int	darken_color_wall(int color, float factor, float wall_x, float wall_y)
-{
-	t_sprite	*torches;
-	int			i;
-	float		dist_to_torch;
-	float		total_darken_factor;
-	float		torch_darken_factor;
-	float		darken_factor;
-
-	torches = cube()->map->facing;
-	// return(color);
-	if (torches[0].x == -1)
-		return (color = darken_color(color, factor));
-	if (torches[0].x != -1)
-	{
-		i = 0;
-		float torch_x, torch_y;
-		total_darken_factor = 1.0f;
-		while (torches[i].x != -1)
-		{
-			torch_x = torches[i].x;
-			torch_y = torches[i].y;
-			dist_to_torch = distance(wall_x, wall_y, torch_x, torch_y);
-			torch_darken_factor = dist_to_torch / 2.0f;
-			darken_factor = fminf(torch_darken_factor, factor);
-			total_darken_factor = fminf(total_darken_factor, darken_factor);
-			i++;
-		}
-		total_darken_factor = fminf(total_darken_factor, 1.0f);
-		color = darken_color(color, total_darken_factor);
-	}
-	return (color);
 }
 
 int	get_texture_color(t_texture *tex, float dist, t_draw *draw)

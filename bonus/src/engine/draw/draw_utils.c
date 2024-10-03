@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 19:25:20 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/03 14:21:45 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 18:24:41 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,10 @@ float	get_check(int *start_y, int *end_y, float *step, float height)
 {
 	float	tex_y;
 
-	// get
 	tex_y = 0;
 	(*step) = ((float)T_SIZE) / height;
 	(*start_y) = (player()->z - 1) * height + HEIGHT / 2;
 	(*end_y) = (*start_y) + height;
-	// check
 	if ((*start_y) < 0)
 	{
 		tex_y = -(*start_y) * (*step);
@@ -108,17 +106,15 @@ void	direction(t_draw *draw, t_thread_params *params)
 	if (is_touching(draw->x - sx, draw->y, params->cube))
 	{
 		draw->tex_x = (int)draw->x % BLOCK_SIZE;
+		draw->texture = params->textures->wall_north[params->player->level];
 		if (sy == 1)
 			draw->texture = params->textures->wall_south[params->player->level];
-		else
-			draw->texture = params->textures->wall_north[params->player->level];
 	}
 	else if (is_touching(draw->x, draw->y - sy, params->cube))
 	{
 		draw->tex_x = (int)draw->y % BLOCK_SIZE;
+		draw->texture = params->textures->wall_west[params->player->level];
 		if (sx == 1)
 			draw->texture = params->textures->wall_east[params->player->level];
-		else
-			draw->texture = params->textures->wall_west[params->player->level];
 	}
 }
