@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:22:32 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 20:22:58 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	init_inventory(t_player *player)
 	i = 0;
 	while (i < 9)
 	{
-		player->inventory[i] = 33;
+		player->inventory[i] = -1;
 		player->equipped[i] = -1;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:39:01 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 20:07:40 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 20:03:15 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ static void	choices(int x, int y)
 void	math_gui(void)
 {
 	t_texture *const	window = textures()->ui->window;
-	const int			x = CENTER_WIDTH - window->width / 2;
-	const int			y = CENTER_HEIGHT - window->height / 2;
+	const int			x = WIDTH / 2 - window->width / 2;
+	const int			y = HEIGHT / 2 - window->height / 2;
 
 	player()->mouse_hook = false;
 	window_gui(x, y, window);

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 19:04:28 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 18:48:54 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 20:39:24 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,13 @@
 
 void	init_potions(t_cube *c)
 {
-	const t_fullitem potions[] = {
-		{"Speed", 0.5, 169, NONE, 500, 5000, &player()->speed, &consume, NULL},
-		{"Luck", 0.5, 170, NONE, 500, 5000, &player()->speed, &consume, NULL},
-		{NULL, 0, 0, 0, 0, 0, NULL, NULL, NULL}
+	const t_fullitem	potions[] = {
+	{"Speed I", 0.5, 168, NONE, 100, 10000, &player()->speed, &consume, NULL},
+	{"Speed II", 0.5, 169, NONE, 200, 10000, &player()->speed, &consume, NULL},
+	{"Speed 1I", 0.5, 170, NONE, 300, 10000, &player()->speed, &consume, NULL},
+	{"Speed 1V", 0.5, 171, NONE, 400, 10000, &player()->speed, &consume, NULL},
+	{"Speed V", 0.5, 15, NONE, 500, 10000, &player()->speed, &consume, NULL},
+	{NULL, 0, 0, 0, 0, 0, NULL, NULL, NULL}
 	};
 	int					i;
 

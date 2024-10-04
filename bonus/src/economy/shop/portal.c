@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:46:59 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 18:51:48 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 20:26:18 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ static void	power_portal_info(int time)
 	t_string			str;
 	t_image				img;
 	t_texture *const	t = textures()->ui->button_long;
-	int				i;
+	int					i;
 
 	str = (t_string){0};
 	str.str = "You have powered up the portal!";
-	str.x = CENTER_WIDTH - 500;
+	str.x = WIDTH / 2 - 500;
 	str.y = HEIGHT - 200;
 	str.color = 0x00FF00;
 	str.size = 1;
@@ -44,7 +44,7 @@ static void	power_portal_info(int time)
 	{
 		img = (t_image){0};
 		img.img = t;
-		img.x = CENTER_WIDTH - 555 + (i * t->width - ((i - 1) * 4));
+		img.x = WIDTH / 2 - 555 + (i * t->width - ((i - 1) * 4));
 		img.y = HEIGHT - 225;
 		img.size = 1;
 		img.time = time;
@@ -55,13 +55,13 @@ static void	power_portal_info(int time)
 
 static void	power_portal(void *arg)
 {
-	const int			time = 1000;
+	const int			time = 5000;
 	t_location *const	loc = ft_calloc(1, sizeof(t_location));
 
 	if (money() < 10000)
 		return ;
-	loc->x = CENTER_WIDTH - 32;
-	loc->y = CENTER_HEIGHT - 32;
+	loc->x = WIDTH / 2 - 32;
+	loc->y = HEIGHT / 2 - 32;
 	string_timer(time, loc);
 	player()->gui = NONE;
 	power_portal_info(time);

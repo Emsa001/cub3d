@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:08:59 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 19:56:36 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 20:47:13 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,11 @@ void	render_hand_item(void)
 void	render_player(void)
 {
 	t_player const	*p = player();
-
+	
+	if(p->speed > 800)
+		player()->speed = 800;
+	else if(p->speed < 300)
+		player()->speed = 300;
 	destroy_buttons();
 	hud_inventory();
 	hud_currency();

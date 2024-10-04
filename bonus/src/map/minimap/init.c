@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 18:13:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/29 18:09:18 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/04 20:04:11 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	minimap_init(void)
 	t_minimap	*minimap;
 
 	minimap = ft_malloc(sizeof(t_minimap));
-	minimap->x = WIDTH - MINIMAP_PIXEL_WIDTH - 10;
-	minimap->y = HEIGHT - MINIMAP_PIXEL_HEIGHT - 10;
-	minimap->center_x = minimap->x + MINIMAP_PIXEL_WIDTH / 2;
-	minimap->center_y = minimap->y + MINIMAP_PIXEL_HEIGHT / 2;
-	minimap->last_x = minimap->x + MINIMAP_PIXEL_WIDTH;
-	minimap->last_y = minimap->y + MINIMAP_PIXEL_HEIGHT;
+	minimap->x = WIDTH - WIDTH / 6 - 10;
+	minimap->y = HEIGHT - WIDTH / 8 - 10;
+	minimap->center_x = minimap->x + WIDTH / 6 / 2;
+	minimap->center_y = minimap->y + WIDTH / 8 / 2;
+	minimap->last_x = minimap->x + WIDTH / 6;
+	minimap->last_y = minimap->y + WIDTH / 8;
 	cube()->map->minimap = minimap;
 }
 

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 15:15:41 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 20:05:11 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 20:03:15 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	hide_mouse(void)
 	if (p->mouse_hook)
 	{
 		mlx_mouse_hide(r->mlx, r->win);
-		mlx_mouse_move(r->mlx, r->win, CENTER_WIDTH, CENTER_HEIGHT);
+		mlx_mouse_move(r->mlx, r->win, WIDTH / 2, HEIGHT / 2);
 	}
 	else
 		mlx_mouse_show(r->mlx, r->win);

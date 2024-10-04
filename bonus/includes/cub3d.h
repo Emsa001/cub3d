@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 20:17:26 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 20:03:44 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,12 @@
 
 // math constants
 # define PI 3.14159265359
-# define P2 PI / 2 // TODO: norm error
-# define P3 3 * PI / 2 // TODO: norm error
 # define DR 0.0174533
 
 # define T_SIZE 64
 # define BLOCK_SIZE 64
 # define WIDTH 1920
 # define HEIGHT 1080
-# define CENTER_WIDTH WIDTH / 2 // TODO: norm error
-# define CENTER_HEIGHT HEIGHT / 2 // TODO: norm error
 # define WIDTH_SCALE 5
 
 # define CHAR_WIDTH 32
@@ -82,11 +78,11 @@ typedef struct s_render	t_render;
 
 typedef struct s_line
 {
-	int			start_y;
-	float		tex_y;
-	int			end_y;
-	int			color;
-	float		step;
+	int					start_y;
+	float				tex_y;
+	int					end_y;
+	int					color;
+	float				step;
 }						t_line;
 
 typedef struct s_cube
@@ -165,12 +161,12 @@ typedef struct s_render
 	int					mouse_x;
 	int					mouse_y;
 
-	double last_time;
-	int frame_count;
-	double fps;
-	double fps_update_time;
+	double				last_time;
+	int					frame_count;
+	double				fps;
+	double				fps_update_time;
 
-	int quaility;
+	int					quaility;
 
 	t_image				*image_queue;
 	t_string			*string_queue;
@@ -179,7 +175,7 @@ typedef struct s_render
 	pthread_mutex_t		string_queue_mutex;
 	pthread_mutex_t		image_queue_mutex;
 	pthread_mutex_t		functions_queue_mutex;
-	pthread_mutex_t 	quality_mutex;
+	pthread_mutex_t		quality_mutex;
 }						t_render;
 
 typedef struct s_float
@@ -190,12 +186,12 @@ typedef struct s_float
 
 typedef struct s_string_params
 {
-    int char_index;
-    int x;
-    int y;
-    int color;
-    float size;
-} t_string_params;
+	int					char_index;
+	int					x;
+	int					y;
+	int					color;
+	float				size;
+}						t_string_params;
 
 typedef struct s_sprite_coords
 {
@@ -203,15 +199,15 @@ typedef struct s_sprite_coords
 	float				y;
 	float				dist;
 	int					height;
-	int 				tex_x;
+	int					tex_x;
 	t_texture			**sprite_tex;
-	int frames;
+	int					frames;
 }						t_sprite_coords;
 
 typedef struct s_gen_coords
 {
 	float				dist;
-	bool 				save;
+	bool				save;
 	float				first_x;
 	float				first_y;
 	float				last_x;
@@ -221,7 +217,7 @@ typedef struct s_gen_coords
 	int					height;
 	int					height_top;
 	float				tall;
-	float 				top;
+	float				top;
 }						t_gen_coords;
 
 typedef struct s_draw
@@ -231,24 +227,24 @@ typedef struct s_draw
 	float				y;
 	int					dist;
 	int					tex_x;
-	float 				tex_y;
+	float				tex_y;
 	float				angle;
 	float				height;
 	int					start_x;
 	int					start_y;
-	float 				cosangle;
-	float 				sinangle;
+	float				cosangle;
+	float				sinangle;
 	t_texture			*texture;
 	int					colors[HEIGHT + 1];
 	// only generators
 	t_gen_coords		gen;
 	// only sprites
-	bool 				is_sprite;
+	bool				is_sprite;
 	bool				is_facing;
 	t_sprite_coords		*sprites;
 	t_sprite_coords		*facing;
-	int 				s_count;
-	int 				f_count;
+	int					s_count;
+	int					f_count;
 
 }						t_draw;
 
@@ -267,7 +263,6 @@ typedef struct s_thread_params
 	t_textures			*textures;
 	pthread_t			thread_id;
 }						t_thread_params;
-
 
 typedef struct s_vars
 {
@@ -314,27 +309,30 @@ void					start_case(void *arg);
 
 /* DRAW */
 t_texture				*get_wall_side(int side, const t_textures *texs, int n);
-int						get_texture_color(t_texture *tex, float dist, t_draw *draw);
-t_texture				*get_texture(int start_y, int height, t_thread_params *params);
+int						get_texture_color(t_texture *tex, float dist,
+							t_draw *draw);
+t_texture				*get_texture(int start_y, int height,
+							t_thread_params *params);
 void					draw_scene(t_draw *draw, t_thread_params *params);
 int						darken_color_wall(int color, float factor, float wall_x,
 							float wall_y);
 
-void	get_facing_coordinates(t_draw *draw, int i);
-void	get_sprite_coordinates(t_draw *draw, int i);
-bool	touch_facing(t_draw *draw, t_float p, t_float s, int width);
+void					get_facing_coordinates(t_draw *draw, int i);
+void					get_sprite_coordinates(t_draw *draw, int i);
+bool					touch_facing(t_draw *draw, t_float p, t_float s,
+							int width);
 
-t_draw	init_draw(void);
-void	direction(t_draw *draw, t_thread_params *params);
-void	put_line(t_draw draw, t_thread_params *params);
-bool	find_hitbox(t_draw *draw, t_cube *c);
-float	get_check(int *start_y, int *end_y, float *step, float height);
+t_draw					init_draw(void);
+void					direction(t_draw *draw, t_thread_params *params);
+void					put_line(t_draw draw, t_thread_params *params);
+bool					find_hitbox(t_draw *draw, t_cube *c);
+float					get_check(int *start_y, int *end_y, float *step,
+							float height);
 
 void					draw_line(t_draw draw, t_thread_params *params);
-void	draw_sprite(t_draw *draw);
+void					draw_sprite(t_draw *draw);
 // generator
-void draw_generators(t_draw *draw, t_thread_params *params);
-
+void					draw_generators(t_draw *draw, t_thread_params *params);
 
 long					current_frame(int frames);
 
@@ -372,7 +370,7 @@ int						block_count(t_map *map_info, char c);
 void					catch_block(float angle);
 void					add_block(float angle);
 void					remove_block(float angle);
-void 					put_string(char *str, int x, int y, int color);
+void					put_string(char *str, int x, int y, int color);
 void					move_door(t_map *map, t_player *p, bool opening);
 int						get_side(int x, int y, char **map);
 
@@ -410,10 +408,11 @@ void					set_paused(bool paused);
 void					math_gui(void);
 bool					check_if_point_is_on_line(t_block line, float px,
 							float py);
-void 					draw_background(t_string *s);
+void					draw_background(t_string *s);
 
-int		get_quality(t_render *r);
-void	update_quality(t_render *r, int quality);
-float	ft_float_atoi(char *str);
+int						get_quality(t_render *r);
+void					update_quality(t_render *r, int quality);
+float					ft_float_atoi(char *str);
+void					destroy_sprites(void);
 
 #endif

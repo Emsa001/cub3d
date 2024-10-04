@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 19:21:03 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 18:12:12 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 20:44:31 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	consume_end(void *arg)
 	t_itemprops	*props;
 
 	props = (t_itemprops *)arg;
-	printf("Consumed %d\n", props->id);
-	*(props->intvar) -= 500;
+	printf("Consumed %d for %d\n", props->id, props->effect);
+	*(props->intvar) -= props->effect;
 	player()->effects--;
 	ft_free(props);
 }

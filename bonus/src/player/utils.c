@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:44 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 22:24:39 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/04 19:58:50 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ float	lane_distance(t_draw *draw)
 	const float	y2 = player()->y_px;
 	float		raw_distance;
 	float		adjusted_distance;
-
 
 	raw_distance = distance(draw->x, draw->y, x2, y2);
 	adjusted_distance = raw_distance * cos(player_angle - draw->angle);
@@ -53,7 +52,7 @@ static t_location	*is_nearby1(int x, int y, int i)
 	t_location	*offsets;
 
 	offsets = (t_location[]){{0, 0}, {0, -1}, {0, 1}, {-1, 0}, {1, 0}, {-1, -1},
-		{1, -1}, {-1, 1}, {1, 1}};
+	{1, -1}, {-1, 1}, {1, 1}};
 	loc = ft_malloc(sizeof(t_location));
 	loc->x = x + offsets[i].x;
 	loc->y = y + offsets[i].y;

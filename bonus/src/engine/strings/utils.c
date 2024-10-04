@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 23:29:41 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 18:14:36 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 20:03:09 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ void	interaction_notify(char *str)
 	notify.str = str;
 	notify.color = 0xeab308;
 	notify.size = 0.7;
-	notify.x = CENTER_WIDTH - 330;
+	notify.x = WIDTH / 2 - 330;
 	notify.y = HEIGHT - 100;
 	i = 0;
 	while (i < length / 5)
 	{
-		put_image(t, CENTER_WIDTH - 400 + (i * t->width * 0.7 - ((i - 1) * 4)),
+		put_image(t, WIDTH / 2 - 400 + (i * t->width * 0.7 - ((i - 1) * 4)),
 			HEIGHT - 115, 0.7);
 		i++;
 	}

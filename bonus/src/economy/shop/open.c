@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 19:22:47 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 18:21:57 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 20:03:15 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ static void	store_window(int x, int y)
 	str.str = "MARKET";
 	str.color = 0x00FF00;
 	str.size = 1.5;
-	str.x = CENTER_WIDTH - 140;
-	str.y = CENTER_HEIGHT - 320;
+	str.x = WIDTH / 2 - 140;
+	str.y = HEIGHT / 2 - 320;
 	render_string(&str);
 }
 
-static void buy_item(void *arg)
+static void	buy_item(void *arg)
 {
 	const int	price = (intptr_t)arg;
 	int			i;
@@ -35,7 +35,7 @@ static void buy_item(void *arg)
 	if (price > money())
 	{
 		printf("Not enough money\n");
-		return;
+		return ;
 	}
 	i = 0;
 	while (i < 9)
@@ -55,7 +55,7 @@ static void	init_shop_items(int x, int y)
 {
 	t_player *const	p = player();
 	t_button		button;
-	int			i;
+	int				i;
 
 	i = 0;
 	while (i < 21)
@@ -81,8 +81,8 @@ static void	init_shop_items(int x, int y)
 void	open_store(void)
 {
 	const t_textures	*t = textures();
-	const int			x = CENTER_WIDTH - t->ui->window->width * 1.8 / 2;
-	const int			y = CENTER_HEIGHT - t->ui->window->height * 1.8 / 2;
+	const int			x = WIDTH / 2 - t->ui->window->width * 1.8 / 2;
+	const int			y = HEIGHT / 2 - t->ui->window->height * 1.8 / 2;
 
 	player()->mouse_hook = false;
 	store_window(x, y);

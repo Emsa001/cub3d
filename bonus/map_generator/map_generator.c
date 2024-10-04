@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_generator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:50:59 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/30 16:42:19 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/04 20:04:33 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	mouse_press(int button, int x, int y, t_data *data)
 	if (button == 1)
 	{
 		data->drawing = 1;
-		grid_x = x / CELL_SIZE;
-		grid_y = y / CELL_SIZE;
+		grid_x = x / (SCREEN_WIDTH / PIC_WIDTH);
+		grid_y = y / (SCREEN_WIDTH / PIC_WIDTH);
 		if (grid_x >= 1 && grid_x < PIC_WIDTH - 1 && grid_y >= 1
 			&& grid_y < PIC_HEIGHT - 1)
 		{
@@ -51,8 +51,8 @@ int	mouse_move_hook(int x, int y, t_data *data)
 
 	if (data->drawing)
 	{
-		grid_x = x / CELL_SIZE;
-		grid_y = y / CELL_SIZE;
+		grid_x = x / (SCREEN_WIDTH / PIC_WIDTH);
+		grid_y = y / (SCREEN_WIDTH / PIC_WIDTH);
 		if (grid_x >= 1 && grid_x < PIC_WIDTH - 1 && grid_y >= 1
 			&& grid_y < PIC_HEIGHT - 1)
 		{

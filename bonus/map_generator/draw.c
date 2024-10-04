@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 15:41:37 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/02 19:21:59 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 20:04:33 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ void	draw_cell(t_data *data, int x, int y, int color)
 	int	i;
 	int	j;
 
-	start_x = x * CELL_SIZE;
-	start_y = y * CELL_SIZE;
+	start_x = x * (SCREEN_WIDTH / PIC_WIDTH);
+	start_y = y * (SCREEN_WIDTH / PIC_WIDTH);
 	i = 0;
 	j = 0;
-	while (i < CELL_SIZE)
+	while (i < (SCREEN_WIDTH / PIC_WIDTH))
 	{
 		j = 0;
-		while (j < CELL_SIZE)
+		while (j < (SCREEN_WIDTH / PIC_WIDTH))
 		{
 			mlx_pixel_put(data->mlx_ptr, data->win_ptr, start_x + i, start_y
 				+ j, color);

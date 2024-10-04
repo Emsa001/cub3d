@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 19:27:23 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 18:04:43 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 20:03:15 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ void	display_prize_message(int prize, int value)
 	render_string_async(&string);
 	string.str = "You got";
 	string.size = 2;
-	string.x = CENTER_WIDTH - ft_strlen(string.str) * 20;
-	string.y = CENTER_HEIGHT - 250;
+	string.x = WIDTH / 2 - ft_strlen(string.str) * 20;
+	string.y = HEIGHT / 2 - 250;
 	render_string_async(&string);
 	string.str = display_text;
-	string.y = CENTER_HEIGHT + 120;
+	string.y = HEIGHT / 2 + 120;
 	render_string_async(&string);
 }
 
@@ -73,8 +73,8 @@ void	render_prize_image(t_texture *prize_texture, int time)
 
 	prize_image = (t_image){0};
 	prize_image.img = prize_texture;
-	prize_image.x = CENTER_WIDTH - 100;
-	prize_image.y = CENTER_HEIGHT - 200;
+	prize_image.x = WIDTH / 2 - 100;
+	prize_image.y = HEIGHT / 2 - 200;
 	prize_image.size = 10;
 	prize_image.time = time;
 	render_image_async(&prize_image);

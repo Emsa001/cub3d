@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:04:05 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/02 18:24:38 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 20:04:12 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # define MINIMAP_PLAYER_COLOR 0xbababa
 # define MINIMAP_COLOR 0x1a1a1c
 # define SQUARE_SIZE 32
-# define MINIMAP_PIXEL_WIDTH WIDTH / 6 // TODO: norm error
-# define MINIMAP_PIXEL_HEIGHT WIDTH / 8 // TODO: norm error
 # define CORNER 6
 # define FRAME_WIDTH 6
 # define FRAME_COLOR 0x000000

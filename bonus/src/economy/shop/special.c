@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:06:59 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 18:19:05 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 20:03:15 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	is_correct_true(t_player *p, int arg, t_string str)
 	multiplier = p->streak;
 	if (multiplier > 5)
 		multiplier = 5;
-	add_money(arg*multiplier);
+	add_money(arg * multiplier);
 	render_string_async(&str);
 }
 
@@ -37,8 +37,8 @@ static void	is_correct(void *arg)
 	str = (t_string){0};
 	str.color = 0x00FF00;
 	str.size = 2;
-	str.x = CENTER_WIDTH - 150;
-	str.y = CENTER_HEIGHT - 100;
+	str.x = WIDTH / 2 - 150;
+	str.y = HEIGHT / 2 - 100;
 	str.time = 500;
 	str.background = 0x000001;
 	str.padding = 10;
@@ -58,10 +58,10 @@ static void	activate_special_timer(void *arg)
 	t_location	*location;
 
 	window = textures()->ui->window;
-	x = CENTER_WIDTH - window->width / 2;
-	y = CENTER_HEIGHT - window->height / 2;
+	x = WIDTH / 2 - window->width / 2;
+	y = HEIGHT / 2 - window->height / 2;
 	location = ft_malloc(sizeof(t_location));
-	location->x = CENTER_WIDTH - 32;
+	location->x = WIDTH / 2 - 32;
 	location->y = y - 200;
 	string_timer(3000, location);
 	set_paused(true);
