@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/04 20:03:44 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 22:13:12 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_cube
 	pthread_mutex_t		add_money_mutex;
 	bool				is_special;
 
+	bool 				accept_hooks;
 	bool				paused;
 	int					async_id;
 
@@ -123,6 +124,10 @@ typedef struct s_string
 	int					time;
 	int					background;
 	int					padding;
+
+	int					animation;
+	int					blink;
+	size_t 				char_index;
 
 	void				*clean;
 	struct s_string		*next;
@@ -167,6 +172,8 @@ typedef struct s_render
 	double				fps_update_time;
 
 	int					quaility;
+
+	bool 				loading;
 
 	t_image				*image_queue;
 	t_string			*string_queue;
@@ -414,5 +421,8 @@ int						get_quality(t_render *r);
 void					update_quality(t_render *r, int quality);
 float					ft_float_atoi(char *str);
 void					destroy_sprites(void);
+
+void	loading_screen(void);
+void	loading_end(void);
 
 #endif

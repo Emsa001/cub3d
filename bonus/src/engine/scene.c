@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/10/04 20:00:11 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 22:07:39 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,21 @@ static void	render_queue(void)
 
 int	render_scene_multithread(void)
 {
-	player()->mouse_hook = true;
-	render_view(cube());
-	render_player();
+	static int frame = 0;
+	
+	if(!render()->loading)
+	{
+		player()->mouse_hook = true;
+		render_view(cube());
+		render_player();
+	}else
+	{
+		ft_bzero(render()->data, WIDTH * HEIGHT * 4);
+		put_image(&textures()->ui->loading[frame / 7], 0, 80, 2.5);
+		frame++;
+		if(frame == 56)
+			frame = 0;
+	}
 	execute_button_hover();
 	render_queue();
 	update_fps();

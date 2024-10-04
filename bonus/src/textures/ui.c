@@ -6,14 +6,29 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:27:14 by escura            #+#    #+#             */
-/*   Updated: 2024/09/24 21:25:17 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 22:01:58 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "textures.h"
 
-void	init_keys(t_textures *t)
+static void init_loadingscreen(t_textures *t)
+{
+	int i;
+	char *path;
+
+	i = 0;
+	while (i < 8)
+	{
+		path = get_texture_name("assets/background/", i);
+		t->ui->loading[i] = *load_texture(path);
+		i++;
+		ft_free(path);
+	}
+}
+
+static void	init_keys(t_textures *t)
 {
 	int		i;
 	char	*path;
@@ -41,4 +56,5 @@ void	init_ui(t_textures *t)
 	t->ui->panel = load_texture("assets/UI/Window/Headless.xpm");
 	init_keys(t);
 	init_progress(t);
+	init_loadingscreen(t);
 }
