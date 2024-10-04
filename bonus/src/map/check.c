@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:41:51 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/01 13:20:55 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/04 14:50:47 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	check_valid(char **map, t_map *map_info)
 	t_point	*begin_points;
 	char	to_fill[9];
 
+	check_max_objects(map);
 	ft_replace(&map, ' ', '0');
 	begin_points = ft_malloc(sizeof(t_point) * (count_c(map, '0') + 1));
 	begin_points = get_begin_points(map, begin_points);

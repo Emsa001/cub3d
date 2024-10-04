@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:50:59 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/30 16:42:19 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/04 13:52:57 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int	mouse_release_hook(int button, int x, int y, t_data *data)
 {
+	(void)x;
+	(void)y;
 	if (button == 1)
 		data->drawing = 0;
 	return (0);
@@ -32,14 +34,14 @@ int	mouse_press(int button, int x, int y, t_data *data)
 		if (grid_x >= 1 && grid_x < PIC_WIDTH - 1 && grid_y >= 1
 			&& grid_y < PIC_HEIGHT - 1)
 		{
-			if ((data->curr_color == 0x00FF00 || data->curr_color == 0xFFA500)
-				&& !check_num(data, data->curr_color))
+			if ((data->curr_color != WALL_PIX) && !check_num(data,
+					data->curr_color))
 				return (0);
 			draw_cell(data, grid_x, grid_y, data->curr_color);
 			data->grid[grid_y][grid_x] = data->curr_color;
 		}
 		else
-			check_curr_color(x, y, data);
+			check_curr_color(y, data);
 	}
 	return (0);
 }
@@ -56,14 +58,14 @@ int	mouse_move_hook(int x, int y, t_data *data)
 		if (grid_x >= 1 && grid_x < PIC_WIDTH - 1 && grid_y >= 1
 			&& grid_y < PIC_HEIGHT - 1)
 		{
-			if ((data->curr_color == 0x00FF00 || data->curr_color == 0xFFA500)
-				&& !check_num(data, data->curr_color))
+			if ((data->curr_color != WALL_PIX) && !check_num(data,
+					data->curr_color))
 				return (0);
 			draw_cell(data, grid_x, grid_y, data->curr_color);
 			data->grid[grid_y][grid_x] = data->curr_color;
 		}
 		else
-			check_curr_color(x, y, data);
+			check_curr_color(y, data);
 	}
 	return (0);
 }

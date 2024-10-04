@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 20:17:26 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 13:21:46 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@
 # define WALL '1'
 # define DOOR 'D'
 # define MAX_TORCHES 100
+# define SPRITE_THICKNESS 5
 
 # define M_PI 3.14159265358979323846
 # define NUM_THREADS 10

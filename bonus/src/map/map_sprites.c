@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   map_sprites.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:24:21 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/03 18:48:14 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 14:55:48 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	check_max_objects(char **map)
+{
+	if (count_c(map, 'N') != 1)
+		ft_error("Error\nThere must be only one player");
+	if (count_c(map, 'P') > 3)
+		ft_error("Error\nThere must be at most 3 portals");
+	if (count_c(map, 'M') > 20)
+		ft_error("Error\nThere must be at most 20 shops");
+	if (count_c(map, 'G') > 20)
+		ft_error("Error\nThere must be at most 20 generators");
+	if (count_c(map, 'D') > 20)
+		ft_error("Error\nThere must be at most 20 doors");
+}
 
 t_texture	*get_info(char *path_file, int i)
 {
