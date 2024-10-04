@@ -4,3 +4,4 @@ cub3d
 *.o
 */*.o
 node_modules
+bonus/includes/libft/libft.a

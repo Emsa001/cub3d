@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/10/04 22:28:19 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 22:38:14 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	start_game(void)
 	r->loading = true;
 	cube()->accept_hooks = false;
 	create_image(r, WIDTH, HEIGHT);
-	sleep(4);
 	loading_screen();
 	init_hooks();
 	mlx_loop_hook(r->mlx, render_scene_multithread, NULL);
