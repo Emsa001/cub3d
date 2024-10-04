@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 14:32:41 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/30 16:23:33 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/04 13:53:16 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,15 @@ bool	check_num(t_data *data, int color)
 		}
 		y++;
 	}
-	if ((color == 0xFFA500 && count >= 1) || (color == 0x00FF00 && count >= 3))
+	if ((color == PLAYER_PIX && count >= 1) || (color == PORTAL_PIX
+			&& count >= 3) || (color == GENERATOR_PIX && count >= 20)
+		|| (color == SHOP_PIX && count >= 20) || (color == DOOR_PIX
+			&& count >= 20))
 		return (false);
 	return (true);
 }
 
-void	check_curr_color(int x, int y, t_data *data)
+void	check_curr_color(int y, t_data *data)
 {
 	int	i;
 
@@ -105,7 +108,7 @@ void	init_data(t_data *data)
 	data->colors[4] = PORTAL_PIX;
 	data->colors[5] = EMPTY_PIX;
 	data->colors[6] = PLAYER_PIX;
-	data->curr_color = 0xFFFFFF;
+	data->curr_color = WALL_PIX;
 	data->grid = get_grid(PIC_HEIGHT, PIC_WIDTH);
 	data->drawing = 0;
 	button = ft_calloc(MAX_COLOR, sizeof(t_color_picker));

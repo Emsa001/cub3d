@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   getters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:21:26 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/24 18:20:06 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 14:55:45 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	get_player_position(char **map)
 		i++;
 	}
 	if (p_count != 1)
-		ft_error("Invalid player position");
+		ft_error("Error\nThere must be one player");
 }
 
 void	get_2d_map(t_map *map_info, char **map, int size)

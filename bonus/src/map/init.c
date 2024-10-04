@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:19:15 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 17:38:00 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/04 21:22:38 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ t_map	*check_map(char **map, int size)
 	map_info = ft_malloc(sizeof(t_map));
 	map_info->width = 0;
 	map_info->height = 0;
-	map_info->sprite_count = 0;
 	map_info->portal = false;
 	map_info->map = NULL;
 	map_info->lines = NULL;
@@ -78,7 +77,8 @@ t_map	*check_map(char **map, int size)
 	map_info->generators = init_generators(map_info, map);
 	map_info->facing = init_map_facing(map);
 	map_info->sprites = init_map_sprites(map_info, map);
-	map_info->sprite_count = (count_c(map, 'P') + count_c(map, 'M')) * 64;
+	map_info->sprite_count = (SPRITE_THICKNESS * (count_c(map, 'P')
+				+ count_c(map, 'M'))) * 64;
 	map_info->portals = ft_malloc(sizeof(t_block) * (count_c(map, 'P') + 1));
 	get_points(&map_info->portals, map, 'P');
 	map_info->editor_mode = false;
@@ -102,6 +102,8 @@ void	map_init(char *av)
 	i = 0;
 	while (1)
 	{
+		if (i >= MAX_SIZE)
+			ft_error("Map too big");
 		map[i] = get_next_line(fd);
 		if (!map[i])
 			break ;

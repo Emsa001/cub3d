@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_draw.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:23:37 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/03 19:47:52 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 21:30:49 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,14 @@ t_gen_coords	init_gen_coords(void)
 
 	gen.dist = 0;
 	gen.save = false;
-	gen.first_x = 0;
-	gen.first_y = 0;
-	gen.last_x = 0;
-	gen.last_y = 0;
-	gen.first_tex_x = 0;
-	gen.last_tex_x = 0;
+	gen.x = 0;
+	gen.y = 0;
+	gen.tex_x = 0;
 	gen.height = 0;
 	gen.height_top = 0;
 	gen.tall = 0.6;
 	gen.top = gen.tall - 0.12;
+	gen.first_touch = false;
 	return (gen);
 }
 
@@ -60,6 +58,8 @@ t_draw	init_draw(void)
 	draw.sprites = init_sprite_coords(cube()->map->sprite_count);
 	draw.facing = init_sprite_coords(MAX_TORCHES);
 	draw.gen = init_gen_coords();
+	draw.sprite_order = malloc(sizeof(int) * cube()->map->sprite_count);
+	ft_bzero(draw.sprite_order, sizeof(int) * cube()->map->sprite_count);
 	draw.s_count = 0;
 	draw.f_count = 0;
 	draw.x = player()->x_px;

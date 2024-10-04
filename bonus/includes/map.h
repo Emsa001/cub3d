@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:37:54 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 14:51:15 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define MAX_SIZE 1000
 # define MAX_BLOCK 3
 # define L_WIDTH 2
+# define MAX_OBJ 20
 
 # include "cub3d.h"
 
@@ -109,6 +110,7 @@ void						init_sprite(t_map *map, t_sprite sprite,
 void						get_points(t_point **points, char **map, char c);
 
 int							count_c(char **map, char c);
+void						check_max_objects(char **map);
 void						terminate_blocks(t_block **blocks, int i);
 void						init_once(t_block *blocks, t_float point, int *k,
 								char type);

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/04 22:13:12 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 22:47:52 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@
 # define WALL '1'
 # define DOOR 'D'
 # define MAX_TORCHES 100
+# define SPRITE_THICKNESS 5
 
 # define M_PI 3.14159265358979323846
 # define NUM_THREADS 10
@@ -214,17 +215,15 @@ typedef struct s_sprite_coords
 typedef struct s_gen_coords
 {
 	float				dist;
-	bool				save;
-	float				first_x;
-	float				first_y;
-	float				last_x;
-	float				last_y;
-	int					first_tex_x;
-	int					last_tex_x;
+	bool 				save;
+	float				x;
+	float				y;
+	int					tex_x;
 	int					height;
 	int					height_top;
 	float				tall;
-	float				top;
+	float 				top;
+	bool			first_touch;
 }						t_gen_coords;
 
 typedef struct s_draw
@@ -252,6 +251,8 @@ typedef struct s_draw
 	t_sprite_coords		*facing;
 	int					s_count;
 	int					f_count;
+
+	int					*sprite_order;
 
 }						t_draw;
 
@@ -324,20 +325,18 @@ void					draw_scene(t_draw *draw, t_thread_params *params);
 int						darken_color_wall(int color, float factor, float wall_x,
 							float wall_y);
 
-void					get_facing_coordinates(t_draw *draw, int i);
-void					get_sprite_coordinates(t_draw *draw, int i);
-bool					touch_facing(t_draw *draw, t_float p, t_float s,
-							int width);
+void	get_facing_coordinates(t_draw *draw, int i, int *iter);
+void	get_sprite_coordinates(t_draw *draw, int i, int *iter);
+bool	touch_facing(t_draw *draw, t_float p, t_float s, int width);
 
-t_draw					init_draw(void);
-void					direction(t_draw *draw, t_thread_params *params);
-void					put_line(t_draw draw, t_thread_params *params);
-bool					find_hitbox(t_draw *draw, t_cube *c);
-float					get_check(int *start_y, int *end_y, float *step,
-							float height);
+t_draw	init_draw(void);
+void	direction(t_draw *draw, t_thread_params *params);
+void	put_line(t_draw draw, t_thread_params *params);
+bool	find_hitbox(t_draw *draw, t_cube *c, int *iter);
+float	get_check(int *start_y, int *end_y, float *step, float height);
 
 void					draw_line(t_draw draw, t_thread_params *params);
-void					draw_sprite(t_draw *draw);
+void	draw_sprite(t_draw *draw, t_thread_params *params);
 // generator
 void					draw_generators(t_draw *draw, t_thread_params *params);
 

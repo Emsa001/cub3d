@@ -6,9 +6,10 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:32:21 by escura            #+#    #+#             */
-/*   Updated: 2024/10/04 19:59:56 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 22:48:10 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "cub3d.h"
 
@@ -52,6 +53,7 @@ static void	*draw_lines_thread(void *arg)
 	}
 	free(draw.sprites);
 	free(draw.facing);
+	free(draw.sprite_order);
 	return (NULL);
 }
 

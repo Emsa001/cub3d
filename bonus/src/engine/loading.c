@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 21:44:10 by escura            #+#    #+#             */
-/*   Updated: 2024/10/04 22:26:38 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 22:56:16 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	loading_end()
 {
 	t_render *const r = render();
     stop_all_async_tasks();
+	clear_image_queue(r);
+	clear_string_queue(r);
 	r->loading = false;
 }
 

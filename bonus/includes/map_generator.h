@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:54:30 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/04 20:04:37 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 22:47:57 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 # include "cub3d.h"
 // orange
-# define PLAYER_PIX 0xFFA500
 # define WALL_PIX 0xFFFFFF
 # define DOOR_PIX 0x0000FF
 # define SHOP_PIX 0xFF00FF
-# define GENERATOR_PIX 0xFFFF00
-# define PORTAL_PIX 0x00FF00
 # define EMPTY_PIX 0x000000
+# define PORTAL_PIX 0x00FF00
+# define PLAYER_PIX 0xFFA500
+# define GENERATOR_PIX 0xFFFF00
 # define MAX_COLOR 7
 
 # define SCREEN_WIDTH 1280
@@ -55,7 +55,7 @@ void				init_data(t_data *data);
 void				clear_image(t_data *data);
 void				save_draw_txt(t_data *data);
 bool				check_num(t_data *data, int color);
-void				check_curr_color(int x, int y, t_data *data);
+void				check_curr_color(int y, t_data *data);
 void				draw_button(t_data *data, t_color_picker button);
 void				draw_cell(t_data *data, int x, int y, int color);
 
