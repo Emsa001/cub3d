@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/04 13:21:46 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/04 19:07:20 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,12 +213,9 @@ typedef struct s_gen_coords
 {
 	float				dist;
 	bool 				save;
-	float				first_x;
-	float				first_y;
-	float				last_x;
-	float				last_y;
-	int					first_tex_x;
-	int					last_tex_x;
+	float				x;
+	float				y;
+	int					tex_x;
 	int					height;
 	int					height_top;
 	float				tall;
@@ -332,7 +329,7 @@ bool	find_hitbox(t_draw *draw, t_cube *c);
 float	get_check(int *start_y, int *end_y, float *step, float height);
 
 void					draw_line(t_draw draw, t_thread_params *params);
-void	draw_sprite(t_draw *draw);
+void	draw_sprite(t_draw *draw, t_thread_params *params);
 // generator
 void draw_generators(t_draw *draw, t_thread_params *params);
 

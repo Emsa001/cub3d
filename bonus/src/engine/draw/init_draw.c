@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_draw.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:23:37 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/03 19:47:52 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 19:19:15 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,9 @@ t_gen_coords	init_gen_coords(void)
 
 	gen.dist = 0;
 	gen.save = false;
-	gen.first_x = 0;
-	gen.first_y = 0;
-	gen.last_x = 0;
-	gen.last_y = 0;
-	gen.first_tex_x = 0;
-	gen.last_tex_x = 0;
+	gen.x = 0;
+	gen.y = 0;
+	gen.tex_x = 0;
 	gen.height = 0;
 	gen.height_top = 0;
 	gen.tall = 0.6;

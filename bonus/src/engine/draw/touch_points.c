@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:19:37 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/04 13:22:18 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/04 19:19:40 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,21 @@ void	get_generator_first_coordinates(t_draw *draw, t_block *generators)
 	sx = -1;
 	if (draw->cosangle > 0)
 		sx = 1;
-	draw->gen.first_x = draw->x;
-	draw->gen.first_y = draw->y;
+	draw->gen.x = draw->x;
+	draw->gen.y = draw->y;
 	draw->gen.dist = lane_distance(draw);
 	draw->gen.height = (BLOCK_SIZE * HEIGHT) / draw->gen.dist;
-	draw->gen.first_tex_x = (int)draw->y % BLOCK_SIZE;
+	draw->gen.tex_x = (int)draw->y % BLOCK_SIZE;
 	if (touch_generator(generators, draw->x - sx, draw->y))
-		draw->gen.first_tex_x = (int)draw->x % BLOCK_SIZE;
+		draw->gen.tex_x = (int)draw->x % BLOCK_SIZE;
 	draw->gen.save = true;
 }
 
-void	get_generator_last_coordinates(t_draw *draw, t_block *generators)
+void	get_generator_last_coordinates(t_draw *draw)
 {
-	int	sx;
-
-	sx = -1;
-	if (draw->cosangle > 0)
-		sx = 1;
-	draw->gen.save = false;
-	draw->gen.last_x = draw->x;
-	draw->gen.last_y = draw->y;
+	(void)generators;
 	draw->gen.dist = lane_distance(draw);
 	draw->gen.height_top = (BLOCK_SIZE * HEIGHT) / draw->gen.dist;
-	draw->gen.last_tex_x = (int)draw->x % BLOCK_SIZE;
-	if (touch_generator(generators, draw->x - sx, draw->y))
-		draw->gen.last_tex_x = (int)draw->y % BLOCK_SIZE;
 	draw->gen.save = false;
 }
 
@@ -118,6 +108,6 @@ bool	find_hitbox(t_draw *draw, t_cube *c)
 		get_generator_first_coordinates(draw, c->map->generators);
 	if (draw->gen.save && !touch_generator(c->map->generators, draw->x,
 			draw->y))
-		get_generator_last_coordinates(draw, c->map->generators);
+		get_generator_last_coordinates(draw);
 	return (false);
 }

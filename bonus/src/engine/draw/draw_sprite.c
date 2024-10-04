@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 19:46:10 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/03 20:06:34 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 18:48:13 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,22 +77,35 @@ static void	draw_sprites(t_draw *draw, t_sprite_coords sprites)
 			sprites.height);
 	while (line.start_y < line.end_y)
 	{
-		line.color = get_pixel_from_image(tex, sprites.tex_x, line.tex_y);
-		line.color = darken_color_wall(line.color, (float)sprites.dist / 450,
-				sprites.x / BLOCK_SIZE, sprites.y / BLOCK_SIZE);
-		if (line.color && line.color > 0)
-			draw->colors[line.start_y] = line.color;
+		if(draw->colors[line.start_y] == 0)
+		{
+			line.color = get_pixel_from_image(tex, sprites.tex_x, line.tex_y);
+			line.color = darken_color_wall(line.color, (float)sprites.dist / 450,
+					sprites.x / BLOCK_SIZE, sprites.y / BLOCK_SIZE);
+			if (line.color && line.color > 0)
+				draw->colors[line.start_y] = line.color;
+		}
 		line.tex_y += line.step;
 		line.start_y++;
 	}
 }
 
-void	draw_sprite(t_draw *draw)
+void	draw_sprite(t_draw *draw, t_thread_params *params)
 {
-	if (draw->is_sprite)
-		while (--draw->s_count >= 0)
-			draw_sprites(draw, draw->sprites[draw->s_count]);
-	if (draw->is_facing)
-		while (--draw->f_count >= 0)
-			draw_sprites(draw, draw->facing[draw->f_count]);
+    int i = 0;
+    int max_count = draw->s_count + draw->f_count;
+
+    while (i < max_count)
+    {
+        if (draw->is_facing && i < draw->f_count)
+        {
+            draw_sprites(draw, draw->facing[i]);
+        }
+        if (draw->is_sprite && i < draw->s_count)
+        {
+            draw_sprites(draw, draw->sprites[i]);
+        }
+        i++;
+    }
+	draw_generators(draw, params);
 }

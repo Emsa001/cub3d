@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   generator.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 18:59:22 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/03 19:32:17 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/04 19:19:23 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,18 @@ void	draw_generator_top(t_draw *draw, t_thread_params *params, int start_y,
 		draw->gen.top += 0.01;
 	while (start_y < end_y)
 	{
-		current_dist = view_current_distance_gen(start_y, draw->angle,
-				draw->gen.top);
-		head_x = (p->x) + current_dist * draw->cosangle;
-		head_y = (p->y) + current_dist * draw->sinangle;
-		color = get_pixel_from_image(params->textures->generator_top, head_x
-				* (T_SIZE * 2), head_y * (T_SIZE * 2));
-		color = darken_color(color, current_dist / 7);
-		if (color > 0)
-			draw->colors[start_y] = color;
+		if(draw->colors[start_y] == 0)
+		{
+			current_dist = view_current_distance_gen(start_y, draw->angle,
+					draw->gen.top);
+			head_x = (p->x) + current_dist * draw->cosangle;
+			head_y = (p->y) + current_dist * draw->sinangle;
+			color = get_pixel_from_image(params->textures->generator_top, head_x
+					* (T_SIZE * 2), head_y * (T_SIZE * 2));
+			color = darken_color(color, current_dist / 7);
+			if (color > 0)
+				draw->colors[start_y] = color;
+		}
 		start_y++;
 	}
 }
@@ -68,10 +71,13 @@ void	draw_generator(t_draw *draw, t_thread_params *params, int height,
 		line.end_y = HEIGHT;
 	while (line.start_y < line.end_y)
 	{
-		line.color = get_pixel_from_image(tex, tex_x * 2, line.tex_y);
-		line.color = darken_color(line.color, (float)draw->gen.dist / 450);
-		if (line.color > 0)
-			draw->colors[line.start_y] = line.color;
+		if (draw->colors[line.start_y] == 0)
+		{
+			line.color = get_pixel_from_image(tex, tex_x * 2, line.tex_y);
+			line.color = darken_color(line.color, (float)draw->gen.dist / 450);
+			if (line.color > 0)
+				draw->colors[line.start_y] = line.color;
+		}
 		line.tex_y += line.step;
 		line.start_y++;
 	}
@@ -90,7 +96,7 @@ void	draw_generators(t_draw *draw, t_thread_params *params)
 		start_y = 0;
 	if (end_y > HEIGHT)
 		end_y = HEIGHT;
-	draw_generator(draw, params, draw->gen.height_top, draw->gen.last_tex_x);
+	draw_generator(draw, params, draw->gen.height, draw->gen.tex_x);
 	draw_generator_top(draw, params, start_y, end_y);
-	draw_generator(draw, params, draw->gen.height, draw->gen.first_tex_x);
+	// draw_generator(draw, params, draw->gen.height_top, draw->gen.last_tex_x);
 }
