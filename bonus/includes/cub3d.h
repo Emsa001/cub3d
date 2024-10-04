@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/04 19:07:20 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/04 20:28:01 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,6 +220,7 @@ typedef struct s_gen_coords
 	int					height_top;
 	float				tall;
 	float 				top;
+	bool			first_touch;
 }						t_gen_coords;
 
 typedef struct s_draw
@@ -247,6 +248,8 @@ typedef struct s_draw
 	t_sprite_coords		*facing;
 	int 				s_count;
 	int 				f_count;
+
+	int					*sprite_order;
 
 }						t_draw;
 
@@ -318,14 +321,14 @@ void					draw_scene(t_draw *draw, t_thread_params *params);
 int						darken_color_wall(int color, float factor, float wall_x,
 							float wall_y);
 
-void	get_facing_coordinates(t_draw *draw, int i);
-void	get_sprite_coordinates(t_draw *draw, int i);
+void	get_facing_coordinates(t_draw *draw, int i, int *iter);
+void	get_sprite_coordinates(t_draw *draw, int i, int *iter);
 bool	touch_facing(t_draw *draw, t_float p, t_float s, int width);
 
 t_draw	init_draw(void);
 void	direction(t_draw *draw, t_thread_params *params);
 void	put_line(t_draw draw, t_thread_params *params);
-bool	find_hitbox(t_draw *draw, t_cube *c);
+bool	find_hitbox(t_draw *draw, t_cube *c, int *iter);
 float	get_check(int *start_y, int *end_y, float *step, float height);
 
 void					draw_line(t_draw draw, t_thread_params *params);

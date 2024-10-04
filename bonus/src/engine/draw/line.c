@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/10/04 18:45:51 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/04 21:52:51 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,13 @@ void	draw_line(t_draw draw, t_thread_params *params)
 {
 	t_cube	*c;
 	int		scale;
+	int		iter;
 
 	c = params->cube;
 	draw.cosangle = cos(draw.angle);
 	draw.sinangle = sin(draw.angle);
-	while (!find_hitbox(&draw, c))
+	iter = 0;
+	while (!find_hitbox(&draw, c, &iter))
 	{
 		draw.x += draw.cosangle;
 		draw.y += draw.sinangle;

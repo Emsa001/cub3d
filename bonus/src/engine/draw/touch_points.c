@@ -6,13 +6,14 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:19:37 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/04 19:19:40 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/04 21:56:07 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	get_generator_first_coordinates(t_draw *draw, t_block *generators)
+void	get_generator_first_coordinates(t_draw *draw, t_block *generators,
+		int *iter)
 {
 	int	sx;
 
@@ -27,11 +28,13 @@ void	get_generator_first_coordinates(t_draw *draw, t_block *generators)
 	if (touch_generator(generators, draw->x - sx, draw->y))
 		draw->gen.tex_x = (int)draw->x % BLOCK_SIZE;
 	draw->gen.save = true;
+	draw->gen.first_touch = true;
+	draw->sprite_order[*iter] = 3;
+	(*iter)++;
 }
 
 void	get_generator_last_coordinates(t_draw *draw)
 {
-	(void)generators;
 	draw->gen.dist = lane_distance(draw);
 	draw->gen.height_top = (BLOCK_SIZE * HEIGHT) / draw->gen.dist;
 	draw->gen.save = false;
@@ -52,8 +55,8 @@ int	touch_sprite(t_sprite *sprites, float px, float py)
 	{
 		x = sprites[i].x * BLOCK_SIZE;
 		y = sprites[i].y * BLOCK_SIZE;
-		if (px >= x && px <= x + sprites[i].width && py >= y 
-			&& py <= y + SPRITE_THICKNESS)
+		if (px >= x && px <= x + sprites[i].width && py >= y && py <= y
+			+ SPRITE_THICKNESS)
 			return (i + 1);
 		i++;
 	}
@@ -84,13 +87,17 @@ int	touch_facing_sprite(t_draw *draw, t_sprite *sprites, float px, float py)
 	return (0);
 }
 
-bool	find_hitbox(t_draw *draw, t_cube *c)
+bool	find_hitbox(t_draw *draw, t_cube *c, int *iter)
 {
 	int	i;
 
 	i = 0;
 	if (is_touching(draw->x, draw->y, c))
+	{
+		if (draw->gen.save)
+			get_generator_last_coordinates(draw);
 		return (true);
+	}
 	if (touch_block(c->map->blocks, draw->x, draw->y))
 		return (true);
 	if (touch_block(c->map->doors, draw->x, draw->y))
@@ -99,15 +106,15 @@ bool	find_hitbox(t_draw *draw, t_cube *c)
 		return (true);
 	i = touch_sprite(c->map->sprites, draw->x, draw->y);
 	if (i)
-		get_sprite_coordinates(draw, i);
+		get_sprite_coordinates(draw, i, iter);
 	i = touch_facing_sprite(draw, c->map->facing, draw->x, draw->y);
 	if (i)
-		get_facing_coordinates(draw, i);
-	if (!draw->gen.save && touch_generator(c->map->generators, draw->x,
-			draw->y))
-		get_generator_first_coordinates(draw, c->map->generators);
-	if (draw->gen.save && !touch_generator(c->map->generators, draw->x,
-			draw->y))
+		get_facing_coordinates(draw, i, iter);
+	if (!draw->gen.first_touch && !draw->gen.save
+		&& touch_generator(c->map->generators, draw->x, draw->y))
+		get_generator_first_coordinates(draw, c->map->generators, iter);
+	if (!touch_generator(c->map->generators, draw->x, draw->y)
+		&& draw->gen.save)
 		get_generator_last_coordinates(draw);
 	return (false);
 }
