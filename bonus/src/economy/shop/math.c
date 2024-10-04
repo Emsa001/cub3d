@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:39:01 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 18:21:26 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 20:07:40 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	choice_button(int x, int y, int i)
 	button.left_click = &select_math;
 	button.arg = (void *)(intptr_t)(p->random[i]);
 	add_button(&button);
-	if (p->hover != NULL && p->hover->x == button.x && p->hover->y == button.y
+	if ((p->hover != NULL && p->hover->x == button.x && p->hover->y == button.y)
 		|| p->math_selected == p->random[i])
 		put_image(textures()->ui->button_hover, button.x, button.y,
 			button.size);

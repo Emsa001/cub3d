@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 19:25:20 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/03 18:24:41 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 20:07:12 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	put_line(t_draw draw, t_thread_params *params)
 	}
 }
 
-bool	check_block_and_door(t_draw *draw, int sx, int sy,
+static bool	check_block_and_door(t_draw *draw, int sx,
 		t_thread_params *params)
 {
 	if (touch_block(params->cube->map->doors, draw->x, draw->y))
@@ -101,7 +101,7 @@ void	direction(t_draw *draw, t_thread_params *params)
 		sx = 1;
 	if (draw->sinangle > 0)
 		sy = 1;
-	if (check_block_and_door(draw, sx, sy, params))
+	if (check_block_and_door(draw, sx, params))
 		return ;
 	if (is_touching(draw->x - sx, draw->y, params->cube))
 	{

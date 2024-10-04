@@ -6,7 +6,7 @@
 #    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/10/03 19:46:01 by escura           ###   ########.fr        #
+#    Updated: 2024/10/03 20:22:03 by escura           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,10 +29,10 @@ SRC = $(filter-out $(wildcard $(SRC_DIR)/_*), $(wildcard $(SRC_DIR)/*.c) $(wildc
 # Compiler and Flags
 CC = cc
 
-CFLAGS = -g -O3
+CFLAGS = -pthread -g -Ofast
+CFLAGS += -Wall -Wextra -Werror
 # CFLAGS += -fsanitize=thread
 # CFLAGS += -fsanitize=address
-# CFLAGS = -Wall -Wextra -Werror
 
 MAP_GEN = map_generator/map_generator.c map_generator/draw.c map_generator/utils.c
 

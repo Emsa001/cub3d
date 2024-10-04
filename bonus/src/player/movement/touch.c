@@ -3,18 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   touch.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:49:03 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 11:41:04 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 20:09:22 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-bool	check_level_con(t_point *portals, float px, float py, int i)
+static bool	check_level_con(t_point *portals, float px, float py, int i)
 {
-	const t_sprite	*sprites = cube()->map->sprites;
 	float			y;
 	float			x;
 
@@ -24,9 +23,6 @@ bool	check_level_con(t_point *portals, float px, float py, int i)
 	{
 		x = portals[i].x * BLOCK_SIZE;
 		y = portals[i].y * BLOCK_SIZE;
-		// if (px >= x && px <= x + BLOCK_SIZE && py >= y && py <= y
-		// 	&& sprites[i].type == 'P')
-		// 	return (true);
 		if (py < portals[i].y * BLOCK_SIZE + 10)
 		{
 			player()->level = (cube()->levels - 1) - i;
@@ -36,10 +32,11 @@ bool	check_level_con(t_point *portals, float px, float py, int i)
 			player()->level = 0;
 		i++;
 	}
+	(void)px;
 	return (false);
 }
 
-bool	check_level(t_point *portals, float px, float py)
+static bool	check_level(t_point *portals, float px, float py)
 {
 	int	i;
 

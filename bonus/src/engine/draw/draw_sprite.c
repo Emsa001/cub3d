@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_sprite.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 19:46:10 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/03 18:44:54 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/03 20:06:34 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,7 @@ void	get_facing_coordinates(t_draw *draw, int i)
 	draw->is_facing = true;
 }
 
-void	draw_sprites(t_draw *draw, t_thread_params *params,
-		t_sprite_coords sprites)
+static void	draw_sprites(t_draw *draw, t_sprite_coords sprites)
 {
 	t_texture	*tex;
 	t_line		line;
@@ -88,12 +87,12 @@ void	draw_sprites(t_draw *draw, t_thread_params *params,
 	}
 }
 
-void	draw_sprite(t_draw *draw, t_thread_params *params)
+void	draw_sprite(t_draw *draw)
 {
 	if (draw->is_sprite)
 		while (--draw->s_count >= 0)
-			draw_sprites(draw, params, draw->sprites[draw->s_count]);
+			draw_sprites(draw, draw->sprites[draw->s_count]);
 	if (draw->is_facing)
 		while (--draw->f_count >= 0)
-			draw_sprites(draw, params, draw->facing[draw->f_count]);
+			draw_sprites(draw, draw->facing[draw->f_count]);
 }

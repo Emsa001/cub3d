@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 19:26:55 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 20:17:26 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,7 +331,7 @@ bool	find_hitbox(t_draw *draw, t_cube *c);
 float	get_check(int *start_y, int *end_y, float *step, float height);
 
 void					draw_line(t_draw draw, t_thread_params *params);
-void	draw_sprite(t_draw *draw, t_thread_params *params);
+void	draw_sprite(t_draw *draw);
 // generator
 void draw_generators(t_draw *draw, t_thread_params *params);
 

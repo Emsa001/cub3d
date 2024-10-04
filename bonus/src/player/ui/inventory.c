@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:18:14 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 19:37:21 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/03 20:08:03 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	hud_inventory(void)
 	const int		x = 10;
 	const int		y = HEIGHT - textures()->inventory_player->height - 10;
 	int				i;
-	t_button		button;
 
 	i = 0;
 	put_image(textures()->inventory_player, x, y, 1);

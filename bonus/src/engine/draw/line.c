@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 19:37:42 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/04 13:18:12 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	draw_ceiling(t_draw *draw, t_thread_params *params, int start_y)
 	}
 }
 
-void	draw_wall(t_draw *draw, t_thread_params *params, int start_y, int end_y)
+static void	draw_wall(t_draw *draw, int start_y, int end_y)
 {
 	int		color;
 	float	step;
@@ -95,7 +95,7 @@ void	draw_scene(t_draw *draw, t_thread_params *params)
 	draw->height = (BLOCK_SIZE * HEIGHT) / draw->dist;
 	draw->tex_y = get_check(&start_y, &end_y, &step, draw->height);
 	draw_ceiling(draw, params, start_y);
-	draw_wall(draw, params, start_y, end_y);
+	draw_wall(draw, start_y, end_y);
 	draw_floor(draw, params, end_y);
 }
 
@@ -114,9 +114,9 @@ void	draw_line(t_draw draw, t_thread_params *params)
 	}
 	direction(&draw, params);
 	draw_scene(&draw, params);
-	draw_sprite(&draw, params);
+	draw_sprite(&draw);
 	draw_generators(&draw, params);
-	scale = draw.start_x + WIDTH_SCALE;
+	scale = draw.start_x + get_quality(params->render);
 	while (draw.start_x < scale && draw.start_x < params->end)
 	{
 		put_line(draw, params);
