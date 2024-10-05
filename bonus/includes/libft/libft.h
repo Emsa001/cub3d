@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:26:07 by triedel           #+#    #+#             */
-/*   Updated: 2024/10/02 16:47:48 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 14:58:38 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void				ft_putstr(char *s);
 char				*ft_strchr(const char *s, int c);
 /* ft_strdup.c */
 char				*ft_strdup(const char *src);
+char				*ft_strdup_og(const char *src);
 char				**ft_strduparr(const char **src);
 
 /* ft_striteri.c */

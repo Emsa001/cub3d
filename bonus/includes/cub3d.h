@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 14:33:08 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:24:40 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ typedef struct s_string
 	int					time;
 	int					background;
 	int					padding;
+	size_t 				length;
 
 	int					animation;
 	int					blink;
@@ -173,7 +174,6 @@ typedef struct s_render
 	double				fps_update_time;
 
 	int					quaility;
-
 	bool 				loading;
 
 	t_image				*image_queue;

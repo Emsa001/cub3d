@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   loading.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 21:44:10 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 12:39:06 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:32:47 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	loading_end()
 {
 	t_render *const r = render();
     stop_all_async_tasks();
-	clear_image_queue(r);
 	clear_string_queue(r);
+	clear_image_queue(r);
 	r->loading = false;
 }
 
@@ -34,7 +34,7 @@ static void loading_buttons()
 	str.background = 0x000001;
 	str.padding = 10;
 	str.time = -1;
-	str.animation = 10;
+	str.animation = 5;
 	str.blink = 120;
 	render_string_async(&str);
 	cube()->accept_hooks = true;
@@ -69,6 +69,6 @@ void	loading_screen(void)
 	str.animation = 30;
 	render_string_async(&str);
 
-	ft_wait(1, loadin_authors, NULL);
-	ft_wait(1, loading_buttons, NULL);
+	ft_wait(1500, loadin_authors, NULL);
+	ft_wait(3000, loading_buttons, NULL);
 }

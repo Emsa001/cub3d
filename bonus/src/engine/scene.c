@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 12:32:36 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:07:25 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,21 @@ int	render_scene_multithread(void)
 {
 	static int frame = 0;
 	
-	if(!render()->loading)
-	{
-		player()->mouse_hook = true;
-		render_view(cube());
-		render_player();
-	}else
+	if(render()->loading)
 	{
 		ft_bzero(render()->data, WIDTH * HEIGHT * 4);
 		put_image(&textures()->ui->loading[frame / 7], 0, 80, 2.5);
 		frame++;
 		if(frame == 56)
 			frame = 0;
+		render_queue();
+		show_image(0, 0);
+		return (0);
 	}
+	player()->mouse_hook = true;
+	render_view(cube());
+	render_player();
+
 	execute_button_hover();
 	render_queue();
 	update_fps();

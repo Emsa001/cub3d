@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 12:11:34 by triedel           #+#    #+#             */
-/*   Updated: 2024/05/21 14:21:31 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 14:58:26 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,3 +25,17 @@ char	*ft_strdup(const char *src)
 	ft_strlcpy(dup, src, size);
 	return (dup);
 }
+
+char	*ft_strdup_og(const char *src)
+{
+	char	*dup;
+	int		size;
+
+	size = ft_strlen(src) + 1;
+	dup = malloc(size * sizeof(char));
+	if (!dup)
+		return (NULL);
+	ft_strlcpy(dup, src, size);
+	return (dup);
+}
+

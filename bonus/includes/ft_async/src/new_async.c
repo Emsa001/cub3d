@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:14:01 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 23:02:59 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 15:19:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ t_async	*new_async(void)
 	async->time_elapsed = 0;
 	async->process_time = 100;
 	async->stopped = false;
+	async->frame = 0;
 	async->cube = cube();
 	async->render = render();
 	async->player = player();

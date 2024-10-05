@@ -6,20 +6,20 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 23:29:17 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 23:43:07 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 15:29:31 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	remove_string_queue(t_string **q)
+static void	remove_string_queue(t_string *q)
 {
-	if (*q)
+	if (q)
 	{
-		if ((*q)->str)
-			(*q)->str = NULL;
-		free(*q);
-		*q = NULL;
+		if ((q)->str)
+			(q)->str = NULL;
+		free(q);
+		q = NULL;
 	}
 }
 
@@ -34,7 +34,7 @@ void	clear_string_queue(t_render *r)
 	while (current != NULL)
 	{
 		next = current->next;
-		remove_string_queue(&current);
+		remove_string_queue(current);
 		current = next;
 	}
 	r->string_queue = NULL;
@@ -52,7 +52,7 @@ void	put_string_queue(t_render *r)
 	{
 		render_string(q);
 		tmp = q->next;
-		remove_string_queue(&q);
+		remove_string_queue(q);
 		q = tmp;
 	}
 	r->string_queue = NULL;
