@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 16:04:05 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/04 20:04:12 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 12:41:26 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ typedef struct s_minimap
 
 typedef struct s_square
 {
-	int					x;
-	int					y;
+	float				x;
+	float				y;
 	int					color;
 	float				cosangle;
 	float				sinangle;

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 16:38:02 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/02 21:26:58 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/05 12:06:46 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	terminate_blocks(t_block **blocks, int i)
 void	init_once(t_block *blocks, t_float point, int *k, char type)
 {
 	blocks[*k].s_x = point.x;
-	blocks[*k].s_y = point.y - 0.02;
+	blocks[*k].s_y = point.y;
 	blocks[*k].x = point.x;
-	blocks[*k].y = point.y - 0.02;
+	blocks[*k].y = point.y;
 	blocks[*k].id = *k;
 	blocks[*k].type = type;
 	(*k)++;
