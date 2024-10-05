@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:44 by escura            #+#    #+#             */
-/*   Updated: 2024/10/04 19:58:50 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 17:13:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,22 @@ float	lane_distance(t_draw *draw)
 
 static void	init_cells(char *nearby_cells, int x, int y)
 {
-	const t_cube	*c = cube();
+    const t_cube	*c = cube();
+    int				dx[] = {0, 0, -1, 1, -1, -1, 1, 1};
+    int				dy[] = {0, -1, 0, 0, -1, 1, -1, 1};
+	int				i;
 
-	nearby_cells[0] = c->map->map[y][x];
-	nearby_cells[1] = c->map->map[y - 1][x];
-	nearby_cells[2] = c->map->map[y + 1][x];
-	nearby_cells[3] = c->map->map[y][x - 1];
-	nearby_cells[4] = c->map->map[y][x + 1];
-	nearby_cells[5] = c->map->map[y - 1][x - 1];
-	nearby_cells[6] = c->map->map[y - 1][x + 1];
-	nearby_cells[7] = c->map->map[y + 1][x - 1];
-	nearby_cells[8] = c->map->map[y + 1][x + 1];
+    ft_bzero(nearby_cells, 9); 
+	i = 0;
+    while(i < 8)
+	{
+        int nx = x + dx[i];
+        int ny = y + dy[i];
+        if (nx >= 0 && nx < c->map->width && ny >= 0 && ny < c->map->height)
+            nearby_cells[i + 1] = c->map->map[ny][nx];
+		i++;
+    }
+    nearby_cells[0] = c->map->map[y][x];
 }
 
 static t_location	*is_nearby1(int x, int y, int i)

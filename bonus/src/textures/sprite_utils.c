@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprite_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:56:47 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/02 13:38:14 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:54:07 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ bool	find_sprite(float x, float y, int *i)
 
 void	terminate_sprite(t_sprite **sprites, int *i)
 {
+
 	(*sprites)[*i].x = -1;
 	(*sprites)[*i].y = -1;
 	(*sprites)[*i].frames = -1;

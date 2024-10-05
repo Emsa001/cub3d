@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 15:18:44 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 18:18:21 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 17:04:53 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,14 @@ typedef struct s_generator
 typedef struct s_store
 {
 	bool				case_cooldown;
+	bool 				portal_cooldown;	
 	int					items[27];
 	int					prices[27];
 	t_generator			*generators;
 	int					math[2];
 
 	pthread_mutex_t		case_mutex;
+	
 
 }						t_store;
 

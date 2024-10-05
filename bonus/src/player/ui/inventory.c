@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 14:18:14 by escura            #+#    #+#             */
-/*   Updated: 2024/10/04 19:57:52 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 17:19:05 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static void	open_inventory_con(t_player *p, int i, int x, int y)
 {
 	t_button	button;
 
+	button = (t_button){0};
 	if (p->inventory[i] != -1)
 	{
 		put_image(&(textures()->items[p->inventory[i]]), x + 25 + (i % 3) * 70,

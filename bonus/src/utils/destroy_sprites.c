@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 19:55:00 by escura            #+#    #+#             */
-/*   Updated: 2024/10/04 19:56:49 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 16:49:49 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	destroy_sprite_image(t_sprite sprite)
 	while (i < sprite.frames)
 	{
 		destroy_texture(sprite.sprite_tex[i]);
-		sprite.sprite_tex[i] = NULL;
 		i++;
 	}
 }

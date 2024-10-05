@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 16:13:22 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 17:59:29 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,13 @@ typedef struct s_cube
 	t_item				items[328];
 
 	t_map				*map;
-	int 				selected_map;
+	int					selected_map;
 
 	int					add_money;
 	pthread_mutex_t		add_money_mutex;
 	bool				is_special;
 
-	bool 				accept_hooks;
+	bool				accept_hooks;
 	bool				paused;
 	int					async_id;
 
@@ -126,11 +126,11 @@ typedef struct s_string
 	int					time;
 	int					background;
 	int					padding;
-	size_t 				length;
+	size_t				length;
 
 	int					animation;
 	int					blink;
-	size_t 				char_index;
+	size_t				char_index;
 
 	void				*clean;
 	struct s_string		*next;
@@ -175,7 +175,7 @@ typedef struct s_render
 	double				fps_update_time;
 
 	int					quaility;
-	bool 				loading;
+	bool				loading;
 
 	t_image				*image_queue;
 	t_string			*string_queue;
@@ -216,15 +216,15 @@ typedef struct s_sprite_coords
 typedef struct s_gen_coords
 {
 	float				dist;
-	bool 				save;
+	bool				save;
 	float				x;
 	float				y;
 	int					tex_x;
 	int					height;
 	int					height_top;
 	float				tall;
-	float 				top;
-	bool			first_touch;
+	float				top;
+	bool				first_touch;
 }						t_gen_coords;
 
 typedef struct s_draw
@@ -325,18 +325,20 @@ void					draw_scene(t_draw *draw, t_thread_params *params);
 int						darken_color_wall(int color, float factor, float wall_x,
 							float wall_y);
 
-void	get_facing_coordinates(t_draw *draw, int i, int *iter);
-void	get_sprite_coordinates(t_draw *draw, int i, int *iter);
-bool	touch_facing(t_draw *draw, t_float p, t_float s, int width);
+void					get_facing_coordinates(t_draw *draw, int i, int *iter);
+void					get_sprite_coordinates(t_draw *draw, int i, int *iter);
+bool					touch_facing(t_draw *draw, t_float p, t_float s,
+							int width);
 
-t_draw	init_draw(void);
-void	direction(t_draw *draw, t_thread_params *params);
-void	put_line(t_draw draw, t_thread_params *params);
-bool	find_hitbox(t_draw *draw, t_cube *c, int *iter);
-float	get_check(int *start_y, int *end_y, float *step, float height);
+t_draw					init_draw(void);
+void					direction(t_draw *draw, t_thread_params *params);
+void					put_line(t_draw draw, t_thread_params *params);
+bool					find_hitbox(t_draw *draw, t_cube *c, int *iter);
+float					get_check(int *start_y, int *end_y, float *step,
+							float height);
 
 void					draw_line(t_draw draw, t_thread_params *params);
-void	draw_sprite(t_draw *draw, t_thread_params *params);
+void					draw_sprite(t_draw *draw, t_thread_params *params);
 // generator
 void					draw_generators(t_draw *draw, t_thread_params *params);
 
@@ -421,7 +423,13 @@ void					update_quality(t_render *r, int quality);
 float					ft_float_atoi(char *str);
 void					destroy_sprites(void);
 
-void	loading_screen(void);
-void	loading_end(void);
+void					loading_screen(void);
+void					loading_end(void);
+void					loading_exit();
+void					loading_exit_game(void *arg);
+void					map_buttons(int buttons);
+
+void					exit_game_f(void *arg);
+void					exit_hover(void *arg);
 
 #endif

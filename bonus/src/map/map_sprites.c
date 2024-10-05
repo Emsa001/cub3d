@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_sprites.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:24:21 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/05 15:23:55 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/05 16:51:51 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,13 @@ void	check_max_objects(char **map)
 
 t_texture	*get_info(char *path_file, int i)
 {
-	char		*path;
-	char		*temp;
-	t_texture	*tex;
-
-	tex = ft_malloc(sizeof(t_texture));
-	path = ft_strjoin(path_file, ft_itoa(i));
-	temp = ft_strjoin(path, ".xpm");
-	tex->image = get_texture_file(temp, &tex->width, &tex->height);
-	tex->data = mlx_get_data_addr(tex->image, &tex->bpp, &tex->size_line,
-			&tex->endian);
+	char *const	temp = ft_strjoin_itoa(path_file, i);
+	char *const	path = ft_strjoin(temp, ".xpm");
+	
+	t_texture *t = load_texture(path);
 	ft_free(temp);
 	ft_free(path);
-	return (tex);
+	return (t);
 }
 
 t_sprite	get_sprite(char *path_file, int frames, float x, float y)
