@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 17:54:12 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 17:57:33 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 20:10:01 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	select_map(void *arg)
 
 static void	render_button_string(t_button button, int i)
 {
-	const int	colors[] = {0x67e8f9, 0x7dd3fc, 0x93c5fd, 0xa5b4fc, 0xc4b5fd};
+	const int	colors[] = {0xbef264, 0x86efac, 0x6ee7b7, 0x5eead4, 0x67e8f9};
 	t_string	string;
 
 	string = (t_string){0};
@@ -37,13 +37,14 @@ void	map_buttons(int buttons)
 	t_button	button;
 	const int	selected = cube()->selected_map;
 	int			i;
+	const int	start = (HEIGHT - 5 * 150) / 2;
 
 	i = 0;
 	while (i < buttons)
 	{
 		button = (t_button){0};
-		button.x = WIDTH / 2 - 330 + i * 130;
-		button.y = 150;
+		button.x = 100;
+		button.y = start + i * 150;
 		button.size = 1.5;
 		button.left_click = &select_map;
 		button.selected = i == selected;

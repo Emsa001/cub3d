@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 18:50:00 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 20:09:21 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void	render_queue(void)
 static void	render_scene_loading(void)
 {
 	static int	frame = 0;
+	static int	buttons = 0;
 
 	ft_bzero(render()->data, WIDTH * HEIGHT * 4);
 	put_image(&textures()->ui->loading[frame / 4], 0, 80, 2.5);
@@ -46,7 +47,10 @@ static void	render_scene_loading(void)
 	if (cube()->accept_hooks)
 	{
 		loading_exit();
-		map_buttons(5);
+		map_buttons(buttons / 5);
+		if(buttons < 25)
+			buttons++;
+
 	}
 	render_queue();
 	show_image(0, 0);
