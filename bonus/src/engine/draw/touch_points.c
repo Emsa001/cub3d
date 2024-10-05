@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:19:37 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/05 14:39:56 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:06:29 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,6 @@ bool	find_hitbox(t_draw *draw, t_cube *c, int *iter)
 	if (touch_block(c->map->blocks, draw->x, draw->y))
 		return (true);
 	if (touch_block(c->map->doors, draw->x, draw->y))
-		return (true);
-	if (touch_line(c->map->lines, draw->x, draw->y))
 		return (true);
 	if (c->map->sprite_count)
 		if_sprite_check(draw, c, iter);

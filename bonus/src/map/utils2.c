@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:48:01 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/01 13:12:57 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:19:07 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,33 @@ float	ft_float_atoi(char *str)
 	res = ft_parse_integer_part(str, &i, &sign);
 	dec = ft_parse_decimal_part(str, i);
 	return (sign * (res + dec));
+}
+
+void	get_portal(t_portal **portals, char **map, char c)
+{
+	int	k;
+	int	i;
+	int	j;
+
+	k = 0;
+	i = 0;
+	j = 0;
+	while (map[i] != NULL)
+	{
+		j = 0;
+		while (map[i][j] != '\0')
+		{
+			if (map[i][j] == c)
+			{
+				(*portals)[k].x = j;
+				(*portals)[k].y = i;
+				(*portals)[k].open = false;
+				k = k + 1;
+			}
+			j++;
+		}
+		i++;
+	}
+	(*portals)[k].x = -1;
+	(*portals)[k].y = -1;
 }
