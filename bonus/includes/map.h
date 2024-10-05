@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/10/04 14:51:15 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:18:21 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,13 @@ typedef struct s_sprite
 	t_texture				**sprite_tex;
 }							t_sprite;
 
+typedef struct s_portal
+{
+	int					x;
+	int					y;
+	bool				open;
+}							t_portal;
+
 typedef struct s_map
 {
 	int						width;
@@ -67,11 +74,10 @@ typedef struct s_map
 
 	t_block					*doors;
 	t_block					*blocks;
-	t_block					*lines;
 	t_block					*generators;
 	t_sprite				*sprites;
 	t_sprite				*facing;
-	t_point					*portals;
+	t_portal				*portals;
 	t_minimap				*minimap;
 }							t_map;
 
@@ -108,6 +114,7 @@ void						remove_sprite(int x, int y);
 void						init_sprite(t_map *map, t_sprite sprite,
 								bool facing);
 void						get_points(t_point **points, char **map, char c);
+void	get_portal(t_portal **points, char **map, char c);
 
 int							count_c(char **map, char c);
 void						check_max_objects(char **map);

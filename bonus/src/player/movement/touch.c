@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   touch.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:49:03 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 20:09:22 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 15:21:16 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static bool	check_level_con(t_point *portals, float px, float py, int i)
+static bool	check_level_con(t_portal *portals, float px, float py, int i)
 {
 	float			y;
 	float			x;
@@ -23,6 +23,8 @@ static bool	check_level_con(t_point *portals, float px, float py, int i)
 	{
 		x = portals[i].x * BLOCK_SIZE;
 		y = portals[i].y * BLOCK_SIZE;
+		if (px >= x && px <= x + BLOCK_SIZE && py >= y && py <= y && !portals[i].open)
+			return (true);
 		if (py < portals[i].y * BLOCK_SIZE + 10)
 		{
 			player()->level = (cube()->levels - 1) - i;
@@ -32,11 +34,10 @@ static bool	check_level_con(t_point *portals, float px, float py, int i)
 			player()->level = 0;
 		i++;
 	}
-	(void)px;
 	return (false);
 }
 
-static bool	check_level(t_point *portals, float px, float py)
+static bool	check_level(t_portal *portals, float px, float py)
 {
 	int	i;
 
@@ -62,7 +63,6 @@ bool	touch(void)
 			if (is_touching(x, y, c) || touch_block(c->map->blocks, x, y)
 				|| touch_block(c->map->doors, x, y)
 				|| touch_generator(c->map->generators, x, y)
-				|| touch_line(c->map->lines, x, y)
 				|| check_level(c->map->portals, x, y))
 				return (true);
 			y++;

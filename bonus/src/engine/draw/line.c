@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 15:46:18 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 14:15:33 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/05 14:58:57 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	draw_line(t_draw draw, t_thread_params *params)
 		draw.y += draw.sinangle;
 	}
 	direction(&draw, params);
-	if(iter)
+	if (iter)
 		draw_sprite(&draw, params);
 	draw_scene(&draw, params);
 	scale = draw.start_x + get_quality(params->render);

@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 16:46:57 by escura            #+#    #+#             */
-/*   Updated: 2024/10/04 21:48:44 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:05:17 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,34 +30,6 @@ bool	touch_block(t_block *blocks, float px, float py)
 		i++;
 	}
 	return (false);
-}
-
-int	touch_line(t_block *lines, float px, float py)
-{
-	int		i;
-	float	x;
-	float	y;
-
-	if (!lines)
-		return (false);
-	i = 0;
-	while (lines[i].x != -1)
-	{
-		x = lines[i].x * BLOCK_SIZE - L_WIDTH;
-		y = lines[i].y * BLOCK_SIZE - L_WIDTH;
-		if (px >= x && px <= x + (L_WIDTH * 2) && py >= y && py <= y + (L_WIDTH
-				* 2))
-			return (2);
-		x = lines[i].s_x * BLOCK_SIZE - L_WIDTH;
-		y = lines[i].s_y * BLOCK_SIZE - L_WIDTH;
-		if (px >= x && px <= x + (L_WIDTH * 2) && py >= y && py <= y + (L_WIDTH
-				* 2))
-			return (2);
-		if (check_if_point_is_on_line(lines[i], px, py))
-			return (1);
-		i++;
-	}
-	return (0);
 }
 
 bool	touch_generator(t_block *gens, float px, float py)

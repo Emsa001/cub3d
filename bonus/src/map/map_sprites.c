@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:24:21 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/04 14:55:48 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/05 15:23:55 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_sprite	get_sprite(char *path_file, int frames, float x, float y)
 		sprite.type = 'P';
 	return (sprite);
 }
-
+	
 void	open_portal(int i)
 {
 	int	x;
@@ -78,5 +78,6 @@ void	open_portal(int i)
 	x = cube()->map->portals[i].x;
 	y = cube()->map->portals[i].y;
 	remove_sprite(x, y);
+	cube()->map->portals[i].open = true;
 	add_sprite("assets/portal_opened/", 17, x, y);
 }
