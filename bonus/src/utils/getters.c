@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:21:26 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/04 14:55:45 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/05 19:55:24 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,26 @@ void	get_player_position(char **map)
 		ft_error("Error\nThere must be one player");
 }
 
+bool	check_ones(char *str, bool first, bool last)
+{
+	int	i;
+
+	i = 0;
+	if (str[0] != '1' && str[0] != ' ' && str[0] != '\t')
+		return (false);
+	if (first || last)
+	{
+		while (str[i] != '\0')
+		{
+			if (str[i] != '1' && str[i] != ' ' && str[i] != '\t'
+				&& str[i] != '\n')
+				return (false);
+			i++;
+		}
+	}
+	return (true);
+}
+
 void	get_2d_map(t_map *map_info, char **map, int size)
 {
 	int	i;
@@ -90,14 +110,15 @@ void	get_2d_map(t_map *map_info, char **map, int size)
 	map_info->map = ft_malloc(sizeof(char *) * (size + 1));
 	while (map[i] != NULL)
 	{
-		if (ft_check_line(map[i]) == 0)
-			ft_error("Wrong map format");
-		else
-		{
-			map_info->map[j] = ft_strdup(map[i]);
-			j++;
-			i++;
-		}
+		if (i == 0 && !check_ones(map[i], true, false))
+			ft_error("Error\nMap must be surrounded by walls");
+		if (i == size - 1 && !check_ones(map[i], false, true))
+			ft_error("Error\nMap must be surrounded by walls");
+		if (!check_ones(map[i], false, false))
+			ft_error("Error\nMap must be surrounded by walls");
+		map_info->map[j] = ft_strdup(map[i]);
+		j++;
+		i++;
 	}
 	if (j == 0)
 		ft_error("No map found");
