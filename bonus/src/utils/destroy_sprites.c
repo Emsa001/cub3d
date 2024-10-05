@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 19:55:00 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 16:49:49 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 20:01:31 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,24 @@ static void	destroy_sprite_image(t_sprite sprite)
 
 void	destroy_sprites(void)
 {
-	t_sprite *const	facing = cube()->map->facing;
-	t_sprite *const	sprites = cube()->map->sprites;
-	int				i;
+	t_sprite	*facing;
+	t_sprite	*sprites;
+	int			i;
 
-	i = 0;
-	while (facing[i].x != -1)
+	if (cube()->map && cube()->map->facing)
 	{
-		if (facing[i].sprite_tex != NULL)
-			destroy_sprite_image(facing[i]);
-		i++;
+		facing = cube()->map->facing;
+		i = 0;
+		while (facing[i].x != -1)
+			if (facing[i].sprite_tex != NULL)
+				destroy_sprite_image(facing[i++]);
 	}
-	i = 0;
-	while (sprites[i].x != -1)
+	if (cube()->map && cube()->map->sprites)
 	{
-		if (sprites[i].sprite_tex != NULL)
-			destroy_sprite_image(sprites[i]);
-		i++;
+		sprites = cube()->map->sprites;
+		i = 0;
+		while (sprites[i].x != -1)
+			if (sprites[i].sprite_tex != NULL)
+				destroy_sprite_image(sprites[i++]);
 	}
 }

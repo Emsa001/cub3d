@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 18:36:08 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 16:45:53 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 20:02:39 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	destroy_texture_arr(t_texture **t)
 {
 	int	i;
 
+	if (!t)
+		return ;
 	i = 0;
 	while (i < cube()->levels)
 	{
@@ -71,10 +73,10 @@ static void	destroy_textures_multiple(t_textures *t)
 
 void	destroy_textures(void)
 {
-	t_textures	*t;
+	t_textures *const	t = textures();
 
-	printf("Destroying textures\n");
-	t = textures();
+	if (!t)
+		return ;
 	destroy_texture_arr(t->wall_north);
 	destroy_texture_arr(t->wall_south);
 	destroy_texture_arr(t->wall_east);
@@ -90,6 +92,8 @@ void	destroy_textures(void)
 	destroy_texture(t->inventory_gui);
 	destroy_texture(t->tooltip_bg);
 	destroy_texture(t->open_portal);
+	if (!t->ui)
+		return ;
 	destroy_texture(t->ui->button_long);
 	destroy_ui();
 	destroy_textures_multiple(t);

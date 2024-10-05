@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 19:41:47 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 18:52:55 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 19:26:15 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,6 @@ void				destroy_texture(t_texture *texture);
 t_texture			*progress_bar(int progress, int color);
 void				init_progress(t_textures *t);
 int					get_pixel_from_image(t_texture *t, int x, int y);
+char				*get_path(char *path, int i);
 
 #endif

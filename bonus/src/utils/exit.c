@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:52:35 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 18:16:08 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 20:01:12 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void	ft_error(char *str)
 
 static void	clean_image(t_render *r)
 {
+	if (!r->img_ptr)
+		return ;
 	mlx_destroy_image(r->mlx, r->img_ptr);
 	r->img_ptr = NULL;
 }

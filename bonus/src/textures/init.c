@@ -6,30 +6,12 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 22:05:17 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 19:20:12 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 20:02:57 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "textures.h"
-
-static char	*get_path(char *path, int i)
-{
-	char	*num;
-	char	*tmp;
-	char	*tmp2;
-
-	num = ft_itoa(i);
-	tmp = ft_strjoin("assets/level", num);
-	ft_free(num);
-	tmp2 = ft_strjoin(tmp, "/");
-	ft_free(tmp);
-	tmp = ft_strjoin(tmp2, path);
-	ft_free(tmp2);
-	tmp2 = ft_strjoin(tmp, ".xpm");
-	ft_free(tmp);
-	return (tmp2);
-}
 
 t_texture	**init_textures_array(char *path, void *mlx)
 {
@@ -83,32 +65,58 @@ static void	init_font(t_textures *t)
 	}
 }
 
+static void	init_textures_to_null(t_textures *textures)
+{
+	int	i;
+
+	i = 0;
+	while (i < 2)
+		textures->generator[i++] = NULL;
+	textures->ui = ft_calloc(1, sizeof(t_uitextures));
+	i = 0;
+	while (i < 328)
+		textures->items[i++] = (t_texture){0};
+	i = 0;
+	while (i < 32)
+		textures->ui->keys[i++] = (t_texture){0};
+	i = 0;
+	while (i < 24)
+		textures->ui->progress[i++] = (t_texture){0};
+	i = 0;
+	while (i < 3)
+		textures->ui->progress_cover[i++] = (t_texture){0};
+	i = 0;
+	while (i < 8)
+		textures->ui->loading[i++] = (t_texture){0};
+	i = 0;
+}
+
 t_textures	*init_textures(t_textures *t)
 {
 	static t_textures	*texture;
-	void				*mlx;
+	void *const			mlx = render()->mlx;
 
 	if (t == NULL)
 		return (texture);
-	mlx = render()->mlx;
-	t->ceiling = init_textures_array("ceiling", mlx);
-	t->floor = init_textures_array("floor", mlx);
-	t->wall_north = init_textures_array("north", mlx);
-	t->wall_south = init_textures_array("south", mlx);
-	t->wall_east = init_textures_array("east", mlx);
-	t->wall_west = init_textures_array("west", mlx);
-	t->door = load_texture("assets/level3/door.xpm");
-	t->generator[0] = load_texture("assets/generator0.xpm");
-	t->generator[1] = load_texture("assets/generator1.xpm");
-	t->generator_top = load_texture("assets/back.xpm");
-	t->open_portal = load_texture("assets/banners/portal.xpm");
-	t->tooltip_bg = load_texture("assets/hud/titlebox.xpm");
-	t->inventory_player = load_texture("assets/hud/inventory.xpm");
-	t->inventory_gui = load_texture("assets/hud/inventory_gui.xpm");
-	init_font(t);
-	init_items_textures(t);
-	init_ui(t);
 	texture = t;
+	init_textures_to_null(texture);
+	texture->ceiling = init_textures_array("ceiling", mlx);
+	texture->floor = init_textures_array("floor", mlx);
+	texture->wall_north = init_textures_array("north", mlx);
+	texture->wall_south = init_textures_array("south", mlx);
+	texture->wall_east = init_textures_array("east", mlx);
+	texture->wall_west = init_textures_array("west", mlx);
+	texture->door = load_texture("assets/level3/door.xpm");
+	texture->generator[0] = load_texture("assets/generator0.xpm");
+	texture->generator[1] = load_texture("assets/generator1.xpm");
+	texture->generator_top = load_texture("assets/back.xpm");
+	texture->open_portal = load_texture("assets/banners/portal.xpm");
+	texture->tooltip_bg = load_texture("assets/hud/titlebox.xpm");
+	texture->inventory_player = load_texture("assets/hud/inventory.xpm");
+	texture->inventory_gui = load_texture("assets/hud/inventory_gui.xpm");
+	init_font(texture);
+	init_items_textures(texture);
+	init_ui(texture);
 	return (texture);
 }
 

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/07 13:27:14 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 18:16:30 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 19:43:50 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	init_keys(t_textures *t)
 
 void	init_ui(t_textures *t)
 {
-	t->ui = ft_malloc(sizeof(t_uitextures));
+	t->ui = ft_calloc(1, sizeof(t_uitextures));
 	t->ui->button = load_texture("assets/UI/Button/Default.xpm");
 	t->ui->button_long = load_texture("assets/UI/Button/Default_long.xpm");
 	t->ui->button_hover = load_texture("assets/UI/Button/Hover.xpm");
