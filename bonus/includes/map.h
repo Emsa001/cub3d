@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 15:18:21 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/05 18:34:35 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void						add_sprite(char *path_file, int frames, float x,
 void						add_facing_sprite(char *path_file, int frames,
 								float x, float y);
 void						remove_sprite(int x, int y);
+void 						remove_sprite_con(t_sprite *new_sprites, int *j, int x, int y);
 void						init_sprite(t_map *map, t_sprite sprite,
 								bool facing);
 void						get_points(t_point **points, char **map, char c);

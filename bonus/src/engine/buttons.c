@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 14:16:47 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 15:52:48 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 18:50:19 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ void	add_button(t_button *button)
 	t_texture *const	button_t = textures()->ui->button;
 	t_texture *const	button_selected = textures()->ui->button_hover;
 
-
 	if (button->is_default == true)
 	{
 		if (!button->size)
@@ -105,7 +104,7 @@ void	add_button(t_button *button)
 		button->height = button_t->height * button->size;
 	}
 	new_button_node(button);
-	if(button->selected == true)
+	if (button->selected == true)
 		put_image(button_selected, button->x, button->y, button->size);
 	else if (button->is_default == true)
 		put_image(button_t, button->x, button->y, button->size);

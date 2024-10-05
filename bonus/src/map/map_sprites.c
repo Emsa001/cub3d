@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 12:24:21 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/05 16:51:51 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 18:41:03 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	check_max_objects(char **map)
 
 t_texture	*get_info(char *path_file, int i)
 {
-	char *const	temp = ft_strjoin_itoa(path_file, i);
-	char *const	path = ft_strjoin(temp, ".xpm");
-	
-	t_texture *t = load_texture(path);
+	char *const			temp = ft_strjoin_itoa(path_file, i);
+	char *const			path = ft_strjoin(temp, ".xpm");
+	t_texture *const	t = load_texture(path);
+
 	ft_free(temp);
 	ft_free(path);
 	return (t);
@@ -61,7 +61,7 @@ t_sprite	get_sprite(char *path_file, int frames, float x, float y)
 		sprite.type = 'P';
 	return (sprite);
 }
-	
+
 void	open_portal(int i)
 {
 	int	x;

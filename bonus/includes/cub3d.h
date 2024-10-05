@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 17:59:29 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 18:47:15 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -356,6 +356,7 @@ t_draw					init_draw(void);
 void					minimap_init(void);
 void					destroy_buttons(void);
 void					render_string_async(t_string *str);
+t_string				*copy_string(t_string *str);
 /* MLX */
 
 double					deg_to_rad(double angle);

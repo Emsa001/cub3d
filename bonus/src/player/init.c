@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 16:09:11 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 18:37:52 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_player	*player_init(t_player *p)
 	if (p == NULL)
 		return (player);
 	player = p;
-	if(cube()->map != NULL)
+	if (cube()->map != NULL)
 	{
 		get_player_position(cube()->map->map);
 		init_interaction(player);

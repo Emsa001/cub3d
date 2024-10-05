@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 20:34:36 by escura            #+#    #+#             */
-/*   Updated: 2024/10/04 21:49:58 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 18:43:35 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	mouse_click(int button)
 	int				y;
 
 	p = player();
-	if(!cube()->accept_hooks)
+	if (!cube()->accept_hooks)
 		return (0);
 	if (p->mouse_hook)
 	{
@@ -52,7 +52,7 @@ int	mouse_move(int x, int y)
 	t_render	*r;
 
 	r = render();
-	if(!cube()->accept_hooks)
+	if (!cube()->accept_hooks)
 		return (0);
 	r->mouse_x = x;
 	r->mouse_y = y;

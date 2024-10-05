@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:52:35 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 18:02:52 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 18:16:08 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	exit_game(int code)
 	t_render *const	r = render();
 
 	destroy_manager();
-	if(!r->loading)
+	if (!r->loading)
 		destroy_sprites();
 	clear_image_queue(r);
 	clear_string_queue(r);
@@ -54,7 +54,7 @@ void	exit_game(int code)
 	exit(code);
 }
 
-void loading_exit_game(void *arg)
+void	loading_exit_game(void *arg)
 {
 	(void)arg;
 	exit_game(0);

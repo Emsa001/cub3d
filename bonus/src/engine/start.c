@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:21:09 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 17:39:23 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 18:50:27 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	start_game(void)
 {
-	t_render *const r = render();
+	t_render *const	r = render();
+
 	r->loading = true;
 	cube()->accept_hooks = false;
 	create_image(r, WIDTH, HEIGHT);

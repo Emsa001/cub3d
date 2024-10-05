@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 18:04:14 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 18:50:00 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,16 @@ static void	render_queue(void)
 	async_queue();
 }
 
-static void render_scene_loading(){
-	static int frame = 0;
+static void	render_scene_loading(void)
+{
+	static int	frame = 0;
 
 	ft_bzero(render()->data, WIDTH * HEIGHT * 4);
 	put_image(&textures()->ui->loading[frame / 4], 0, 80, 2.5);
 	frame++;
-	if(frame == 8 * 4)
+	if (frame == 8 * 4)
 		frame = 0;
-	if(cube()->accept_hooks)
+	if (cube()->accept_hooks)
 	{
 		loading_exit();
 		map_buttons(5);
@@ -53,12 +54,11 @@ static void render_scene_loading(){
 
 int	render_scene_multithread(void)
 {
-	if(render()->loading)
+	if (render()->loading)
 	{
 		render_scene_loading();
 		return (0);
 	}
-	
 	player()->mouse_hook = true;
 	render_view(cube());
 	render_player();

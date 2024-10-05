@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 15:39:55 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/05 16:58:56 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 18:35:57 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,26 +40,14 @@ void	remove_sprite(int x, int y)
 	t_sprite	*new_sprites;
 	int			i;
 	int			j;
-	int			k;
 
 	sprites = cube()->map->sprites;
 	i = 0;
 	j = 0;
-	k = 0;
 	if (!find_sprite(x, y, &i))
 		return ;
 	new_sprites = ft_malloc(sizeof(t_sprite) * i);
-	i = 0;
-	while (sprites[i].x != -1)
-	{
-		if (sprites[i].x == x && sprites[i].y == y){
-			while (sprites[i].frames--)
-				destroy_texture(sprites[i].sprite_tex[k++]);
-			i++;
-		}
-		else
-			new_sprites[j++] = sprites[i++];
-	}
+	remove_sprite_con(new_sprites, &j, x, y);
 	terminate_sprite(&new_sprites, &j);
 	cube()->map->sprites = new_sprites;
 	ft_free(sprites);
