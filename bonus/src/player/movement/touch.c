@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   touch.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:49:03 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 15:21:16 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/05 18:37:38 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static bool	check_level_con(t_portal *portals, float px, float py, int i)
 {
-	float			y;
-	float			x;
+	float	y;
+	float	x;
 
 	x = 0;
 	y = 0;
@@ -23,7 +23,8 @@ static bool	check_level_con(t_portal *portals, float px, float py, int i)
 	{
 		x = portals[i].x * BLOCK_SIZE;
 		y = portals[i].y * BLOCK_SIZE;
-		if (px >= x && px <= x + BLOCK_SIZE && py >= y && py <= y && !portals[i].open)
+		if (px >= x && px <= x + BLOCK_SIZE && py >= y && py <= y
+			&& !portals[i].open)
 			return (true);
 		if (py < portals[i].y * BLOCK_SIZE + 10)
 		{

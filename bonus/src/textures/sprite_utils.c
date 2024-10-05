@@ -3,14 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   sprite_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/01 18:56:47 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/02 13:38:14 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/05 18:36:54 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	remove_sprite_con(t_sprite *new_sprites, int *j, int x, int y)
+{
+	t_sprite *const	sprites = cube()->map->sprites;
+	int				i;
+	int				k;
+
+	k = 0;
+	i = 0;
+	while (sprites[i].x != -1)
+	{
+		if (sprites[i].x == x && sprites[i].y == y)
+		{
+			while (sprites[i].frames--)
+			{
+				destroy_texture(sprites[i].sprite_tex[k]);
+				k++;
+			}
+		}
+		else
+			new_sprites[(*j)++] = sprites[i];
+		i++;
+	}
+}
 
 bool	find_sprite(float x, float y, int *i)
 {

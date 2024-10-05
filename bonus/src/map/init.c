@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 17:19:15 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 15:19:13 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/05 18:43:01 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_map	*check_map(char **map, int size)
 	map_info->facing = init_map_facing(map);
 	map_info->sprites = init_map_sprites(map_info, map);
 	map_info->sprite_count = ((SPRITE_THICKNESS * (count_c(map, 'P')
-				+ count_c(map, 'M'))) * 64) + count_c(map, 'G');
+					+ count_c(map, 'M'))) * 64) + count_c(map, 'G');
 	map_info->portals = ft_malloc(sizeof(t_portal) * (count_c(map, 'P') + 1));
 	get_portal(&map_info->portals, map, 'P');
 	map_info->editor_mode = false;
@@ -85,13 +85,12 @@ t_map	*check_map(char **map, int size)
 
 void	map_init(char *av)
 {
-	char	**map;
-	int		i;
-	int		fd;
-	char	*c;
-	t_map	*map_info;
+	char *const	c = ft_strjoin("./maps/", av);
+	char		**map;
+	int			i;
+	int			fd;
+	t_map		*map_info;
 
-	c = ft_strjoin("./maps/", av);
 	fd = open(c, O_RDONLY);
 	ft_free(c);
 	if (fd == -1)
@@ -103,9 +102,8 @@ void	map_init(char *av)
 		if (i >= MAX_SIZE)
 			ft_error("Map too big");
 		map[i] = get_next_line(fd);
-		if (!map[i])
+		if (!map[i++])
 			break ;
-		i++;
 	}
 	map[i] = NULL;
 	close(fd);

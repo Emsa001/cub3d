@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:11:07 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 15:17:33 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 18:54:28 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ typedef struct s_async
 	int							time_elapsed;
 	int							process_time;
 	bool						stopped;
-	int 						frame;
-
+	int							frame;
 
 	t_cube						*cube;
 	t_render					*render;

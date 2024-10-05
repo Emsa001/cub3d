@@ -6,35 +6,54 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 21:44:10 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 16:15:16 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 18:49:34 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	loading_end()
+void	loading_exit(void)
 {
-	t_render *const r = render();
+	const t_uitextures	*t = textures()->ui;
+	const int			x = WIDTH - 150;
+	const int			y = HEIGHT - 150;
+	t_button			button;
 
-    stop_all_async_tasks();
+	button = (t_button){0};
+	button.x = x;
+	button.y = y;
+	button.width = t->button->width;
+	button.height = t->button->height;
+	button.left_click = &exit_game_f;
+	button.is_default = false;
+	add_button(&button);
+	put_image(t->button, x, y, 1);
+	change_image_color(t->home, 0xFFFFFF);
+	put_image(t->home, x + 15, y + 12, 1);
+}
+
+void	loading_end(void)
+{
+	t_render *const	r = render();
+	char			*num;
+	char			*path;
+
+	stop_all_async_tasks();
 	clear_string_queue(r);
 	clear_image_queue(r);
-
-	char *num = ft_itoa(cube()->selected_map);
-	char *path = ft_strjoin(num, ".cub");
+	num = ft_itoa(cube()->selected_map);
+	path = ft_strjoin(num, ".cub");
+	ft_free(num);
 	map_init(path);
-
-	player_init(ft_calloc(1,sizeof(t_player)));
-	
+	player_init(player());
 	init_items();
 	minimap_init();
-
 	r->loading = false;
 }
 
-static void loading_buttons()
+static void	loading_buttons(void *arg)
 {
-	t_string str;
+	t_string	str;
 
 	str = (t_string){0};
 	str.str = "Press any key to start";
@@ -49,11 +68,12 @@ static void loading_buttons()
 	str.blink = 120;
 	render_string_async(&str);
 	cube()->accept_hooks = true;
+	(void)arg;
 }
 
-static void loadin_authors()
+static void	loadin_authors(void *arg)
 {
-	t_string str;
+	t_string	str;
 
 	str = (t_string){0};
 	str.str = "by Emanuel and Beqa";
@@ -64,6 +84,7 @@ static void loadin_authors()
 	str.time = -1;
 	str.animation = 10;
 	render_string_async(&str);
+	(void)arg;
 }
 
 void	loading_screen(void)
@@ -79,7 +100,6 @@ void	loading_screen(void)
 	str.time = -1;
 	str.animation = 30;
 	render_string_async(&str);
-
 	ft_wait(1500, loadin_authors, NULL);
 	ft_wait(3000, loading_buttons, NULL);
 }

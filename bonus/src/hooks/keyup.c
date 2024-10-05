@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/15 18:21:05 by escura            #+#    #+#             */
-/*   Updated: 2024/10/04 21:49:33 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 18:44:01 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 static void	handle_movement_controlls(int keycode, t_player *p)
 {
-	if(render()->loading)
+	if (render()->loading)
 		loading_end();
-
 	if (keycode == W)
 		p->btn_w = false;
 	if (keycode == S)
@@ -55,7 +54,7 @@ int	key_up(int keycode)
 	t_player	*p;
 
 	p = player();
-	if(!cube()->accept_hooks)
+	if (!cube()->accept_hooks)
 		return (0);
 	handle_movement_controlls(keycode, p);
 	handle_interaction_controlls(keycode, p);

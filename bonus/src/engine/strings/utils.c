@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 23:29:41 by escura            #+#    #+#             */
-/*   Updated: 2024/10/04 20:03:09 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 18:48:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,28 @@ void	draw_background(t_string *s)
 		}
 		i++;
 	}
+}
+
+t_string	*copy_string(t_string *str)
+{
+	t_string *const	str_copy = ft_malloc(sizeof(t_string));
+
+	str_copy->str = ft_strdup(str->str);
+	str_copy->x = str->x;
+	str_copy->y = str->y;
+	str_copy->color = str->color;
+	str_copy->size = str->size;
+	str_copy->time = str->time;
+	str_copy->background = str->background;
+	str_copy->padding = str->padding;
+	str_copy->animation = -1;
+	if (str->animation)
+		str_copy->animation = str->animation;
+	str_copy->char_index = 0;
+	str_copy->length = ft_strlen(str->str);
+	str_copy->blink = -1;
+	if (str->blink)
+		str_copy->blink = str->blink;
+	str_copy->next = NULL;
+	return (str_copy);
 }

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:46:59 by escura            #+#    #+#             */
-/*   Updated: 2024/10/04 20:26:18 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 18:50:52 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	opening(void *arg)
 {
 	open_portal(cube()->next_portal);
+	player()->store->portal_cooldown = false;
 	(void)arg;
 }
 
@@ -47,7 +48,7 @@ static void	power_portal_info(int time)
 		img.x = WIDTH / 2 - 555 + (i * t->width - ((i - 1) * 4));
 		img.y = HEIGHT - 225;
 		img.size = 1;
-		img.time = time;
+		img.time = time - 100;
 		render_image_async(&img);
 		i++;
 	}
@@ -62,6 +63,7 @@ static void	power_portal(void *arg)
 		return ;
 	loc->x = WIDTH / 2 - 32;
 	loc->y = HEIGHT / 2 - 32;
+	player()->store->portal_cooldown = true;
 	string_timer(time, loc);
 	player()->gui = NONE;
 	power_portal_info(time);
@@ -86,6 +88,7 @@ void	portal_offer(int x, int y)
 	button.height = t->ui->button->height * 3;
 	button.left_click = &power_portal;
 	button.hover = &buy_portal_tooltip;
-	add_button(&button);
+	if (!player()->store->portal_cooldown)
+		add_button(&button);
 	put_image(t->open_portal, button.x, button.y, 0.9);
 }

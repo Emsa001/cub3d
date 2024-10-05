@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:07:56 by escura            #+#    #+#             */
-/*   Updated: 2024/10/04 20:39:43 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 17:06:09 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_store	*init_store(void)
 
 	store = ft_calloc(1, sizeof(t_store));
 	store->case_cooldown = false;
+	store->portal_cooldown = false;
 	pthread_mutex_init(&store->case_mutex, NULL);
 	i = 0;
 	while (i < 27)

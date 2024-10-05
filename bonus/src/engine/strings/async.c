@@ -6,46 +6,44 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 23:28:59 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 15:32:31 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 18:47:43 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static bool string_blink(t_async *async, t_string *str)
+static bool	string_blink(t_async *async, t_string *str)
 {
-	if(str->blink && str->blink > -1)
+	if (str->blink && str->blink > -1)
 	{
 		async->frame++;
-		if(async->frame > 2 * str->blink)
+		if (async->frame > 2 * str->blink)
 			async->frame = 0;
-		
-		return async->frame > str->blink;
+		return (async->frame > str->blink);
 	}
-
-	return false;
+	return (false);
 }
 
-static bool string_animation(t_async *async, t_string *str, t_string *new)
+static bool	string_animation(t_async *async, t_string *str, t_string *new)
 {
-	if(str->animation && str->animation > -1 && ft_strlen(str->str) > str->char_index)
+	if (str->animation && str->animation > -1
+		&& ft_strlen(str->str) > str->char_index)
 	{
 		new->str = ft_strdup(str->str);
 		new->str[str->char_index] = '\0';
 		async->frame++;
-		if(async->frame > str->animation)
+		if (async->frame > str->animation)
 		{
 			str->char_index++;
 			async->frame = 0;
 		}
 	}
-	
-	if(str->char_index == str->length)
+	if (str->char_index == str->length)
 	{
-		if(string_blink(async, str))
-			return true;
+		if (string_blink(async, str))
+			return (true);
 	}
-	return false;
+	return (false);
 }
 
 void	enqueue_string(t_async *async)
@@ -56,7 +54,7 @@ void	enqueue_string(t_async *async)
 	t_string *const	new = malloc(sizeof(t_string));
 
 	ft_memcpy(new, str, sizeof(t_string));
-	if(string_animation(async, str, new))
+	if (string_animation(async, str, new))
 		return (free(new));
 	new->next = NULL;
 	pthread_mutex_lock(&r->string_queue_mutex);
@@ -87,27 +85,8 @@ void	end_string(t_async *async)
 void	render_string_async(t_string *str)
 {
 	t_async *const	async = new_async();
-	t_string *const	str_copy = ft_malloc(sizeof(t_string));
+	t_string *const	str_copy = copy_string(str);
 
-	str_copy->str = ft_strdup(str->str);
-	str_copy->x = str->x;
-	str_copy->y = str->y;
-	str_copy->color = str->color;
-	str_copy->size = str->size;
-	str_copy->time = str->time;
-	str_copy->background = str->background;
-	str_copy->padding = str->padding;
-	str_copy->animation = str->animation;
-	str_copy->char_index = 0;
-	str_copy->animation = -1;
-	str_copy->length = ft_strlen(str->str);
-	if(str->animation)
-		str_copy->animation = str->animation;
-	str_copy->blink = -1;
-	if(str->blink)
-		str_copy->blink = str->blink;
-	str_copy->next = NULL;
-	ft_free(str->str);
 	async->process = &enqueue_string;
 	async->end = end_string;
 	async->arg = str_copy;

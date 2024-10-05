@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:24:07 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 22:39:37 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 18:50:43 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	update_fps(void)
 		r->fps_update_time = current_time;
 		r->frame_count = 0;
 	}
+	if ((int)r->fps <= 0)
+		r->fps = 0;
 	fps_str = ft_itoa((int)r->fps);
 	put_string(fps_str, WIDTH - 60, 30, 0xFFFFFF);
 	ft_free(fps_str);
