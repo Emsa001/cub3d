@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 18:47:15 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 18:52:34 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -426,7 +426,7 @@ void					destroy_sprites(void);
 
 void					loading_screen(void);
 void					loading_end(void);
-void					loading_exit();
+void					loading_exit(void);
 void					loading_exit_game(void *arg);
 void					map_buttons(int buttons);
 

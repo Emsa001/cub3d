@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 15:47:33 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 18:34:35 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 18:53:04 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ typedef struct s_sprite
 
 typedef struct s_portal
 {
-	int					x;
-	int					y;
-	bool				open;
+	int						x;
+	int						y;
+	bool					open;
 }							t_portal;
 
 typedef struct s_map
@@ -111,11 +111,12 @@ void						add_sprite(char *path_file, int frames, float x,
 void						add_facing_sprite(char *path_file, int frames,
 								float x, float y);
 void						remove_sprite(int x, int y);
-void 						remove_sprite_con(t_sprite *new_sprites, int *j, int x, int y);
+void						remove_sprite_con(t_sprite *new_sprites, int *j,
+								int x, int y);
 void						init_sprite(t_map *map, t_sprite sprite,
 								bool facing);
 void						get_points(t_point **points, char **map, char c);
-void	get_portal(t_portal **points, char **map, char c);
+void						get_portal(t_portal **points, char **map, char c);
 
 int							count_c(char **map, char c);
 void						check_max_objects(char **map);
