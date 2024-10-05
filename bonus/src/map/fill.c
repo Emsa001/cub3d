@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 17:52:35 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/03 18:49:49 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 14:24:09 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void	fill_loop(char to_fill[], t_point *begin_points, t_map *map_info,
 		i++;
 	}
 	map2[i] = NULL;
+	i = 0;
 	while (begin_points[i].x != -1)
 	{
 		fill(map2, size, begin_points[i], to_fill);

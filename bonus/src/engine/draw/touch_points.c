@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/03 14:19:37 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/04 21:56:07 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/05 14:39:56 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,6 @@ void	get_generator_first_coordinates(t_draw *draw, t_block *generators,
 	draw->gen.first_touch = true;
 	draw->sprite_order[*iter] = 3;
 	(*iter)++;
-}
-
-void	get_generator_last_coordinates(t_draw *draw)
-{
-	draw->gen.dist = lane_distance(draw);
-	draw->gen.height_top = (BLOCK_SIZE * HEIGHT) / draw->gen.dist;
-	draw->gen.save = false;
 }
 
 int	touch_sprite(t_sprite *sprites, float px, float py)
@@ -87,23 +80,11 @@ int	touch_facing_sprite(t_draw *draw, t_sprite *sprites, float px, float py)
 	return (0);
 }
 
-bool	find_hitbox(t_draw *draw, t_cube *c, int *iter)
+void	if_sprite_check(t_draw *draw, t_cube *c, int *iter)
 {
 	int	i;
 
 	i = 0;
-	if (is_touching(draw->x, draw->y, c))
-	{
-		if (draw->gen.save)
-			get_generator_last_coordinates(draw);
-		return (true);
-	}
-	if (touch_block(c->map->blocks, draw->x, draw->y))
-		return (true);
-	if (touch_block(c->map->doors, draw->x, draw->y))
-		return (true);
-	if (touch_line(c->map->lines, draw->x, draw->y))
-		return (true);
 	i = touch_sprite(c->map->sprites, draw->x, draw->y);
 	if (i)
 		get_sprite_coordinates(draw, i, iter);
@@ -115,6 +96,30 @@ bool	find_hitbox(t_draw *draw, t_cube *c, int *iter)
 		get_generator_first_coordinates(draw, c->map->generators, iter);
 	if (!touch_generator(c->map->generators, draw->x, draw->y)
 		&& draw->gen.save)
-		get_generator_last_coordinates(draw);
+	{
+		draw->gen.height_top = (BLOCK_SIZE * HEIGHT) / lane_distance(draw);
+		draw->gen.save = false;
+	}
+}
+
+bool	find_hitbox(t_draw *draw, t_cube *c, int *iter)
+{
+	if (is_touching(draw->x, draw->y, c))
+	{
+		if (draw->gen.save)
+		{
+			draw->gen.height_top = (BLOCK_SIZE * HEIGHT) / lane_distance(draw);
+			draw->gen.save = false;
+		}
+		return (true);
+	}
+	if (touch_block(c->map->blocks, draw->x, draw->y))
+		return (true);
+	if (touch_block(c->map->doors, draw->x, draw->y))
+		return (true);
+	if (touch_line(c->map->lines, draw->x, draw->y))
+		return (true);
+	if (c->map->sprite_count)
+		if_sprite_check(draw, c, iter);
 	return (false);
 }

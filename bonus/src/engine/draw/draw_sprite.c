@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 19:46:10 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/04 21:51:22 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/05 14:21:12 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	draw_sprite(t_draw *draw, t_thread_params *params)
 	i = 0;
 	max_count = draw->s_count + draw->f_count + 1;
 	order = draw->sprite_order;
-	while (order[i] && i < max_count)
+	while (i < max_count && order[i] != 0)
 	{
 		if (order[i] == 1 && i < draw->s_count)
 			draw_sprites(draw, draw->sprites[i]);
