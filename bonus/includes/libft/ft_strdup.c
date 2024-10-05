@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 12:11:34 by triedel           #+#    #+#             */
-/*   Updated: 2024/10/05 14:58:26 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 18:57:33 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,3 @@ char	*ft_strdup_og(const char *src)
 	ft_strlcpy(dup, src, size);
 	return (dup);
 }
-
