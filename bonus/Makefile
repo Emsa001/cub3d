@@ -6,7 +6,7 @@
 #    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/10/04 22:47:40 by escura           ###   ########.fr        #
+#    Updated: 2024/10/05 14:52:03 by escura           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ CC = cc
 CFLAGS = -pthread -g -Ofast
 CFLAGS += -Wall -Wextra -Werror
 # CFLAGS += -fsanitize=thread
-CFLAGS += -fsanitize=address
+# CFLAGS += -fsanitize=address
 
 MAP_GEN = map_generator/map_generator.c map_generator/draw.c map_generator/utils.c
 
