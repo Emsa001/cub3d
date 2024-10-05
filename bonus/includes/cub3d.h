@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 15:24:40 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 16:13:22 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct s_cube
 	t_item				items[328];
 
 	t_map				*map;
+	int 				selected_map;
 
 	int					add_money;
 	pthread_mutex_t		add_money_mutex;
@@ -293,7 +294,6 @@ void					update_fps(void);
 void					init_items(void);
 void					render_image_async(t_image *img);
 
-void					check_params(char **av);
 t_cube					*cube_init(t_cube *c);
 t_cube					*cube(void);
 void					start_game(void);

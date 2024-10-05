@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 16:37:28 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 18:23:00 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 15:51:30 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ static void	upgrade_button(t_generator_upgrade *upgrade, int btn_x, int btn_y)
 		button.left_click = &buy_upgrade;
 		button.hover = &upgrade_hover;
 		button.arg = (void *)upgrade;
-		button.hover_change = true;
 		button.is_default = true;
 		add_button(&button);
 	}

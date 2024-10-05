@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:10:09 by escura            #+#    #+#             */
-/*   Updated: 2024/10/03 18:01:27 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 16:09:24 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ t_cube	*cube_init(t_cube *c)
 	c->is_special = false;
 	c->levels = 4;
 	c->next_portal = c->levels - 1;
+	c->selected_map = 0;
+	c->accept_hooks = false;
+	c->map = NULL;
 	ft_memset(c->items, 0, sizeof(c->items));
 	pthread_mutex_init(&c->pause_mutex, NULL);
 	pthread_mutex_init(&c->add_money_mutex, NULL);

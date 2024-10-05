@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/10/04 20:22:58 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 16:09:11 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,21 +72,24 @@ t_player	*player_init(t_player *p)
 	if (p == NULL)
 		return (player);
 	player = p;
-	get_player_position(cube()->map->map);
-	init_interaction(player);
-	init_inventory(player);
-	init_options(player);
-	player->x_px = player->x * BLOCK_SIZE;
-	player->y_px = player->y * BLOCK_SIZE;
-	player->z = 0.5;
-	player->x_dir = 0;
-	player->y_dir = 0;
-	player->z_dir = 0.5;
-	player->speed = WALKSPEED;
-	player->sprint = false;
-	player->pause = false;
-	player->fov = FOV;
-	pthread_mutex_init(&player->money_mutex, NULL);
+	if(cube()->map != NULL)
+	{
+		get_player_position(cube()->map->map);
+		init_interaction(player);
+		init_inventory(player);
+		init_options(player);
+		player->x_px = player->x * BLOCK_SIZE;
+		player->y_px = player->y * BLOCK_SIZE;
+		player->z = 0.5;
+		player->x_dir = 0;
+		player->y_dir = 0;
+		player->z_dir = 0.5;
+		player->speed = WALKSPEED;
+		player->sprint = false;
+		player->pause = false;
+		player->fov = FOV;
+		pthread_mutex_init(&player->money_mutex, NULL);
+	}
 	return (player);
 }
 

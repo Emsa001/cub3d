@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 21:44:10 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 15:32:47 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/05 16:12:32 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,20 @@
 void	loading_end()
 {
 	t_render *const r = render();
+
     stop_all_async_tasks();
 	clear_string_queue(r);
 	clear_image_queue(r);
+
+	char *num = ft_itoa(cube()->selected_map);
+	char *path = ft_strjoin(num, ".cub");
+	map_init(path);
+
+	player_init(ft_calloc(1,sizeof(t_player)));
+	
+	init_items();
+	minimap_init();
+
 	r->loading = false;
 }
 
