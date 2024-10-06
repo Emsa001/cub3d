@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_generator.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 12:50:59 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/04 22:48:04 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/06 14:54:15 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	key_press(int keycode, t_data *data)
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 		save_draw_txt(data);
 		free_data(data);
+		ft_destructor();
 		exit(0);
 	}
 	return (0);
@@ -86,6 +87,7 @@ int	main(void)
 {
 	t_data	data;
 
+	ft_alloc_init();
 	data.mlx_ptr = mlx_init();
 	data.win_ptr = mlx_new_window(data.mlx_ptr, SCREEN_WIDTH + BUTTON_SIZE,
 			SCREEN_HEIGHT, "Map_Generator");

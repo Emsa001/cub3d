@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scene.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 20:09:21 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/06 14:27:18 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,13 @@ void	create_image(t_render *r, int width, int height)
 
 static void	show_image(int x, int y)
 {
-	t_render *const	r = render();
-
+	t_render *const r = render();
 	mlx_put_image_to_window(r->mlx, r->win, r->img_ptr, x, y);
 }
 
 static void	render_queue(void)
 {
-	t_render *const	r = render();
-
+	t_render *const r = render();
 	put_image_queue(r);
 	put_string_queue(r);
 	async_queue();
@@ -48,9 +46,8 @@ static void	render_scene_loading(void)
 	{
 		loading_exit();
 		map_buttons(buttons / 5);
-		if(buttons < 25)
+		if (buttons < 25)
 			buttons++;
-
 	}
 	render_queue();
 	show_image(0, 0);

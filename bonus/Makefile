@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
+#    By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/10/05 20:03:42 by escura           ###   ########.fr        #
+#    Updated: 2024/10/06 14:59:16 by btvildia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,8 +57,9 @@ all: $(NAME)
 map: $(LIBFT) 
 	$(CC) $(CFLAGS) $(MAP_GEN) -o map_gen $(LDLIBS) $(LDFLAGS)
 	./map_gen
+	
 run: $(NAME)
-	./$(NAME) map.cub
+	./$(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) -o $(NAME) $(LDLIBS) $(LDFLAGS)

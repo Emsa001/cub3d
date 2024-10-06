@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 15:41:37 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/04 22:48:00 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/06 10:09:09 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	write_in_file(int color, int fd)
 	else if (color == PLAYER_PIX)
 		write(fd, "N", 1);
 	else
-		write(fd, " ", 1);
+		write(fd, "0", 1);
 }
 
 void	save_draw_txt(t_data *data)

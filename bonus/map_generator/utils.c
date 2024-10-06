@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 14:32:41 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/04 13:53:16 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/06 14:52:01 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,10 @@ void	free_data(t_data *data)
 		i++;
 	}
 	ft_free(data->grid);
+	ft_free(data->button);
+	mlx_destroy_display(data->mlx_ptr);
+	free(data->mlx_ptr);
+	ft_free(data);
 }
 
 int	**get_grid(int height, int width)

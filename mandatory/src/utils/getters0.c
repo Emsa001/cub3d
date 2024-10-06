@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 14:21:26 by btvildia          #+#    #+#             */
-/*   Updated: 2024/09/26 20:37:11 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/06 15:24:08 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	change_positions(char c, int i, int j)
 	}
 }
 
-void	get_player_position(char **map)
+void	get_player_position(char **map, bool first)
 {
 	int	i;
 	int	j;
@@ -115,13 +115,14 @@ void	get_player_position(char **map)
 			if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'W'
 				|| map[i][j] == 'E')
 			{
-				change_positions(map[i][j], i, j);
+				if (!first)
+					change_positions(map[i][j], i, j);
 				p_count++;
 			}
 			j++;
 		}
 		i++;
 	}
-	if (p_count != 1)
-		ft_error("Invalid player position");
+	if (p_count != 1 && first)
+		ft_error("Should have one player !");
 }

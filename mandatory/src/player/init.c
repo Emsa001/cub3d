@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/09/23 14:08:22 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/06 15:19:44 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_player	*init_player(t_player *p)
 	if (p == NULL)
 		return (player);
 	player = p;
-	get_player_position(cube()->map->map);
+	get_player_position(cube()->map->map, false);
 	player->x_px = player->x * BLOCK_SIZE;
 	player->y_px = player->y * BLOCK_SIZE;
 	player->x_dir = 0;
