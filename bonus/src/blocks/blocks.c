@@ -6,11 +6,21 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 18:06:12 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/02 18:15:37 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/06 16:37:15 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	side_check(t_block *blocks, int k, t_float point, char **map)
+{
+	if (get_side(point.x, point.y, map) == 1 || get_side(point.x, point.y,
+			map) == 3)
+		blocks[k - 1].add_y = 30;
+	else if (get_side(point.x, point.y, map) == 2 || get_side(point.x, point.y,
+			map) == 4)
+		blocks[k - 1].add_x = 30;
+}
 
 t_block	*init_door(t_map *map_info)
 {
@@ -29,7 +39,10 @@ t_block	*init_door(t_map *map_info)
 		while (map_info->map[(int)point.y][(int)point.x] != '\0')
 		{
 			if (map_info->map[(int)point.y][(int)point.x] == 'D')
+			{
 				init_once(blocks, point, &k, 'D');
+				side_check(blocks, k, point, map_info->map);
+			}
 			point.x++;
 		}
 		point.y++;

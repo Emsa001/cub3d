@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 16:38:02 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/05 12:06:46 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/06 16:32:55 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,7 @@ void	init_once(t_block *blocks, t_float point, int *k, char type)
 	blocks[*k].y = point.y;
 	blocks[*k].id = *k;
 	blocks[*k].type = type;
+	blocks[*k].add_x = 0;
+	blocks[*k].add_y = 0;
 	(*k)++;
 }

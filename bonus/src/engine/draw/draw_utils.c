@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/02 19:25:20 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/04 17:34:00 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/06 16:24:14 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,11 @@ void	put_line(t_draw draw, t_thread_params *params)
 	}
 }
 
-static bool	check_block_and_door(t_draw *draw, int sx,
-		t_thread_params *params)
+static bool	check_block_and_door(t_draw *draw, int sx, t_thread_params *params)
 {
-	if (touch_block(params->cube->map->doors, draw->x, draw->y))
+	if (touch_doors(params->cube->map->doors, draw->x, draw->y))
 	{
-		if (touch_block(params->cube->map->doors, draw->x - sx, draw->y))
+		if (touch_doors(params->cube->map->doors, draw->x - sx, draw->y))
 			draw->tex_x = (int)draw->x % BLOCK_SIZE;
 		else
 			draw->tex_x = (int)draw->y % BLOCK_SIZE;

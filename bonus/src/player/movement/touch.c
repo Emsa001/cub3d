@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   touch.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:49:03 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 18:37:38 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/06 16:24:28 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ bool	touch(void)
 		while (y <= player()->y_px + 10)
 		{
 			if (is_touching(x, y, c) || touch_block(c->map->blocks, x, y)
-				|| touch_block(c->map->doors, x, y)
+				|| touch_doors(c->map->doors, x, y)
 				|| touch_generator(c->map->generators, x, y)
 				|| check_level(c->map->portals, x, y))
 				return (true);

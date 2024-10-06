@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   touch.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 16:46:57 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 18:37:19 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/06 16:31:54 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+bool	touch_doors(t_block *doors, float px, float py)
+{
+	int		i;
+	float	x;
+	float	y;
+
+	i = 0;
+	if (!doors)
+		return (false);
+	while (doors[i].x != -1)
+	{
+		x = doors[i].x * BLOCK_SIZE;
+		y = doors[i].y * BLOCK_SIZE;
+		if (px >= x + doors[i].add_x && px <= x + BLOCK_SIZE - doors[i].add_x
+			&& py >= y + doors[i].add_y && py <= y + BLOCK_SIZE
+			- doors[i].add_y)
+			return (true);
+		i++;
+	}
+	return (false);
+}
 
 bool	touch_block(t_block *blocks, float px, float py)
 {

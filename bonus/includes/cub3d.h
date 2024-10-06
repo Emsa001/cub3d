@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 01:21:11 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 19:00:17 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/06 16:25:10 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,6 +305,7 @@ int						render_scene_singlethread(t_cube *c);
 int						render_scene(t_cube *p);
 bool					is_touching(float px, float py, const t_cube *c);
 bool					touch_block(t_block *blocks, float px, float py);
+bool					touch_doors(t_block *doors, float px, float py);
 int						touch_sprite(t_sprite *sprites, float px, float py);
 int						touch_line(t_block *lines, float px, float py);
 bool					touch_generator(t_block *lines, float px, float py);
