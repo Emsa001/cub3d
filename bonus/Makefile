@@ -6,7 +6,7 @@
 #    By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/10/06 16:54:27 by btvildia         ###   ########.fr        #
+#    Updated: 2024/10/06 17:13:32 by btvildia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,9 +88,8 @@ v: $(NAME)
 	valgrind --leak-check=full $(NAME) ../map.cub
 
 mlx:
-	@if [ ! -d "$(INCLUDES_DIR)/mlx" ]; then \
-		git clone https://github.com/42Paris/minilibx-linux.git ./$(INCLUDES_DIR)/mlx; \
-	fi
+	git clone https://github.com/42Paris/minilibx-linux.git ./$(INCLUDES_DIR)/mlx; \
+	make -C ./$(INCLUDES_DIR)/mlx
 	
 .PHONY: all clean fclean re run v
 
