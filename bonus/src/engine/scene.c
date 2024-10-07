@@ -6,7 +6,7 @@
 /*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 17:15:01 by escura            #+#    #+#             */
-/*   Updated: 2024/10/06 14:27:18 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/07 13:16:43 by btvildia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@ void	create_image(t_render *r, int width, int height)
 
 static void	show_image(int x, int y)
 {
-	t_render *const r = render();
+	const t_render	*r = render();
+
 	mlx_put_image_to_window(r->mlx, r->win, r->img_ptr, x, y);
 }
 
 static void	render_queue(void)
 {
-	t_render *const r = render();
+	const t_render	*r = render();
+
 	put_image_queue(r);
 	put_string_queue(r);
 	async_queue();
