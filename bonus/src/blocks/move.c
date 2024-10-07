@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 13:53:45 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/02 18:21:23 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/07 15:06:35 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	get_block_id(t_block *blocks, float px, float py, float angle)
 
 	point.x = 0;
 	point.y = 0;
-	point_p.x = px - 0.5 + 2.5 * cos(angle);
-	point_p.y = py - 0.5 + 2.5 * sin(angle);
+	point_p.x = px - 0.5 + 1.5 * cos(angle);
+	point_p.y = py - 0.5 + 1.5 * sin(angle);
 	i = 0;
 	full_angle = angle * 180 / PI;
 	md = 2 + (-cos(angle * PI / 45));

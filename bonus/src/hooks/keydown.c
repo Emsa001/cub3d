@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 16:44:25 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 18:44:10 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/07 14:50:11 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@ static void	handle_movement_controlls(int keycode, t_player *p)
 		p->btn_left = true;
 	if (keycode == RIGHT)
 		p->btn_right = true;
-	if (keycode == UP)
-		p->btn_up = true;
-	if (keycode == DOWN)
-		p->btn_down = true;
 	if (keycode == SHIFT)
 		p->sprint = true;
 	if (keycode == SPACE)

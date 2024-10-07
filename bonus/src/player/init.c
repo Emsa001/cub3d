@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 19:54:50 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/07 15:30:41 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	init_inventory(t_player *player)
 	i = 0;
 	while (i < 9)
 	{
-		player->inventory[i] = 33;
+		player->inventory[i] = -1;
 		player->equipped[i] = -1;
 		i++;
 	}
@@ -55,7 +55,7 @@ static void	init_options(t_player *player)
 	player->hand = NULL;
 	player->swing = false;
 	player->hover = NULL;
-	player->money = 10000000;
+	player->money = 100000;
 	player->store = init_store();
 	player->gui = -1;
 	player->gui_temp = -1;

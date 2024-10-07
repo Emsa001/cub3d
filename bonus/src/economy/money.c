@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 21:09:25 by escura            #+#    #+#             */
-/*   Updated: 2024/10/04 20:00:39 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/07 15:16:12 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,19 @@ static void	draw_background_money(void)
 void	hud_currency(void)
 {
 	char			*money_srt;
+	char			*temp;
 	char			*add;
 
 	draw_background_money();
 	money_srt = ft_itoa(money());
-	add = ft_itoa(gen_total_amount());
+	temp = ft_itoa(gen_total_amount());
+	add = ft_strjoin(temp, "/sec");
 	put_string("+", 80, 15, 0xFFFFFF);
 	put_string(add, 95, 15, 0xFFFFFF);
 	put_string(money_srt, 80, 37, 0xffbf00);
 	ft_free(money_srt);
 	ft_free(add);
+	ft_free(temp);
 }
 
 int	money(void)

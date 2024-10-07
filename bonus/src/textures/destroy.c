@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 18:36:08 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 20:02:39 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/07 15:29:43 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	destroy_texture_arr(t_texture **t)
 	if (!t)
 		return ;
 	i = 0;
-	while (i < cube()->levels)
+	while (i < 4)
 	{
 		destroy_texture(t[i]);
 		i++;

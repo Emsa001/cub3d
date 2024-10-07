@@ -6,7 +6,7 @@
 #    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/10/07 14:35:26 by escura           ###   ########.fr        #
+#    Updated: 2024/10/07 14:52:07 by escura           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ mlx:
 run: all
 	./$(NAME) map.cub
 
-map:
+map: mlx
 	make map -C bonus
 
 runb: bonus

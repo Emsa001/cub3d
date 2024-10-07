@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 15:41:37 by btvildia          #+#    #+#             */
-/*   Updated: 2024/10/06 10:09:09 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:55:48 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	save_draw_txt(t_data *data)
 	int	x;
 	int	y;
 
-	fd = open("../maps/map.cub", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	fd = open("../maps/4.cub", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	x = 0;
 	y = 0;
 	while (y < PIC_HEIGHT)

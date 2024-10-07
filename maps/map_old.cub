@@ -1,14 +1,9 @@
-WE             ./assets/level1/west.xpm
-
-
-F                   220,100,0
-
-EA      ./assets/level1/east.xpm
-
-                NO              ./assets/level1/north.xpm
-        SO ./assets/level1/south.xpm
-C               225,30,0
-
+WE ./assets/level1/west.xpm
+EA ./assets/level1/east.xpm
+SO ./assets/level1/south.xpm
+NO ./assets/level1/north.xpm
+F  220,100,0
+C  225,30,0
 
 111111111111111111
 1000001000010000001

@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/04 21:44:10 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 18:49:34 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/07 15:41:27 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,20 @@ void	loading_exit(void)
 void	loading_end(void)
 {
 	t_render *const	r = render();
+	t_cube *const	c = cube();
 	char			*num;
 	char			*path;
 
 	stop_all_async_tasks();
 	clear_string_queue(r);
 	clear_image_queue(r);
-	num = ft_itoa(cube()->selected_map);
+	num = ft_itoa(c->selected_map);
 	path = ft_strjoin(num, ".cub");
 	ft_free(num);
 	map_init(path);
+	printf("loaded %d portals\n", count_c(c->map->map, 'P'));
+	c->levels = 1 + count_c(c->map->map, 'P');
+	c->next_portal = c->levels - 1;
 	player_init(player());
 	init_items();
 	minimap_init();
