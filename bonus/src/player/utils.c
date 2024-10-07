@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 11:57:44 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 18:39:57 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/07 18:05:03 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,26 +31,22 @@ float	lane_distance(t_draw *draw)
 	return (adjusted_distance);
 }
 
-static void	init_cells(t_cube *c, char *nearby_cells, int x, int y)
+static void	init_cells(char *nearby_cells, int x, int y)
 {
-	const int	dx[] = {0, 0, -1, 1, -1, -1, 1, 1};
-	const int	dy[] = {0, -1, 0, 0, -1, 1, -1, 1};
-	int			i;
-	int			nx;
-	int			ny;
+	const t_cube	*c = cube();
 
-	i = 0;
-	while (i < 8)
-	{
-		nx = x + dx[i];
-		ny = y + dy[i];
-		if (nx >= 0 && nx < c->map->width && ny >= 0 && ny < c->map->height)
-			nearby_cells[i + 1] = c->map->map[ny][nx];
-		else
-			nearby_cells[i + 1] = '1';
-		i++;
-	}
+	ft_bzero(nearby_cells, 9);
+	if (y < 0 || y >= c->map->height || x < 0 || x >= c->map->width)
+		return ;
 	nearby_cells[0] = c->map->map[y][x];
+	nearby_cells[1] = c->map->map[y - 1][x];
+	nearby_cells[2] = c->map->map[y + 1][x];
+	nearby_cells[3] = c->map->map[y][x - 1];
+	nearby_cells[4] = c->map->map[y][x + 1];
+	nearby_cells[5] = c->map->map[y - 1][x - 1];
+	nearby_cells[6] = c->map->map[y - 1][x + 1];
+	nearby_cells[7] = c->map->map[y + 1][x - 1];
+	nearby_cells[8] = c->map->map[y + 1][x + 1];
 }
 
 static t_location	*is_nearby1(int x, int y, int i)
@@ -74,7 +70,7 @@ t_location	*is_nearby(char cell)
 	char			nearby_cells[9];
 	int				i;
 
-	init_cells(cube(), nearby_cells, x, y);
+	init_cells(nearby_cells, x, y);
 	i = 0;
 	while (i < 9)
 	{

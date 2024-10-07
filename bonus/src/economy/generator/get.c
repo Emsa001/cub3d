@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 18:52:13 by escura            #+#    #+#             */
-/*   Updated: 2024/10/02 17:13:34 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/07 18:00:26 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,7 @@ t_generator	*create_generator(int x, int y)
 {
 	t_generator	*gen;
 
-	if (DEBUG)
-		printf("DEBUG: Created generator at %d %d\n", x, y);
+	printf("DEBUG: Created generator at %d %d\n", x, y);
 	gen = ft_calloc(1, sizeof(t_generator));
 	gen->x = x;
 	gen->y = y;
