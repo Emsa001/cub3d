@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+         #
+#    By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/31 01:18:30 by escura            #+#    #+#              #
-#    Updated: 2024/10/07 13:27:07 by btvildia         ###   ########.fr        #
+#    Updated: 2024/10/07 14:35:26 by escura           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 NAME_BONUS = cub3d_bonus
 
-all: 
+all: mlx
 	make -j$(nproc) -C mandatory
 
 mlx:
@@ -29,7 +29,7 @@ map:
 runb: bonus
 	./$(NAME_BONUS) map.cub
 
-bonus:
+bonus: mlx
 	make -j$(nproc) -C bonus
 
 clean:
@@ -40,6 +40,8 @@ clean:
 fclean:
 	@make -C mandatory fclean > /dev/null
 	@make -C bonus fclean > /dev/null
+	rm -rf ./bonus/includes/mlx
+	rm -rf ./mandatory/includes/mlx
 	@echo "FCleaning up..."
 
 v: bonus

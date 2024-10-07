@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: btvildia <btvildia@student.42.fr>          +#+  +:+       +#+        */
+/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 19:25:04 by escura            #+#    #+#             */
-/*   Updated: 2024/09/30 19:00:04 by btvildia         ###   ########.fr       */
+/*   Updated: 2024/10/07 14:38:32 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,13 @@ int	ku(int kc)
 	return (0);
 }
 
+static int	exit_game_hook(void *arg)
+{
+	exit_game(0);
+	(void)arg;
+	return (0);
+}
+
 void	init_hooks(void)
 {
 	const t_cube	*c = cube();
@@ -66,5 +73,6 @@ void	init_hooks(void)
 	mlx_hook(c->win, KeyPress, KeyPressMask, kd, (void *)c);
 	mlx_hook(c->win, KeyRelease, KeyReleaseMask, ku, (void *)c);
 	mlx_loop_hook(c->mlx, render_scene, (void *)c);
+	mlx_hook(c->win, 17, 0, exit_game_hook, NULL);
 	mlx_loop(c->mlx);
 }
