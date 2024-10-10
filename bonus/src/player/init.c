@@ -6,7 +6,7 @@
 /*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 18:45:57 by escura            #+#    #+#             */
-/*   Updated: 2024/10/07 18:06:03 by escura           ###   ########.fr       */
+/*   Updated: 2024/10/08 17:41:14 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static void	init_options(t_player *player)
 	player->hand = NULL;
 	player->swing = false;
 	player->hover = NULL;
-	player->money = 1000;
+	player->money = 1003440;
 	player->store = init_store();
 	player->gui = -1;
 	player->gui_temp = -1;
