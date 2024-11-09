@@ -1,5 +1,4 @@
 # Cub3D 
-
 Cub3D is a 3D game from 42 school projects...
 ## Install & Run
 
