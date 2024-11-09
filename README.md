@@ -1,7 +1,7 @@
 # Cub3D (125%)
 
 Cub3D is a 3D game from 42 school projects...
-# Install & Run
+## Install & Run
 
 for 'C' and 'Make'
 ```bash
