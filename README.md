@@ -37,7 +37,7 @@ From handling threads for optimization to playing around with textures for our d
 
 #### 🎮 Main Menu  
 Obviously, this is a real game, and every REAL game needs to have its menu!  
-![Map selector](https://github.com/Emsa001/cub3d_recordings/raw/refs/heads/main/setlect_map.gif)
+![Map selector](https://github.com/Emsa001/cub3d_recordings/raw/refs/heads/main/select_map.gif)
 
 #### ⚙️ Quality settings  
 Obviously, this is a real game, and every REAL game needs... you know, quality settings.  
