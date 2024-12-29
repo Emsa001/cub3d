@@ -1,77 +1,97 @@
-# Cub3D 
-Cub3D is a 3D game from 42 school projects...
-## Install & Run
+# Cub3d - Our very first raycaster
 
-for 'C' and 'Make'
-```bash
-sudo apt install build-essential -y
-```
-for mlx library
-```bash
-sudo apt install libx11-dev libxext-dev libxft-dev libxrandr-dev libbsd-dev -y
-```
-run game with all its features
-```bash
-make runb
-```
+Cub3d is one of the 42 core corricumul projects, and second graphical project using MLX library (again...)
 
-# Features : 
----
-### At the beginning of the game there is window where you have buttons for different map :
-<img src="https://github.com/BEQSONA-cmd/Cub3d_Records/blob/main/select_map.gif">
 
----
-### You can go to options window by pressing 'ESC' and change Quality
-Changing quality affects perfomance of the game :
+#### A 3d game, how intresting?!
 
-<img src="https://github.com/BEQSONA-cmd/Cub3d_Records/blob/main/quality.gif" width="600">
+Creating everything from very beggining, learning exactly how first 3d games were created. This was definitly one of the most intresting project I did so far.
+From handling threads for optimization to playing around with textures for our doors - I loved it all.
 
----
-### There is minimap which displays different objects :
-<img src="https://github.com/BEQSONA-cmd/Cub3d_Records/blob/main/minimap.gif" width="600">
 
----
-### Player Can : sprint, jump, crouch and slide :
-<img src="https://github.com/BEQSONA-cmd/Cub3d_Records/blob/main/movement.gif" width="600">
+## Getting Started
 
----
-### Going into Portal changes dimensions
-there is 3 Portals and 4 different dimensions in game :
+1. **Clone the repository**:
+    ```sh
+    git clone https://github.com/Emsa001/cub3d
+    cd cub3d
+    ```
 
-<img src="https://github.com/BEQSONA-cmd/Cub3d_Records/blob/main/portals.gif" width="600">
+2. **Build the project**:
+    ```sh
+    make
+    ```
+    or
+    ```sh
+    make bonus
+    ```
 
----
-### You can spawn, remove and move new blocks :
-<img src="https://github.com/BEQSONA-cmd/Cub3d_Records/blob/main/blocks.gif" width="600">
+3. **Run the project**:
+    ```sh
+    ./cub3d
+    ```
 
----
-### In game There is doors which can be opened on 4 different side :
-<img src="https://github.com/BEQSONA-cmd/Cub3d_Records/blob/main/doors.gif" width="600">
+## All Features  
 
----
-### Generators are 3D objects for generating money in game
-you can upgrade them to generate more, to generate faster and/or randomly generate :
+### HUD  
 
-<img src="https://github.com/BEQSONA-cmd/Cub3d_Records/blob/main/generators.gif" width="600">
+#### 🎮 Main Menu  
+Obviously, this is a real game, and every REAL game needs to have its menu!  
+![Map selector](https://github.com/Emsa001/cub3d_recordings/raw/refs/heads/main/setlect_map.gif)
+
+#### ⚙️ Quality settings  
+Obviously, this is a real game, and every REAL game needs... you know, quality settings.  
+![Quality Settings](https://github.com/Emsa001/cub3d_recordings/raw/refs/heads/main/quality.gif)
+
+#### 🗺️ Minimap  
+Obviously, this is a real game, and... Minimap!  
+![Minimap](https://github.com/Emsa001/cub3d_recordings/raw/refs/heads/main/minimap.gif)
 
 ---
-### Shop is an object with some features :
 
-#### Open portal :
-<img src="https://github.com/BEQSONA-cmd/Cub3d_Records/blob/main/shop_portal.gif" width="600">
+### Player  
 
-#### Gamble money (there is 50% chance that you will win some random money) :
-<img src="https://github.com/BEQSONA-cmd/Cub3d_Records/blob/main/shop_gamble.gif" width="600">
+#### 🏃 Player Movement  
+While testing our game, we often needed to walk to different locations. It was annoying and boring. So, we implemented this amazing movement system that includes running, sliding, and jumping! It's just sooo satisfying!  
+![Player Movement](https://github.com/Emsa001/cub3d_recordings/raw/refs/heads/main/movement.gif)
 
-#### Shop Math Test (you can do some math tests for money to win) :
-<img src="https://github.com/BEQSONA-cmd/Cub3d_Records/blob/main/shop_math.gif" width="600">
+---
 
-#### Speed Potions (there is 5 level of speed potions, you can use max 3 at same time) :
-<img src="https://github.com/BEQSONA-cmd/Cub3d_Records/blob/main/shop_potions.gif" width="600">
+### Map Parts  
 
-#### Shop Boots and Torches 
-player can wear speed boots for have faster walking speed all the time
+#### 🚪 Portals (aka "Levels")  
+We limited our maps to a maximum of 3 levels, but this can be changed in the code. Going through a portal takes you to the next level, and all textures change.  
+![Portals](https://github.com/Emsa001/cub3d_recordings/raw/refs/heads/main/portals.gif)
+![Open Portals](https://github.com/Emsa001/cub3d_recordings/raw/refs/heads/main/open_portals.gif)
 
-player can buy and place torches which lights up place :
+#### 🚪 Doors  
+Doors work only if they’re placed next to a wall (so they actually do something). Moreover, they can be placed and opened from all 4 sides.  
+![Doors](https://github.com/Emsa001/cub3d_recordings/raw/refs/heads/main/doors.gif)
 
-<img src="https://github.com/BEQSONA-cmd/Cub3d_Records/blob/main/shop_torch.gif" width="600">
+#### 🧱 Building and Destroying Blocks  
+There's a building system! Isn't that cool? You can place blocks wherever you want—no need to align them to a grid. All placed blocks can be destroyed or moved.  
+![Blocks](https://github.com/Emsa001/cub3d_recordings/raw/refs/heads/main/blocks.gif)
+
+---
+
+### Economy  
+
+#### 💰 Generators  
+Generators are the only actual 3D objects. They don’t always face the player.  
+They’re used to earn money and can be upgraded in 4 different categories.  
+Generators update every second and increase the player's balance.  
+![Generators](https://github.com/Emsa001/cub3d_recordings/raw/refs/heads/main/generators.gif)
+
+#### 🛒 Shop  
+Here, you can spend money to earn more money, open portals to go to the next level, buy speed shoes, potions, or TORCHES.  
+Torches are amazing! They actually light up the place and are visible from far, far away.  
+
+![Math](https://github.com/Emsa001/cub3d_recordings/raw/refs/heads/main/math.gif)
+![potions](https://github.com/Emsa001/cub3d_recordings/raw/refs/heads/main/potions.gif)
+
+#### 🎲 Gambling  
+We have permissions for that.  
+![Gambling](https://github.com/Emsa001/cub3d_recordings/raw/refs/heads/main/gamble.gif)
+
+## License
+This project is licensed under the MIT License. See the [MIT](https://choosealicense.com/licenses/mit/) file for details.
