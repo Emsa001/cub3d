@@ -30,6 +30,11 @@ From handling threads for optimization to playing around with textures for our d
     ```sh
     ./cub3d
     ```
+    or
+    ```sh
+    ./cub3d_bonus
+    ```
+    
 
 ## All Features  
 
