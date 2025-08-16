@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   portal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: escura <escura@student.42wolfsburg.de>     +#+  +:+       +#+        */
+/*   By: escura <escura@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/11 22:46:59 by escura            #+#    #+#             */
-/*   Updated: 2024/10/05 18:50:52 by escura           ###   ########.fr       */
+/*   Updated: 2025/08/16 14:40:23 by escura           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static void	opening(void *arg)
-{
-	open_portal(cube()->next_portal);
-	player()->store->portal_cooldown = false;
-	(void)arg;
-}
 
 static void	buy_portal_tooltip(void *arg)
 {
@@ -25,12 +18,9 @@ static void	buy_portal_tooltip(void *arg)
 	(void)arg;
 }
 
-static void	power_portal_info(int time)
+static void	power_portal_info(void)
 {
-	t_string			str;
-	t_image				img;
-	t_texture *const	t = textures()->ui->button_long;
-	int					i;
+	t_string	str;
 
 	str = (t_string){0};
 	str.str = "You have powered up the portal!";
@@ -38,38 +28,19 @@ static void	power_portal_info(int time)
 	str.y = HEIGHT - 200;
 	str.color = 0x00FF00;
 	str.size = 1;
-	str.time = time;
+	str.time = 5000;
 	render_string_async(&str);
-	i = 0;
-	while (i < 5)
-	{
-		img = (t_image){0};
-		img.img = t;
-		img.x = WIDTH / 2 - 555 + (i * t->width - ((i - 1) * 4));
-		img.y = HEIGHT - 225;
-		img.size = 1;
-		img.time = time - 100;
-		render_image_async(&img);
-		i++;
-	}
 }
 
 static void	power_portal(void *arg)
 {
-	const int			time = 5000;
-	t_location *const	loc = ft_calloc(1, sizeof(t_location));
-
 	if (money() < 10000)
 		return ;
-	loc->x = WIDTH / 2 - 32;
-	loc->y = HEIGHT / 2 - 32;
-	player()->store->portal_cooldown = true;
-	string_timer(time, loc);
 	player()->gui = NONE;
-	power_portal_info(time);
-	ft_wait(time, &opening, NULL);
+	power_portal_info();
+	cube()->next_portal -= 1;
+	open_portal(cube()->next_portal);
 	add_money(-10000);
-	(cube()->next_portal)--;
 	(void)arg;
 }
 
